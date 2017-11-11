@@ -1,0 +1,80 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Raleway", sans-serif;
+}
+body,
+html {
+  height: 100%;
+  line-height: 1.8;
+}
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+/* Full height image header */
+.bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  background-image: url("/w3images/mac.jpg");
+  min-height: 100%;
+}
+.w3-bar .w3-button {
+  padding: 16px;
+}
+
+.full-height-row {
+  height: 250px;
+}
+
+/* Info Section */
+#info {
+  margin-top: 60px;
+}
+
+#info-pic {
+  max-width: 100%;
+  max-height: 100%;
+  text-align: center;
+  padding: 40px;
+}
+
+#pic-col {
+  max-width: 100%;
+  max-height: 100%;
+  text-align: center;
+}
+
+#info-container {
+  margin: 0px;
+}
+
+#info-text {
+  padding-top: 20px;
+  height: 180px;
+}
+
+#info-border {
+  padding-bottom: 0px;
+}
+
+li > a {
+  color: black;
+  border-right: 1px solid grey;
+  border-radius: 100px;
+}
+
+.nav-pills > li > a {
+  border-radius: 0px !important;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:focus,
+.nav-pills > li.active > a:hover {
+  color: silver !important;
+  background-color: black !important;
+}
