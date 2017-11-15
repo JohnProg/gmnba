@@ -11,6 +11,7 @@ body,
 html {
   height: 100%;
   line-height: 1.8;
+  background-color: #eeeeee !important;
 }
 img {
   max-width: 100%;
@@ -51,11 +52,16 @@ img {
 
 #info-container {
   margin: 0px;
+  background-color: white;
 }
 
-#info-text {
-  padding-top: 20px;
-  height: 180px;
+#name-text {
+  height: 170px;
+}
+
+#team-name {
+  font-size: 28px;
+  padding-top: 25px;
 }
 
 #info-border {
@@ -77,4 +83,12 @@ li > a {
 .nav-pills > li.active > a:hover {
   color: silver !important;
   background-color: black !important;
+}
+
+#info-container-max {
+  background-color: white !important;
+}
+
+#info-text {
+  font-size: 18px;
 }

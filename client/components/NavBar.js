@@ -34,7 +34,6 @@ export default class NavBar extends React.Component {
             <a
               href="javascript:void(0)"
               className="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
-              onClick="w3_open()"
             >
               <i className="fa fa-bars" />
             </a>
