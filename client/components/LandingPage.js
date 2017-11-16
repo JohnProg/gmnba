@@ -12,7 +12,6 @@ export default class LandingPage extends React.Component {
       <div>
         <NavBar />
         <Info />
-        <h4>GM NBA</h4>
       </div>
     );
   }
