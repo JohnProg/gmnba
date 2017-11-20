@@ -1,5 +1,5 @@
 import React from "react";
-import Tabs from "./Tabs";
+import PlayerTabs from "./PlayerTabs";
 import { Col, Button, Well, Row, Grid } from "react-bootstrap";
 import { connect } from "react-redux";
 import axios from "axios";
@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-class Info extends React.Component {
+class PlayerInfo extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -93,42 +93,43 @@ class Info extends React.Component {
             <Row className="full-height-row">
               <div id="info">
                 <Col lg={3} id="pic-col">
-                  <div id="info-pic">
-                    <img src="https://t1.rbxcdn.com/d3afdddcfa46f28486f11838ae236f8b" />
+                  <div id="info-pic-team">
+                    <img src="http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4066421.png&w=350&h=254" />
                   </div>
                 </Col>
                 <Col lg={7}>
                   <div id="name-text">
-                    <div id="team-name">SAN ANTONIO SPURS</div>
+                    <div id="team-name">Lonzo Ball</div>
                     <div id="info-text">
-                      <div>Record: 7-5</div>
-                      <div>#5 in the Western Conference</div>
-                      <div>#3 in the Southwest Division</div>
+                      <div>Position: PG</div>
+                      <div>Age: 20</div>
+                      <div>Team: Los Angeles Lakers</div>
+                      <div>College: UCLA</div>
                     </div>
                   </div>
                   <hr id="info-text-break" />
                   <Row>
                     <Col lg={2}>
-                      <div>PPG 1st</div>
+                      <div>PPG 8.8</div>
                     </Col>
                     <Col lg={2}>
-                      <div>RPG 6th</div>
+                      <div>RPG 6.6</div>
                     </Col>
                     <Col lg={2}>
-                      <div>APG 13th</div>
+                      <div>APG 6.8</div>
                     </Col>
                     <Col lg={2}>
-                      <div>ORTG 9th</div>
+                      <div>PER 9.72</div>
                     </Col>
                     <Col lg={2}>
-                      <div>DRTG 2nd</div>
+                      <div>MPG 32.7</div>
                     </Col>
                   </Row>
                 </Col>
               </div>
             </Row>
           </Grid>
-          <Tabs
+          <PlayerTabs
             players={this.props.players[0]}
             teamStats={this.state.teamStats}
             leagueStats={this.state.leagueStats}
@@ -139,4 +140,4 @@ class Info extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Info);
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerInfo);

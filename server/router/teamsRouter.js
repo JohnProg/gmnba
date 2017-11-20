@@ -7,5 +7,8 @@ router.get("/getTeamsPlayers", controller.getTeamsPlayers);
 router.put("/updateTeam", controller.updateTeam);
 router.post("/createTeams", controller.createTeams);
 router.get("/getTeamStats", controller.getTeamStats);
+router.put("/updatePlayerStats", controller.updatePlayerStats);
+router.get("/getPlayerStats", controller.getPlayerStats);
+router.get("/getLeagueStats", controller.getLeagueStats);
 
 module.exports = router;

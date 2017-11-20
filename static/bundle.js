@@ -29009,6 +29009,10 @@ var _LandingPage = __webpack_require__(214);
 
 var _LandingPage2 = _interopRequireDefault(_LandingPage);
 
+var _PlayerPage = __webpack_require__(416);
+
+var _PlayerPage2 = _interopRequireDefault(_PlayerPage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Main = function Main() {
@@ -29018,12 +29022,15 @@ var Main = function Main() {
     _react2.default.createElement(
       _reactRouterDom.Switch,
       null,
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _LandingPage2.default })
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _PlayerPage2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { path: "/team", component: _LandingPage2.default })
     )
   );
 };
-
+//import TeamPage from "./TeamPage";
 exports.default = Main;
+// <Route exact path="/team/:id" component={TeamPage} />
+// <Route exact path="/player/:id" component={PlayerPage} />
 
 /***/ }),
 /* 187 */
@@ -32715,7 +32722,7 @@ var NavBar = function (_React$Component) {
               _react2.default.createElement(
                 "a",
                 { href: "#about", className: "w3-bar-item w3-button" },
-                "PROSPECTS"
+                "SCOUTING"
               ),
               _react2.default.createElement(
                 "a",
@@ -32828,10 +32835,12 @@ var Info = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Info.__proto__ || Object.getPrototypeOf(Info)).call(this));
 
     _this.state = {
-      teamStats: []
+      teamStats: [],
+      leagueStats: []
     };
     _this.getRoster = _this.getRoster.bind(_this);
     _this.getTeamStats = _this.getTeamStats.bind(_this);
+    _this.getLeagueStats = _this.getLeagueStats.bind(_this);
     return _this;
   }
 
@@ -32840,6 +32849,7 @@ var Info = function (_React$Component) {
     value: function componentDidMount() {
       this.getRoster();
       this.getTeamStats();
+      this.getLeagueStats();
     }
   }, {
     key: "getRoster",
@@ -32869,6 +32879,18 @@ var Info = function (_React$Component) {
       }).then(function (data) {
         console.log("TEAM STATS\n", data.data);
         _this3.setState({ teamStats: data.data });
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "getLeagueStats",
+    value: function getLeagueStats() {
+      var _this4 = this;
+
+      _axios2.default.get("/api/teams/getLeagueStats").then(function (data) {
+        console.log("ALL LEAGUE TEAM STATS\n", data);
+        _this4.setState({ leagueStats: data.data });
       }).catch(function (err) {
         console.log(err);
       });
@@ -32988,7 +33010,8 @@ var Info = function (_React$Component) {
           ),
           _react2.default.createElement(_Tabs2.default, {
             players: this.props.players[0],
-            teamStats: this.state.teamStats
+            teamStats: this.state.teamStats,
+            leagueStats: this.state.leagueStats
           })
         )
       );
@@ -33031,6 +33054,10 @@ var _TeamPlayerStats = __webpack_require__(404);
 
 var _TeamPlayerStats2 = _interopRequireDefault(_TeamPlayerStats);
 
+var _TeamLeagueRanks = __webpack_require__(408);
+
+var _TeamLeagueRanks2 = _interopRequireDefault(_TeamLeagueRanks);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33066,13 +33093,14 @@ var Tabs = function (_React$Component) {
       if (this.state.key === 1) component = _react2.default.createElement(_PlayersList2.default, { players: this.props.players });
       if (this.state.key === 2) component = _react2.default.createElement(_TeamStats2.default, { teamStats: this.props.teamStats });
       if (this.state.key === 3) component = _react2.default.createElement(_TeamPlayerStats2.default, null);
+      if (this.state.key === 4) component = _react2.default.createElement(_TeamLeagueRanks2.default, { leagueStats: this.props.leagueStats });
 
       return _react2.default.createElement(
         "div",
         null,
         _react2.default.createElement(
           "div",
-          { className: "w3-bar w3-white w3-card" },
+          { className: "card" },
           _react2.default.createElement(
             _reactBootstrap.Nav,
             {
@@ -33099,7 +33127,7 @@ var Tabs = function (_React$Component) {
             _react2.default.createElement(
               _reactBootstrap.NavItem,
               { eventKey: 4, href: "/" },
-              "SCHEDULE"
+              "RANKINGS"
             ),
             _react2.default.createElement(
               _reactBootstrap.NavItem,
@@ -33109,7 +33137,7 @@ var Tabs = function (_React$Component) {
             _react2.default.createElement(
               _reactBootstrap.NavItem,
               { eventKey: 6, title: "Item" },
-              "RANKINGS"
+              "SCHEDULE"
             )
           )
         ),
@@ -47234,6 +47262,18 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = __webpack_require__(71);
 
+var _axios = __webpack_require__(381);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _PieChart = __webpack_require__(405);
+
+var _PieChart2 = _interopRequireDefault(_PieChart);
+
+var _TeamPlayerRanks = __webpack_require__(406);
+
+var _TeamPlayerRanks2 = _interopRequireDefault(_TeamPlayerRanks);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -47248,10 +47288,196 @@ var TeamPlayerStats = function (_React$Component) {
   function TeamPlayerStats() {
     _classCallCheck(this, TeamPlayerStats);
 
-    return _possibleConstructorReturn(this, (TeamPlayerStats.__proto__ || Object.getPrototypeOf(TeamPlayerStats)).call(this));
+    var _this = _possibleConstructorReturn(this, (TeamPlayerStats.__proto__ || Object.getPrototypeOf(TeamPlayerStats)).call(this));
+
+    _this.state = {
+      data: [],
+      statOne: "pts",
+      statTwo: "mpg",
+      team: "San Antonio Spurs",
+      position: "All",
+      teamPlayers: []
+    };
+    _this.createChart = _this.createChart.bind(_this);
+    return _this;
   }
 
   _createClass(TeamPlayerStats, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var playerData = [];
+      var scatterData = [];
+      _axios2.default.get("/api/teams/getPlayerStats", {
+        params: {
+          team: this.state.team,
+          position: this.state.position,
+          statOne: this.state.statOne,
+          statTwo: this.state.statTwo
+        }
+      }).then(function (data) {
+        console.log("GETPLAYER STATS\n", data.data);
+        var data = data.data;
+        for (var i = 0; i < data.length; i++) {
+          if (parseInt(data[i]["mpg"]) >= 5) {
+            playerData.push(data[i]);
+          }
+        }
+        _this2.setState({ teamPlayers: playerData });
+        for (var j = 0; j < playerData.length; j++) {
+          scatterData.push({
+            data: [[playerData[j].mpg, playerData[j].pts]],
+            name: playerData[j].name,
+            color: "rgb(0, 0, 0, .75)",
+            _symbolIndex: 0
+          });
+        }
+        _this2.setState({ data: scatterData }, function () {
+          _this2.createChart();
+          console.log("PLAYERS: ", _this2.state.teamPlayers);
+        });
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container", {
+        chart: {
+          type: "scatter",
+          zoomType: "xy"
+        },
+        title: {
+          text: "Player Stats " + this.state.team
+        },
+        subtitle: {
+          text: "Players Averaging Over 5 MPG"
+        },
+        xAxis: {
+          title: {
+            enabled: true,
+            text: "" + this.state.statTwo
+          },
+          startOnTick: true,
+          endOnTick: true,
+          showLastLabel: true
+        },
+        yAxis: {
+          title: {
+            text: "" + this.state.statOne
+          }
+        },
+        legend: {
+          enabled: false,
+          layout: "vertical",
+          align: "left",
+          verticalAlign: "top",
+          x: 100,
+          y: 70,
+          floating: true,
+          backgroundColor: Highcharts.theme && Highcharts.theme.legendBackgroundColor || "#FFFFFF",
+          borderWidth: 1
+        },
+        plotOptions: {
+          scatter: {
+            marker: {
+              radius: 5,
+              states: {
+                hover: {
+                  enabled: true,
+                  lineColor: "rgb(100,100,100)"
+                }
+              }
+            },
+            states: {
+              hover: {
+                marker: {
+                  enabled: false
+                }
+              }
+            },
+            tooltip: {
+              headerFormat: "<b>{series.name}</b><br>",
+              pointFormat: "{point.x} " + this.state.statTwo + ", {point.y} " + this.state.statOne
+            }
+          }
+        },
+        series: this.state.data
+      });
+
+      var pieChart = Highcharts.chart("container2", {
+        chart: {
+          type: "pie",
+          options3d: {
+            enabled: true,
+            alpha: 45,
+            beta: 0
+          }
+        },
+        title: {
+          text: "Team Stats Pct by Player"
+        },
+        tooltip: {
+          pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: "pointer",
+            depth: 35,
+            dataLabels: {
+              enabled: true,
+              format: "{point.name}"
+            }
+          }
+        },
+        series: [{
+          type: "pie",
+          name: "Browser share",
+          data: [["Firefox", 45.0], ["IE", 26.8], {
+            name: "Chrome",
+            y: 12.8,
+            sliced: true,
+            selected: true
+          }, ["Safari", 8.5], ["Opera", 6.2], ["Others", 0.7]]
+        }]
+      });
+
+      var barChart = new Highcharts.Chart({
+        chart: {
+          renderTo: "container3",
+          type: "column",
+          options3d: {
+            enabled: true,
+            alpha: 0,
+            beta: 10,
+            depth: 37,
+            viewDistance: 25
+          }
+        },
+        title: {
+          text: "Player Stat Averages"
+        },
+        subtitle: {
+          text: ""
+        },
+        plotOptions: {
+          column: {
+            depth: 25
+          }
+        },
+        series: [{
+          data: [{
+            name: "LeMarcus Aldridge",
+            y: 84.3,
+            color: "rgb(0, 0, 0, .75)"
+          }, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+        }]
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
@@ -47262,15 +47488,85 @@ var TeamPlayerStats = function (_React$Component) {
           null,
           _react2.default.createElement(
             _reactBootstrap.Row,
-            null,
+            { className: "chart-row" },
             _react2.default.createElement(
               _reactBootstrap.Col,
-              { lg: 12 },
+              { lg: 10, lgOffset: 1 },
+              _react2.default.createElement("div", {
+                className: "card",
+                id: "container",
+                style: {
+                  height: "500px",
+                  width: "800",
+                  margin: "0 auto"
+                }
+              })
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { className: "chart-row" },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 5, lgOffset: 1 },
               _react2.default.createElement(
                 "div",
-                null,
-                "TEAM PLAYER STATS"
+                { className: "card" },
+                _react2.default.createElement(
+                  "div",
+                  { id: "team-rankings-header" },
+                  _react2.default.createElement(
+                    "div",
+                    { id: "roster-header-text" },
+                    "Team Shares"
+                  )
+                ),
+                _react2.default.createElement("div", {
+                  id: "container2",
+                  style: {
+                    height: "400px"
+                  }
+                })
               )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 5 },
+              _react2.default.createElement(
+                "div",
+                { className: "card", id: "team-player-ranks-container" },
+                _react2.default.createElement(
+                  "div",
+                  { id: "team-rankings-header" },
+                  _react2.default.createElement(
+                    "div",
+                    { id: "roster-header-text" },
+                    "Player Rankings"
+                  )
+                ),
+                _react2.default.createElement(
+                  "div",
+                  { style: { height: "400px", backgroundColor: "#ffffff" } },
+                  _react2.default.createElement(_TeamPlayerRanks2.default, { players: this.state.teamPlayers })
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { className: "chart-row" },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 10, lgOffset: 1 },
+              _react2.default.createElement("div", {
+                className: "card",
+                id: "container3",
+                style: {
+                  height: "500px",
+                  width: "800",
+                  margin: "0 auto"
+                }
+              })
             )
           )
         )
@@ -47282,6 +47578,1907 @@ var TeamPlayerStats = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = TeamPlayerStats;
+
+/***/ }),
+/* 405 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PieChart = function (_React$Component) {
+  _inherits(PieChart, _React$Component);
+
+  function PieChart() {
+    _classCallCheck(this, PieChart);
+
+    var _this = _possibleConstructorReturn(this, (PieChart.__proto__ || Object.getPrototypeOf(PieChart)).call(this));
+
+    _this.createChart = _this.createChart.bind(_this);
+    return _this;
+  }
+
+  _createClass(PieChart, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.createChart();
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container", {
+        chart: {
+          type: "pie",
+          options3d: {
+            enabled: true,
+            alpha: 45,
+            beta: 0
+          }
+        },
+        title: {
+          text: "Team Share"
+        },
+        tooltip: {
+          pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: "pointer",
+            depth: 35,
+            dataLabels: {
+              enabled: true,
+              format: "{point.name}"
+            }
+          }
+        },
+        series: this.props.data
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.props.data);
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          id: "container",
+          style: {
+            height: "400px"
+          }
+        })
+      );
+    }
+  }]);
+
+  return PieChart;
+}(_react2.default.Component);
+
+exports.default = PieChart;
+
+/***/ }),
+/* 406 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(71);
+
+var _TeamPlayerEntry = __webpack_require__(407);
+
+var _TeamPlayerEntry2 = _interopRequireDefault(_TeamPlayerEntry);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TeamPlayerRanks = function (_React$Component) {
+  _inherits(TeamPlayerRanks, _React$Component);
+
+  function TeamPlayerRanks(props) {
+    _classCallCheck(this, TeamPlayerRanks);
+
+    var _this = _possibleConstructorReturn(this, (TeamPlayerRanks.__proto__ || Object.getPrototypeOf(TeamPlayerRanks)).call(this, props));
+
+    _this.renderPlayers = _this.renderPlayers.bind(_this);
+    return _this;
+  }
+
+  _createClass(TeamPlayerRanks, [{
+    key: "renderPlayers",
+    value: function renderPlayers() {
+      if (this.props.players) {
+        this.props.players.sort(function (a, b) {
+          return parseFloat(b.pts) - parseFloat(a.pts);
+        });
+        return this.props.players.map(function (player, i) {
+          return _react2.default.createElement(_TeamPlayerEntry2.default, { player: player, key: i });
+        });
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log("Props in PlayerRank: ", this.props.players);
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Table,
+          { striped: true, hover: true },
+          _react2.default.createElement(
+            "thead",
+            null,
+            _react2.default.createElement(
+              "tr",
+              null,
+              _react2.default.createElement(
+                "th",
+                null,
+                "Pos"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "Name"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "Pts"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            "tbody",
+            null,
+            this.renderPlayers()
+          )
+        )
+      );
+    }
+  }]);
+
+  return TeamPlayerRanks;
+}(_react2.default.Component);
+
+exports.default = TeamPlayerRanks;
+
+/***/ }),
+/* 407 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TeamPlayerEntry = function (_React$Component) {
+  _inherits(TeamPlayerEntry, _React$Component);
+
+  function TeamPlayerEntry(props) {
+    _classCallCheck(this, TeamPlayerEntry);
+
+    return _possibleConstructorReturn(this, (TeamPlayerEntry.__proto__ || Object.getPrototypeOf(TeamPlayerEntry)).call(this, props));
+  }
+
+  _createClass(TeamPlayerEntry, [{
+    key: "render",
+    value: function render() {
+      console.log(this.props.player);
+      return _react2.default.createElement(
+        "tr",
+        null,
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.position
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.name
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.pts
+        )
+      );
+    }
+  }]);
+
+  return TeamPlayerEntry;
+}(_react2.default.Component);
+
+exports.default = TeamPlayerEntry;
+
+/***/ }),
+/* 408 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(71);
+
+var _TeamRankGuages = __webpack_require__(409);
+
+var _TeamRankGuages2 = _interopRequireDefault(_TeamRankGuages);
+
+var _TeamAverageComparison = __webpack_require__(414);
+
+var _TeamAverageComparison2 = _interopRequireDefault(_TeamAverageComparison);
+
+var _TeamRatings = __webpack_require__(415);
+
+var _TeamRatings2 = _interopRequireDefault(_TeamRatings);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TeamLeagueRanks = function (_React$Component) {
+  _inherits(TeamLeagueRanks, _React$Component);
+
+  function TeamLeagueRanks(props) {
+    _classCallCheck(this, TeamLeagueRanks);
+
+    return _possibleConstructorReturn(this, (TeamLeagueRanks.__proto__ || Object.getPrototypeOf(TeamLeagueRanks)).call(this, props));
+  }
+
+  _createClass(TeamLeagueRanks, [{
+    key: "render",
+    value: function render() {
+      console.log("Props in Rankings: \n", this.props.leagueStats);
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Grid,
+          null,
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { className: "chart-row" },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 3, lgOffset: 1 },
+              _react2.default.createElement(
+                "div",
+                { className: "card title-header" },
+                "LEAGUE RANKINGS"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { className: "chart-row" },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 10, lgOffset: 1 },
+              _react2.default.createElement(
+                "div",
+                {
+                  className: "card",
+                  style: { height: "300px", backgroundColor: "white" }
+                },
+                _react2.default.createElement(_TeamRankGuages2.default, null)
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { className: "chart-row" },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 3, lgOffset: 1 },
+              _react2.default.createElement(
+                "div",
+                { className: "card title-header" },
+                "TEAM RATINGS"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { className: "chart-row" },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 10, lgOffset: 1 },
+              _react2.default.createElement(_TeamRatings2.default, null)
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { className: "chart-row" },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 3, lgOffset: 1 },
+              _react2.default.createElement(
+                "div",
+                { className: "card title-header" },
+                "LEAGUE AVERAGES"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { className: "chart-row" },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 10, lgOffset: 1 },
+              _react2.default.createElement(_TeamAverageComparison2.default, null)
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return TeamLeagueRanks;
+}(_react2.default.Component);
+
+exports.default = TeamLeagueRanks;
+
+/***/ }),
+/* 409 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(71);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TeamRankGuages = function (_React$Component) {
+  _inherits(TeamRankGuages, _React$Component);
+
+  function TeamRankGuages() {
+    _classCallCheck(this, TeamRankGuages);
+
+    var _this = _possibleConstructorReturn(this, (TeamRankGuages.__proto__ || Object.getPrototypeOf(TeamRankGuages)).call(this));
+
+    _this.creatChart = _this.creatChart.bind(_this);
+    return _this;
+  }
+
+  _createClass(TeamRankGuages, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.creatChart();
+    }
+  }, {
+    key: "creatChart",
+    value: function creatChart() {
+      var gaugeOptions = {
+        chart: {
+          type: "solidgauge"
+        },
+
+        title: null,
+
+        pane: {
+          center: ["50%", "50%"],
+          size: "100%",
+          startAngle: 0,
+          endAngle: 360,
+          background: {
+            backgroundColor: Highcharts.theme && Highcharts.theme.background2 || "#c2ced5",
+            innerRadius: "60%",
+            outerRadius: "100%",
+            shape: "circle"
+          }
+        },
+
+        tooltip: {
+          enabled: false
+        },
+        exporting: {
+          enabled: false
+        },
+
+        // the value axis
+        yAxis: {
+          stops: [[0.1, "#000000"], // green
+          [0.5, "#000000"], // yellow
+          [0.9, "#000000"] // red
+          ],
+          lineWidth: 0,
+          minorTickInterval: null,
+          tickAmount: 0,
+          title: {
+            y: -20
+          },
+          labels: {
+            enabled: false
+          }
+        },
+
+        plotOptions: {
+          solidgauge: {
+            dataLabels: {
+              y: -23,
+              borderWidth: 0,
+              useHTML: true
+            }
+          }
+        }
+      };
+
+      // The speed gauge
+      var chartSpeed = Highcharts.chart("container", Highcharts.merge(gaugeOptions, {
+        yAxis: {
+          min: 0,
+          max: 30,
+          title: {
+            text: null
+          }
+        },
+
+        credits: {
+          enabled: false
+        },
+
+        series: [{
+          name: "PTS",
+          data: [26],
+          dataLabels: {
+            format: '<div style="text-align:center"><span style="font-size:26px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + '">{y}th</span><br/>' + "</div>"
+          },
+          tooltip: {
+            valueSuffix: " km/h"
+          }
+        }]
+      }));
+
+      var chartTwo = Highcharts.chart("container2", Highcharts.merge(gaugeOptions, {
+        yAxis: {
+          min: 0,
+          max: 30,
+          title: {
+            text: null
+          }
+        },
+
+        credits: {
+          enabled: false
+        },
+
+        series: [{
+          name: "PTS",
+          data: [14],
+          dataLabels: {
+            format: '<div style="text-align:center"><span style="font-size:26px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + '">{y}th</span><br/>' + "</div>"
+          },
+          tooltip: {
+            valueSuffix: " km/h"
+          }
+        }]
+      }));
+
+      var chartThree = Highcharts.chart("container3", Highcharts.merge(gaugeOptions, {
+        yAxis: {
+          min: 0,
+          max: 30,
+          title: {
+            text: null
+          }
+        },
+
+        credits: {
+          enabled: false
+        },
+
+        series: [{
+          name: "PTS",
+          data: [19],
+          dataLabels: {
+            format: '<div style="text-align:center"><span style="font-size:26px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + '">{y}th</span><br/>' + "</div>"
+          },
+          tooltip: {
+            valueSuffix: " km/h"
+          }
+        }]
+      }));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { className: "chart-row" },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              { className: "gauge-header-div" },
+              _react2.default.createElement(
+                "div",
+                { className: "card guage-header" },
+                "PTS"
+              )
+            ),
+            _react2.default.createElement("div", {
+              id: "container",
+              style: {
+                height: "150px",
+                margin: "auto 0"
+              }
+            })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              { className: "gauge-header-div" },
+              _react2.default.createElement(
+                "div",
+                { className: "card guage-header" },
+                "TRB"
+              )
+            ),
+            _react2.default.createElement("div", {
+              id: "container2",
+              style: {
+                height: "150px",
+                margin: "auto 0"
+              }
+            })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              { className: "gauge-header-div" },
+              _react2.default.createElement(
+                "div",
+                { className: "card guage-header" },
+                "DRTG"
+              )
+            ),
+            _react2.default.createElement("div", {
+              id: "container3",
+              style: {
+                height: "150px",
+                margin: "auto 0"
+              }
+            })
+          )
+        )
+      );
+    }
+  }]);
+
+  return TeamRankGuages;
+}(_react2.default.Component);
+
+exports.default = TeamRankGuages;
+
+/***/ }),
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TeamAverageComparison = function (_React$Component) {
+  _inherits(TeamAverageComparison, _React$Component);
+
+  function TeamAverageComparison() {
+    _classCallCheck(this, TeamAverageComparison);
+
+    var _this = _possibleConstructorReturn(this, (TeamAverageComparison.__proto__ || Object.getPrototypeOf(TeamAverageComparison)).call(this));
+
+    _this.createChart = _this.createChart.bind(_this);
+    return _this;
+  }
+
+  _createClass(TeamAverageComparison, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.createChart();
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-average", {
+        chart: {
+          type: "column"
+        },
+        title: {
+          text: "Team Vs League Averages"
+        },
+        xAxis: {
+          categories: ["Pts", "ORtg", "DRtg", "Trb", "Ast", "3P"]
+        },
+        yAxis: [{
+          min: 0,
+          title: {
+            text: "League Averages"
+          }
+        }, {
+          title: {
+            text: null
+          },
+          opposite: true
+        }],
+        legend: {
+          shadow: false
+        },
+        tooltip: {
+          shared: true
+        },
+        plotOptions: {
+          column: {
+            grouping: false,
+            shadow: false,
+            borderWidth: 0
+          }
+        },
+        series: [{
+          name: "League Average",
+          color: "#c2ced5",
+          data: [103, 73, 20, 82, 43, 48],
+          pointPadding: 0.3,
+          pointPlacement: 0
+        }, {
+          name: "Team Average",
+          color: "#000000",
+          data: [108, 90, 40, 54, 87, 53],
+          pointPadding: 0.4,
+          pointPlacement: 0
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          className: "card",
+          id: "container-average",
+          style: {
+            height: "500px",
+            width: "800",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return TeamAverageComparison;
+}(_react2.default.Component);
+
+exports.default = TeamAverageComparison;
+
+/***/ }),
+/* 415 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TeamRatings = function (_React$Component) {
+  _inherits(TeamRatings, _React$Component);
+
+  function TeamRatings() {
+    _classCallCheck(this, TeamRatings);
+
+    var _this = _possibleConstructorReturn(this, (TeamRatings.__proto__ || Object.getPrototypeOf(TeamRatings)).call(this));
+
+    _this.createChart = _this.createChart.bind(_this);
+    return _this;
+  }
+
+  _createClass(TeamRatings, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.createChart();
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: "Team Basic Ratings"
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["PTS", "REB", "AST", "STL", "BLK"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          valueSuffix: null
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{ y: 60, color: "#a6ce6d" }, { y: 35, color: "#bc4809" }, { y: 80, color: "#04b5d1" }, { y: 50, color: "#ffe254" }, { y: 50, color: "#ffe254" }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          className: "card",
+          id: "container-rating",
+          style: {
+            height: "350px",
+            minWidth: "600px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return TeamRatings;
+}(_react2.default.Component);
+
+exports.default = TeamRatings;
+
+/***/ }),
+/* 416 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _NavBar = __webpack_require__(215);
+
+var _NavBar2 = _interopRequireDefault(_NavBar);
+
+var _PlayerInfo = __webpack_require__(417);
+
+var _PlayerInfo2 = _interopRequireDefault(_PlayerInfo);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlayerPage = function (_React$Component) {
+  _inherits(PlayerPage, _React$Component);
+
+  function PlayerPage() {
+    _classCallCheck(this, PlayerPage);
+
+    return _possibleConstructorReturn(this, (PlayerPage.__proto__ || Object.getPrototypeOf(PlayerPage)).call(this));
+  }
+
+  _createClass(PlayerPage, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(_NavBar2.default, null),
+        _react2.default.createElement(_PlayerInfo2.default, null)
+      );
+    }
+  }]);
+
+  return PlayerPage;
+}(_react2.default.Component);
+
+exports.default = PlayerPage;
+
+/***/ }),
+/* 417 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _PlayerTabs = __webpack_require__(418);
+
+var _PlayerTabs2 = _interopRequireDefault(_PlayerTabs);
+
+var _reactBootstrap = __webpack_require__(71);
+
+var _reactRedux = __webpack_require__(158);
+
+var _axios = __webpack_require__(381);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _PlayersList = __webpack_require__(400);
+
+var _PlayersList2 = _interopRequireDefault(_PlayersList);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    players: state.playersReducer.players
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    addPlayers: function addPlayers(players) {
+      dispatch({
+        type: "ADD_PLAYERS",
+        payload: players
+      });
+    }
+  };
+};
+
+var PlayerInfo = function (_React$Component) {
+  _inherits(PlayerInfo, _React$Component);
+
+  function PlayerInfo() {
+    _classCallCheck(this, PlayerInfo);
+
+    var _this = _possibleConstructorReturn(this, (PlayerInfo.__proto__ || Object.getPrototypeOf(PlayerInfo)).call(this));
+
+    _this.state = {
+      teamStats: [],
+      leagueStats: []
+    };
+    _this.getRoster = _this.getRoster.bind(_this);
+    _this.getTeamStats = _this.getTeamStats.bind(_this);
+    _this.getLeagueStats = _this.getLeagueStats.bind(_this);
+    return _this;
+  }
+
+  _createClass(PlayerInfo, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.getRoster();
+      this.getTeamStats();
+      this.getLeagueStats();
+    }
+  }, {
+    key: "getRoster",
+    value: function getRoster() {
+      var _this2 = this;
+
+      var team = "San Antonio Spurs";
+      _axios2.default.get("/api/teams/getTeamsPlayers", {
+        params: {
+          team: team
+        }
+      }).then(function (data) {
+        var playersArray = data.data;
+        _this2.props.addPlayers(playersArray);
+      }).catch("error retrieving players!!!");
+    }
+  }, {
+    key: "getTeamStats",
+    value: function getTeamStats() {
+      var _this3 = this;
+
+      var team = "San Antonio Spurs";
+      _axios2.default.get("/api/teams/getTeamStats", {
+        params: {
+          team: team
+        }
+      }).then(function (data) {
+        console.log("TEAM STATS\n", data.data);
+        _this3.setState({ teamStats: data.data });
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "getLeagueStats",
+    value: function getLeagueStats() {
+      var _this4 = this;
+
+      _axios2.default.get("/api/teams/getLeagueStats").then(function (data) {
+        console.log("ALL LEAGUE TEAM STATS\n", data);
+        _this4.setState({ leagueStats: data.data });
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.props.players[0]);
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "div",
+          { id: "info-container-max" },
+          _react2.default.createElement(
+            _reactBootstrap.Grid,
+            { id: "info-container" },
+            _react2.default.createElement(
+              _reactBootstrap.Row,
+              { className: "full-height-row" },
+              _react2.default.createElement(
+                "div",
+                { id: "info" },
+                _react2.default.createElement(
+                  _reactBootstrap.Col,
+                  { lg: 3, id: "pic-col" },
+                  _react2.default.createElement(
+                    "div",
+                    { id: "info-pic-team" },
+                    _react2.default.createElement("img", { src: "http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4066421.png&w=350&h=254" })
+                  )
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.Col,
+                  { lg: 7 },
+                  _react2.default.createElement(
+                    "div",
+                    { id: "name-text" },
+                    _react2.default.createElement(
+                      "div",
+                      { id: "team-name" },
+                      "Lonzo Ball"
+                    ),
+                    _react2.default.createElement(
+                      "div",
+                      { id: "info-text" },
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        "Position: PG"
+                      ),
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        "Age: 20"
+                      ),
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        "Team: Los Angeles Lakers"
+                      ),
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        "College: UCLA"
+                      )
+                    )
+                  ),
+                  _react2.default.createElement("hr", { id: "info-text-break" }),
+                  _react2.default.createElement(
+                    _reactBootstrap.Row,
+                    null,
+                    _react2.default.createElement(
+                      _reactBootstrap.Col,
+                      { lg: 2 },
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        "PPG 8.8"
+                      )
+                    ),
+                    _react2.default.createElement(
+                      _reactBootstrap.Col,
+                      { lg: 2 },
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        "RPG 6.6"
+                      )
+                    ),
+                    _react2.default.createElement(
+                      _reactBootstrap.Col,
+                      { lg: 2 },
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        "APG 6.8"
+                      )
+                    ),
+                    _react2.default.createElement(
+                      _reactBootstrap.Col,
+                      { lg: 2 },
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        "PER 9.72"
+                      )
+                    ),
+                    _react2.default.createElement(
+                      _reactBootstrap.Col,
+                      { lg: 2 },
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        "MPG 32.7"
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(_PlayerTabs2.default, {
+            players: this.props.players[0],
+            teamStats: this.state.teamStats,
+            leagueStats: this.state.leagueStats
+          })
+        )
+      );
+    }
+  }]);
+
+  return PlayerInfo;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PlayerInfo);
+
+/***/ }),
+/* 418 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(71);
+
+var _PlayersList = __webpack_require__(400);
+
+var _PlayersList2 = _interopRequireDefault(_PlayersList);
+
+var _TeamStats = __webpack_require__(403);
+
+var _TeamStats2 = _interopRequireDefault(_TeamStats);
+
+var _TeamPlayerStats = __webpack_require__(404);
+
+var _TeamPlayerStats2 = _interopRequireDefault(_TeamPlayerStats);
+
+var _PlayerRatings = __webpack_require__(419);
+
+var _PlayerRatings2 = _interopRequireDefault(_PlayerRatings);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlayerTabs = function (_React$Component) {
+  _inherits(PlayerTabs, _React$Component);
+
+  function PlayerTabs() {
+    _classCallCheck(this, PlayerTabs);
+
+    var _this = _possibleConstructorReturn(this, (PlayerTabs.__proto__ || Object.getPrototypeOf(PlayerTabs)).call(this));
+
+    _this.state = {
+      key: 4
+    };
+    _this.handleSelect = _this.handleSelect.bind(_this);
+    return _this;
+  }
+
+  _createClass(PlayerTabs, [{
+    key: "handleSelect",
+    value: function handleSelect(key) {
+      this.setState({ key: key });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var component = void 0;
+      if (this.state.key === 1) component = _react2.default.createElement(_PlayersList2.default, { players: this.props.players });
+      if (this.state.key === 2) component = _react2.default.createElement(_TeamStats2.default, { teamStats: this.props.teamStats });
+      if (this.state.key === 3) component = _react2.default.createElement(_TeamPlayerStats2.default, null);
+      if (this.state.key === 4) component = _react2.default.createElement(_PlayerRatings2.default, { leagueStats: this.props.leagueStats });
+
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "div",
+          { className: "card" },
+          _react2.default.createElement(
+            _reactBootstrap.Nav,
+            {
+              bsStyle: "pills",
+              justified: true,
+              activeKey: this.state.key,
+              onSelect: this.handleSelect
+            },
+            _react2.default.createElement(
+              _reactBootstrap.NavItem,
+              { eventKey: 1, href: "/", className: "lakers" },
+              "PROFILE"
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.NavItem,
+              { eventKey: 2, href: "/", className: "lakers" },
+              "SEASON"
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.NavItem,
+              { eventKey: 3, href: "/", className: "lakers" },
+              "CAREER"
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.NavItem,
+              { eventKey: 4, href: "/", className: "lakers" },
+              "RATINGS"
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.NavItem,
+              { eventKey: 5, href: "/", className: "lakers" },
+              "PROJECTION"
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.NavItem,
+              { eventKey: 6, title: "Item", className: "lakers" },
+              "VIDEOS"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { id: "tabs-container" },
+          component
+        )
+      );
+    }
+  }]);
+
+  return PlayerTabs;
+}(_react2.default.Component);
+
+exports.default = PlayerTabs;
+
+/***/ }),
+/* 419 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(71);
+
+var _PlayerRankGauges = __webpack_require__(420);
+
+var _PlayerRankGauges2 = _interopRequireDefault(_PlayerRankGauges);
+
+var _TeamAverageComparison = __webpack_require__(414);
+
+var _TeamAverageComparison2 = _interopRequireDefault(_TeamAverageComparison);
+
+var _TeamRatings = __webpack_require__(415);
+
+var _TeamRatings2 = _interopRequireDefault(_TeamRatings);
+
+var _PlayerPolarArea = __webpack_require__(421);
+
+var _PlayerPolarArea2 = _interopRequireDefault(_PlayerPolarArea);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlayerRatings = function (_React$Component) {
+  _inherits(PlayerRatings, _React$Component);
+
+  function PlayerRatings(props) {
+    _classCallCheck(this, PlayerRatings);
+
+    return _possibleConstructorReturn(this, (PlayerRatings.__proto__ || Object.getPrototypeOf(PlayerRatings)).call(this, props));
+  }
+
+  _createClass(PlayerRatings, [{
+    key: "render",
+    value: function render() {
+      var headerStyle = {
+        backgroundColor: "#702f8a",
+        height: "50px",
+        lineHeight: "50px",
+        fontSize: "20px",
+        paddingLeft: "25px",
+        color: "#ffc72c"
+      };
+      console.log("Props in Rankings: \n", this.props.leagueStats);
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Grid,
+          null,
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { className: "chart-row" },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 3, lgOffset: 1 },
+              _react2.default.createElement(
+                "div",
+                { className: "card", style: headerStyle },
+                "PLAYER RATINGS"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { className: "chart-row" },
+            _react2.default.createElement(_reactBootstrap.Col, { lg: 5, lgOffset: 1 }),
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 5 },
+              _react2.default.createElement(_PlayerPolarArea2.default, null)
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { className: "chart-row" },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 10, lgOffset: 1 },
+              _react2.default.createElement(_TeamRatings2.default, null)
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { className: "chart-row" },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 3, lgOffset: 1 },
+              _react2.default.createElement(
+                "div",
+                { className: "card", style: headerStyle },
+                "POSITION RANKINGS"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { className: "chart-row" },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 10, lgOffset: 1 },
+              _react2.default.createElement(
+                "div",
+                {
+                  className: "card",
+                  style: { height: "300px", backgroundColor: "white" }
+                },
+                _react2.default.createElement(_PlayerRankGauges2.default, null)
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { className: "chart-row" },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 3, lgOffset: 1 },
+              _react2.default.createElement(
+                "div",
+                { className: "card", style: headerStyle },
+                "POSITION AVERAGES"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { className: "chart-row" },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 10, lgOffset: 1 },
+              _react2.default.createElement(_TeamAverageComparison2.default, null)
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return PlayerRatings;
+}(_react2.default.Component);
+
+exports.default = PlayerRatings;
+
+/***/ }),
+/* 420 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(71);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlayerRankGuages = function (_React$Component) {
+  _inherits(PlayerRankGuages, _React$Component);
+
+  function PlayerRankGuages() {
+    _classCallCheck(this, PlayerRankGuages);
+
+    var _this = _possibleConstructorReturn(this, (PlayerRankGuages.__proto__ || Object.getPrototypeOf(PlayerRankGuages)).call(this));
+
+    _this.creatChart = _this.creatChart.bind(_this);
+    return _this;
+  }
+
+  _createClass(PlayerRankGuages, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.creatChart();
+    }
+  }, {
+    key: "creatChart",
+    value: function creatChart() {
+      var gaugeOptions = {
+        chart: {
+          type: "solidgauge"
+        },
+
+        title: null,
+
+        pane: {
+          center: ["50%", "50%"],
+          size: "100%",
+          startAngle: 0,
+          endAngle: 360,
+          background: {
+            backgroundColor: Highcharts.theme && Highcharts.theme.background2 || "#c2ced5",
+            innerRadius: "60%",
+            outerRadius: "100%",
+            shape: "circle"
+          }
+        },
+
+        tooltip: {
+          enabled: false
+        },
+        exporting: {
+          enabled: false
+        },
+
+        // the value axis
+        yAxis: {
+          stops: [[0.1, "#702f8a"], // green
+          [0.5, "#702f8a"], // yellow
+          [0.9, "#702f8a"] // red
+          ],
+          lineWidth: 0,
+          minorTickInterval: null,
+          tickAmount: 0,
+          title: {
+            y: -20
+          },
+          labels: {
+            enabled: false
+          }
+        },
+
+        plotOptions: {
+          solidgauge: {
+            dataLabels: {
+              y: -23,
+              borderWidth: 0,
+              useHTML: true
+            }
+          }
+        }
+      };
+
+      // The speed gauge
+      var chartSpeed = Highcharts.chart("container", Highcharts.merge(gaugeOptions, {
+        yAxis: {
+          min: 0,
+          max: 30,
+          title: {
+            text: null
+          }
+        },
+
+        credits: {
+          enabled: false
+        },
+
+        series: [{
+          name: "PTS",
+          data: [26],
+          dataLabels: {
+            format: '<div style="text-align:center"><span style="font-size:26px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + '">{y}th</span><br/>' + "</div>"
+          },
+          tooltip: {
+            valueSuffix: " km/h"
+          }
+        }]
+      }));
+
+      var chartTwo = Highcharts.chart("container2", Highcharts.merge(gaugeOptions, {
+        yAxis: {
+          min: 0,
+          max: 30,
+          title: {
+            text: null
+          }
+        },
+
+        credits: {
+          enabled: false
+        },
+
+        series: [{
+          name: "PTS",
+          data: [14],
+          dataLabels: {
+            format: '<div style="text-align:center"><span style="font-size:26px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + '">{y}th</span><br/>' + "</div>"
+          },
+          tooltip: {
+            valueSuffix: " km/h"
+          }
+        }]
+      }));
+
+      var chartThree = Highcharts.chart("container3", Highcharts.merge(gaugeOptions, {
+        yAxis: {
+          min: 0,
+          max: 30,
+          title: {
+            text: null
+          }
+        },
+
+        credits: {
+          enabled: false
+        },
+
+        series: [{
+          name: "PTS",
+          data: [19],
+          dataLabels: {
+            format: '<div style="text-align:center"><span style="font-size:26px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + '">{y}th</span><br/>' + "</div>"
+          },
+          tooltip: {
+            valueSuffix: " km/h"
+          }
+        }]
+      }));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { className: "chart-row" },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              { className: "gauge-header-div" },
+              _react2.default.createElement(
+                "div",
+                { className: "card guage-header lakers" },
+                "PTS"
+              )
+            ),
+            _react2.default.createElement("div", {
+              id: "container",
+              style: {
+                height: "150px",
+                margin: "auto 0"
+              }
+            })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              { className: "gauge-header-div" },
+              _react2.default.createElement(
+                "div",
+                { className: "card guage-header lakers" },
+                "TRB"
+              )
+            ),
+            _react2.default.createElement("div", {
+              id: "container2",
+              style: {
+                height: "150px",
+                margin: "auto 0"
+              }
+            })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              { className: "gauge-header-div" },
+              _react2.default.createElement(
+                "div",
+                { className: "card guage-header lakers" },
+                "DRTG"
+              )
+            ),
+            _react2.default.createElement("div", {
+              id: "container3",
+              style: {
+                height: "150px",
+                margin: "auto 0"
+              }
+            })
+          )
+        )
+      );
+    }
+  }]);
+
+  return PlayerRankGuages;
+}(_react2.default.Component);
+
+exports.default = PlayerRankGuages;
+
+/***/ }),
+/* 421 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlayerPolarArea = function (_React$Component) {
+  _inherits(PlayerPolarArea, _React$Component);
+
+  function PlayerPolarArea() {
+    _classCallCheck(this, PlayerPolarArea);
+
+    var _this = _possibleConstructorReturn(this, (PlayerPolarArea.__proto__ || Object.getPrototypeOf(PlayerPolarArea)).call(this));
+
+    _this.createChart = _this.createChart.bind(_this);
+    return _this;
+  }
+
+  _createClass(PlayerPolarArea, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.createChart();
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-polar2", {
+        chart: {
+          polar: true,
+          type: "area"
+        },
+
+        title: {
+          text: "Player Chart",
+          x: 0
+        },
+
+        pane: {
+          size: "80%"
+        },
+
+        xAxis: {
+          categories: ["Scoring", "Rebounding", "Playmaking", "Turnovers", "Blocks", "Steals"],
+          tickmarkPlacement: "on",
+          lineWidth: 0
+        },
+
+        yAxis: {
+          gridLineInterpolation: "polygon",
+          gridLineColor: "#000",
+          lineWidth: 0,
+          min: 15,
+          max: 80,
+          labels: {
+            enabled: false
+          }
+        },
+
+        tooltip: {
+          shared: false,
+          pointFormat: '<span style="color:{series.color}">{series.name}: <b>${point.y:,.0f}</b><br/>'
+        },
+
+        legend: {
+          align: "right",
+          verticalAlign: "top",
+          y: 70,
+          layout: "vertical",
+          enabled: false
+        },
+
+        series: [{
+          name: "Player Grade",
+          data: [40, 45, 60, 65, 50, 60],
+          pointPlacement: "on",
+          color: "#702f8a"
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "card" },
+        _react2.default.createElement("div", {
+          id: "container-polar2",
+          style: { height: "400px", margin: "0 auto" }
+        })
+      );
+    }
+  }]);
+
+  return PlayerPolarArea;
+}(_react2.default.Component);
+
+exports.default = PlayerPolarArea;
 
 /***/ })
 /******/ ]);

@@ -3,13 +3,13 @@ import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
 import PlayersList from "./PlayersList";
 import TeamStats from "./TeamStats";
 import TeamPlayerStats from "./TeamPlayerStats";
-import TeamLeagueRanks from "./TeamLeagueRanks";
+import PlayerRatings from "./PlayerRatings";
 
-export default class Tabs extends React.Component {
+export default class PlayerTabs extends React.Component {
   constructor() {
     super();
     this.state = {
-      key: 1
+      key: 4
     };
     this.handleSelect = this.handleSelect.bind(this);
   }
@@ -26,7 +26,7 @@ export default class Tabs extends React.Component {
       component = <TeamStats teamStats={this.props.teamStats} />;
     if (this.state.key === 3) component = <TeamPlayerStats />;
     if (this.state.key === 4)
-      component = <TeamLeagueRanks leagueStats={this.props.leagueStats} />;
+      component = <PlayerRatings leagueStats={this.props.leagueStats} />;
 
     return (
       <div>
@@ -37,23 +37,23 @@ export default class Tabs extends React.Component {
             activeKey={this.state.key}
             onSelect={this.handleSelect}
           >
-            <NavItem eventKey={1} href="/">
+            <NavItem eventKey={1} href="/" className="lakers">
               PROFILE
             </NavItem>
-            <NavItem eventKey={2} href="/">
+            <NavItem eventKey={2} href="/" className="lakers">
               SEASON
             </NavItem>
-            <NavItem eventKey={3} href="/">
-              PLAYERS
+            <NavItem eventKey={3} href="/" className="lakers">
+              CAREER
             </NavItem>
-            <NavItem eventKey={4} href="/">
-              RANKINGS
+            <NavItem eventKey={4} href="/" className="lakers">
+              RATINGS
             </NavItem>
-            <NavItem eventKey={5} title="Item">
-              LINEUP
+            <NavItem eventKey={5} href="/" className="lakers">
+              PROJECTION
             </NavItem>
-            <NavItem eventKey={6} title="Item">
-              SCHEDULE
+            <NavItem eventKey={6} title="Item" className="lakers">
+              VIDEOS
             </NavItem>
           </Nav>
         </div>

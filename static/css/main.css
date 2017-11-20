@@ -52,7 +52,6 @@ img {
 
 #info-container {
   margin: 0px;
-  background-color: white;
 }
 
 #name-text {
@@ -85,6 +84,23 @@ li > a {
   background-color: black !important;
 }
 
+li.lakers > a {
+  color: black;
+  border-right: 1px solid grey;
+  border-radius: 100px;
+}
+
+.nav-pills > li.lakers > a {
+  border-radius: 0px !important;
+}
+
+.nav-pills > li.lakers.active > a,
+.nav-pills > li.lakers.active > a:focus,
+.nav-pills > li.lakers.active > a:hover {
+  color: #ffc72c !important;
+  background-color: #702f8a !important;
+}
+
 #info-container-max {
   background-color: white !important;
 }
@@ -109,4 +125,76 @@ li > a {
 #tabs-container {
   background-color: #eeeeee !important;
   margin-top: 0px;
+}
+
+#team-rankings-header {
+  background-color: black;
+  height: 50px;
+}
+
+.chart-row {
+  padding-top: 50px;
+}
+
+#stat-comp-header {
+  background-color: black;
+  height: 50px;
+  margin-top: 50px;
+}
+
+#container {
+  margin-top: 50px;
+}
+
+div.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#team-player-ranks-container {
+  overflow-y: hidden;
+}
+
+.title-header {
+  background-color: black;
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+  padding-left: 25px;
+  color: silver;
+}
+
+.guage-header {
+  background-color: black;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  color: silver;
+  text-align: center;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.guage-header.lakers {
+  background-color: #702f8a;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  color: #ffc72c;
+  text-align: center;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.highcharts-yaxis-grid .highcharts-grid-line {
+  display: none;
+}
+
+.gauge-header-div {
+  margin-bottom: 25px;
+}
+
+#info-pic-team {
+  width: 100%;
+  height: auto;
+  padding-top: 20px;
 }
