@@ -1,9 +1,10 @@
 import React from "react";
 import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
 import PlayerRankGauges from "./PlayerRankGauges";
-import TeamAverageComparison from "./TeamAverageComparison";
+import PlayerPositionAverages from "./PlayerPositionAverages";
 import TeamRatings from "./TeamRatings";
 import PlayerPolarArea from "./PlayerPolarArea";
+import PlayerPolarColumn from "./PlayerPolarColumn";
 
 export default class PlayerRatings extends React.Component {
   constructor(props) {
@@ -31,13 +32,15 @@ export default class PlayerRatings extends React.Component {
             </Col>
           </Row>
           <Row className="chart-row">
-            <Col lg={5} lgOffset={1} />
+            <Col lg={5} lgOffset={1}>
+              <PlayerPolarColumn />
+            </Col>
             <Col lg={5}>
               <PlayerPolarArea />
             </Col>
           </Row>
           <Row className="chart-row">
-            <Col lg={10} lgOffset={1}>
+            <Col lg={8} lgOffset={2}>
               <TeamRatings />
             </Col>
           </Row>
@@ -68,7 +71,7 @@ export default class PlayerRatings extends React.Component {
           </Row>
           <Row className="chart-row">
             <Col lg={10} lgOffset={1}>
-              <TeamAverageComparison />
+              <PlayerPositionAverages />
             </Col>
           </Row>
         </Grid>

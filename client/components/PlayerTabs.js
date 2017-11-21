@@ -4,6 +4,7 @@ import PlayersList from "./PlayersList";
 import TeamStats from "./TeamStats";
 import TeamPlayerStats from "./TeamPlayerStats";
 import PlayerRatings from "./PlayerRatings";
+import PlayerSeasonStats from "./PlayerSeasonStats";
 
 export default class PlayerTabs extends React.Component {
   constructor() {
@@ -20,10 +21,8 @@ export default class PlayerTabs extends React.Component {
 
   render() {
     let component;
-    if (this.state.key === 1)
-      component = <PlayersList players={this.props.players} />;
     if (this.state.key === 2)
-      component = <TeamStats teamStats={this.props.teamStats} />;
+      component = <PlayerSeasonStats teamStats={this.props.teamStats} />;
     if (this.state.key === 3) component = <TeamPlayerStats />;
     if (this.state.key === 4)
       component = <PlayerRatings leagueStats={this.props.leagueStats} />;
@@ -37,9 +36,6 @@ export default class PlayerTabs extends React.Component {
             activeKey={this.state.key}
             onSelect={this.handleSelect}
           >
-            <NavItem eventKey={1} href="/" className="lakers">
-              PROFILE
-            </NavItem>
             <NavItem eventKey={2} href="/" className="lakers">
               SEASON
             </NavItem>

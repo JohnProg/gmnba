@@ -33075,7 +33075,7 @@ var Tabs = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this));
 
     _this.state = {
-      key: 1
+      key: 4
     };
     _this.handleSelect = _this.handleSelect.bind(_this);
     return _this;
@@ -46534,58 +46534,62 @@ var PlayersList = function (_React$Component) {
               { lg: 12 },
               _react2.default.createElement(
                 "div",
-                { id: "roster-header" },
+                { className: "card" },
                 _react2.default.createElement(
                   "div",
-                  { id: "roster-header-text" },
-                  "2017-18 TEAM ROSTER"
-                )
-              ),
-              _react2.default.createElement(
-                _reactBootstrap.Table,
-                { striped: true, hover: true },
-                _react2.default.createElement(
-                  "thead",
-                  null,
+                  { id: "roster-header" },
                   _react2.default.createElement(
-                    "tr",
-                    null,
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "Name"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "Position"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "Experience"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "Height"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "Weight"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "College"
-                    )
+                    "div",
+                    { id: "roster-header-text" },
+                    "2017-18 TEAM ROSTER"
                   )
                 ),
                 _react2.default.createElement(
-                  "tbody",
-                  null,
-                  this.renderPlayers()
+                  _reactBootstrap.Table,
+                  { striped: true, hover: true },
+                  _react2.default.createElement(
+                    "thead",
+                    null,
+                    _react2.default.createElement(
+                      "tr",
+                      null,
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Name"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Position"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Experience"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Height"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Weight"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "College"
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tbody",
+                    null,
+                    this.renderPlayers()
+                  )
                 )
               )
             )
@@ -46767,249 +46771,253 @@ var TeamStats = function (_React$Component) {
               { lg: 12 },
               _react2.default.createElement(
                 "div",
-                { id: "roster-header" },
+                { className: "card" },
                 _react2.default.createElement(
                   "div",
-                  { id: "roster-header-text" },
-                  "2017-18 TEAM STATS"
-                )
-              ),
-              _react2.default.createElement(
-                _reactBootstrap.Table,
-                { striped: true, hover: true },
-                _react2.default.createElement(
-                  "thead",
-                  null,
+                  { id: "roster-header" },
                   _react2.default.createElement(
-                    "tr",
-                    null,
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "GP"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "FG"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "FGA"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "FG%"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "3P"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "3PA"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "3P%"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "2P"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "2PA"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "2P%"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "FT"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "FTA"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "FT%"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "ORB"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "DRB"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "TRB"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "AST"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "STL"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "BLK"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "TOV"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "PF"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "PTS"
-                    )
+                    "div",
+                    { id: "roster-header-text" },
+                    "2017-18 TEAM STATS"
                   )
                 ),
                 _react2.default.createElement(
-                  "tbody",
-                  null,
+                  _reactBootstrap.Table,
+                  { striped: true, hover: true },
                   _react2.default.createElement(
-                    "tr",
+                    "thead",
                     null,
                     _react2.default.createElement(
-                      "th",
+                      "tr",
                       null,
-                      "-"
-                    ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "GP"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "FG"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "FGA"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "FG%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "3P"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "3PA"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "3P%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "2P"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "2PA"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "2P%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "FT"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "FTA"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "FT%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "ORB"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "DRB"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "TRB"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "AST"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "STL"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "BLK"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "TOV"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "PF"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "PTS"
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tbody",
+                    null,
                     _react2.default.createElement(
-                      "th",
+                      "tr",
                       null,
-                      stat["FG"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["FGA"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["FG_PCT"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["Three_Pointers"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["Three_Pointers_Att"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["Three_Pointers_Pct"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["Two_Pointers"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["Two_Pointers_Att"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["Two_Pointers_Pct"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["FTM"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["FTA"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["FT_PCT"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["ORB"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["DRB"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["TRB"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["AST"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["STL"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["BLK"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["TOV"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["PF"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["PTS"]
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "-"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["FG"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["FGA"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["FG_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["Three_Pointers"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["Three_Pointers_Att"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["Three_Pointers_Pct"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["Two_Pointers"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["Two_Pointers_Att"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["Two_Pointers_Pct"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["FTM"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["FTA"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["FT_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["ORB"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["DRB"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["TRB"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["AST"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["STL"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["BLK"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["TOV"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["PF"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["PTS"]
+                      )
                     )
                   )
                 )
@@ -47024,209 +47032,213 @@ var TeamStats = function (_React$Component) {
               { lg: 12 },
               _react2.default.createElement(
                 "div",
-                { id: "roster-header" },
+                { className: "card" },
                 _react2.default.createElement(
                   "div",
-                  { id: "roster-header-text" },
-                  "2017-18 TEAM ADVANCED STATS"
-                )
-              ),
-              _react2.default.createElement(
-                _reactBootstrap.Table,
-                { striped: true, hover: true },
-                _react2.default.createElement(
-                  "thead",
-                  null,
+                  { id: "roster-header" },
                   _react2.default.createElement(
-                    "tr",
-                    null,
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "W"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "L"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "MOV"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "SOS"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "SRS"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "ORtg"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "DRtg"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "PACE"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "FTr"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "3PAr"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "Off eFG%"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "Off TOV%"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "ORB%"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "Off FT/FGA"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "Def eFG%"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "Def TOV%"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "DRB%"
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      "Def FT/FGA"
-                    )
+                    "div",
+                    { id: "roster-header-text" },
+                    "2017-18 TEAM ADVANCED STATS"
                   )
                 ),
                 _react2.default.createElement(
-                  "tbody",
-                  null,
+                  _reactBootstrap.Table,
+                  { striped: true, hover: true },
                   _react2.default.createElement(
-                    "tr",
+                    "thead",
                     null,
                     _react2.default.createElement(
-                      "th",
+                      "tr",
                       null,
-                      stat["W"]
-                    ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "W"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "L"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "MOV"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "SOS"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "SRS"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "ORtg"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "DRtg"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "PACE"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "FTr"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "3PAr"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Off eFG%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Off TOV%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "ORB%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Off FT/FGA"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Def eFG%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Def TOV%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "DRB%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Def FT/FGA"
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tbody",
+                    null,
                     _react2.default.createElement(
-                      "th",
+                      "tr",
                       null,
-                      stat["L"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["MOV"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["SOS"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["SRS"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["ORtg"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["DRtg"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["PACE"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["FTr"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["Three_PAr"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["OFF_eFG_PCT"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["OFF_TOV_PCT"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["ORB_PCT"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["OFF_FT_FGA"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["DEF_eFG_PCT"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["DEF_TOV_PCT"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["DRB_PCT"]
-                    ),
-                    _react2.default.createElement(
-                      "th",
-                      null,
-                      stat["DEF_FT_FGA"]
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["W"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["L"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["MOV"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["SOS"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["SRS"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["ORtg"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["DRtg"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["PACE"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["FTr"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["Three_PAr"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["OFF_eFG_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["OFF_TOV_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["ORB_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["OFF_FT_FGA"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["DEF_eFG_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["DEF_TOV_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["DRB_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["DEF_FT_FGA"]
+                      )
                     )
                   )
                 )
@@ -48464,7 +48476,7 @@ var TeamRatings = function (_React$Component) {
           data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
         }, {
           name: "Grade",
-          data: [{ y: 60, color: "#a6ce6d" }, { y: 35, color: "#bc4809" }, { y: 80, color: "#04b5d1" }, { y: 50, color: "#ffe254" }, { y: 50, color: "#ffe254" }]
+          data: [{ y: 40, color: "#f0780d" }, { y: 45, color: "#fac600" }, { y: 80, color: "#1abded" }, { y: 60, color: "#56ce00" }, { y: 50, color: "#ffdc00" }]
         }]
       });
     }
@@ -48478,7 +48490,7 @@ var TeamRatings = function (_React$Component) {
           className: "card",
           id: "container-rating",
           style: {
-            height: "350px",
+            height: "250px",
             minWidth: "600px",
             margin: "0 auto"
           }
@@ -48846,6 +48858,10 @@ var _PlayerRatings = __webpack_require__(419);
 
 var _PlayerRatings2 = _interopRequireDefault(_PlayerRatings);
 
+var _PlayerSeasonStats = __webpack_require__(424);
+
+var _PlayerSeasonStats2 = _interopRequireDefault(_PlayerSeasonStats);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -48878,8 +48894,7 @@ var PlayerTabs = function (_React$Component) {
     key: "render",
     value: function render() {
       var component = void 0;
-      if (this.state.key === 1) component = _react2.default.createElement(_PlayersList2.default, { players: this.props.players });
-      if (this.state.key === 2) component = _react2.default.createElement(_TeamStats2.default, { teamStats: this.props.teamStats });
+      if (this.state.key === 2) component = _react2.default.createElement(_PlayerSeasonStats2.default, { teamStats: this.props.teamStats });
       if (this.state.key === 3) component = _react2.default.createElement(_TeamPlayerStats2.default, null);
       if (this.state.key === 4) component = _react2.default.createElement(_PlayerRatings2.default, { leagueStats: this.props.leagueStats });
 
@@ -48897,11 +48912,6 @@ var PlayerTabs = function (_React$Component) {
               activeKey: this.state.key,
               onSelect: this.handleSelect
             },
-            _react2.default.createElement(
-              _reactBootstrap.NavItem,
-              { eventKey: 1, href: "/", className: "lakers" },
-              "PROFILE"
-            ),
             _react2.default.createElement(
               _reactBootstrap.NavItem,
               { eventKey: 2, href: "/", className: "lakers" },
@@ -48966,9 +48976,9 @@ var _PlayerRankGauges = __webpack_require__(420);
 
 var _PlayerRankGauges2 = _interopRequireDefault(_PlayerRankGauges);
 
-var _TeamAverageComparison = __webpack_require__(414);
+var _PlayerPositionAverages = __webpack_require__(423);
 
-var _TeamAverageComparison2 = _interopRequireDefault(_TeamAverageComparison);
+var _PlayerPositionAverages2 = _interopRequireDefault(_PlayerPositionAverages);
 
 var _TeamRatings = __webpack_require__(415);
 
@@ -48977,6 +48987,10 @@ var _TeamRatings2 = _interopRequireDefault(_TeamRatings);
 var _PlayerPolarArea = __webpack_require__(421);
 
 var _PlayerPolarArea2 = _interopRequireDefault(_PlayerPolarArea);
+
+var _PlayerPolarColumn = __webpack_require__(422);
+
+var _PlayerPolarColumn2 = _interopRequireDefault(_PlayerPolarColumn);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49029,7 +49043,11 @@ var PlayerRatings = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Row,
             { className: "chart-row" },
-            _react2.default.createElement(_reactBootstrap.Col, { lg: 5, lgOffset: 1 }),
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 5, lgOffset: 1 },
+              _react2.default.createElement(_PlayerPolarColumn2.default, null)
+            ),
             _react2.default.createElement(
               _reactBootstrap.Col,
               { lg: 5 },
@@ -49041,7 +49059,7 @@ var PlayerRatings = function (_React$Component) {
             { className: "chart-row" },
             _react2.default.createElement(
               _reactBootstrap.Col,
-              { lg: 10, lgOffset: 1 },
+              { lg: 8, lgOffset: 2 },
               _react2.default.createElement(_TeamRatings2.default, null)
             )
           ),
@@ -49093,7 +49111,7 @@ var PlayerRatings = function (_React$Component) {
             _react2.default.createElement(
               _reactBootstrap.Col,
               { lg: 10, lgOffset: 1 },
-              _react2.default.createElement(_TeamAverageComparison2.default, null)
+              _react2.default.createElement(_PlayerPositionAverages2.default, null)
             )
           )
         )
@@ -49226,7 +49244,7 @@ var PlayerRankGuages = function (_React$Component) {
           name: "PTS",
           data: [26],
           dataLabels: {
-            format: '<div style="text-align:center"><span style="font-size:26px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + '">{y}th</span><br/>' + "</div>"
+            format: '<div style="text-align:center"><span style="font-size:24px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + '">{y}th</span><br/>' + "</div>"
           },
           tooltip: {
             valueSuffix: " km/h"
@@ -49251,7 +49269,7 @@ var PlayerRankGuages = function (_React$Component) {
           name: "PTS",
           data: [14],
           dataLabels: {
-            format: '<div style="text-align:center"><span style="font-size:26px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + '">{y}th</span><br/>' + "</div>"
+            format: '<div style="text-align:center"><span style="font-size:24px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + '">{y}th</span><br/>' + "</div>"
           },
           tooltip: {
             valueSuffix: " km/h"
@@ -49276,7 +49294,7 @@ var PlayerRankGuages = function (_React$Component) {
           name: "PTS",
           data: [19],
           dataLabels: {
-            format: '<div style="text-align:center"><span style="font-size:26px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + '">{y}th</span><br/>' + "</div>"
+            format: '<div style="text-align:center"><span style="font-size:24px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + '">{y}th</span><br/>' + "</div>"
           },
           tooltip: {
             valueSuffix: " km/h"
@@ -49308,7 +49326,7 @@ var PlayerRankGuages = function (_React$Component) {
             _react2.default.createElement("div", {
               id: "container",
               style: {
-                height: "150px",
+                height: "140px",
                 margin: "auto 0"
               }
             })
@@ -49328,7 +49346,7 @@ var PlayerRankGuages = function (_React$Component) {
             _react2.default.createElement("div", {
               id: "container2",
               style: {
-                height: "150px",
+                height: "140px",
                 margin: "auto 0"
               }
             })
@@ -49348,7 +49366,7 @@ var PlayerRankGuages = function (_React$Component) {
             _react2.default.createElement("div", {
               id: "container3",
               style: {
-                height: "150px",
+                height: "140px",
                 margin: "auto 0"
               }
             })
@@ -49415,7 +49433,7 @@ var PlayerPolarArea = function (_React$Component) {
         },
 
         title: {
-          text: "Player Chart",
+          text: null,
           x: 0
         },
 
@@ -49431,8 +49449,8 @@ var PlayerPolarArea = function (_React$Component) {
 
         yAxis: {
           gridLineInterpolation: "polygon",
-          gridLineColor: "#000",
           lineWidth: 0,
+          gridLineColor: "#000",
           min: 15,
           max: 80,
           labels: {
@@ -49479,6 +49497,798 @@ var PlayerPolarArea = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = PlayerPolarArea;
+
+/***/ }),
+/* 422 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlayerPolarColumn = function (_React$Component) {
+  _inherits(PlayerPolarColumn, _React$Component);
+
+  function PlayerPolarColumn() {
+    _classCallCheck(this, PlayerPolarColumn);
+
+    var _this = _possibleConstructorReturn(this, (PlayerPolarColumn.__proto__ || Object.getPrototypeOf(PlayerPolarColumn)).call(this));
+
+    _this.createChart = _this.createChart.bind(_this);
+    return _this;
+  }
+
+  _createClass(PlayerPolarColumn, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.createChart();
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-column", {
+        chart: {
+          polar: true,
+          type: "column"
+        },
+
+        title: {
+          text: null
+        },
+
+        pane: {
+          startAngle: 0,
+          endAngle: 360
+        },
+
+        xAxis: {
+          min: 0,
+          max: 360,
+          tickInterval: 45,
+          labels: {
+            enabled: false
+          }
+        },
+
+        yAxis: {
+          min: 0,
+          max: 60,
+          labels: {
+            enabled: false
+          }
+        },
+
+        plotOptions: {
+          series: {
+            pointStart: 0,
+            pointInterval: 45,
+            dataLabels: {
+              useHTML: true,
+              enabled: true,
+              format: '<span class="wheel-label" style="color: grey">{point.name}</span>',
+              style: {
+                fontSize: "12px"
+              }
+            }
+          },
+          column: {
+            pointPadding: 0,
+            groupPadding: 0,
+            events: {
+              legendItemClick: function legendItemClick() {
+                return false;
+              }
+            },
+            borderWidth: 2
+          }
+        },
+
+        legend: {
+          enabled: false
+        },
+
+        series: [{
+          name: "Rating",
+          data: [{ y: 40, color: "#f0780d", name: "Scoring" }, { y: 65, color: "#56ce00", name: "Ast" }, { y: 45, color: "#fac600", name: "Reb" }, { y: 60, color: "#b4d800", name: "Stl" }, { y: 55, color: "#b3d800", name: "Blk" }, { y: 70, color: "#00c7a2", name: "Tov" }, { y: 30, color: "#da000b", name: "3P%" }, { y: 35, color: "#f53300", name: "2P%" }],
+          pointPlacement: "on"
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "card" },
+        _react2.default.createElement("div", {
+          id: "container-column",
+          style: { height: "400px", margin: "0 auto" }
+        })
+      );
+    }
+  }]);
+
+  return PlayerPolarColumn;
+}(_react2.default.Component);
+
+exports.default = PlayerPolarColumn;
+
+/***/ }),
+/* 423 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlayerPositionAverages = function (_React$Component) {
+  _inherits(PlayerPositionAverages, _React$Component);
+
+  function PlayerPositionAverages() {
+    _classCallCheck(this, PlayerPositionAverages);
+
+    var _this = _possibleConstructorReturn(this, (PlayerPositionAverages.__proto__ || Object.getPrototypeOf(PlayerPositionAverages)).call(this));
+
+    _this.createChart = _this.createChart.bind(_this);
+    return _this;
+  }
+
+  _createClass(PlayerPositionAverages, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.createChart();
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-average", {
+        chart: {
+          type: "column"
+        },
+        title: {
+          text: "Player Vs Position Averages"
+        },
+        xAxis: {
+          categories: ["Pts", "ORtg", "DRtg", "Trb", "Ast", "3P"]
+        },
+        yAxis: [{
+          min: 0,
+          title: {
+            text: "Position Averages"
+          }
+        }, {
+          title: {
+            text: null
+          },
+          opposite: true
+        }],
+        legend: {
+          shadow: false
+        },
+        tooltip: {
+          shared: true
+        },
+        plotOptions: {
+          column: {
+            grouping: false,
+            shadow: false,
+            borderWidth: 0
+          }
+        },
+        series: [{
+          name: "Position Average",
+          color: "#c2ced5",
+          data: [103, 73, 20, 82, 43, 48],
+          pointPadding: 0.3,
+          pointPlacement: 0
+        }, {
+          name: "Player Average",
+          color: "#702f8a",
+          data: [108, 90, 40, 54, 87, 53],
+          pointPadding: 0.4,
+          pointPlacement: 0
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          className: "card",
+          id: "container-average",
+          style: {
+            height: "500px",
+            width: "800",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return PlayerPositionAverages;
+}(_react2.default.Component);
+
+exports.default = PlayerPositionAverages;
+
+/***/ }),
+/* 424 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(381);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _reactBootstrap = __webpack_require__(71);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlayerSeasonStats = function (_React$Component) {
+  _inherits(PlayerSeasonStats, _React$Component);
+
+  function PlayerSeasonStats(props) {
+    _classCallCheck(this, PlayerSeasonStats);
+
+    return _possibleConstructorReturn(this, (PlayerSeasonStats.__proto__ || Object.getPrototypeOf(PlayerSeasonStats)).call(this, props));
+  }
+
+  _createClass(PlayerSeasonStats, [{
+    key: "render",
+    value: function render() {
+      var stat = this.props.teamStats[0];
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Grid,
+          null,
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            null,
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 12 },
+              _react2.default.createElement(
+                "div",
+                { className: "card" },
+                _react2.default.createElement(
+                  "div",
+                  { id: "roster-header" },
+                  _react2.default.createElement(
+                    "div",
+                    { id: "roster-header-text" },
+                    "2017-18 TEAM STATS"
+                  )
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.Table,
+                  { striped: true, hover: true },
+                  _react2.default.createElement(
+                    "thead",
+                    null,
+                    _react2.default.createElement(
+                      "tr",
+                      null,
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "GP"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "FG"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "FGA"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "FG%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "3P"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "3PA"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "3P%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "2P"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "2PA"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "2P%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "FT"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "FTA"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "FT%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "ORB"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "DRB"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "TRB"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "AST"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "STL"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "BLK"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "TOV"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "PF"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "PTS"
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tbody",
+                    null,
+                    _react2.default.createElement(
+                      "tr",
+                      null,
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "-"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["FG"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["FGA"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["FG_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["Three_Pointers"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["Three_Pointers_Att"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["Three_Pointers_Pct"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["Two_Pointers"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["Two_Pointers_Att"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["Two_Pointers_Pct"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["FTM"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["FTA"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["FT_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["ORB"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["DRB"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["TRB"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["AST"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["STL"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["BLK"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["TOV"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["PF"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["PTS"]
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            null,
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 12 },
+              _react2.default.createElement(
+                "div",
+                { className: "card" },
+                _react2.default.createElement(
+                  "div",
+                  { id: "roster-header" },
+                  _react2.default.createElement(
+                    "div",
+                    { id: "roster-header-text" },
+                    "2017-18 TEAM ADVANCED STATS"
+                  )
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.Table,
+                  { striped: true, hover: true },
+                  _react2.default.createElement(
+                    "thead",
+                    null,
+                    _react2.default.createElement(
+                      "tr",
+                      null,
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "W"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "L"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "MOV"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "SOS"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "SRS"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "ORtg"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "DRtg"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "PACE"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "FTr"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "3PAr"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Off eFG%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Off TOV%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "ORB%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Off FT/FGA"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Def eFG%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Def TOV%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "DRB%"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Def FT/FGA"
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tbody",
+                    null,
+                    _react2.default.createElement(
+                      "tr",
+                      null,
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["W"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["L"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["MOV"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["SOS"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["SRS"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["ORtg"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["DRtg"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["PACE"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["FTr"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["Three_PAr"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["OFF_eFG_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["OFF_TOV_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["ORB_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["OFF_FT_FGA"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["DEF_eFG_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["DEF_TOV_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["DRB_PCT"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["DEF_FT_FGA"]
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return PlayerSeasonStats;
+}(_react2.default.Component);
+
+exports.default = PlayerSeasonStats;
 
 /***/ })
 /******/ ]);

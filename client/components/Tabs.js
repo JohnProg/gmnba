@@ -9,7 +9,7 @@ export default class Tabs extends React.Component {
   constructor() {
     super();
     this.state = {
-      key: 1
+      key: 4
     };
     this.handleSelect = this.handleSelect.bind(this);
   }

@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Col, Button, Well, Row, Grid, Table } from "react-bootstrap";
 
-export default class TeamStats extends React.Component {
+export default class PlayerSeasonStats extends React.Component {
   constructor(props) {
     super(props);
   }

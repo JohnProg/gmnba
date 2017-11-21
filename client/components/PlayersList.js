@@ -23,22 +23,24 @@ export default class PlayersList extends React.Component {
         <Grid>
           <Row>
             <Col lg={12}>
-              <div id="roster-header">
-                <div id="roster-header-text">2017-18 TEAM ROSTER</div>
+              <div className="card">
+                <div id="roster-header">
+                  <div id="roster-header-text">2017-18 TEAM ROSTER</div>
+                </div>
+                <Table striped hover>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Experience</th>
+                      <th>Height</th>
+                      <th>Weight</th>
+                      <th>College</th>
+                    </tr>
+                  </thead>
+                  <tbody>{this.renderPlayers()}</tbody>
+                </Table>
               </div>
-              <Table striped hover>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Experience</th>
-                    <th>Height</th>
-                    <th>Weight</th>
-                    <th>College</th>
-                  </tr>
-                </thead>
-                <tbody>{this.renderPlayers()}</tbody>
-              </Table>
             </Col>
           </Row>
         </Grid>

@@ -76,11 +76,11 @@ export default class TeamRatings extends React.Component {
         {
           name: "Grade",
           data: [
-            { y: 60, color: "#a6ce6d" },
-            { y: 35, color: "#bc4809" },
-            { y: 80, color: "#04b5d1" },
-            { y: 50, color: "#ffe254" },
-            { y: 50, color: "#ffe254" }
+            { y: 40, color: "#f0780d" },
+            { y: 45, color: "#fac600" },
+            { y: 80, color: "#1abded" },
+            { y: 60, color: "#56ce00" },
+            { y: 50, color: "#ffdc00" }
           ]
         }
       ]
@@ -94,7 +94,7 @@ export default class TeamRatings extends React.Component {
           className="card"
           id="container-rating"
           style={{
-            height: "350px",
+            height: "250px",
             minWidth: "600px",
             margin: "0 auto"
           }}

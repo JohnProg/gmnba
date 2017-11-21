@@ -91,7 +91,7 @@ export default class PlayerRankGuages extends React.Component {
             data: [26],
             dataLabels: {
               format:
-                '<div style="text-align:center"><span style="font-size:26px;color:' +
+                '<div style="text-align:center"><span style="font-size:24px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
                   "black") +
                 '">{y}th</span><br/>' +
@@ -126,7 +126,7 @@ export default class PlayerRankGuages extends React.Component {
             data: [14],
             dataLabels: {
               format:
-                '<div style="text-align:center"><span style="font-size:26px;color:' +
+                '<div style="text-align:center"><span style="font-size:24px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
                   "black") +
                 '">{y}th</span><br/>' +
@@ -161,7 +161,7 @@ export default class PlayerRankGuages extends React.Component {
             data: [19],
             dataLabels: {
               format:
-                '<div style="text-align:center"><span style="font-size:26px;color:' +
+                '<div style="text-align:center"><span style="font-size:24px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
                   "black") +
                 '">{y}th</span><br/>' +
@@ -187,7 +187,7 @@ export default class PlayerRankGuages extends React.Component {
             <div
               id="container"
               style={{
-                height: "150px",
+                height: "140px",
                 margin: "auto 0"
               }}
             />
@@ -199,7 +199,7 @@ export default class PlayerRankGuages extends React.Component {
             <div
               id="container2"
               style={{
-                height: "150px",
+                height: "140px",
                 margin: "auto 0"
               }}
             />
@@ -211,7 +211,7 @@ export default class PlayerRankGuages extends React.Component {
             <div
               id="container3"
               style={{
-                height: "150px",
+                height: "140px",
                 margin: "auto 0"
               }}
             />

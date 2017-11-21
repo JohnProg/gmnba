@@ -18,7 +18,7 @@ export default class PlayerPolarArea extends React.Component {
       },
 
       title: {
-        text: "Player Chart",
+        text: null,
         x: 0
       },
 
@@ -41,8 +41,8 @@ export default class PlayerPolarArea extends React.Component {
 
       yAxis: {
         gridLineInterpolation: "polygon",
-        gridLineColor: "#000",
         lineWidth: 0,
+        gridLineColor: "#000",
         min: 15,
         max: 80,
         labels: {
