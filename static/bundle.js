@@ -29017,13 +29017,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Main = function Main() {
   return _react2.default.createElement(
-    "main",
+    _reactRouterDom.BrowserRouter,
     null,
     _react2.default.createElement(
       _reactRouterDom.Switch,
       null,
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _PlayerPage2.default }),
-      _react2.default.createElement(_reactRouterDom.Route, { path: "/team", component: _LandingPage2.default })
+      _react2.default.createElement(_reactRouterDom.Route, { path: "/team", component: _LandingPage2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { path: "/team/:id", component: _LandingPage2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { path: "/player/:id", component: _PlayerPage2.default })
     )
   );
 };
@@ -46648,7 +46650,11 @@ var PlayersListEntry = function (_React$Component) {
         _react2.default.createElement(
           "td",
           null,
-          this.props.player.name
+          _react2.default.createElement(
+            "a",
+            { href: "/player/" + this.props.player.id },
+            this.props.player.name
+          )
         ),
         _react2.default.createElement(
           "td",
@@ -47839,7 +47845,11 @@ var TeamPlayerEntry = function (_React$Component) {
         _react2.default.createElement(
           "td",
           null,
-          this.props.player.name
+          _react2.default.createElement(
+            "a",
+            { href: "/player/" + this.props.player.id },
+            this.props.player.name
+          )
         ),
         _react2.default.createElement(
           "td",
@@ -48549,11 +48559,12 @@ var PlayerPage = function (_React$Component) {
   _createClass(PlayerPage, [{
     key: "render",
     value: function render() {
+      console.log("PROPS IN PLAYER PAGE: ", this.props);
       return _react2.default.createElement(
         "div",
         null,
         _react2.default.createElement(_NavBar2.default, null),
-        _react2.default.createElement(_PlayerInfo2.default, null)
+        _react2.default.createElement(_PlayerInfo2.default, { props: this.props })
       );
     }
   }]);
@@ -48624,18 +48635,21 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 var PlayerInfo = function (_React$Component) {
   _inherits(PlayerInfo, _React$Component);
 
-  function PlayerInfo() {
+  function PlayerInfo(props) {
     _classCallCheck(this, PlayerInfo);
 
-    var _this = _possibleConstructorReturn(this, (PlayerInfo.__proto__ || Object.getPrototypeOf(PlayerInfo)).call(this));
+    var _this = _possibleConstructorReturn(this, (PlayerInfo.__proto__ || Object.getPrototypeOf(PlayerInfo)).call(this, props));
 
     _this.state = {
       teamStats: [],
-      leagueStats: []
+      leagueStats: [],
+      id: _this.props.props.match.params.id,
+      player: {}
     };
     _this.getRoster = _this.getRoster.bind(_this);
     _this.getTeamStats = _this.getTeamStats.bind(_this);
     _this.getLeagueStats = _this.getLeagueStats.bind(_this);
+    _this.getPlayer = _this.getPlayer.bind(_this);
     return _this;
   }
 
@@ -48645,6 +48659,7 @@ var PlayerInfo = function (_React$Component) {
       this.getRoster();
       this.getTeamStats();
       this.getLeagueStats();
+      this.getPlayer();
     }
   }, {
     key: "getRoster",
@@ -48672,7 +48687,6 @@ var PlayerInfo = function (_React$Component) {
           team: team
         }
       }).then(function (data) {
-        console.log("TEAM STATS\n", data.data);
         _this3.setState({ teamStats: data.data });
       }).catch(function (err) {
         console.log(err);
@@ -48684,8 +48698,21 @@ var PlayerInfo = function (_React$Component) {
       var _this4 = this;
 
       _axios2.default.get("/api/teams/getLeagueStats").then(function (data) {
-        console.log("ALL LEAGUE TEAM STATS\n", data);
         _this4.setState({ leagueStats: data.data });
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "getPlayer",
+    value: function getPlayer() {
+      var _this5 = this;
+
+      _axios2.default.get("/api/teams/getPlayerProfile/" + this.state.id).then(function (data) {
+        console.log("PLAYER: \n", data.data);
+        _this5.setState({ player: data.data }, function () {
+          console.log(_this5.state);
+        });
       }).catch(function (err) {
         console.log(err);
       });
@@ -48693,7 +48720,6 @@ var PlayerInfo = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props.players[0]);
       return _react2.default.createElement(
         "div",
         null,
@@ -48715,7 +48741,7 @@ var PlayerInfo = function (_React$Component) {
                   _react2.default.createElement(
                     "div",
                     { id: "info-pic-team" },
-                    _react2.default.createElement("img", { src: "http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4066421.png&w=350&h=254" })
+                    _react2.default.createElement("img", { src: "http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3134907.png&w=350&h=254" })
                   )
                 ),
                 _react2.default.createElement(
@@ -48727,7 +48753,7 @@ var PlayerInfo = function (_React$Component) {
                     _react2.default.createElement(
                       "div",
                       { id: "team-name" },
-                      "Lonzo Ball"
+                      this.state.player.name
                     ),
                     _react2.default.createElement(
                       "div",
@@ -48735,22 +48761,26 @@ var PlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "Position: PG"
+                        "Position: ",
+                        this.state.player.position
                       ),
                       _react2.default.createElement(
                         "div",
                         null,
-                        "Age: 20"
+                        "Age: ",
+                        this.state.player.age
                       ),
                       _react2.default.createElement(
                         "div",
                         null,
-                        "Team: Los Angeles Lakers"
+                        "Team: ",
+                        this.state.player.team
                       ),
                       _react2.default.createElement(
                         "div",
                         null,
-                        "College: UCLA"
+                        "College: ",
+                        this.state.player.college || ""
                       )
                     )
                   ),
@@ -48764,7 +48794,8 @@ var PlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "PPG 8.8"
+                        "PPG ",
+                        this.state.player.pts
                       )
                     ),
                     _react2.default.createElement(
@@ -48773,7 +48804,8 @@ var PlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "RPG 6.6"
+                        "RPG ",
+                        this.state.player.trb
                       )
                     ),
                     _react2.default.createElement(
@@ -48782,7 +48814,8 @@ var PlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "APG 6.8"
+                        "APG ",
+                        this.state.player.ast
                       )
                     ),
                     _react2.default.createElement(
@@ -48800,7 +48833,8 @@ var PlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "MPG 32.7"
+                        "MPG ",
+                        this.state.player.mpg
                       )
                     )
                   )
@@ -48811,7 +48845,8 @@ var PlayerInfo = function (_React$Component) {
           _react2.default.createElement(_PlayerTabs2.default, {
             players: this.props.players[0],
             teamStats: this.state.teamStats,
-            leagueStats: this.state.leagueStats
+            leagueStats: this.state.leagueStats,
+            player: this.state.player
           })
         )
       );
@@ -49020,7 +49055,6 @@ var PlayerRatings = function (_React$Component) {
         paddingLeft: "25px",
         color: "#ffc72c"
       };
-      console.log("Props in Rankings: \n", this.props.leagueStats);
       return _react2.default.createElement(
         "div",
         null,

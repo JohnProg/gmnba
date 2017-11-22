@@ -23,21 +23,25 @@ const mapDispatchToProps = dispatch => {
 };
 
 class PlayerInfo extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       teamStats: [],
-      leagueStats: []
+      leagueStats: [],
+      id: this.props.props.match.params.id,
+      player: {}
     };
     this.getRoster = this.getRoster.bind(this);
     this.getTeamStats = this.getTeamStats.bind(this);
     this.getLeagueStats = this.getLeagueStats.bind(this);
+    this.getPlayer = this.getPlayer.bind(this);
   }
 
   componentDidMount() {
     this.getRoster();
     this.getTeamStats();
     this.getLeagueStats();
+    this.getPlayer();
   }
 
   getRoster() {
@@ -64,7 +68,6 @@ class PlayerInfo extends React.Component {
         }
       })
       .then(data => {
-        console.log("TEAM STATS\n", data.data);
         this.setState({ teamStats: data.data });
       })
       .catch(err => {
@@ -76,7 +79,6 @@ class PlayerInfo extends React.Component {
     axios
       .get("/api/teams/getLeagueStats")
       .then(data => {
-        console.log("ALL LEAGUE TEAM STATS\n", data);
         this.setState({ leagueStats: data.data });
       })
       .catch(err => {
@@ -84,8 +86,21 @@ class PlayerInfo extends React.Component {
       });
   }
 
+  getPlayer() {
+    axios
+      .get(`/api/teams/getPlayerProfile/${this.state.id}`)
+      .then(data => {
+        console.log("PLAYER: \n", data.data);
+        this.setState({ player: data.data }, () => {
+          console.log(this.state);
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render() {
-    console.log(this.props.players[0]);
     return (
       <div>
         <div id="info-container-max">
@@ -94,35 +109,35 @@ class PlayerInfo extends React.Component {
               <div id="info">
                 <Col lg={3} id="pic-col">
                   <div id="info-pic-team">
-                    <img src="http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4066421.png&w=350&h=254" />
+                    <img src="http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3134907.png&w=350&h=254" />
                   </div>
                 </Col>
                 <Col lg={7}>
                   <div id="name-text">
-                    <div id="team-name">Lonzo Ball</div>
+                    <div id="team-name">{this.state.player.name}</div>
                     <div id="info-text">
-                      <div>Position: PG</div>
-                      <div>Age: 20</div>
-                      <div>Team: Los Angeles Lakers</div>
-                      <div>College: UCLA</div>
+                      <div>Position: {this.state.player.position}</div>
+                      <div>Age: {this.state.player.age}</div>
+                      <div>Team: {this.state.player.team}</div>
+                      <div>College: {this.state.player.college || ""}</div>
                     </div>
                   </div>
                   <hr id="info-text-break" />
                   <Row>
                     <Col lg={2}>
-                      <div>PPG 8.8</div>
+                      <div>PPG {this.state.player.pts}</div>
                     </Col>
                     <Col lg={2}>
-                      <div>RPG 6.6</div>
+                      <div>RPG {this.state.player.trb}</div>
                     </Col>
                     <Col lg={2}>
-                      <div>APG 6.8</div>
+                      <div>APG {this.state.player.ast}</div>
                     </Col>
                     <Col lg={2}>
                       <div>PER 9.72</div>
                     </Col>
                     <Col lg={2}>
-                      <div>MPG 32.7</div>
+                      <div>MPG {this.state.player.mpg}</div>
                     </Col>
                   </Row>
                 </Col>
@@ -133,6 +148,7 @@ class PlayerInfo extends React.Component {
             players={this.props.players[0]}
             teamStats={this.state.teamStats}
             leagueStats={this.state.leagueStats}
+            player={this.state.player}
           />
         </div>
       </div>

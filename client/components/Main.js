@@ -1,16 +1,18 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import LandingPage from "./LandingPage";
 //import TeamPage from "./TeamPage";
 import PlayerPage from "./PlayerPage";
 
 const Main = () => (
-  <main>
+  <BrowserRouter>
     <Switch>
       <Route exact path="/" component={PlayerPage} />
       <Route path="/team" component={LandingPage} />
+      <Route path="/team/:id" component={LandingPage} />
+      <Route path="/player/:id" component={PlayerPage} />
     </Switch>
-  </main>
+  </BrowserRouter>
 );
 
 export default Main;

@@ -194,7 +194,9 @@ const cPlayers = cdb.define("player", {
   blkPct: { type: Sequelize.STRING, allowNull: true },
   ows: { type: Sequelize.STRING, allowNull: true },
   wsFourtyEight: { type: Sequelize.STRING, allowNull: true },
-  bpm: { type: Sequelize.STRING, allowNull: true }
+  bpm: { type: Sequelize.STRING, allowNull: true },
+  hometown: { type: Sequelize.STRING, allowNull: true },
+  highschool: { type: Sequelize.STRING, allowNull: true }
 });
 
 // Players.sync({ force: true }).then(() => {
@@ -202,9 +204,9 @@ const cPlayers = cdb.define("player", {
 // });
 Players.sync();
 Teams.sync();
-cPlayers.sync({ force: true }).then(() => {
-  return cPlayers.bulkCreate([{ name: "Michael Griffin", position: "PG" }]);
-});
-//cPlayers.sync();
+// cPlayers.sync({ force: true }).then(() => {
+//   return cPlayers.bulkCreate([{ name: "Michael Griffin", position: "PG" }]);
+// });
+cPlayers.sync();
 
 module.exports = { Players, Teams, cPlayers };

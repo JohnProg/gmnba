@@ -9,7 +9,11 @@ export default class PlayersListEntry extends React.Component {
     console.log(this.props.player);
     return (
       <tr>
-        <td>{this.props.player.name}</td>
+        <td>
+          <a href={`/player/${this.props.player.id}`}>
+            {this.props.player.name}
+          </a>
+        </td>
         <td>{this.props.player.position}</td>
         <td>{this.props.player.experience}</td>
         <td>{this.props.player.height}</td>

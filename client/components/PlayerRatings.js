@@ -20,7 +20,6 @@ export default class PlayerRatings extends React.Component {
       paddingLeft: "25px",
       color: "#ffc72c"
     };
-    console.log("Props in Rankings: \n", this.props.leagueStats);
     return (
       <div>
         <Grid>

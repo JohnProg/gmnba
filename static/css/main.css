@@ -13,6 +13,9 @@ html {
   line-height: 1.8;
   background-color: #eeeeee !important;
 }
+a {
+  color: black !important;
+}
 img {
   max-width: 100%;
   max-height: 100%;

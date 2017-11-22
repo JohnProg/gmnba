@@ -10,7 +10,11 @@ export default class TeamPlayerEntry extends React.Component {
     return (
       <tr>
         <td>{this.props.player.position}</td>
-        <td>{this.props.player.name}</td>
+        <td>
+          <a href={`/player/${this.props.player.id}`}>
+            {this.props.player.name}
+          </a>
+        </td>
         <td>{this.props.player.pts}</td>
       </tr>
     );
