@@ -33117,10 +33117,10 @@ var Tabs = function (_React$Component) {
         team: this.props.team
       });
       var headerStyle = {
-        backgroundColor: this.props.team.Color_Main || "#000"
+        backgroundColor: this.props.team.Color_Main || "#002D62"
       };
       var tabColor = {
-        color: this.props.team.Color_Sec || "#007DC5"
+        color: this.props.team.Color_Sec || "#F05133"
       };
       //#C4D600
 
@@ -48560,7 +48560,7 @@ var TeamRatings = function (_React$Component) {
           type: "bar"
         },
         title: {
-          text: "Team Basic Ratings"
+          text: null
         },
         subtitle: {
           text: null
@@ -48625,7 +48625,7 @@ var TeamRatings = function (_React$Component) {
           className: "card",
           id: "container-rating",
           style: {
-            height: "250px",
+            height: "225px",
             minWidth: "600px",
             margin: "0 auto"
           }

@@ -34,10 +34,10 @@ export default class Tabs extends React.Component {
         />
       );
     var headerStyle = {
-      backgroundColor: this.props.team.Color_Main || "#000"
+      backgroundColor: this.props.team.Color_Main || "#002D62"
     };
     var tabColor = {
-      color: this.props.team.Color_Sec || "#007DC5"
+      color: this.props.team.Color_Sec || "#F05133"
     };
     //#C4D600
 

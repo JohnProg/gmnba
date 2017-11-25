@@ -328,12 +328,12 @@ module.exports = {
     db.Teams
       .update(
         {
-          Color_Main: "#000",
-          Color_Sec: "#007DC5",
-          Color_Third: "#C4CED4"
+          Color_Main: "#0C2340",
+          Color_Sec: "#F9A01B",
+          Color_Third: "#00471B"
         },
         {
-          where: { Name: "Dallas Mavericks" },
+          where: { Name: "Utah Jazz" },
           returning: true
         }
       )

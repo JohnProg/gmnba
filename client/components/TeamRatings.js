@@ -16,7 +16,7 @@ export default class TeamRatings extends React.Component {
         type: "bar"
       },
       title: {
-        text: "Team Basic Ratings"
+        text: null
       },
       subtitle: {
         text: null
@@ -94,7 +94,7 @@ export default class TeamRatings extends React.Component {
           className="card"
           id="container-rating"
           style={{
-            height: "250px",
+            height: "225px",
             minWidth: "600px",
             margin: "0 auto"
           }}
