@@ -8,7 +8,6 @@ export default class PlayerPage extends React.Component {
   }
 
   render() {
-    console.log("PROPS IN PLAYER PAGE: ", this.props);
     return (
       <div>
         <NavBar />

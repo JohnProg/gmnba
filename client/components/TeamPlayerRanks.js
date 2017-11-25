@@ -20,7 +20,6 @@ export default class TeamPlayerRanks extends React.Component {
   }
 
   render() {
-    console.log("Props in PlayerRank: ", this.props.players);
     return (
       <div>
         <Table striped hover>

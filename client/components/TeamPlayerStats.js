@@ -220,6 +220,14 @@ export default class TeamPlayerStats extends React.Component {
   }
 
   render() {
+    var headerStyle = {
+      backgroundColor: "#002B5C",
+      height: "50px",
+      lineHeight: "50px",
+      fontSize: "20px",
+      paddingLeft: "25px",
+      color: "#C6CFD4"
+    };
     return (
       <div>
         <Grid>
@@ -237,12 +245,24 @@ export default class TeamPlayerStats extends React.Component {
             </Col>
           </Row>
           <Row className="chart-row">
+            <Col lg={3} lgOffset={1}>
+              <div className="card">
+                <div style={headerStyle}>
+                  <div>Team Shares</div>
+                </div>
+              </div>
+            </Col>
+            <Col lg={3} lgOffset={2}>
+              <div className="card">
+                <div style={headerStyle}>
+                  <div>Player Rankings</div>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <Row className="chart-row">
             <Col lg={5} lgOffset={1}>
               <div className="card">
-                <div id="team-rankings-header">
-                  <div id="roster-header-text">Team Shares</div>
-                </div>
-
                 <div
                   id="container2"
                   style={{
@@ -252,12 +272,21 @@ export default class TeamPlayerStats extends React.Component {
               </div>
             </Col>
             <Col lg={5}>
-              <div className="card" id="team-player-ranks-container">
-                <div id="team-rankings-header">
-                  <div id="roster-header-text">Player Rankings</div>
-                </div>
-                <div style={{ height: "400px", backgroundColor: "#ffffff" }}>
+              <div className="card">
+                <div
+                  style={{ height: "400px", backgroundColor: "#ffffff" }}
+                  id="team-player-ranks-container"
+                >
                   <TeamPlayerRanks players={this.state.teamPlayers} />
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <Row className="chart-row">
+            <Col lg={3} lgOffset={1}>
+              <div className="card">
+                <div style={headerStyle}>
+                  <div>Player Averages</div>
                 </div>
               </div>
             </Col>

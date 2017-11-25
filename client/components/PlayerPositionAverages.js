@@ -52,14 +52,14 @@ export default class PlayerPositionAverages extends React.Component {
         {
           name: "Position Average",
           color: "#c2ced5",
-          data: [103, 73, 20, 82, 43, 48],
+          data: [17, 73, 20, 82, 43, 48],
           pointPadding: 0.3,
           pointPlacement: 0
         },
         {
           name: "Player Average",
           color: "#702f8a",
-          data: [108, 90, 40, 54, 87, 53],
+          data: [14.9, 90, 40, 54, 87, 53],
           pointPadding: 0.4,
           pointPlacement: 0
         }

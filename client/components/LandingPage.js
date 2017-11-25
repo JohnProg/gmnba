@@ -11,7 +11,7 @@ export default class LandingPage extends React.Component {
     return (
       <div>
         <NavBar />
-        <Info />
+        <Info props={this.props} />
       </div>
     );
   }

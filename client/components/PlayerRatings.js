@@ -5,10 +5,23 @@ import PlayerPositionAverages from "./PlayerPositionAverages";
 import TeamRatings from "./TeamRatings";
 import PlayerPolarArea from "./PlayerPolarArea";
 import PlayerPolarColumn from "./PlayerPolarColumn";
+import PlayerBarRatings from "./PlayerBarRatings";
+import axios from "axios";
 
 export default class PlayerRatings extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    axios
+      .put("/api/teams/loadTeamLogoColor")
+      .then(data => {
+        console.log("Team updated successfully");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -32,15 +45,15 @@ export default class PlayerRatings extends React.Component {
           </Row>
           <Row className="chart-row">
             <Col lg={5} lgOffset={1}>
-              <PlayerPolarColumn />
+              <PlayerPolarColumn player={this.props.player} />
             </Col>
             <Col lg={5}>
-              <PlayerPolarArea />
+              <PlayerPolarArea player={this.props.player} />
             </Col>
           </Row>
           <Row className="chart-row">
             <Col lg={8} lgOffset={2}>
-              <TeamRatings />
+              <PlayerBarRatings player={this.props.player} />
             </Col>
           </Row>
           <Row className="chart-row">
@@ -70,7 +83,7 @@ export default class PlayerRatings extends React.Component {
           </Row>
           <Row className="chart-row">
             <Col lg={10} lgOffset={1}>
-              <PlayerPositionAverages />
+              <PlayerPositionAverages player={this.props.player} />
             </Col>
           </Row>
         </Grid>

@@ -109,7 +109,7 @@ class PlayerInfo extends React.Component {
               <div id="info">
                 <Col lg={3} id="pic-col">
                   <div id="info-pic-team">
-                    <img src="http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3134907.png&w=350&h=254" />
+                    <img src="https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443" />
                   </div>
                 </Col>
                 <Col lg={7}>
@@ -119,11 +119,11 @@ class PlayerInfo extends React.Component {
                       <div>Position: {this.state.player.position}</div>
                       <div>Age: {this.state.player.age}</div>
                       <div>Team: {this.state.player.team}</div>
-                      <div>College: {this.state.player.college || ""}</div>
+                      <div>College: {this.state.player.college || "None"}</div>
                     </div>
                   </div>
                   <hr id="info-text-break" />
-                  <Row>
+                  <Row id="info-box-stats">
                     <Col lg={2}>
                       <div>PPG {this.state.player.pts}</div>
                     </Col>
@@ -134,7 +134,7 @@ class PlayerInfo extends React.Component {
                       <div>APG {this.state.player.ast}</div>
                     </Col>
                     <Col lg={2}>
-                      <div>PER 9.72</div>
+                      <div>PER {this.state.player.per || "N/A"}</div>
                     </Col>
                     <Col lg={2}>
                       <div>MPG {this.state.player.mpg}</div>

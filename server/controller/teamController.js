@@ -34,7 +34,7 @@ module.exports = {
   },
   getTeamsPlayers: (req, res) => {
     var team = req.query.team;
-    console.log(team);
+    console.log("TEAM:", team);
     db.Players
       .findAll({
         where: {
@@ -322,6 +322,26 @@ module.exports = {
       })
       .catch(err => {
         console.log(err);
+      });
+  },
+  loadTeamLogoColor: (req, res) => {
+    db.Teams
+      .update(
+        {
+          Color_Main: "#000",
+          Color_Sec: "#007DC5",
+          Color_Third: "#C4CED4"
+        },
+        {
+          where: { Name: "Dallas Mavericks" },
+          returning: true
+        }
+      )
+      .then(data => {
+        console.log("Team updated successfully");
+      })
+      .catch(err => {
+        console.log("Error updating team\n", err);
       });
   }
 };

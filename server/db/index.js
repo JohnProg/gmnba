@@ -132,7 +132,11 @@ const Teams = db.define("team", {
   oBLK: { type: Sequelize.STRING, allowNull: true },
   oTOV: { type: Sequelize.STRING, allowNull: true },
   oPF: { type: Sequelize.STRING, allowNull: true },
-  oPTS: { type: Sequelize.STRING, allowNull: true }
+  oPTS: { type: Sequelize.STRING, allowNull: true },
+  Logo: { type: Sequelize.STRING, allowNull: true },
+  Color_Main: { type: Sequelize.STRING, allowNull: true },
+  Color_Sec: { type: Sequelize.STRING, allowNull: true },
+  Color_Third: { type: Sequelize.STRING, allowNull: true }
 });
 
 // *************************************************
@@ -204,6 +208,9 @@ const cPlayers = cdb.define("player", {
 // });
 Players.sync();
 Teams.sync();
+// Teams.sync({ force: true }).then(() => {
+//   return Teams.bulkCreate([{ Name: "Los Angeles Griffins" }]);
+// });
 // cPlayers.sync({ force: true }).then(() => {
 //   return cPlayers.bulkCreate([{ name: "Michael Griffin", position: "PG" }]);
 // });

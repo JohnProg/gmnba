@@ -25,7 +25,12 @@ export default class PlayerTabs extends React.Component {
       component = <PlayerSeasonStats teamStats={this.props.teamStats} />;
     if (this.state.key === 3) component = <TeamPlayerStats />;
     if (this.state.key === 4)
-      component = <PlayerRatings leagueStats={this.props.leagueStats} />;
+      component = (
+        <PlayerRatings
+          leagueStats={this.props.leagueStats}
+          player={this.props.player}
+        />
+      );
 
     return (
       <div>

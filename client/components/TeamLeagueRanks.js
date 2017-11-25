@@ -10,13 +10,22 @@ export default class TeamLeagueRanks extends React.Component {
   }
 
   render() {
-    console.log("Props in Rankings: \n", this.props.leagueStats);
+    var headerStyle = {
+      backgroundColor: this.props.team.Color_Main || "#000",
+      height: "50px",
+      lineHeight: "50px",
+      fontSize: "20px",
+      paddingLeft: "25px",
+      color: this.props.team.Color_Sec || "#007DC5"
+    };
     return (
       <div>
         <Grid>
           <Row className="chart-row">
             <Col lg={3} lgOffset={1}>
-              <div className="card title-header">LEAGUE RANKINGS</div>
+              <div className="card" style={headerStyle}>
+                LEAGUE RANKINGS
+              </div>
             </Col>
           </Row>
           <Row className="chart-row">
@@ -25,13 +34,15 @@ export default class TeamLeagueRanks extends React.Component {
                 className="card"
                 style={{ height: "300px", backgroundColor: "white" }}
               >
-                <TeamRankGuages />
+                <TeamRankGuages team={this.props.team} />
               </div>
             </Col>
           </Row>
           <Row className="chart-row">
             <Col lg={3} lgOffset={1}>
-              <div className="card title-header">TEAM RATINGS</div>
+              <div className="card" style={headerStyle}>
+                TEAM RATINGS
+              </div>
             </Col>
           </Row>
           <Row className="chart-row">
@@ -41,7 +52,9 @@ export default class TeamLeagueRanks extends React.Component {
           </Row>
           <Row className="chart-row">
             <Col lg={3} lgOffset={1}>
-              <div className="card title-header">LEAGUE AVERAGES</div>
+              <div className="card" style={headerStyle}>
+                LEAGUE AVERAGES
+              </div>
             </Col>
           </Row>
           <Row className="chart-row">
