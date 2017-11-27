@@ -17,7 +17,13 @@ export default class PlayersList extends React.Component {
   }
 
   render() {
-    console.log("Props in PlayersList: ", this.props.players);
+    var headerStyle = {
+      lineHeight: "50px",
+      backgroundColor: this.props.team.Color_Main,
+      fontSize: "20px",
+      paddingLeft: "15px",
+      color: this.props.team.Color_Sec
+    };
     return (
       <div>
         <Grid>
@@ -25,7 +31,7 @@ export default class PlayersList extends React.Component {
             <Col lg={12}>
               <div className="card">
                 <div id="roster-header">
-                  <div id="roster-header-text">2017-18 TEAM ROSTER</div>
+                  <div style={headerStyle}>2017-18 TEAM ROSTER</div>
                 </div>
                 <Table striped hover>
                   <thead>

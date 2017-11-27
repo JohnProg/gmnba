@@ -128,7 +128,7 @@ export default class PlayerBarRatings extends React.Component {
         type: "bar"
       },
       title: {
-        text: "Team Basic Ratings"
+        text: null
       },
       subtitle: {
         text: null

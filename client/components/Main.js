@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import LandingPage from "./LandingPage";
 //import TeamPage from "./TeamPage";
 import PlayerPage from "./PlayerPage";
+import ScoutingPage from "./ScoutingPage";
 
 const Main = () => (
   <BrowserRouter>
@@ -10,6 +11,7 @@ const Main = () => (
       <Route exact path="/" component={PlayerPage} />
       <Route path="/team/:id" component={LandingPage} />
       <Route path="/player/:id" component={PlayerPage} />
+      <Route path="/scouting" component={ScoutingPage} />
     </Switch>
   </BrowserRouter>
 );

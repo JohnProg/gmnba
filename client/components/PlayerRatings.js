@@ -26,12 +26,12 @@ export default class PlayerRatings extends React.Component {
 
   render() {
     var headerStyle = {
-      backgroundColor: "#702f8a",
+      backgroundColor: this.props.colors.Color_Main,
       height: "50px",
       lineHeight: "50px",
       fontSize: "20px",
       paddingLeft: "25px",
-      color: "#ffc72c"
+      color: this.props.colors.Color_Sec
     };
     return (
       <div>
@@ -48,7 +48,10 @@ export default class PlayerRatings extends React.Component {
               <PlayerPolarColumn player={this.props.player} />
             </Col>
             <Col lg={5}>
-              <PlayerPolarArea player={this.props.player} />
+              <PlayerPolarArea
+                player={this.props.player}
+                colors={this.props.colors}
+              />
             </Col>
           </Row>
           <Row className="chart-row">
@@ -69,7 +72,7 @@ export default class PlayerRatings extends React.Component {
                 className="card"
                 style={{ height: "300px", backgroundColor: "white" }}
               >
-                <PlayerRankGauges />
+                <PlayerRankGauges colors={this.props.colors} />
               </div>
             </Col>
           </Row>

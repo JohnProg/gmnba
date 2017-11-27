@@ -4,14 +4,23 @@ import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
 export default class PlayerRankGuages extends React.Component {
   constructor() {
     super();
-    this.creatChart = this.creatChart.bind(this);
+    this.createChart = this.createChart.bind(this);
   }
 
   componentDidMount() {
-    this.creatChart();
+    //this.createChart();
   }
 
-  creatChart() {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.colors.Color_Main) {
+      this.setState({ colors: nextProps.colors }, () => {
+        this.createChart();
+        console.log("COLOR\n", nextProps.colors.Color_Main);
+      });
+    }
+  }
+
+  createChart() {
     var gaugeOptions = {
       chart: {
         type: "solidgauge"
@@ -43,9 +52,9 @@ export default class PlayerRankGuages extends React.Component {
       // the value axis
       yAxis: {
         stops: [
-          [0.1, "#702f8a"], // green
-          [0.5, "#702f8a"], // yellow
-          [0.9, "#702f8a"] // red
+          [0.1, `${this.state.colors.Color_Main}`], // green
+          [0.5, `${this.state.colors.Color_Main}`], // yellow
+          [0.9, `${this.state.colors.Color_Main}`] // red
         ],
         lineWidth: 0,
         minorTickInterval: null,
@@ -177,12 +186,18 @@ export default class PlayerRankGuages extends React.Component {
   }
 
   render() {
+    var statLabels = {
+      backgroundColor: this.props.colors.Color_Main,
+      color: this.props.colors.Color_Third || this.props.colors.Color_Sec
+    };
     return (
       <div>
         <Row className="chart-row">
           <Col lg={4}>
             <div className="gauge-header-div">
-              <div className="card guage-header lakers">PTS</div>
+              <div className="card guage-header" style={statLabels}>
+                PTS
+              </div>
             </div>
             <div
               id="container"
@@ -194,7 +209,9 @@ export default class PlayerRankGuages extends React.Component {
           </Col>
           <Col lg={4}>
             <div className="gauge-header-div">
-              <div className="card guage-header lakers">TRB</div>
+              <div className="card guage-header" style={statLabels}>
+                TRB
+              </div>
             </div>
             <div
               id="container2"
@@ -206,7 +223,9 @@ export default class PlayerRankGuages extends React.Component {
           </Col>
           <Col lg={4}>
             <div className="gauge-header-div">
-              <div className="card guage-header lakers">DRTG</div>
+              <div className="card guage-header" style={statLabels}>
+                DRTG
+              </div>
             </div>
             <div
               id="container3"

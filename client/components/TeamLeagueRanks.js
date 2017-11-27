@@ -11,20 +11,20 @@ export default class TeamLeagueRanks extends React.Component {
 
   render() {
     var headerStyle = {
-      backgroundColor: this.props.team.Color_Main || "#000",
-      height: "50px",
-      lineHeight: "50px",
+      backgroundColor: this.props.team.Color_Main || "#eee",
+      height: "45px",
+      lineHeight: "45px",
       fontSize: "20px",
-      paddingLeft: "25px",
-      color: this.props.team.Color_Sec || "#007DC5"
+      paddingLeft: "20px",
+      color: this.props.team.Color_Sec || "#000"
     };
     return (
       <div>
         <Grid>
           <Row className="chart-row">
             <Col lg={3} lgOffset={1}>
-              <div className="card" style={headerStyle}>
-                LEAGUE RANKINGS
+              <div className="card header" style={headerStyle}>
+                League Rankings
               </div>
             </Col>
           </Row>
@@ -34,32 +34,38 @@ export default class TeamLeagueRanks extends React.Component {
                 className="card"
                 style={{ height: "300px", backgroundColor: "white" }}
               >
-                <TeamRankGuages team={this.props.team} />
+                <TeamRankGuages
+                  team={this.props.team}
+                  league={this.props.leagueStats}
+                />
               </div>
             </Col>
           </Row>
           <Row className="chart-row">
             <Col lg={3} lgOffset={1}>
-              <div className="card" style={headerStyle}>
-                TEAM RATINGS
+              <div className="card header" style={headerStyle}>
+                Team Ratings
               </div>
             </Col>
           </Row>
           <Row className="chart-row">
             <Col lg={10} lgOffset={1}>
-              <TeamRatings />
+              <TeamRatings team={this.props.team} />
             </Col>
           </Row>
           <Row className="chart-row">
             <Col lg={3} lgOffset={1}>
-              <div className="card" style={headerStyle}>
-                LEAGUE AVERAGES
+              <div className="card header" style={headerStyle}>
+                League Averages
               </div>
             </Col>
           </Row>
           <Row className="chart-row">
             <Col lg={10} lgOffset={1}>
-              <TeamAverageComparison />
+              <TeamAverageComparison
+                team={this.props.team}
+                league={this.props.leagueStats}
+              />
             </Col>
           </Row>
         </Grid>

@@ -29,12 +29,14 @@ class PlayerInfo extends React.Component {
       teamStats: [],
       leagueStats: [],
       id: this.props.props.match.params.id,
-      player: {}
+      player: {},
+      colors: {}
     };
     this.getRoster = this.getRoster.bind(this);
     this.getTeamStats = this.getTeamStats.bind(this);
     this.getLeagueStats = this.getLeagueStats.bind(this);
     this.getPlayer = this.getPlayer.bind(this);
+    this.getTeamColors = this.getTeamColors.bind(this);
   }
 
   componentDidMount() {
@@ -91,9 +93,23 @@ class PlayerInfo extends React.Component {
       .get(`/api/teams/getPlayerProfile/${this.state.id}`)
       .then(data => {
         console.log("PLAYER: \n", data.data);
+        this.getTeamColors(data.data.team);
         this.setState({ player: data.data }, () => {
           console.log(this.state);
         });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  getTeamColors(team) {
+    console.log('PLAYER"S TEAM: ', team);
+    axios
+      .get(`api/teams/getTeamColors/${team}`)
+      .then(data => {
+        console.log("COLORS??\n", data.data);
+        this.setState({ colors: data.data });
       })
       .catch(err => {
         console.log(err);
@@ -149,6 +165,7 @@ class PlayerInfo extends React.Component {
             teamStats={this.state.teamStats}
             leagueStats={this.state.leagueStats}
             player={this.state.player}
+            colors={this.state.colors}
           />
         </div>
       </div>

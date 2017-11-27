@@ -19,13 +19,15 @@ export default class Tabs extends React.Component {
   }
 
   render() {
-    console.log("PROPS IN TABS\n", this.props);
     let component;
     if (this.state.key === 1)
-      component = <PlayersList players={this.props.players} />;
+      component = (
+        <PlayersList players={this.props.players} team={this.props.team} />
+      );
     if (this.state.key === 2)
       component = <TeamStats teamStats={this.props.teamStats} />;
-    if (this.state.key === 3) component = <TeamPlayerStats />;
+    if (this.state.key === 3)
+      component = <TeamPlayerStats team={this.props.team} />;
     if (this.state.key === 4)
       component = (
         <TeamLeagueRanks
@@ -34,10 +36,10 @@ export default class Tabs extends React.Component {
         />
       );
     var headerStyle = {
-      backgroundColor: this.props.team.Color_Main || "#002D62"
+      backgroundColor: this.props.team.Color_Main || "#fff"
     };
     var tabColor = {
-      color: this.props.team.Color_Sec || "#F05133"
+      color: this.props.team.Color_Sec || "#000"
     };
     //#C4D600
 
@@ -52,22 +54,34 @@ export default class Tabs extends React.Component {
             onSelect={this.handleSelect}
           >
             <NavItem eventKey={1} href="/">
-              <span style={tabColor}>ROSTER</span>
+              <span style={tabColor} className="tab-text">
+                ROSTER
+              </span>
             </NavItem>
             <NavItem eventKey={2} href="/">
-              <span style={tabColor}>SEASON</span>
+              <span style={tabColor} className="tab-text">
+                SEASON
+              </span>
             </NavItem>
             <NavItem eventKey={3} href="/">
-              <span style={tabColor}>PLAYERS</span>
+              <span style={tabColor} className="tab-text">
+                PLAYERS
+              </span>
             </NavItem>
             <NavItem eventKey={4} href="/">
-              <span style={tabColor}>RANKINGS</span>
+              <span style={tabColor} className="tab-text">
+                RANKINGS
+              </span>
             </NavItem>
             <NavItem eventKey={5} title="Item">
-              <span style={tabColor}>LINEUP</span>
+              <span style={tabColor} className="tab-text">
+                LINEUP
+              </span>
             </NavItem>
             <NavItem eventKey={6} title="Item">
-              <span style={tabColor}>SCHEDULE</span>
+              <span style={tabColor} className="tab-text">
+                SCHEDULE
+              </span>
             </NavItem>
           </Nav>
         </div>

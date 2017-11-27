@@ -11,7 +11,6 @@ export default class TeamPlayerStats extends React.Component {
       data: [],
       statOne: "pts",
       statTwo: "mpg",
-      team: "San Antonio Spurs",
       position: "All",
       teamPlayers: []
     };
@@ -24,7 +23,7 @@ export default class TeamPlayerStats extends React.Component {
     axios
       .get("/api/teams/getPlayerStats", {
         params: {
-          team: this.state.team,
+          team: this.props.team.Name,
           position: this.state.position,
           statOne: this.state.statOne,
           statTwo: this.state.statTwo
@@ -43,7 +42,7 @@ export default class TeamPlayerStats extends React.Component {
           scatterData.push({
             data: [[playerData[j].mpg, playerData[j].pts]],
             name: playerData[j].name,
-            color: "rgb(0, 0, 0, .75)",
+            color: this.props.team.Color_Main,
             _symbolIndex: 0
           });
         }
@@ -64,7 +63,7 @@ export default class TeamPlayerStats extends React.Component {
         zoomType: "xy"
       },
       title: {
-        text: `Player Stats ${this.state.team}`
+        text: `Player Stats ${this.props.team.Name}`
       },
       subtitle: {
         text: "Players Averaging Over 5 MPG"
@@ -221,12 +220,12 @@ export default class TeamPlayerStats extends React.Component {
 
   render() {
     var headerStyle = {
-      backgroundColor: "#002B5C",
-      height: "50px",
-      lineHeight: "50px",
+      backgroundColor: this.props.team.Color_Main,
+      height: "45px",
+      lineHeight: "45px",
       fontSize: "20px",
       paddingLeft: "25px",
-      color: "#C6CFD4"
+      color: this.props.team.Color_Sec
     };
     return (
       <div>

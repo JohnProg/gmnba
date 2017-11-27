@@ -40,7 +40,6 @@ class Info extends React.Component {
     this.getTeam();
     this.getLeagueStats();
     //this.getRoster();
-    console.log("PROPS ON MOUNT: ", this.props);
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -55,7 +54,6 @@ class Info extends React.Component {
 
   getRoster() {
     var team = this.state.team.Name;
-    console.log("get roster fired! TEAM: ", team);
     axios
       .get("/api/teams/getTeamsPlayers", {
         params: {
@@ -73,10 +71,8 @@ class Info extends React.Component {
     axios
       .get(`/api/teams/getTeamProfile/${this.state.teamId}`)
       .then(data => {
-        console.log("TEAM: \n", data.data);
         this.setState({ team: data.data }, () => {
           this.getRoster();
-          console.log("TEAM STATE: ", this.state);
         });
       })
       .catch(err => {
@@ -88,7 +84,6 @@ class Info extends React.Component {
     axios
       .get("/api/teams/getLeagueStats")
       .then(data => {
-        console.log("ALL LEAGUE TEAM STATS\n", data);
         this.setState({ leagueStats: data.data });
       })
       .catch(err => {
@@ -97,7 +92,6 @@ class Info extends React.Component {
   }
 
   render() {
-    console.log("props in info", this.props);
     return (
       <div>
         <div id="info-container-max">

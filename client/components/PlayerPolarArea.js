@@ -12,10 +12,13 @@ export default class PlayerPolarArea extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.player.name) {
-      this.setState({ player: nextProps.player }, () => {
-        this.calculateGrades();
-        //this.createChart();
-      });
+      this.setState(
+        { player: nextProps.player, colors: nextProps.colors },
+        () => {
+          this.calculateGrades();
+          //this.createChart();
+        }
+      );
     }
   }
 
@@ -169,7 +172,7 @@ export default class PlayerPolarArea extends React.Component {
             this.state.stl.Grade
           ],
           pointPlacement: "on",
-          color: "#702f8a"
+          color: `${this.state.colors.Color_Main}`
         }
       ]
     });

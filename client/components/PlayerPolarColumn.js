@@ -20,14 +20,13 @@ export default class PlayerPolarColumn extends React.Component {
   }
 
   calculateGrades() {
-    console.log("CALC STATE", this.state.player);
     var highPoints = 29;
     var highAst = 11;
     var highReb = 15;
     var highStl = 2.5;
     var highBlk = 2.5;
     var highFT = 0.93;
-    var highThree = 0.53;
+    var highThree = 0.5;
     var highTwo = 0.88;
 
     var scoring = this.getGrade(highPoints, this.state.player.pts, 0);

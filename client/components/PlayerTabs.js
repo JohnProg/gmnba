@@ -20,6 +20,7 @@ export default class PlayerTabs extends React.Component {
   }
 
   render() {
+    console.log("PLAYER TABS Colors: ", this.props.colors);
     let component;
     if (this.state.key === 2)
       component = <PlayerSeasonStats teamStats={this.props.teamStats} />;
@@ -29,32 +30,40 @@ export default class PlayerTabs extends React.Component {
         <PlayerRatings
           leagueStats={this.props.leagueStats}
           player={this.props.player}
+          colors={this.props.colors}
         />
       );
+    var headerStyle = {
+      backgroundColor: this.props.colors.Color_Main
+    };
+    var tabColor = {
+      color: this.props.colors.Color_Sec
+    };
 
     return (
       <div>
         <div className="card">
           <Nav
+            style={headerStyle}
             bsStyle="pills"
             justified
             activeKey={this.state.key}
             onSelect={this.handleSelect}
           >
-            <NavItem eventKey={2} href="/" className="lakers">
-              SEASON
+            <NavItem eventKey={2} href="/">
+              <span style={tabColor}>SEASON</span>
             </NavItem>
-            <NavItem eventKey={3} href="/" className="lakers">
-              CAREER
+            <NavItem eventKey={3} href="/">
+              <span style={tabColor}>CAREER</span>
             </NavItem>
-            <NavItem eventKey={4} href="/" className="lakers">
-              RATINGS
+            <NavItem eventKey={4} href="/">
+              <span style={tabColor}>RATINGS</span>
             </NavItem>
-            <NavItem eventKey={5} href="/" className="lakers">
-              PROJECTION
+            <NavItem eventKey={5} href="/">
+              <span style={tabColor}>PROJECTION</span>
             </NavItem>
-            <NavItem eventKey={6} title="Item" className="lakers">
-              VIDEOS
+            <NavItem eventKey={6} title="Item">
+              <span style={tabColor}>VIDEOS</span>
             </NavItem>
           </Nav>
         </div>

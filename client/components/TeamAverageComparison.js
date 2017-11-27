@@ -4,10 +4,47 @@ export default class TeamAverageComparison extends React.Component {
   constructor() {
     super();
     this.createChart = this.createChart.bind(this);
+    this.getLeagueAverage = this.getLeagueAverage.bind(this);
   }
 
-  componentDidMount() {
-    this.createChart();
+  componentDidMount() {}
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.team) {
+      this.setState({ team: nextProps.team, league: nextProps.league }, () => {
+        if (this.state.league) {
+          var pointAvg = this.getLeagueAverage("PTS");
+          var rebAvg = this.getLeagueAverage("TRB");
+          var astAvg = this.getLeagueAverage("AST");
+          var stlAvg = this.getLeagueAverage("STL");
+          var blkAvg = this.getLeagueAverage("BLK");
+          var shotAvg = this.getLeagueAverage("FG_PCT");
+          this.setState(
+            {
+              avgPTS: pointAvg,
+              avgREB: rebAvg,
+              avgAST: astAvg,
+              avgSTL: stlAvg,
+              avgBLK: blkAvg,
+              avgSHOT: shotAvg
+            },
+            () => {
+              this.createChart();
+            }
+          );
+        }
+      });
+    }
+  }
+
+  getLeagueAverage(stat) {
+    var count = 0;
+    var teamsCount = 30;
+    this.state.league.forEach(team => {
+      count += parseFloat(team[stat]);
+    });
+    var average = count / teamsCount;
+    return average.toFixed(2);
   }
 
   createChart() {
@@ -16,16 +53,19 @@ export default class TeamAverageComparison extends React.Component {
         type: "column"
       },
       title: {
-        text: "Team Vs League Averages"
+        text: `${this.state.team.Name} Vs League Averages`
       },
       xAxis: {
-        categories: ["Pts", "ORtg", "DRtg", "Trb", "Ast", "3P"]
+        categories: ["Pts", "Reb", "Ast", "Stl", "Blk", "Shot %"]
       },
       yAxis: [
         {
           min: 0,
           title: {
             text: "League Averages"
+          },
+          labels: {
+            enabled: false
           }
         },
         {
@@ -52,14 +92,28 @@ export default class TeamAverageComparison extends React.Component {
         {
           name: "League Average",
           color: "#c2ced5",
-          data: [103, 73, 20, 82, 43, 48],
+          data: [
+            parseFloat(this.state.avgPTS),
+            parseFloat(this.state.avgREB),
+            parseFloat(this.state.avgAST) * 2,
+            parseFloat(this.state.avgSTL) * 5,
+            parseFloat(this.state.avgBLK) * 5,
+            parseFloat(this.state.avgSHOT) * 100
+          ],
           pointPadding: 0.3,
           pointPlacement: 0
         },
         {
           name: "Team Average",
-          color: "#000000",
-          data: [108, 90, 40, 54, 87, 53],
+          color: `${this.state.team.Color_Main}`,
+          data: [
+            parseFloat(this.state.team.PTS),
+            parseFloat(this.state.team.TRB),
+            parseFloat(this.state.team.AST) * 2,
+            parseFloat(this.state.team.STL) * 5,
+            parseFloat(this.state.team.BLK) * 5,
+            parseFloat(this.state.team.FG_PCT) * 100
+          ],
           pointPadding: 0.4,
           pointPlacement: 0
         }

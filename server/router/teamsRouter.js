@@ -17,5 +17,6 @@ router.get("/renderTeamProfile", controller.renderTeamProfile);
 router.get("/getPlayerProfile/:id", controller.getPlayerProfile);
 router.get("/getTeamProfile/:id", controller.getTeamProfile);
 router.put("/loadTeamLogoColor", controller.loadTeamLogoColor);
+router.get("/getTeamColors/:team", controller.getTeamColors);
 
 module.exports = router;

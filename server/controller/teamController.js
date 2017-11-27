@@ -343,5 +343,18 @@ module.exports = {
       .catch(err => {
         console.log("Error updating team\n", err);
       });
+  },
+  getTeamColors: (req, res) => {
+    db.Teams
+      .findOne({
+        where: { Name: req.params.team },
+        attributes: ["Color_Main", "Color_Sec", "Color_Third"]
+      })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
