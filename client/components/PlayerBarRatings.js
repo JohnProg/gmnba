@@ -20,7 +20,6 @@ export default class PlayerBarRatings extends React.Component {
   }
 
   calculateGrades() {
-    console.log("CALC STATE", this.state.player);
     var highPoints = 29;
     var highAst = 11;
     var highReb = 15;
@@ -54,7 +53,6 @@ export default class PlayerBarRatings extends React.Component {
         twoPoint: twoPoint
       },
       () => {
-        console.log("STATE", this.state);
         this.createChart();
       }
     );

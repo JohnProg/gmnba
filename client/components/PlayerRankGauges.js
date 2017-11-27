@@ -15,7 +15,6 @@ export default class PlayerRankGuages extends React.Component {
     if (nextProps.colors.Color_Main) {
       this.setState({ colors: nextProps.colors }, () => {
         this.createChart();
-        console.log("COLOR\n", nextProps.colors.Color_Main);
       });
     }
   }

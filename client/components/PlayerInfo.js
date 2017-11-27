@@ -92,11 +92,8 @@ class PlayerInfo extends React.Component {
     axios
       .get(`/api/teams/getPlayerProfile/${this.state.id}`)
       .then(data => {
-        console.log("PLAYER: \n", data.data);
         this.getTeamColors(data.data.team);
-        this.setState({ player: data.data }, () => {
-          console.log(this.state);
-        });
+        this.setState({ player: data.data }, () => {});
       })
       .catch(err => {
         console.log(err);
@@ -104,11 +101,9 @@ class PlayerInfo extends React.Component {
   }
 
   getTeamColors(team) {
-    console.log('PLAYER"S TEAM: ', team);
     axios
       .get(`api/teams/getTeamColors/${team}`)
       .then(data => {
-        console.log("COLORS??\n", data.data);
         this.setState({ colors: data.data });
       })
       .catch(err => {

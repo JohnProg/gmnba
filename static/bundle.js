@@ -33028,7 +33028,6 @@ var Info = function (_React$Component) {
           _react2.default.createElement(_Tabs2.default, {
             team: this.state.team,
             players: this.props.players[0],
-            teamStats: this.state.teamStats,
             leagueStats: this.state.leagueStats
           })
         )
@@ -33109,7 +33108,7 @@ var Tabs = function (_React$Component) {
     value: function render() {
       var component = void 0;
       if (this.state.key === 1) component = _react2.default.createElement(_PlayersList2.default, { players: this.props.players, team: this.props.team });
-      if (this.state.key === 2) component = _react2.default.createElement(_TeamStats2.default, { teamStats: this.props.teamStats });
+      if (this.state.key === 2) component = _react2.default.createElement(_TeamStats2.default, { team: this.props.team });
       if (this.state.key === 3) component = _react2.default.createElement(_TeamPlayerStats2.default, { team: this.props.team });
       if (this.state.key === 4) component = _react2.default.createElement(_TeamLeagueRanks2.default, {
         leagueStats: this.props.leagueStats,
@@ -46819,7 +46818,15 @@ var TeamStats = function (_React$Component) {
   _createClass(TeamStats, [{
     key: "render",
     value: function render() {
-      var stat = this.props.teamStats[0];
+      console.log(this.props.team);
+      var headerStyle = {
+        lineHeight: "50px",
+        backgroundColor: this.props.team.Color_Main,
+        fontSize: "20px",
+        paddingLeft: "15px",
+        color: this.props.team.Color_Sec
+      };
+      var stat = this.props.team;
       return _react2.default.createElement(
         "div",
         null,
@@ -46840,7 +46847,7 @@ var TeamStats = function (_React$Component) {
                   { id: "roster-header" },
                   _react2.default.createElement(
                     "div",
-                    { id: "roster-header-text" },
+                    { style: headerStyle },
                     "2017-18 TEAM STATS"
                   )
                 ),
@@ -47101,7 +47108,7 @@ var TeamStats = function (_React$Component) {
                   { id: "roster-header" },
                   _react2.default.createElement(
                     "div",
-                    { id: "roster-header-text" },
+                    { style: headerStyle },
                     "2017-18 TEAM ADVANCED STATS"
                   )
                 ),
@@ -47373,6 +47380,8 @@ var TeamPlayerStats = function (_React$Component) {
       teamPlayers: []
     };
     _this.createChart = _this.createChart.bind(_this);
+    _this.getPlayerShare = _this.getPlayerShare.bind(_this);
+    _this.getColumnData = _this.getColumnData.bind(_this);
     return _this;
   }
 
@@ -47391,7 +47400,6 @@ var TeamPlayerStats = function (_React$Component) {
           statTwo: this.state.statTwo
         }
       }).then(function (data) {
-        console.log("GETPLAYER STATS\n", data.data);
         var data = data.data;
         for (var i = 0; i < data.length; i++) {
           if (parseInt(data[i]["mpg"]) >= 5) {
@@ -47408,12 +47416,48 @@ var TeamPlayerStats = function (_React$Component) {
           });
         }
         _this2.setState({ data: scatterData }, function () {
-          _this2.createChart();
-          console.log("PLAYERS: ", _this2.state.teamPlayers);
+          _this2.getColumnData("pts");
+          _this2.getPlayerShare("mpg");
+          //this.createChart();
         });
       }).catch(function (err) {
         console.log(err);
       });
+    }
+  }, {
+    key: "getPlayerShare",
+    value: function getPlayerShare(stat) {
+      var _this3 = this;
+
+      var numPlayers = this.state.teamPlayers.length;
+      var total = 0;
+      var pieData = [];
+      if (this.state.teamPlayers) {
+        for (var i = 0; i < this.state.teamPlayers.length; i++) {
+          total += parseFloat(this.state.teamPlayers[i][stat]);
+        }
+        for (var j = 0; j < this.state.teamPlayers.length; j++) {
+          //var player = [];
+          var pct = this.state.teamPlayers[j][stat] / total * 100;
+          var player = [this.state.teamPlayers[j].name, parseFloat(pct.toFixed(1))];
+          pieData.push(player);
+        }
+      }
+      this.setState({ pieData: pieData }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getColumnData",
+    value: function getColumnData(stat) {
+      var columnData = [];
+      if (this.state.teamPlayers) {
+        for (var i = 0; i < this.state.teamPlayers.length; i++) {
+          var player = [this.state.teamPlayers[i].name, parseFloat(this.state.teamPlayers[i][stat])];
+          columnData.push(player);
+        }
+      }
+      this.setState({ columnData: columnData });
     }
   }, {
     key: "createChart",
@@ -47508,14 +47552,8 @@ var TeamPlayerStats = function (_React$Component) {
           }
         },
         series: [{
-          type: "pie",
-          name: "Browser share",
-          data: [["Firefox", 45.0], ["IE", 26.8], {
-            name: "Chrome",
-            y: 12.8,
-            sliced: true,
-            selected: true
-          }, ["Safari", 8.5], ["Opera", 6.2], ["Others", 0.7]]
+          name: "Team Share",
+          data: this.state.pieData
         }]
       });
 
@@ -47532,7 +47570,7 @@ var TeamPlayerStats = function (_React$Component) {
           }
         },
         title: {
-          text: "Player Stat Averages"
+          text: this.props.team.Name + " Stat Averages"
         },
         subtitle: {
           text: ""
@@ -47543,11 +47581,9 @@ var TeamPlayerStats = function (_React$Component) {
           }
         },
         series: [{
-          data: [{
-            name: "LeMarcus Aldridge",
-            y: 84.3,
-            color: "rgb(0, 0, 0, .75)"
-          }, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+          name: "Pts",
+          color: "" + this.props.team.Color_Main,
+          data: this.state.columnData
         }]
       });
     }
@@ -47600,7 +47636,7 @@ var TeamPlayerStats = function (_React$Component) {
                   _react2.default.createElement(
                     "div",
                     null,
-                    "Team Shares"
+                    "Team Shares - MPG"
                   )
                 )
               )
@@ -47617,7 +47653,7 @@ var TeamPlayerStats = function (_React$Component) {
                   _react2.default.createElement(
                     "div",
                     null,
-                    "Player Rankings"
+                    "Team Leaders - PTS"
                   )
                 )
               )
@@ -47672,7 +47708,7 @@ var TeamPlayerStats = function (_React$Component) {
                   _react2.default.createElement(
                     "div",
                     null,
-                    "Player Averages"
+                    "Player Averages - PTS"
                   )
                 )
               )
@@ -47940,7 +47976,6 @@ var TeamPlayerEntry = function (_React$Component) {
   _createClass(TeamPlayerEntry, [{
     key: "render",
     value: function render() {
-      console.log(this.props.player);
       return _react2.default.createElement(
         "tr",
         null,
@@ -48187,7 +48222,6 @@ var TeamRankGuages = function (_React$Component) {
             trbRank: trbRank,
             astRank: astRank
           }, function () {
-            console.log(_this2.state);
             _this2.createChart();
           });
         });
@@ -49024,11 +49058,8 @@ var PlayerInfo = function (_React$Component) {
       var _this5 = this;
 
       _axios2.default.get("/api/teams/getPlayerProfile/" + this.state.id).then(function (data) {
-        console.log("PLAYER: \n", data.data);
         _this5.getTeamColors(data.data.team);
-        _this5.setState({ player: data.data }, function () {
-          console.log(_this5.state);
-        });
+        _this5.setState({ player: data.data }, function () {});
       }).catch(function (err) {
         console.log(err);
       });
@@ -49038,9 +49069,7 @@ var PlayerInfo = function (_React$Component) {
     value: function getTeamColors(team) {
       var _this6 = this;
 
-      console.log('PLAYER"S TEAM: ', team);
       _axios2.default.get("api/teams/getTeamColors/" + team).then(function (data) {
-        console.log("COLORS??\n", data.data);
         _this6.setState({ colors: data.data });
       }).catch(function (err) {
         console.log(err);
@@ -49259,7 +49288,6 @@ var PlayerTabs = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log("PLAYER TABS Colors: ", this.props.colors);
       var component = void 0;
       if (this.state.key === 2) component = _react2.default.createElement(_PlayerSeasonStats2.default, { teamStats: this.props.teamStats });
       if (this.state.key === 3) component = _react2.default.createElement(_TeamPlayerStats2.default, null);
@@ -49412,17 +49440,40 @@ var PlayerRatings = function (_React$Component) {
   function PlayerRatings(props) {
     _classCallCheck(this, PlayerRatings);
 
-    return _possibleConstructorReturn(this, (PlayerRatings.__proto__ || Object.getPrototypeOf(PlayerRatings)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (PlayerRatings.__proto__ || Object.getPrototypeOf(PlayerRatings)).call(this, props));
+
+    _this.getPositionStats = _this.getPositionStats.bind(_this);
+    return _this;
   }
 
   _createClass(PlayerRatings, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      _axios2.default.put("/api/teams/loadTeamLogoColor").then(function (data) {
-        console.log("Team updated successfully");
-      }).catch(function (err) {
-        console.log(err);
-      });
+      // axios
+      //   .put("/api/teams/loadTeamLogoColor")
+      //   .then(data => {
+      //     console.log("Team updated successfully");
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //   });
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      var _this2 = this;
+
+      if (nextProps.player.name) {
+        this.setState({ player: nextProps.player }, function () {
+          _this2.getPositionStats(_this2.state.player.position);
+          //this.createChart();
+        });
+      }
+    }
+  }, {
+    key: "getPositionStats",
+    value: function getPositionStats(position) {
+      console.log("position: ", position);
     }
   }, {
     key: "render",
@@ -49528,7 +49579,10 @@ var PlayerRatings = function (_React$Component) {
             _react2.default.createElement(
               _reactBootstrap.Col,
               { lg: 10, lgOffset: 1 },
-              _react2.default.createElement(_PlayerPositionAverages2.default, { player: this.props.player })
+              _react2.default.createElement(_PlayerPositionAverages2.default, {
+                player: this.props.player,
+                colors: this.props.colors
+              })
             )
           )
         )
@@ -49593,7 +49647,6 @@ var PlayerRankGuages = function (_React$Component) {
       if (nextProps.colors.Color_Main) {
         this.setState({ colors: nextProps.colors }, function () {
           _this2.createChart();
-          console.log("COLOR\n", nextProps.colors.Color_Main);
         });
       }
     }
@@ -49873,7 +49926,6 @@ var PlayerPolarArea = function (_React$Component) {
     value: function calculateGrades() {
       var _this3 = this;
 
-      console.log("CALC STATE", this.state.player);
       var highPoints = 29;
       var highAst = 11;
       var highReb = 15;
@@ -49899,7 +49951,6 @@ var PlayerPolarArea = function (_React$Component) {
         blk: blk,
         threePoint: threePoint
       }, function () {
-        console.log("STATE", _this3.state);
         _this3.createChart();
       });
     }
@@ -50114,7 +50165,6 @@ var PlayerPolarColumn = function (_React$Component) {
         threePoint: threePoint,
         twoPoint: twoPoint
       }, function () {
-        console.log("STATE", _this3.state);
         _this3.createChart();
       });
     }
@@ -50184,7 +50234,6 @@ var PlayerPolarColumn = function (_React$Component) {
   }, {
     key: "createChart",
     value: function createChart() {
-      console.log("creating chart!!");
       var chart = Highcharts.chart("container-column", {
         chart: {
           polar: true,
@@ -50391,7 +50440,7 @@ var PlayerPositionAverages = function (_React$Component) {
           pointPlacement: 0
         }, {
           name: "Player Average",
-          color: "#702f8a",
+          color: "" + this.props.colors.Color_Main,
           data: [14.9, 90, 40, 54, 87, 53],
           pointPadding: 0.4,
           pointPlacement: 0
@@ -51023,7 +51072,6 @@ var PlayerBarRatings = function (_React$Component) {
     value: function calculateGrades() {
       var _this3 = this;
 
-      console.log("CALC STATE", this.state.player);
       var highPoints = 29;
       var highAst = 11;
       var highReb = 15;
@@ -51051,7 +51099,6 @@ var PlayerBarRatings = function (_React$Component) {
         threePoint: threePoint,
         twoPoint: twoPoint
       }, function () {
-        console.log("STATE", _this3.state);
         _this3.createChart();
       });
     }

@@ -11,17 +11,31 @@ import axios from "axios";
 export default class PlayerRatings extends React.Component {
   constructor(props) {
     super(props);
+    this.getPositionStats = this.getPositionStats.bind(this);
   }
 
   componentDidMount() {
-    axios
-      .put("/api/teams/loadTeamLogoColor")
-      .then(data => {
-        console.log("Team updated successfully");
-      })
-      .catch(err => {
-        console.log(err);
+    // axios
+    //   .put("/api/teams/loadTeamLogoColor")
+    //   .then(data => {
+    //     console.log("Team updated successfully");
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.player.name) {
+      this.setState({ player: nextProps.player }, () => {
+        this.getPositionStats(this.state.player.position);
+        //this.createChart();
       });
+    }
+  }
+
+  getPositionStats(position) {
+    console.log("position: ", position);
   }
 
   render() {
@@ -86,7 +100,10 @@ export default class PlayerRatings extends React.Component {
           </Row>
           <Row className="chart-row">
             <Col lg={10} lgOffset={1}>
-              <PlayerPositionAverages player={this.props.player} />
+              <PlayerPositionAverages
+                player={this.props.player}
+                colors={this.props.colors}
+              />
             </Col>
           </Row>
         </Grid>

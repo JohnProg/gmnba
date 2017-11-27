@@ -20,7 +20,6 @@ export default class PlayerTabs extends React.Component {
   }
 
   render() {
-    console.log("PLAYER TABS Colors: ", this.props.colors);
     let component;
     if (this.state.key === 2)
       component = <PlayerSeasonStats teamStats={this.props.teamStats} />;

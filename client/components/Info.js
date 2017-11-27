@@ -139,7 +139,6 @@ class Info extends React.Component {
           <Tabs
             team={this.state.team}
             players={this.props.players[0]}
-            teamStats={this.state.teamStats}
             leagueStats={this.state.leagueStats}
           />
         </div>

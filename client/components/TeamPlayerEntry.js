@@ -6,7 +6,6 @@ export default class TeamPlayerEntry extends React.Component {
   }
 
   render() {
-    console.log(this.props.player);
     return (
       <tr>
         <td>{this.props.player.position}</td>

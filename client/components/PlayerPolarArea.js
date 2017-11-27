@@ -23,7 +23,6 @@ export default class PlayerPolarArea extends React.Component {
   }
 
   calculateGrades() {
-    console.log("CALC STATE", this.state.player);
     var highPoints = 29;
     var highAst = 11;
     var highReb = 15;
@@ -51,7 +50,6 @@ export default class PlayerPolarArea extends React.Component {
         threePoint: threePoint
       },
       () => {
-        console.log("STATE", this.state);
         this.createChart();
       }
     );

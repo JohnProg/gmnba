@@ -8,7 +8,15 @@ export default class TeamStats extends React.Component {
   }
 
   render() {
-    var stat = this.props.teamStats[0];
+    console.log(this.props.team);
+    var headerStyle = {
+      lineHeight: "50px",
+      backgroundColor: this.props.team.Color_Main,
+      fontSize: "20px",
+      paddingLeft: "15px",
+      color: this.props.team.Color_Sec
+    };
+    var stat = this.props.team;
     return (
       <div>
         <Grid>
@@ -16,7 +24,7 @@ export default class TeamStats extends React.Component {
             <Col lg={12}>
               <div className="card">
                 <div id="roster-header">
-                  <div id="roster-header-text">2017-18 TEAM STATS</div>
+                  <div style={headerStyle}>2017-18 TEAM STATS</div>
                 </div>
                 <Table striped hover>
                   <thead>
@@ -79,7 +87,7 @@ export default class TeamStats extends React.Component {
             <Col lg={12}>
               <div className="card">
                 <div id="roster-header">
-                  <div id="roster-header-text">2017-18 TEAM ADVANCED STATS</div>
+                  <div style={headerStyle}>2017-18 TEAM ADVANCED STATS</div>
                 </div>
                 <Table striped hover>
                   <thead>

@@ -26,7 +26,6 @@ export default class TeamRankGuages extends React.Component {
             astRank: astRank
           },
           () => {
-            console.log(this.state);
             this.createChart();
           }
         );

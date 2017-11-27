@@ -58,7 +58,7 @@ export default class PlayerPositionAverages extends React.Component {
         },
         {
           name: "Player Average",
-          color: "#702f8a",
+          color: `${this.props.colors.Color_Main}`,
           data: [14.9, 90, 40, 54, 87, 53],
           pointPadding: 0.4,
           pointPlacement: 0

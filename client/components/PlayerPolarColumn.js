@@ -53,7 +53,6 @@ export default class PlayerPolarColumn extends React.Component {
         twoPoint: twoPoint
       },
       () => {
-        console.log("STATE", this.state);
         this.createChart();
       }
     );
@@ -122,7 +121,6 @@ export default class PlayerPolarColumn extends React.Component {
   }
 
   createChart() {
-    console.log("creating chart!!");
     var chart = Highcharts.chart("container-column", {
       chart: {
         polar: true,

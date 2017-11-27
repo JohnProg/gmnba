@@ -24,8 +24,7 @@ export default class Tabs extends React.Component {
       component = (
         <PlayersList players={this.props.players} team={this.props.team} />
       );
-    if (this.state.key === 2)
-      component = <TeamStats teamStats={this.props.teamStats} />;
+    if (this.state.key === 2) component = <TeamStats team={this.props.team} />;
     if (this.state.key === 3)
       component = <TeamPlayerStats team={this.props.team} />;
     if (this.state.key === 4)

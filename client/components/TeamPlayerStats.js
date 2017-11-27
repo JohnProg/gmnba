@@ -15,6 +15,8 @@ export default class TeamPlayerStats extends React.Component {
       teamPlayers: []
     };
     this.createChart = this.createChart.bind(this);
+    this.getPlayerShare = this.getPlayerShare.bind(this);
+    this.getColumnData = this.getColumnData.bind(this);
   }
 
   componentDidMount() {
@@ -30,7 +32,6 @@ export default class TeamPlayerStats extends React.Component {
         }
       })
       .then(data => {
-        console.log("GETPLAYER STATS\n", data.data);
         var data = data.data;
         for (var i = 0; i < data.length; i++) {
           if (parseInt(data[i]["mpg"]) >= 5) {
@@ -47,13 +48,51 @@ export default class TeamPlayerStats extends React.Component {
           });
         }
         this.setState({ data: scatterData }, () => {
-          this.createChart();
-          console.log("PLAYERS: ", this.state.teamPlayers);
+          this.getColumnData("pts");
+          this.getPlayerShare("mpg");
+          //this.createChart();
         });
       })
       .catch(err => {
         console.log(err);
       });
+  }
+
+  getPlayerShare(stat) {
+    var numPlayers = this.state.teamPlayers.length;
+    var total = 0;
+    var pieData = [];
+    if (this.state.teamPlayers) {
+      for (var i = 0; i < this.state.teamPlayers.length; i++) {
+        total += parseFloat(this.state.teamPlayers[i][stat]);
+      }
+      for (var j = 0; j < this.state.teamPlayers.length; j++) {
+        //var player = [];
+        var pct = this.state.teamPlayers[j][stat] / total * 100;
+        var player = [
+          this.state.teamPlayers[j].name,
+          parseFloat(pct.toFixed(1))
+        ];
+        pieData.push(player);
+      }
+    }
+    this.setState({ pieData: pieData }, () => {
+      this.createChart();
+    });
+  }
+
+  getColumnData(stat) {
+    var columnData = [];
+    if (this.state.teamPlayers) {
+      for (var i = 0; i < this.state.teamPlayers.length; i++) {
+        var player = [
+          this.state.teamPlayers[i].name,
+          parseFloat(this.state.teamPlayers[i][stat])
+        ];
+        columnData.push(player);
+      }
+    }
+    this.setState({ columnData: columnData });
   }
 
   createChart() {
@@ -151,21 +190,8 @@ export default class TeamPlayerStats extends React.Component {
       },
       series: [
         {
-          type: "pie",
-          name: "Browser share",
-          data: [
-            ["Firefox", 45.0],
-            ["IE", 26.8],
-            {
-              name: "Chrome",
-              y: 12.8,
-              sliced: true,
-              selected: true
-            },
-            ["Safari", 8.5],
-            ["Opera", 6.2],
-            ["Others", 0.7]
-          ]
+          name: "Team Share",
+          data: this.state.pieData
         }
       ]
     });
@@ -183,7 +209,7 @@ export default class TeamPlayerStats extends React.Component {
         }
       },
       title: {
-        text: "Player Stat Averages"
+        text: `${this.props.team.Name} Stat Averages`
       },
       subtitle: {
         text: ""
@@ -195,24 +221,9 @@ export default class TeamPlayerStats extends React.Component {
       },
       series: [
         {
-          data: [
-            {
-              name: "LeMarcus Aldridge",
-              y: 84.3,
-              color: "rgb(0, 0, 0, .75)"
-            },
-            71.5,
-            106.4,
-            129.2,
-            144.0,
-            176.0,
-            135.6,
-            148.5,
-            216.4,
-            194.1,
-            95.6,
-            54.4
-          ]
+          name: "Pts",
+          color: `${this.props.team.Color_Main}`,
+          data: this.state.columnData
         }
       ]
     });
@@ -247,14 +258,14 @@ export default class TeamPlayerStats extends React.Component {
             <Col lg={3} lgOffset={1}>
               <div className="card">
                 <div style={headerStyle}>
-                  <div>Team Shares</div>
+                  <div>Team Shares - MPG</div>
                 </div>
               </div>
             </Col>
             <Col lg={3} lgOffset={2}>
               <div className="card">
                 <div style={headerStyle}>
-                  <div>Player Rankings</div>
+                  <div>Team Leaders - PTS</div>
                 </div>
               </div>
             </Col>
@@ -285,7 +296,7 @@ export default class TeamPlayerStats extends React.Component {
             <Col lg={3} lgOffset={1}>
               <div className="card">
                 <div style={headerStyle}>
-                  <div>Player Averages</div>
+                  <div>Player Averages - PTS</div>
                 </div>
               </div>
             </Col>
