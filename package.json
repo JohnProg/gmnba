@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/mikegriff3/gmnba#readme",
   "dependencies": {
+    "autosuggest-highlight": "^3.1.1",
     "axios": "^0.17.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -34,16 +35,19 @@
     "path": "^0.12.7",
     "pg": "^7.4.0",
     "react": "^16.1.0",
+    "react-autosuggest": "^9.3.2",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.1.0",
     "react-jsx-highcharts": "^2.0.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "react-themeable": "^1.1.0",
     "redux": "^3.7.2",
     "sequelize": "^4.22.6",
     "webpack": "^3.8.1"
   },
   "devDependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.26.0"
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "css-loader": "^0.28.7"
   }
 }

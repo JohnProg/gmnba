@@ -325,15 +325,17 @@ module.exports = {
       });
   },
   loadTeamLogoColor: (req, res) => {
-    db.Teams
+    db.cTeams
       .update(
         {
-          Color_Main: "#0C2340",
-          Color_Sec: "#F9A01B",
-          Color_Third: "#00471B"
+          Logo:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/North_Carolina_Tar_Heels_logo.svg/973px-North_Carolina_Tar_Heels_logo.svg.png",
+          Color_Main: "#4B9CD3",
+          Color_Sec: "#fff",
+          Color_Third: "#13294B"
         },
         {
-          where: { Name: "Utah Jazz" },
+          where: { Name: "UNC Tar Heels" },
           returning: true
         }
       )
@@ -348,10 +350,200 @@ module.exports = {
     db.Teams
       .findOne({
         where: { Name: req.params.team },
-        attributes: ["Color_Main", "Color_Sec", "Color_Third"]
+        attributes: ["Color_Main", "Color_Sec", "Color_Third", "Logo"]
       })
       .then(data => {
         res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getPositionStats: (req, res) => {
+    console.log("REQ POSITION\n\n\n\n\n\n", req.query.position);
+    db.Players
+      .findAll({
+        where: {
+          position: req.query.position
+        }
+      })
+      .then(data => {
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getCollegePlayerProfile: (req, res) => {
+    db.cPlayers
+      .findById(req.params.id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  createCollegeTeams: (req, res) => {
+    console.log("pst request: ", req);
+    var teamsArr = req.body.data;
+    for (var i = 0; i < teamsArr.length; i++) {
+      var team = teamsArr[i];
+      db.cTeams
+        .findOrCreate({
+          where: {
+            Name: team["team"],
+            FG: team["FG"],
+            FGA: team["FGA"],
+            FG_PCT: team["FGPCT"],
+            Three_Pointers: team["3P"],
+            Three_Pointers_Att: team["3PA"],
+            Three_Pointers_Pct: team["3PCT"],
+            Two_Pointers: team["2P"],
+            Two_Pointers_Att: team["2PA"],
+            Two_Pointers_Pct: team["2PCT"],
+            FTM: team["FTM"],
+            FTA: team["FTA"],
+            FT_PCT: team["FTPCT"],
+            ORB: team["ORB"],
+            DRB: team["DRB"],
+            TRB: team["TRB"],
+            AST: team["AST"],
+            STL: team["STL"],
+            BLK: team["BLK"],
+            TOV: team["TOV"],
+            PF: team["PF"],
+            PTS: team["PTS"],
+            W: team["W"],
+            L: team["L"],
+            PW: team["PW"],
+            PL: team["PL"],
+            MOV: team["MOV"],
+            SOS: team["SOS"],
+            SRS: team["SRS"],
+            ORtg: team["ORtg"],
+            DRtg: team["DRtg"],
+            PACE: team["PACE"],
+            FTr: team["FTr"],
+            Three_PAr: team["3PAr"],
+            OFF_eFG_PCT: team["OFF-eFG%"],
+            OFF_TOV_PCT: team["OFF-TOV%"],
+            ORB_PCT: team["ORB%"],
+            OFF_FT_FGA: team["OFF-FT/FGA"],
+            DEF_eFG_PCT: team["DEF-eFG%"],
+            DEF_TOV_PCT: team["DEF-TOV%"],
+            DRB_PCT: team["DRB%"],
+            DEF_FT_FGA: team["DEF-FT/FGA"],
+            oFG: team["oFG"],
+            oFGA: team["oFGA"],
+            oFGPCT: team["oFGPCT"],
+            o3P: team["o3P"],
+            o3PA: team["o3PA"],
+            o3PCT: team["o3PCT"],
+            o2P: team["o2P"],
+            o2PA: team["o2PA"],
+            o2PCT: team["o2PCT"],
+            oFTM: team["oFTM"],
+            oFTA: team["oFTA"],
+            oFTPCT: team["oFTPCT"],
+            oORB: team["oORB"],
+            oDRB: team["oDRB"],
+            oTRB: team["oTRB"],
+            oAST: team["oAST"],
+            oSTL: team["oSTL"],
+            oBLK: team["oBLK"],
+            oTOV: team["oTOV"],
+            oPF: team["oPF"],
+            oPTS: team["oPTS"]
+          }
+        })
+        .then(data => {
+          console.log("Team Average saved");
+        })
+        .catch(err => {
+          console.log("Error saving team average: ", err);
+        });
+    }
+  },
+  getCollegeTeamColors: (req, res) => {
+    db.cTeams
+      .findOne({
+        where: { Name: req.params.team },
+        attributes: ["Color_Main", "Color_Sec", "Color_Third", "Logo"]
+      })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getCollegeTeamProfile: (req, res) => {
+    db.cTeams
+      .findById(req.params.id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getCollegeTeamsPlayers: (req, res) => {
+    var team = req.query.team;
+    console.log("TEAM:", team);
+    db.cPlayers
+      .findAll({
+        where: {
+          team: team
+        }
+      })
+      .then(data => {
+        res.status(200).send(data);
+        console.log("Successfully retrieved roster!!");
+      })
+      .catch(err => {
+        res.status(500).send(err);
+        console.log("ERROR RETREIVING ROSTER\n", err);
+      });
+  },
+  getcLeagueStats: (req, res) => {
+    db.cTeams
+      .findAll({})
+      .then(data => {
+        console.log("Successfully retrieved all teams");
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        res.status(500).send(err);
+      });
+  },
+  getcPlayerStats: (req, res) => {
+    console.log(req.query.team);
+    console.log(req.query.statOne);
+    console.log(req.query.statTwo);
+    console.log(req.query.position);
+    db.cPlayers
+      .findAll({
+        where: { team: req.query.team }
+      })
+      .then(data => {
+        console.log("Successfully retrieved player data!!");
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getcPositionStats: (req, res) => {
+    console.log("REQ POSITION\n\n\n\n\n\n", req.query.position);
+    db.cPlayers
+      .findAll({
+        where: {
+          position: req.query.position
+        }
+      })
+      .then(data => {
+        res.status(200).send(data);
       })
       .catch(err => {
         console.log(err);

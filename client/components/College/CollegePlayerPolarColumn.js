@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class PlayerPolarArea extends React.Component {
+export default class CollegePlayerPolarColumn extends React.Component {
   constructor() {
     super();
     this.createChart = this.createChart.bind(this);
@@ -12,25 +12,22 @@ export default class PlayerPolarArea extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.player.name) {
-      this.setState(
-        { player: nextProps.player, colors: nextProps.colors },
-        () => {
-          this.calculateGrades();
-          //this.createChart();
-        }
-      );
+      this.setState({ player: nextProps.player }, () => {
+        this.calculateGrades();
+        //this.createChart();
+      });
     }
   }
 
   calculateGrades() {
-    var highPoints = 29;
-    var highAst = 11;
-    var highReb = 15;
-    var highStl = 2.5;
-    var highBlk = 2.5;
+    var highPoints = 30;
+    var highAst = 10;
+    var highReb = 13;
+    var highStl = 3.5;
+    var highBlk = 4;
     var highFT = 0.93;
-    var highThree = 0.53;
-    var highTwo = 0.88;
+    var highThree = 0.6;
+    var highTwo = 0.78;
 
     var scoring = this.getGrade(
       highPoints,
@@ -71,7 +68,9 @@ export default class PlayerPolarArea extends React.Component {
         reb: reb,
         stl: stl,
         blk: blk,
-        threePoint: threePoint
+        ft: ft,
+        threePoint: threePoint,
+        twoPoint: twoPoint
       },
       () => {
         this.createChart();
@@ -80,6 +79,7 @@ export default class PlayerPolarArea extends React.Component {
   }
 
   getGrade(high, actual, min) {
+    console.log("Per 36: ", actual);
     var playerGrade = {};
     var gradeSlots = 13;
     var adjusted = high - min;
@@ -100,102 +100,156 @@ export default class PlayerPolarArea extends React.Component {
 
     if (actual >= eighty) {
       playerGrade["Grade"] = 80;
+      playerGrade["Color"] = "#1abded";
     } else if (actual >= sevenFive) {
       playerGrade["Grade"] = 75;
+      playerGrade["Color"] = "#00a3c4";
     } else if (actual >= seventy) {
       playerGrade["Grade"] = 70;
+      playerGrade["Color"] = "#00c7a2";
     } else if (actual >= sixFive) {
       playerGrade["Grade"] = 65;
+      playerGrade["Color"] = "#56ce00";
     } else if (actual >= sixty) {
       playerGrade["Grade"] = 60;
+      playerGrade["Color"] = "#b4d800";
     } else if (actual >= fiveFive) {
       playerGrade["Grade"] = 55;
+      playerGrade["Color"] = "#b3d800";
     } else if (actual >= fifty) {
       playerGrade["Grade"] = 50;
+      playerGrade["Color"] = "#ffdc00";
     } else if (actual >= fourFive) {
       playerGrade["Grade"] = 45;
+      playerGrade["Color"] = "#fac600";
     } else if (actual >= fourty) {
       playerGrade["Grade"] = 40;
+      playerGrade["Color"] = "#f0780d";
     } else if (actual >= threeFive) {
       playerGrade["Grade"] = 35;
+      playerGrade["Color"] = "#f53300";
     } else if (actual >= thirty) {
       playerGrade["Grade"] = 30;
+      playerGrade["Color"] = "#da000b";
     } else if (actual >= twoFive) {
       playerGrade["Grade"] = 25;
+      playerGrade["Color"] = "#da000c";
     } else {
       playerGrade["Grade"] = 20;
+      playerGrade["Color"] = "#b8000b";
     }
     return playerGrade;
   }
 
   createChart() {
-    var chart = Highcharts.chart("container-polar2", {
+    var chart = Highcharts.chart("container-column", {
       chart: {
         polar: true,
-        type: "area"
+        type: "column"
       },
 
       title: {
-        text: null,
-        x: 0
+        text: null
       },
 
       pane: {
-        size: "80%"
+        startAngle: 0,
+        endAngle: 360
       },
 
       xAxis: {
-        categories: [
-          "Scoring",
-          "Rebounding",
-          "Playmaking",
-          "3P%",
-          "Blocks",
-          "Steals"
-        ],
-        tickmarkPlacement: "on",
-        lineWidth: 0
-      },
-
-      yAxis: {
-        gridLineInterpolation: "polygon",
-        lineWidth: 0,
-        gridLineColor: "#C0C0C0",
-        min: 15,
-        max: 80,
-        tickInterval: 10,
+        min: 0,
+        max: 360,
+        tickInterval: 45,
         labels: {
           enabled: false
         }
       },
 
-      tooltip: {
-        shared: false,
-        pointFormat:
-          '<span style="color:{series.color}">{series.name}: <b>${point.y:,.0f}</b><br/>'
+      yAxis: {
+        min: 0,
+        max: 60,
+        labels: {
+          enabled: false
+        }
+      },
+
+      plotOptions: {
+        series: {
+          pointStart: 0,
+          pointInterval: 45,
+          dataLabels: {
+            useHTML: true,
+            enabled: true,
+            format:
+              '<span class="wheel-label" style="color: grey">{point.name}</span>',
+            style: {
+              fontSize: "12px"
+            }
+          }
+        },
+        column: {
+          pointPadding: 0,
+          groupPadding: 0,
+          events: {
+            legendItemClick: function() {
+              return false;
+            }
+          },
+          borderWidth: 2
+        }
       },
 
       legend: {
-        align: "right",
-        verticalAlign: "top",
-        y: 70,
-        layout: "vertical",
         enabled: false
       },
 
       series: [
         {
-          name: "Player Grade",
+          name: "Rating",
           data: [
-            this.state.scoring.Grade,
-            this.state.reb.Grade,
-            this.state.ast.Grade,
-            this.state.threePoint.Grade,
-            this.state.blk.Grade,
-            this.state.stl.Grade
+            {
+              y: this.state.scoring.Grade,
+              color: this.state.scoring.Color,
+              name: "Scoring"
+            },
+            {
+              y: this.state.ast.Grade,
+              color: this.state.ast.Color,
+              name: "Ast"
+            },
+            {
+              y: this.state.reb.Grade,
+              color: this.state.reb.Color,
+              name: "Reb"
+            },
+            {
+              y: this.state.stl.Grade,
+              color: this.state.stl.Color,
+              name: "Stl"
+            },
+            {
+              y: this.state.blk.Grade,
+              color: this.state.blk.Color,
+              name: "Blk"
+            },
+            {
+              y: this.state.ft.Grade,
+              color: this.state.ft.Color,
+              name: "FT%"
+            },
+            {
+              y: this.state.threePoint.Grade,
+              color: this.state.threePoint.Color,
+              name: "3P%"
+            },
+            {
+              y: this.state.twoPoint.Grade,
+              color: this.state.twoPoint.Color,
+              name: "2P%"
+            }
           ],
-          pointPlacement: "on",
-          color: `${this.state.colors.Color_Main}`
+          pointPlacement: "on"
         }
       ]
     });
@@ -205,7 +259,7 @@ export default class PlayerPolarArea extends React.Component {
     return (
       <div className="card">
         <div
-          id="container-polar2"
+          id="container-column"
           style={{ height: "400px", margin: "0 auto" }}
         />
       </div>

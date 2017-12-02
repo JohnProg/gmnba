@@ -1,9 +1,9 @@
 import React from "react";
-import PlayerTabs from "./PlayerTabs";
+import CollegePlayerTabs from "./CollegePlayerTabs";
 import { Col, Button, Well, Row, Grid } from "react-bootstrap";
 import { connect } from "react-redux";
 import axios from "axios";
-import PlayersList from "./PlayersList";
+import PlayersList from "../PlayersList";
 
 const mapStateToProps = state => {
   return {
@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-class PlayerInfo extends React.Component {
+class CollegePlayerInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,49 +32,14 @@ class PlayerInfo extends React.Component {
       player: {},
       colors: {}
     };
-    this.getRoster = this.getRoster.bind(this);
-    this.getTeamStats = this.getTeamStats.bind(this);
     this.getLeagueStats = this.getLeagueStats.bind(this);
     this.getPlayer = this.getPlayer.bind(this);
     this.getTeamColors = this.getTeamColors.bind(this);
   }
 
   componentDidMount() {
-    this.getRoster();
-    this.getTeamStats();
     this.getLeagueStats();
     this.getPlayer();
-  }
-
-  getRoster() {
-    var team = "San Antonio Spurs";
-    axios
-      .get("/api/teams/getTeamsPlayers", {
-        params: {
-          team: team
-        }
-      })
-      .then(data => {
-        var playersArray = data.data;
-        this.props.addPlayers(playersArray);
-      })
-      .catch("error retrieving players!!!");
-  }
-
-  getTeamStats() {
-    var team = "San Antonio Spurs";
-    axios
-      .get("/api/teams/getTeamStats", {
-        params: {
-          team: team
-        }
-      })
-      .then(data => {
-        this.setState({ teamStats: data.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
   }
 
   getLeagueStats() {
@@ -90,8 +55,9 @@ class PlayerInfo extends React.Component {
 
   getPlayer() {
     axios
-      .get(`/api/teams/getPlayerProfile/${this.state.id}`)
+      .get(`/api/teams/getCollegePlayerProfile/${this.state.id}`)
       .then(data => {
+        console.log(data.data);
         this.getTeamColors(data.data.team);
         this.setState({ player: data.data }, () => {});
       })
@@ -102,7 +68,7 @@ class PlayerInfo extends React.Component {
 
   getTeamColors(team) {
     axios
-      .get(`api/teams/getTeamColors/${team}`)
+      .get(`api/teams/getCollegeTeamColors/${team}`)
       .then(data => {
         this.setState({ colors: data.data });
       })
@@ -161,7 +127,7 @@ class PlayerInfo extends React.Component {
               </div>
             </Row>
           </Grid>
-          <PlayerTabs
+          <CollegePlayerTabs
             players={this.props.players[0]}
             teamStats={this.state.teamStats}
             leagueStats={this.state.leagueStats}
@@ -174,4 +140,4 @@ class PlayerInfo extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(CollegePlayerInfo);

@@ -1,9 +1,9 @@
 import React from "react";
-import Tabs from "./Tabs";
+import CollegeTeamTabs from "./CollegeTeamTabs";
 import { Col, Button, Well, Row, Grid } from "react-bootstrap";
 import { connect } from "react-redux";
 import axios from "axios";
-import PlayersList from "./PlayersList";
+import PlayersList from "../PlayersList";
 
 const mapStateToProps = state => {
   return {
@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-class Info extends React.Component {
+class CollegeTeamInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,13 +33,13 @@ class Info extends React.Component {
     };
     this.getRoster = this.getRoster.bind(this);
     this.getTeam = this.getTeam.bind(this);
-    this.getLeagueStats = this.getLeagueStats.bind(this);
+    this.getcLeagueStats = this.getcLeagueStats.bind(this);
     this.sampleGLeague = this.sampleGLeague.bind(this);
   }
 
   componentDidMount() {
     this.getTeam();
-    this.getLeagueStats();
+    this.getcLeagueStats();
     //this.getRoster();
   }
 
@@ -56,7 +56,7 @@ class Info extends React.Component {
   getRoster() {
     var team = this.state.team.Name;
     axios
-      .get("/api/teams/getTeamsPlayers", {
+      .get("/api/teams/getCollegeTeamsPlayers", {
         params: {
           team: team
         }
@@ -70,7 +70,7 @@ class Info extends React.Component {
 
   getTeam() {
     axios
-      .get(`/api/teams/getTeamProfile/${this.state.teamId}`)
+      .get(`/api/teams/getCollegeTeamProfile/${this.state.teamId}`)
       .then(data => {
         this.setState({ team: data.data }, () => {
           this.getRoster();
@@ -81,9 +81,9 @@ class Info extends React.Component {
       });
   }
 
-  getLeagueStats() {
+  getcLeagueStats() {
     axios
-      .get("/api/teams/getLeagueStats")
+      .get("/api/teams/getcLeagueStats")
       .then(data => {
         this.setState({ leagueStats: data.data });
       })
@@ -152,7 +152,7 @@ class Info extends React.Component {
               </div>
             </Row>
           </Grid>
-          <Tabs
+          <CollegeTeamTabs
             team={this.state.team}
             players={this.props.players[0]}
             leagueStats={this.state.leagueStats}
@@ -163,4 +163,4 @@ class Info extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Info);
+export default connect(mapStateToProps, mapDispatchToProps)(CollegeTeamInfo);

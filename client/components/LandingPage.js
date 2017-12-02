@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from "./NavBar";
 import Info from "./Info";
+import SearchBar from "./SearchBar";
 
 export default class LandingPage extends React.Component {
   constructor() {
@@ -12,6 +13,7 @@ export default class LandingPage extends React.Component {
       <div>
         <NavBar />
         <Info props={this.props} />
+        <SearchBar />
       </div>
     );
   }

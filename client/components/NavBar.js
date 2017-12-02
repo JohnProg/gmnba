@@ -23,8 +23,8 @@ export default class NavBar extends React.Component {
               <a href="#work" className="w3-bar-item w3-button">
                 <i className="fa fa-th" /> LEAGUE
               </a>
-              <a href="#pricing" className="w3-bar-item w3-button">
-                <i className="fa fa-usd" /> FUTURE
+              <a className="w3-bar-item w3-button">
+                <i className="fa " /> SEARCH
               </a>
               <a href="#contact" className="w3-bar-item w3-button">
                 <i className="fa fa-envelope" /> MESSAGES

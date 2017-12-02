@@ -1,12 +1,12 @@
 import React from "react";
 import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
-import PlayersList from "./PlayersList";
-import TeamStats from "./TeamStats";
-import TeamPlayerStats from "./TeamPlayerStats";
-import PlayerRatings from "./PlayerRatings";
-import PlayerSeasonStats from "./PlayerSeasonStats";
+import PlayersList from "../PlayersList";
+import TeamStats from "../TeamStats";
+import TeamPlayerStats from "../TeamPlayerStats";
+import CollegePlayerRatings from "./CollegePlayerRatings";
+import PlayerSeasonStats from "../PlayerSeasonStats";
 
-export default class PlayerTabs extends React.Component {
+export default class CollegePlayerTabs extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -31,7 +31,7 @@ export default class PlayerTabs extends React.Component {
     if (this.state.key === 3) component = <TeamPlayerStats />;
     if (this.state.key === 4)
       component = (
-        <PlayerRatings
+        <CollegePlayerRatings
           leagueStats={this.props.leagueStats}
           player={this.props.player}
           colors={this.props.colors}

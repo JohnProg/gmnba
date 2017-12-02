@@ -4,10 +4,58 @@ export default class PlayerPositionAverages extends React.Component {
   constructor() {
     super();
     this.createChart = this.createChart.bind(this);
+    this.getPositionAverage = this.getPositionAverage.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.player) {
+      this.setState(
+        {
+          player: nextProps.player,
+          positionStats: nextProps.positionStats,
+          colors: nextProps.colors
+        },
+        () => {
+          if (this.state.positionStats.length > 0) {
+            var ptsAvg = this.getPositionAverage("pts");
+            var trbAvg = this.getPositionAverage("trb");
+            var astAvg = this.getPositionAverage("ast");
+            var stlAvg = this.getPositionAverage("stl");
+            var blkAvg = this.getPositionAverage("blk");
+            var fgAvg = this.getPositionAverage("fgPct");
+            this.setState(
+              {
+                ptsAvg: ptsAvg,
+                trbAvg: trbAvg,
+                astAvg: astAvg,
+                stlAvg: stlAvg,
+                blkAvg: blkAvg,
+                fgAvg: fgAvg
+              },
+              () => {
+                this.createChart();
+              }
+            );
+          }
+        }
+      );
+    }
   }
 
   componentDidMount() {
-    this.createChart();
+    //this.createChart();
+  }
+
+  getPositionAverage(stat) {
+    var count = 0.0;
+    var playerCount = this.state.positionStats.length;
+    for (var i = 0; i < playerCount; i++) {
+      if (this.state.positionStats[i][stat] !== null) {
+        count += parseFloat(this.state.positionStats[i][stat]);
+      }
+    }
+    var average = count / playerCount;
+    return average.toFixed(2);
   }
 
   createChart() {
@@ -16,16 +64,20 @@ export default class PlayerPositionAverages extends React.Component {
         type: "column"
       },
       title: {
-        text: "Player Vs Position Averages"
+        text: `${this.state.player.name} Vs ${this.state.player
+          .position} Averages`
       },
       xAxis: {
-        categories: ["Pts", "ORtg", "DRtg", "Trb", "Ast", "3P"]
+        categories: ["Pts", "Reb", "Ast", "Stl", "Blk", "Shot %"]
       },
       yAxis: [
         {
           min: 0,
           title: {
-            text: "Position Averages"
+            text: null
+          },
+          labels: {
+            enabled: false
           }
         },
         {
@@ -52,14 +104,28 @@ export default class PlayerPositionAverages extends React.Component {
         {
           name: "Position Average",
           color: "#c2ced5",
-          data: [17, 73, 20, 82, 43, 48],
+          data: [
+            parseFloat(this.state.ptsAvg) * 3,
+            parseFloat(this.state.trbAvg) * 10,
+            parseFloat(this.state.astAvg) * 10,
+            parseFloat(this.state.stlAvg) * 30,
+            parseFloat(this.state.blkAvg) * 60,
+            parseFloat(this.state.fgAvg) * 100
+          ],
           pointPadding: 0.3,
           pointPlacement: 0
         },
         {
           name: "Player Average",
-          color: `${this.props.colors.Color_Main}`,
-          data: [14.9, 90, 40, 54, 87, 53],
+          color: `${this.state.colors.Color_Main}`,
+          data: [
+            parseFloat(this.state.player.pts) * 3,
+            parseFloat(this.state.player.trb) * 10,
+            parseFloat(this.state.player.ast) * 10,
+            parseFloat(this.state.player.stl) * 30,
+            parseFloat(this.state.player.blk) * 60,
+            parseFloat(this.state.player.fgPct) * 100
+          ],
           pointPadding: 0.4,
           pointPlacement: 0
         }

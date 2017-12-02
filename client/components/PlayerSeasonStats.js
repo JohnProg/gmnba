@@ -8,7 +8,14 @@ export default class PlayerSeasonStats extends React.Component {
   }
 
   render() {
-    var stat = this.props.teamStats[0];
+    var headerStyle = {
+      lineHeight: "50px",
+      backgroundColor: this.props.colors.Color_Main,
+      fontSize: "20px",
+      paddingLeft: "15px",
+      color: this.props.colors.Color_Sec
+    };
+    var stat = this.props.player;
     return (
       <div>
         <Grid>
@@ -16,7 +23,7 @@ export default class PlayerSeasonStats extends React.Component {
             <Col lg={12}>
               <div className="card">
                 <div id="roster-header">
-                  <div id="roster-header-text">2017-18 TEAM STATS</div>
+                  <div style={headerStyle}>2017-18 PLAYER STATS</div>
                 </div>
                 <Table striped hover>
                   <thead>
@@ -47,28 +54,28 @@ export default class PlayerSeasonStats extends React.Component {
                   </thead>
                   <tbody>
                     <tr>
-                      <th>-</th>
-                      <th>{stat["FG"]}</th>
-                      <th>{stat["FGA"]}</th>
-                      <th>{stat["FG_PCT"]}</th>
-                      <th>{stat["Three_Pointers"]}</th>
-                      <th>{stat["Three_Pointers_Att"]}</th>
-                      <th>{stat["Three_Pointers_Pct"]}</th>
-                      <th>{stat["Two_Pointers"]}</th>
-                      <th>{stat["Two_Pointers_Att"]}</th>
-                      <th>{stat["Two_Pointers_Pct"]}</th>
-                      <th>{stat["FTM"]}</th>
-                      <th>{stat["FTA"]}</th>
-                      <th>{stat["FT_PCT"]}</th>
-                      <th>{stat["ORB"]}</th>
-                      <th>{stat["DRB"]}</th>
-                      <th>{stat["TRB"]}</th>
-                      <th>{stat["AST"]}</th>
-                      <th>{stat["STL"]}</th>
-                      <th>{stat["BLK"]}</th>
-                      <th>{stat["TOV"]}</th>
-                      <th>{stat["PF"]}</th>
-                      <th>{stat["PTS"]}</th>
+                      <th>{stat["gamesPlayed"]}</th>
+                      <th>{stat["fgm"]}</th>
+                      <th>{stat["fga"]}</th>
+                      <th>{stat["fgPct"]}</th>
+                      <th>{stat["threePt"]}</th>
+                      <th>{stat["threePtAtt"]}</th>
+                      <th>{stat["threePtPct"]}</th>
+                      <th>{stat["twoPt"]}</th>
+                      <th>{stat["twoPtAtt"]}</th>
+                      <th>{stat["twoPtPct"]}</th>
+                      <th>{stat["ft"]}</th>
+                      <th>{stat["fta"]}</th>
+                      <th>{stat["freeThrowPct"]}</th>
+                      <th>{stat["orb"]}</th>
+                      <th>{stat["drb"]}</th>
+                      <th>{stat["trb"]}</th>
+                      <th>{stat["ast"]}</th>
+                      <th>{stat["stl"]}</th>
+                      <th>{stat["blk"]}</th>
+                      <th>{stat["tov"]}</th>
+                      <th>{stat["pf"]}</th>
+                      <th>{stat["pts"]}</th>
                     </tr>
                   </tbody>
                 </Table>
@@ -79,7 +86,7 @@ export default class PlayerSeasonStats extends React.Component {
             <Col lg={12}>
               <div className="card">
                 <div id="roster-header">
-                  <div id="roster-header-text">2017-18 TEAM ADVANCED STATS</div>
+                  <div style={headerStyle}>2017-18 PLAYER ADVANCED STATS</div>
                 </div>
                 <Table striped hover>
                   <thead>

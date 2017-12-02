@@ -4,6 +4,8 @@ import LandingPage from "./LandingPage";
 //import TeamPage from "./TeamPage";
 import PlayerPage from "./PlayerPage";
 import ScoutingPage from "./ScoutingPage";
+import CollegePlayerPage from "./College/CollegePlayerPage";
+import CollegeTeamPage from "./College/CollegeTeamPage";
 
 const Main = () => (
   <BrowserRouter>
@@ -12,6 +14,8 @@ const Main = () => (
       <Route path="/team/:id" component={LandingPage} />
       <Route path="/player/:id" component={PlayerPage} />
       <Route path="/scouting" component={ScoutingPage} />
+      <Route path="/college-player/:id" component={CollegePlayerPage} />
+      <Route path="/college-team/:id" component={CollegeTeamPage} />
     </Switch>
   </BrowserRouter>
 );

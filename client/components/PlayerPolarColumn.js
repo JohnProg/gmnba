@@ -20,7 +20,7 @@ export default class PlayerPolarColumn extends React.Component {
   }
 
   calculateGrades() {
-    var highPoints = 29;
+    var highPoints = 30;
     var highAst = 11;
     var highReb = 15;
     var highStl = 2.5;
@@ -29,11 +29,31 @@ export default class PlayerPolarColumn extends React.Component {
     var highThree = 0.5;
     var highTwo = 0.88;
 
-    var scoring = this.getGrade(highPoints, this.state.player.pts, 0);
-    var ast = this.getGrade(highAst, this.state.player.ast, 0);
-    var reb = this.getGrade(highReb, this.state.player.trb, 0);
-    var stl = this.getGrade(highStl, this.state.player.stl, 0);
-    var blk = this.getGrade(highBlk, this.state.player.blk, 0);
+    var scoring = this.getGrade(
+      highPoints,
+      this.state.player.pts / this.state.player.mpg * 36,
+      0
+    );
+    var ast = this.getGrade(
+      highAst,
+      this.state.player.ast / this.state.player.mpg * 36,
+      0
+    );
+    var reb = this.getGrade(
+      highReb,
+      this.state.player.trb / this.state.player.mpg * 36,
+      0
+    );
+    var stl = this.getGrade(
+      highStl,
+      this.state.player.stl / this.state.player.mpg * 36,
+      0
+    );
+    var blk = this.getGrade(
+      highBlk,
+      this.state.player.blk / this.state.player.mpg * 36,
+      0
+    );
     var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
     var threePoint = this.getGrade(
       highThree,
@@ -59,6 +79,7 @@ export default class PlayerPolarColumn extends React.Component {
   }
 
   getGrade(high, actual, min) {
+    console.log("Per 36: ", actual);
     var playerGrade = {};
     var gradeSlots = 13;
     var adjusted = high - min;

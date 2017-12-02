@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class PlayerPolarArea extends React.Component {
+export default class CollegePlayerPolarArea extends React.Component {
   constructor() {
     super();
     this.createChart = this.createChart.bind(this);
@@ -23,14 +23,14 @@ export default class PlayerPolarArea extends React.Component {
   }
 
   calculateGrades() {
-    var highPoints = 29;
-    var highAst = 11;
-    var highReb = 15;
-    var highStl = 2.5;
-    var highBlk = 2.5;
+    var highPoints = 30;
+    var highAst = 10;
+    var highReb = 13;
+    var highStl = 3.5;
+    var highBlk = 4;
     var highFT = 0.93;
-    var highThree = 0.53;
-    var highTwo = 0.88;
+    var highThree = 0.6;
+    var highTwo = 0.78;
 
     var scoring = this.getGrade(
       highPoints,

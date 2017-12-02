@@ -5,6 +5,7 @@ export default class PlayerRankGuages extends React.Component {
   constructor() {
     super();
     this.createChart = this.createChart.bind(this);
+    this.getPlayerRank = this.getPlayerRank.bind(this);
   }
 
   componentDidMount() {
@@ -13,10 +14,71 @@ export default class PlayerRankGuages extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.colors.Color_Main) {
-      this.setState({ colors: nextProps.colors }, () => {
-        this.createChart();
-      });
+      this.setState({ colors: nextProps.colors });
     }
+    if (nextProps.positionStats) {
+      var ptsRank = this.getPlayerRank("pts");
+      var trbRank = this.getPlayerRank("trb");
+      var astRank = this.getPlayerRank("ast");
+      this.setState(
+        {
+          ptsRank: ptsRank,
+          trbRank: trbRank,
+          astRank: astRank
+        },
+        () => {
+          this.createChart();
+        }
+      );
+    }
+  }
+
+  getPlayerRank(stat) {
+    var obj = {};
+    var rank;
+    var suffix;
+    this.setState({ playerCount: this.props.positionStats.length });
+    var sorted = this.props.positionStats.sort((a, b) => {
+      return parseFloat(b[stat]) - parseFloat(a[stat]);
+    });
+    for (var i = 0; i < sorted.length; i++) {
+      if (sorted[i].name === this.props.player.name) {
+        rank = i + 1;
+        if (
+          rank === 1 ||
+          rank === 21 ||
+          rank === 31 ||
+          rank === 41 ||
+          rank === 51 ||
+          rank === 61
+        ) {
+          suffix = "st";
+        } else if (
+          rank === 2 ||
+          rank === 22 ||
+          rank === 32 ||
+          rank === 42 ||
+          rank === 52 ||
+          rank === 62
+        ) {
+          suffix = "nd";
+        } else if (
+          rank === 3 ||
+          rank === 23 ||
+          rank === 33 ||
+          rank === 43 ||
+          rank === 53 ||
+          rank === 63
+        ) {
+          suffix = "rd";
+        } else {
+          suffix = "th";
+        }
+      }
+    }
+    obj["rank"] = rank;
+    obj["suffix"] = suffix;
+    return obj;
   }
 
   createChart() {
@@ -51,9 +113,9 @@ export default class PlayerRankGuages extends React.Component {
       // the value axis
       yAxis: {
         stops: [
-          [0.1, `${this.state.colors.Color_Main}`], // green
-          [0.5, `${this.state.colors.Color_Main}`], // yellow
-          [0.9, `${this.state.colors.Color_Main}`] // red
+          [0.1, `${this.props.colors.Color_Main}`], // green
+          [0.5, `${this.props.colors.Color_Main}`], // yellow
+          [0.9, `${this.props.colors.Color_Main}`] // red
         ],
         lineWidth: 0,
         minorTickInterval: null,
@@ -83,7 +145,7 @@ export default class PlayerRankGuages extends React.Component {
       Highcharts.merge(gaugeOptions, {
         yAxis: {
           min: 0,
-          max: 30,
+          max: this.state.playerCount,
           title: {
             text: null
           }
@@ -96,13 +158,14 @@ export default class PlayerRankGuages extends React.Component {
         series: [
           {
             name: "PTS",
-            data: [26],
+            data: [this.state.playerCount + 1 - this.state.ptsRank.rank],
             dataLabels: {
               format:
                 '<div style="text-align:center"><span style="font-size:24px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
                   "black") +
-                '">{y}th</span><br/>' +
+                `">${this.state.ptsRank.rank}${this.state.ptsRank
+                  .suffix}</span><br/>` +
                 "</div>"
             },
             tooltip: {
@@ -118,7 +181,7 @@ export default class PlayerRankGuages extends React.Component {
       Highcharts.merge(gaugeOptions, {
         yAxis: {
           min: 0,
-          max: 30,
+          max: this.state.playerCount,
           title: {
             text: null
           }
@@ -131,13 +194,14 @@ export default class PlayerRankGuages extends React.Component {
         series: [
           {
             name: "PTS",
-            data: [14],
+            data: [this.state.playerCount + 1 - this.state.trbRank.rank],
             dataLabels: {
               format:
                 '<div style="text-align:center"><span style="font-size:24px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
                   "black") +
-                '">{y}th</span><br/>' +
+                `">${this.state.trbRank.rank}${this.state.trbRank
+                  .suffix}</span><br/>` +
                 "</div>"
             },
             tooltip: {
@@ -153,7 +217,7 @@ export default class PlayerRankGuages extends React.Component {
       Highcharts.merge(gaugeOptions, {
         yAxis: {
           min: 0,
-          max: 30,
+          max: this.state.playerCount,
           title: {
             text: null
           }
@@ -166,13 +230,14 @@ export default class PlayerRankGuages extends React.Component {
         series: [
           {
             name: "PTS",
-            data: [19],
+            data: [this.state.playerCount + 1 - this.state.astRank.rank],
             dataLabels: {
               format:
                 '<div style="text-align:center"><span style="font-size:24px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
                   "black") +
-                '">{y}th</span><br/>' +
+                `">${this.state.astRank.rank}${this.state.astRank
+                  .suffix}</span><br/>` +
                 "</div>"
             },
             tooltip: {
@@ -223,7 +288,7 @@ export default class PlayerRankGuages extends React.Component {
           <Col lg={4}>
             <div className="gauge-header-div">
               <div className="card guage-header" style={statLabels}>
-                DRTG
+                AST
               </div>
             </div>
             <div

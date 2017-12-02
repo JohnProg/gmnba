@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class PlayerBarRatings extends React.Component {
+export default class CollegeTeamRatings extends React.Component {
   constructor(props) {
     super(props);
     this.createChart = this.createChart.bind(this);
@@ -8,11 +8,14 @@ export default class PlayerBarRatings extends React.Component {
     this.getGrade = this.getGrade.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    //this.createChart();
+    //this.calculateGrades();
+  }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.player.name) {
-      this.setState({ player: nextProps.player }, () => {
+    if (nextProps.team.Name) {
+      this.setState({ team: nextProps.team }, () => {
         this.calculateGrades();
         //this.createChart();
       });
@@ -20,57 +23,24 @@ export default class PlayerBarRatings extends React.Component {
   }
 
   calculateGrades() {
-    var highPoints = 29;
-    var highAst = 11;
-    var highReb = 15;
-    var highStl = 2.5;
-    var highBlk = 2.5;
-    var highFT = 0.93;
-    var highThree = 0.53;
-    var highTwo = 0.88;
+    var highPoints = 95;
+    var highAst = 20;
+    var highReb = 44;
+    var highStl = 13;
+    var highBlk = 8;
 
-    var scoring = this.getGrade(
-      highPoints,
-      this.state.player.pts / this.state.player.mpg * 36,
-      0
-    );
-    var ast = this.getGrade(
-      highAst,
-      this.state.player.ast / this.state.player.mpg * 36,
-      0
-    );
-    var reb = this.getGrade(
-      highReb,
-      this.state.player.trb / this.state.player.mpg * 36,
-      0
-    );
-    var stl = this.getGrade(
-      highStl,
-      this.state.player.stl / this.state.player.mpg * 36,
-      0
-    );
-    var blk = this.getGrade(
-      highBlk,
-      this.state.player.blk / this.state.player.mpg * 36,
-      0
-    );
-    var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
-    var threePoint = this.getGrade(
-      highThree,
-      this.state.player.threePtPct,
-      0.1
-    );
-    var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.15);
+    var scoring = this.getGrade(highPoints, this.state.team.PTS, 65);
+    var ast = this.getGrade(highAst, this.state.team.AST, 8);
+    var reb = this.getGrade(highReb, this.state.team.TRB, 30);
+    var stl = this.getGrade(highStl, this.state.team.STL, 4);
+    var blk = this.getGrade(highBlk, this.state.team.BLK, 2);
     this.setState(
       {
-        scoring: scoring,
-        ast: ast,
-        reb: reb,
-        stl: stl,
-        blk: blk,
-        ft: ft,
-        threePoint: threePoint,
-        twoPoint: twoPoint
+        Scoring: scoring,
+        Ast: ast,
+        Reb: reb,
+        Stl: stl,
+        Blk: blk
       },
       () => {
         this.createChart();
@@ -206,11 +176,11 @@ export default class PlayerBarRatings extends React.Component {
         {
           name: "Grade",
           data: [
-            { y: this.state.scoring.Grade, color: this.state.scoring.Color },
-            { y: this.state.reb.Grade, color: this.state.reb.Color },
-            { y: this.state.ast.Grade, color: this.state.ast.Color },
-            { y: this.state.stl.Grade, color: this.state.stl.Color },
-            { y: this.state.blk.Grade, color: this.state.blk.Color }
+            { y: this.state.Scoring.Grade, color: this.state.Scoring.Color },
+            { y: this.state.Reb.Grade, color: this.state.Reb.Color },
+            { y: this.state.Ast.Grade, color: this.state.Ast.Color },
+            { y: this.state.Stl.Grade, color: this.state.Stl.Color },
+            { y: this.state.Blk.Grade, color: this.state.Blk.Color }
           ]
         }
       ]
@@ -224,7 +194,7 @@ export default class PlayerBarRatings extends React.Component {
           className="card"
           id="container-rating"
           style={{
-            height: "250px",
+            height: "225px",
             minWidth: "600px",
             margin: "0 auto"
           }}

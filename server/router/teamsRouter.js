@@ -18,5 +18,14 @@ router.get("/getPlayerProfile/:id", controller.getPlayerProfile);
 router.get("/getTeamProfile/:id", controller.getTeamProfile);
 router.put("/loadTeamLogoColor", controller.loadTeamLogoColor);
 router.get("/getTeamColors/:team", controller.getTeamColors);
+router.get("/getPositionStats", controller.getPositionStats);
+router.get("/getCollegePlayerProfile/:id", controller.getCollegePlayerProfile);
+router.post("/createCollegeTeams", controller.createCollegeTeams);
+router.get("/getCollegeTeamColors/:team", controller.getCollegeTeamColors);
+router.get("/getCollegeTeamProfile/:id", controller.getCollegeTeamProfile);
+router.get("/getCollegeTeamsPlayers", controller.getCollegeTeamsPlayers);
+router.get("/getcLeagueStats", controller.getcLeagueStats);
+router.get("/getcPlayerStats", controller.getcPlayerStats);
+router.get("/getcPositionStats", controller.getcPositionStats);
 
 module.exports = router;

@@ -1,14 +1,14 @@
 import React from "react";
 import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
-import PlayerRankGauges from "./PlayerRankGauges";
-import PlayerPositionAverages from "./PlayerPositionAverages";
-import TeamRatings from "./TeamRatings";
-import PlayerPolarArea from "./PlayerPolarArea";
-import PlayerPolarColumn from "./PlayerPolarColumn";
-import PlayerBarRatings from "./PlayerBarRatings";
+import PlayerRankGauges from "../PlayerRankGauges";
+import PlayerPositionAverages from "../PlayerPositionAverages";
+import TeamRatings from "../TeamRatings";
+import CollegePlayerPolarArea from "./CollegePlayerPolarArea";
+import CollegePlayerPolarColumn from "./CollegePlayerPolarColumn";
+import CollegePlayerBarRatings from "./CollegePlayerBarRatings";
 import axios from "axios";
 
-export default class PlayerRatings extends React.Component {
+export default class CollegePlayerRatings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +39,7 @@ export default class PlayerRatings extends React.Component {
 
   getPositionStats(position) {
     axios
-      .get("/api/teams/getPositionStats", {
+      .get("/api/teams/getcPositionStats", {
         params: {
           position: position
         }
@@ -73,10 +73,10 @@ export default class PlayerRatings extends React.Component {
           </Row>
           <Row className="chart-row">
             <Col lg={5} lgOffset={1}>
-              <PlayerPolarColumn player={this.props.player} />
+              <CollegePlayerPolarColumn player={this.props.player} />
             </Col>
             <Col lg={5}>
-              <PlayerPolarArea
+              <CollegePlayerPolarArea
                 player={this.props.player}
                 colors={this.props.colors}
               />
@@ -84,7 +84,7 @@ export default class PlayerRatings extends React.Component {
           </Row>
           <Row className="chart-row">
             <Col lg={8} lgOffset={2}>
-              <PlayerBarRatings player={this.props.player} />
+              <CollegePlayerBarRatings player={this.props.player} />
             </Col>
           </Row>
           <Row className="chart-row">
