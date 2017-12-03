@@ -249,9 +249,31 @@ div.card {
   padding-top: 20px;
 }
 
+#search-div {
+  background-color: transparent;
+  position: fixed;
+  z-index: 2;
+  margin-top: 53px;
+  height: 40px;
+  float: right;
+  right: 0;
+}
+
+#myNavbar {
+  z-index: 3;
+}
+
+.react-autosuggest__container {
+  position: relative;
+}
+
+.react-autosuggest__input--focused {
+  outline: none;
+}
+
 .react-autosuggest__input {
   width: 400px;
-  height: 40px;
+  height: 35px;
   padding: 10px 20px;
   font-family: Helvetica, sans-serif;
   font-weight: 300;
@@ -260,17 +282,15 @@ div.card {
   border-radius: 2px;
 }
 
-.react-autosuggest__input:focus {
-  outline: none;
-}
-
 .react-autosuggest__container--open .react-autosuggest__input {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 .react-autosuggest__container--open .react-autosuggest__suggestions-container {
-  top: 51px;
+  display: block;
+  position: absolute;
+  top: 30px;
   width: 400px;
   border: 1px solid #aaa;
   background-color: #fff;
@@ -298,8 +318,8 @@ div.card {
 }
 
 .react-autosuggest__suggestion--focused {
-  background-color: #fff;
-  color: #000;
+  background-color: #0c7eaf;
+  color: #fff;
 }
 
 .suggestion-content {

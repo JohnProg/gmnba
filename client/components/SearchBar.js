@@ -77,7 +77,7 @@ export default class SearchBar extends React.Component {
   }
 
   getSuggestionValue(suggestion) {
-    return `${suggestion.name} \n${suggestion.team}`;
+    return `${suggestion.name} ${suggestion.team}`;
   }
 
   renderSuggestion(suggestion, { query }) {
@@ -130,14 +130,16 @@ export default class SearchBar extends React.Component {
     };
 
     return (
-      <Autosuggest
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        getSuggestionValue={this.getSuggestionValue}
-        renderSuggestion={this.renderSuggestion}
-        inputProps={inputProps}
-      />
+      <div className="card">
+        <Autosuggest
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          getSuggestionValue={this.getSuggestionValue}
+          renderSuggestion={this.renderSuggestion}
+          inputProps={inputProps}
+        />
+      </div>
     );
   }
 }
