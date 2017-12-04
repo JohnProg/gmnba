@@ -548,5 +548,53 @@ module.exports = {
       .catch(err => {
         console.log(err);
       });
+  },
+  nbaPlayersList: (req, res) => {
+    db.Players
+      .findAll({
+        attributes: ["id", "name", "picture", "team"]
+      })
+      .then(data => {
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  collegePlayersList: (req, res) => {
+    db.cPlayers
+      .findAll({
+        attributes: ["id", "name", "picture", "team"]
+      })
+      .then(data => {
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  nbaTeamsList: (req, res) => {
+    db.Teams
+      .findAll({
+        attributes: ["id", "Name", "Logo"]
+      })
+      .then(data => {
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  collegeTeamsList: (req, res) => {
+    db.cTeams
+      .findAll({
+        attributes: ["id", "Name", "Logo"]
+      })
+      .then(data => {
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };

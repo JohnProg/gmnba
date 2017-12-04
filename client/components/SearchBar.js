@@ -1,38 +1,16 @@
 import React from "react";
-import axios from "axios";
 import Autosuggest from "react-autosuggest";
 var parse = require("autosuggest-highlight/parse");
 var match = require("autosuggest-highlight/match");
 
-const players = [
-  {
-    name: "De'Quon Lake",
-    team: "Arizona State Sun Devils",
-    league: "ncaa"
-  },
-  {
-    name: "Brandon Ingram",
-    team: "Los Angeles Lakers",
-    league: "nba"
-  },
-  {
-    name: "DeAndre Ayton",
-    team: "Arizona Wildcats",
-    league: "ncaa"
-  }
-];
-
 export default class SearchBar extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       value: "",
-      suggestions: []
+      suggestions: [],
+      players: []
     };
-    this.getNbaPlayers = this.getNbaPlayers.bind(this);
-    this.getNbaTeams = this.getNbaTeams.bind(this);
-    this.getCollegePlayers = this.getNbaPlayers.bind(this);
-    this.getCollegeTeams = this.getNbaTeams.bind(this);
     this.escapeRegexCharacters = this.escapeRegexCharacters.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
     this.getSuggestionValue = this.getSuggestionValue.bind(this);
@@ -46,17 +24,7 @@ export default class SearchBar extends React.Component {
     );
   }
 
-  componentDidMount() {
-    this.getNbaPlayers();
-    this.getCollegePlayers();
-    this.getNbaTeams();
-    this.getCollegeTeams();
-  }
-
-  getNbaPlayers() {}
-  getNbaTeams() {}
-  getCollegePlayers() {}
-  getCollegeTeams() {}
+  componentDidMount() {}
 
   escapeRegexCharacters(str) {
     return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -71,33 +39,59 @@ export default class SearchBar extends React.Component {
 
     const regex = new RegExp("\\b" + escapedValue, "i");
 
-    return players.filter(player =>
+    return this.props.list.filter(player =>
       regex.test(this.getSuggestionValue(player))
     );
   }
 
   getSuggestionValue(suggestion) {
-    return `${suggestion.name} ${suggestion.team}`;
+    if (suggestion.team) {
+      return `${suggestion.name} ${suggestion.team}`;
+    } else {
+      return `${suggestion.name}`;
+    }
   }
 
   renderSuggestion(suggestion, { query }) {
-    const suggestionText = `${suggestion.name} ${suggestion.team}`;
+    var suggestionText;
+    if (suggestion.team) {
+      suggestionText = `${suggestion.name} ${suggestion.team}`;
+    } else {
+      suggestionText = `${suggestion.name}`;
+    }
     const matches = match(suggestionText, query);
     const parts = parse(suggestionText, matches);
+    var tag;
+    if (suggestion.league === "nba") {
+      if (suggestion.team) {
+        tag = `/player/${suggestion.id}`;
+      } else {
+        tag = `/team/${suggestion.id}`;
+      }
+    }
+    if (suggestion.league === "ncaa") {
+      if (suggestion.team) {
+        tag = `/college-player/${suggestion.id}`;
+      } else {
+        tag = `/college-team/${suggestion.id}`;
+      }
+    }
 
     return (
       <span className={"suggestion-content " + suggestion.league}>
-        <span className="name">
-          {parts.map((part, index) => {
-            const className = part.highlight ? "highlight" : null;
+        <a href={tag}>
+          <span className="name">
+            {parts.map((part, index) => {
+              const className = part.highlight ? "highlight" : null;
 
-            return (
-              <span className={className} key={index}>
-                {part.text}
-              </span>
-            );
-          })}
-        </span>
+              return (
+                <span className={className} key={index}>
+                  {part.text}
+                </span>
+              );
+            })}
+          </span>
+        </a>
       </span>
     );
   }
@@ -121,6 +115,7 @@ export default class SearchBar extends React.Component {
   }
 
   render() {
+    console.log("searchProps: ", this.props);
     const { value, suggestions } = this.state;
     const inputProps = {
       placeholder: "Search for Players, Teams, or Leagues",

@@ -2728,7 +2728,13 @@ var _SearchBar2 = _interopRequireDefault(_SearchBar);
 
 var _reactBootstrap = __webpack_require__(12);
 
+var _axios = __webpack_require__(19);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2745,34 +2751,134 @@ var NavBar = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this));
 
     _this.state = {
-      showSearch: false
+      showSearch: false,
+      searchList: []
     };
     _this.renderSearch = _this.renderSearch.bind(_this);
     _this.handleClick = _this.handleClick.bind(_this);
+    _this.getNbaPlayers = _this.getNbaPlayers.bind(_this);
+    _this.getNbaTeams = _this.getNbaTeams.bind(_this);
+    _this.getCollegePlayers = _this.getCollegePlayers.bind(_this);
+    _this.getCollegeTeams = _this.getCollegeTeams.bind(_this);
     return _this;
   }
 
   _createClass(NavBar, [{
-    key: "handleClick",
-    value: function handleClick() {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.getNbaPlayers();
+      this.getCollegePlayers();
+      this.getNbaTeams();
+      this.getCollegeTeams();
+    }
+  }, {
+    key: "getNbaPlayers",
+    value: function getNbaPlayers() {
       var _this2 = this;
 
-      console.log("search was clicked");
+      _axios2.default.get("/api/teams/nbaPlayersList").then(function (data) {
+        for (var i = 0; i < data.data.length; i++) {
+          var player = data.data[i];
+          var obj = {
+            name: player.name,
+            id: player.id,
+            picture: player.picture,
+            league: "nba",
+            team: player.team
+          };
+
+          _this2.setState({
+            searchList: [].concat(_toConsumableArray(_this2.state.searchList), [obj])
+          });
+        }
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "getNbaTeams",
+    value: function getNbaTeams() {
+      var _this3 = this;
+
+      _axios2.default.get("/api/teams/nbaTeamsList").then(function (data) {
+        for (var i = 0; i < data.data.length; i++) {
+          var team = data.data[i];
+          var obj = {
+            name: team.Name,
+            id: team.id,
+            picture: team.Logo,
+            league: "nba"
+          };
+          _this3.setState({
+            searchList: [].concat(_toConsumableArray(_this3.state.searchList), [obj])
+          });
+        }
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "getCollegePlayers",
+    value: function getCollegePlayers() {
+      var _this4 = this;
+
+      _axios2.default.get("/api/teams/collegePlayersList").then(function (data) {
+        for (var i = 0; i < data.data.length; i++) {
+          var player = data.data[i];
+          var obj = {
+            name: player.name,
+            id: player.id,
+            picture: player.picture,
+            league: "ncaa",
+            team: player.team
+          };
+          _this4.setState({
+            searchList: [].concat(_toConsumableArray(_this4.state.searchList), [obj])
+          });
+        }
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "getCollegeTeams",
+    value: function getCollegeTeams() {
+      var _this5 = this;
+
+      _axios2.default.get("/api/teams/collegeTeamsList").then(function (data) {
+        var obj = {};
+        for (var i = 0; i < data.data.length; i++) {
+          var team = data.data[i];
+          var obj = {
+            name: team.Name,
+            id: team.id,
+            picture: team.Logo,
+            league: "ncaa"
+          };
+          _this5.setState({
+            searchList: [].concat(_toConsumableArray(_this5.state.searchList), [obj])
+          });
+        }
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick() {
       this.setState({
         showSearch: !this.state.showSearch
-      }, function () {
-        console.log(_this2.state.showSearch);
       });
     }
   }, {
     key: "renderSearch",
     value: function renderSearch() {
       if (this.state.showSearch) {
-        console.log("render search!!");
+        console.log("searchList", this.state.searchList);
         return _react2.default.createElement(
           "div",
           { id: "search-div" },
-          _react2.default.createElement(_SearchBar2.default, null)
+          _react2.default.createElement(_SearchBar2.default, { list: this.state.searchList })
         );
       }
     }
@@ -50022,10 +50128,6 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(19);
-
-var _axios2 = _interopRequireDefault(_axios);
-
 var _reactAutosuggest = __webpack_require__(427);
 
 var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
@@ -50041,36 +50143,19 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var parse = __webpack_require__(439);
 var match = __webpack_require__(440);
 
-var players = [{
-  name: "De'Quon Lake",
-  team: "Arizona State Sun Devils",
-  league: "ncaa"
-}, {
-  name: "Brandon Ingram",
-  team: "Los Angeles Lakers",
-  league: "nba"
-}, {
-  name: "DeAndre Ayton",
-  team: "Arizona Wildcats",
-  league: "ncaa"
-}];
-
 var SearchBar = function (_React$Component) {
   _inherits(SearchBar, _React$Component);
 
-  function SearchBar() {
+  function SearchBar(props) {
     _classCallCheck(this, SearchBar);
 
-    var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this));
+    var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
 
     _this.state = {
       value: "",
-      suggestions: []
+      suggestions: [],
+      players: []
     };
-    _this.getNbaPlayers = _this.getNbaPlayers.bind(_this);
-    _this.getNbaTeams = _this.getNbaTeams.bind(_this);
-    _this.getCollegePlayers = _this.getNbaPlayers.bind(_this);
-    _this.getCollegeTeams = _this.getNbaTeams.bind(_this);
     _this.escapeRegexCharacters = _this.escapeRegexCharacters.bind(_this);
     _this.getSuggestions = _this.getSuggestions.bind(_this);
     _this.getSuggestionValue = _this.getSuggestionValue.bind(_this);
@@ -50083,24 +50168,7 @@ var SearchBar = function (_React$Component) {
 
   _createClass(SearchBar, [{
     key: "componentDidMount",
-    value: function componentDidMount() {
-      this.getNbaPlayers();
-      this.getCollegePlayers();
-      this.getNbaTeams();
-      this.getCollegeTeams();
-    }
-  }, {
-    key: "getNbaPlayers",
-    value: function getNbaPlayers() {}
-  }, {
-    key: "getNbaTeams",
-    value: function getNbaTeams() {}
-  }, {
-    key: "getCollegePlayers",
-    value: function getCollegePlayers() {}
-  }, {
-    key: "getCollegeTeams",
-    value: function getCollegeTeams() {}
+    value: function componentDidMount() {}
   }, {
     key: "escapeRegexCharacters",
     value: function escapeRegexCharacters(str) {
@@ -50119,39 +50187,67 @@ var SearchBar = function (_React$Component) {
 
       var regex = new RegExp("\\b" + escapedValue, "i");
 
-      return players.filter(function (player) {
+      return this.props.list.filter(function (player) {
         return regex.test(_this2.getSuggestionValue(player));
       });
     }
   }, {
     key: "getSuggestionValue",
     value: function getSuggestionValue(suggestion) {
-      return suggestion.name + " " + suggestion.team;
+      if (suggestion.team) {
+        return suggestion.name + " " + suggestion.team;
+      } else {
+        return "" + suggestion.name;
+      }
     }
   }, {
     key: "renderSuggestion",
     value: function renderSuggestion(suggestion, _ref) {
       var query = _ref.query;
 
-      var suggestionText = suggestion.name + " " + suggestion.team;
+      var suggestionText;
+      if (suggestion.team) {
+        suggestionText = suggestion.name + " " + suggestion.team;
+      } else {
+        suggestionText = "" + suggestion.name;
+      }
       var matches = match(suggestionText, query);
       var parts = parse(suggestionText, matches);
+      var tag;
+      if (suggestion.league === "nba") {
+        if (suggestion.team) {
+          tag = "/player/" + suggestion.id;
+        } else {
+          tag = "/team/" + suggestion.id;
+        }
+      }
+      if (suggestion.league === "ncaa") {
+        if (suggestion.team) {
+          tag = "/college-player/" + suggestion.id;
+        } else {
+          tag = "/college-team/" + suggestion.id;
+        }
+      }
 
       return _react2.default.createElement(
         "span",
         { className: "suggestion-content " + suggestion.league },
         _react2.default.createElement(
-          "span",
-          { className: "name" },
-          parts.map(function (part, index) {
-            var className = part.highlight ? "highlight" : null;
+          "a",
+          { href: tag },
+          _react2.default.createElement(
+            "span",
+            { className: "name" },
+            parts.map(function (part, index) {
+              var className = part.highlight ? "highlight" : null;
 
-            return _react2.default.createElement(
-              "span",
-              { className: className, key: index },
-              part.text
-            );
-          })
+              return _react2.default.createElement(
+                "span",
+                { className: className, key: index },
+                part.text
+              );
+            })
+          )
         )
       );
     }
@@ -50184,6 +50280,7 @@ var SearchBar = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log("searchProps: ", this.props);
       var _state = this.state,
           value = _state.value,
           suggestions = _state.suggestions;

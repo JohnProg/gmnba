@@ -28,4 +28,9 @@ router.get("/getcLeagueStats", controller.getcLeagueStats);
 router.get("/getcPlayerStats", controller.getcPlayerStats);
 router.get("/getcPositionStats", controller.getcPositionStats);
 
+router.get("/nbaPlayersList", controller.nbaPlayersList);
+router.get("/collegePlayersList", controller.collegePlayersList);
+router.get("/nbaTeamsList", controller.nbaTeamsList);
+router.get("/collegeTeamsList", controller.collegeTeamsList);
+
 module.exports = router;

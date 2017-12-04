@@ -257,6 +257,7 @@ div.card {
   height: 40px;
   float: right;
   right: 0;
+  margin-right: 125px;
 }
 
 #myNavbar {
@@ -273,7 +274,7 @@ div.card {
 
 .react-autosuggest__input {
   width: 400px;
-  height: 35px;
+  height: 40px;
   padding: 10px 20px;
   font-family: Helvetica, sans-serif;
   font-weight: 300;

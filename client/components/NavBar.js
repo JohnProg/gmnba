@@ -1,35 +1,131 @@
 import React from "react";
 import SearchBar from "./SearchBar";
 import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
+import axios from "axios";
 
 export default class NavBar extends React.Component {
   constructor() {
     super();
     this.state = {
-      showSearch: false
+      showSearch: false,
+      searchList: []
     };
     this.renderSearch = this.renderSearch.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.getNbaPlayers = this.getNbaPlayers.bind(this);
+    this.getNbaTeams = this.getNbaTeams.bind(this);
+    this.getCollegePlayers = this.getCollegePlayers.bind(this);
+    this.getCollegeTeams = this.getCollegeTeams.bind(this);
+  }
+
+  componentDidMount() {
+    this.getNbaPlayers();
+    this.getCollegePlayers();
+    this.getNbaTeams();
+    this.getCollegeTeams();
+  }
+
+  getNbaPlayers() {
+    axios
+      .get("/api/teams/nbaPlayersList")
+      .then(data => {
+        for (var i = 0; i < data.data.length; i++) {
+          var player = data.data[i];
+          var obj = {
+            name: player.name,
+            id: player.id,
+            picture: player.picture,
+            league: "nba",
+            team: player.team
+          };
+
+          this.setState({
+            searchList: [...this.state.searchList, obj]
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+  getNbaTeams() {
+    axios
+      .get("/api/teams/nbaTeamsList")
+      .then(data => {
+        for (var i = 0; i < data.data.length; i++) {
+          var team = data.data[i];
+          var obj = {
+            name: team.Name,
+            id: team.id,
+            picture: team.Logo,
+            league: "nba"
+          };
+          this.setState({
+            searchList: [...this.state.searchList, obj]
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+  getCollegePlayers() {
+    axios
+      .get("/api/teams/collegePlayersList")
+      .then(data => {
+        for (var i = 0; i < data.data.length; i++) {
+          var player = data.data[i];
+          var obj = {
+            name: player.name,
+            id: player.id,
+            picture: player.picture,
+            league: "ncaa",
+            team: player.team
+          };
+          this.setState({
+            searchList: [...this.state.searchList, obj]
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+  getCollegeTeams() {
+    axios
+      .get("/api/teams/collegeTeamsList")
+      .then(data => {
+        var obj = {};
+        for (var i = 0; i < data.data.length; i++) {
+          var team = data.data[i];
+          var obj = {
+            name: team.Name,
+            id: team.id,
+            picture: team.Logo,
+            league: "ncaa"
+          };
+          this.setState({
+            searchList: [...this.state.searchList, obj]
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   handleClick() {
-    console.log("search was clicked");
-    this.setState(
-      {
-        showSearch: !this.state.showSearch
-      },
-      () => {
-        console.log(this.state.showSearch);
-      }
-    );
+    this.setState({
+      showSearch: !this.state.showSearch
+    });
   }
 
   renderSearch() {
     if (this.state.showSearch) {
-      console.log("render search!!");
+      console.log("searchList", this.state.searchList);
       return (
         <div id="search-div">
-          <SearchBar />
+          <SearchBar list={this.state.searchList} />
         </div>
       );
     }
