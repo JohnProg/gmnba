@@ -1,6 +1,6 @@
 import React from "react";
 import PlayerTabs from "./PlayerTabs";
-import { Col, Button, Well, Row, Grid } from "react-bootstrap";
+import { Col, Button, Well, Row, Grid, Glyphicon } from "react-bootstrap";
 import { connect } from "react-redux";
 import axios from "axios";
 import PlayersList from "./PlayersList";
@@ -123,7 +123,7 @@ class PlayerInfo extends React.Component {
                     <img src="https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443" />
                   </div>
                 </Col>
-                <Col lg={6}>
+                <Col lg={4}>
                   <div id="name-text">
                     <div id="team-name">{this.state.player.name}</div>
                     <div id="info-text">
@@ -151,6 +151,40 @@ class PlayerInfo extends React.Component {
                       <div>MPG {this.state.player.mpg}</div>
                     </Col>
                   </Row>
+                </Col>
+                <Col lg={2}>
+                  <div style={{ marginTop: "90px", fontSize: "16px" }}>
+                    <div style={{ textAlign: "right" }}>
+                      Overall:{" "}
+                      <span className="rating overall">
+                        <i className="glyphicon glyphicon-star" />
+                        <i className="glyphicon glyphicon-star" />
+                        <i className="glyphicon glyphicon-star" />
+                        <i className="glyphicon glyphicon-star" />
+                        <i className="glyphicon glyphicon-star empty" />
+                      </span>
+                    </div>
+                    <div style={{ textAlign: "right" }}>
+                      Offense:{" "}
+                      <span className="rating offense">
+                        <i className="glyphicon glyphicon-star" />
+                        <i className="glyphicon glyphicon-star" />
+                        <i className="glyphicon glyphicon-star" />
+                        <i className="glyphicon glyphicon-star" />
+                        <i className="glyphicon glyphicon-star empty" />
+                      </span>
+                    </div>
+                    <div style={{ textAlign: "right" }}>
+                      Defense:{" "}
+                      <span className="rating defense">
+                        <i className="glyphicon glyphicon-star" />
+                        <i className="glyphicon glyphicon-star" />
+                        <i className="glyphicon glyphicon-star" />
+                        <i className="glyphicon glyphicon-star" />
+                        <i className="glyphicon glyphicon-star empty" />
+                      </span>
+                    </div>
+                  </div>
                 </Col>
                 <Col lg={2}>
                   <div id="logo-pic">

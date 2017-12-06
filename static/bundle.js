@@ -52695,7 +52695,7 @@ var PlayerInfo = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                   _reactBootstrap.Col,
-                  { lg: 6 },
+                  { lg: 4 },
                   _react2.default.createElement(
                     "div",
                     { id: "name-text" },
@@ -52785,6 +52785,59 @@ var PlayerInfo = function (_React$Component) {
                         null,
                         "MPG ",
                         this.state.player.mpg
+                      )
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.Col,
+                  { lg: 2 },
+                  _react2.default.createElement(
+                    "div",
+                    { style: { marginTop: "90px", fontSize: "16px" } },
+                    _react2.default.createElement(
+                      "div",
+                      { style: { textAlign: "right" } },
+                      "Overall:",
+                      " ",
+                      _react2.default.createElement(
+                        "span",
+                        { className: "rating overall" },
+                        _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+                        _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+                        _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+                        _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+                        _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+                      )
+                    ),
+                    _react2.default.createElement(
+                      "div",
+                      { style: { textAlign: "right" } },
+                      "Offense:",
+                      " ",
+                      _react2.default.createElement(
+                        "span",
+                        { className: "rating offense" },
+                        _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+                        _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+                        _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+                        _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+                        _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+                      )
+                    ),
+                    _react2.default.createElement(
+                      "div",
+                      { style: { textAlign: "right" } },
+                      "Defense:",
+                      " ",
+                      _react2.default.createElement(
+                        "span",
+                        { className: "rating defense" },
+                        _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+                        _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+                        _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+                        _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+                        _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
                       )
                     )
                   )
@@ -52959,7 +53012,7 @@ var PlayerTabs = function (_React$Component) {
               _react2.default.createElement(
                 "span",
                 { style: tabColor },
-                "PROJECTION"
+                "COMPARISON"
               )
             ),
             _react2.default.createElement(
@@ -53526,7 +53579,6 @@ var PlayerPolarColumn = function (_React$Component) {
   }, {
     key: "getGrade",
     value: function getGrade(high, actual, min) {
-      console.log("Per 36: ", actual);
       var playerGrade = {};
       var gradeSlots = 13;
       var adjusted = high - min;
@@ -53693,6 +53745,7 @@ var PlayerPolarColumn = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log(this.props.player);
       return _react2.default.createElement(
         "div",
         { className: "card" },

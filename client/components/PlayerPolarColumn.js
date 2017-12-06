@@ -79,7 +79,6 @@ export default class PlayerPolarColumn extends React.Component {
   }
 
   getGrade(high, actual, min) {
-    console.log("Per 36: ", actual);
     var playerGrade = {};
     var gradeSlots = 13;
     var adjusted = high - min;
@@ -256,6 +255,7 @@ export default class PlayerPolarColumn extends React.Component {
   }
 
   render() {
+    console.log(this.props.player);
     return (
       <div className="card">
         <div
