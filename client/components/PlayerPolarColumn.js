@@ -255,7 +255,6 @@ export default class PlayerPolarColumn extends React.Component {
   }
 
   render() {
-    console.log(this.props.player);
     return (
       <div className="card">
         <div

@@ -3,11 +3,13 @@ const controller = require("../controller/teamController");
 
 router.get("/getAllTeams", controller.getAllTeams);
 router.post("/savePlayerInfo", controller.savePlayerInfo);
+router.put("/upsertPlayerInfo", controller.upsertPlayerInfo);
 router.get("/getTeamsPlayers", controller.getTeamsPlayers);
-router.put("/updateTeam", controller.updateTeam);
+router.put("/updateTeams", controller.updateTeams);
 router.post("/createTeams", controller.createTeams);
 router.get("/getTeamStats", controller.getTeamStats);
 router.put("/updatePlayerStats", controller.updatePlayerStats);
+router.put("/updatePlayerAdvancedStats", controller.updatePlayerAdvancedStats);
 router.get("/getPlayerStats", controller.getPlayerStats);
 router.get("/getLeagueStats", controller.getLeagueStats);
 router.post("/postCollegePlayers", controller.postCollegePlayers);

@@ -115,7 +115,6 @@ export default class SearchBar extends React.Component {
   }
 
   render() {
-    console.log("searchProps: ", this.props);
     const { value, suggestions } = this.state;
     const inputProps = {
       placeholder: "Search for Players, Teams, or Leagues",
