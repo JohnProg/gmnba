@@ -36155,6 +36155,10 @@ var Info = function (_React$Component) {
     _this.getTeam = _this.getTeam.bind(_this);
     _this.getLeagueStats = _this.getLeagueStats.bind(_this);
     _this.sampleGLeague = _this.sampleGLeague.bind(_this);
+    _this.getOverallRating = _this.getOverallRating.bind(_this);
+    _this.getOffenseRating = _this.getOffenseRating.bind(_this);
+    _this.getDefenseRating = _this.getDefenseRating.bind(_this);
+    _this.calculateStars = _this.calculateStars.bind(_this);
     return _this;
   }
 
@@ -36165,17 +36169,6 @@ var Info = function (_React$Component) {
       this.getLeagueStats();
       //this.getRoster();
     }
-
-    // componentWillReceiveProps(nextProps) {
-    //   if (nextProps) {
-    //     console.log("NEXTPROPS: ", nextProps.props.match.params.id);
-    //     this.setState({ id: nextProps.props.match.params.id }, () => {
-    //       this.getTeam();
-    //       //this.createChart();
-    //     });
-    //   }
-    // }
-
   }, {
     key: "getRoster",
     value: function getRoster() {
@@ -36235,8 +36228,409 @@ var Info = function (_React$Component) {
       }
     }
   }, {
+    key: "getOffenseRating",
+    value: function getOffenseRating() {
+      if (this.state.team) {
+        var offRating = parseFloat(this.state.team.ORtg);
+        var stars = this.calculateStars(115.0, 100.0, offRating);
+        if (stars === 5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" })
+          );
+        }
+        if (stars === 4.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" })
+          );
+        }
+        if (stars === 4) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        return _react2.default.createElement(
+          "span",
+          { className: "rating overall" },
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+        );
+      }
+    }
+  }, {
+    key: "getDefenseRating",
+    value: function getDefenseRating() {
+      if (this.state.team) {
+        var defRating = parseFloat(this.state.team.DRtg);
+        var stars = this.calculateStars(112.0, 103.0, defRating);
+        if (stars === 0.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" })
+          );
+        }
+        if (stars === 1) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" })
+          );
+        }
+        if (stars === 1.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" })
+          );
+        }
+        if (stars === 2) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 4) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 4.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        return _react2.default.createElement(
+          "span",
+          { className: "rating overall" },
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+        );
+      }
+    }
+  }, {
+    key: "getOverallRating",
+    value: function getOverallRating() {
+      if (this.state.team) {
+        var wins = parseFloat(this.state.team.W) * 0.3;
+        var mov = parseFloat(this.state.team.MOV) * 0.3;
+        var sos = parseFloat(this.state.team.SOS) * 0.1;
+        var srs = parseFloat(this.state.team.SRS) * 0.3;
+        var weightedOvr = wins + mov + sos + srs;
+        var stars = this.calculateStars(10.0, -3.0, weightedOvr);
+        if (stars === 5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" })
+          );
+        }
+        if (stars === 4.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" })
+          );
+        }
+        if (stars === 4) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        return _react2.default.createElement(
+          "span",
+          { className: "rating overall" },
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+        );
+      }
+    }
+  }, {
+    key: "calculateStars",
+    value: function calculateStars(high, low, actual) {
+      var gradeScale = (high - low) / 8;
+      var fiveStars = high - gradeScale;
+      var fourHalfStars = fiveStars - gradeScale;
+      var fourStars = fourHalfStars - gradeScale;
+      var threeHalfStars = fourStars - gradeScale;
+      var threeStars = threeHalfStars - gradeScale;
+      var twoHalfStars = threeStars - gradeScale;
+      var twoStars = twoHalfStars - gradeScale;
+      var oneHalfStars = twoStars - gradeScale;
+      var oneStars = oneHalfStars - gradeScale;
+      var starRating;
+      if (actual >= fiveStars) {
+        starRating = 5;
+      } else if (actual >= fourHalfStars) {
+        starRating = 4.5;
+      } else if (actual >= fourStars) {
+        starRating = 4;
+      } else if (actual >= threeHalfStars) {
+        starRating = 3.5;
+      } else if (actual >= threeStars) {
+        starRating = 3;
+      } else if (actual >= twoHalfStars) {
+        starRating = 2.5;
+      } else if (actual >= twoStars) {
+        starRating = 2;
+      } else if (actual >= oneHalfStars) {
+        starRating = 1.5;
+      } else if (actual >= oneStars) {
+        starRating = 1;
+      } else {
+        starRating = 0.5;
+      }
+      return starRating;
+    }
+  }, {
     key: "render",
     value: function render() {
+      console.log(this.state.team);
       return _react2.default.createElement(
         "div",
         null,
@@ -36263,7 +36657,7 @@ var Info = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                   _reactBootstrap.Col,
-                  { lg: 6 },
+                  { lg: 4 },
                   _react2.default.createElement(
                     "div",
                     { id: "name-text" },
@@ -36343,6 +36737,32 @@ var Info = function (_React$Component) {
                         null,
                         "DRTG 2nd"
                       )
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.Col,
+                  { lg: 2 },
+                  _react2.default.createElement(
+                    "div",
+                    { style: { marginTop: "90px", fontSize: "16px" } },
+                    _react2.default.createElement(
+                      "div",
+                      { style: { textAlign: "right" } },
+                      "Overall: ",
+                      this.getOverallRating()
+                    ),
+                    _react2.default.createElement(
+                      "div",
+                      { style: { textAlign: "right" } },
+                      "Offense: ",
+                      this.getOffenseRating()
+                    ),
+                    _react2.default.createElement(
+                      "div",
+                      { style: { textAlign: "right" } },
+                      "Defense: ",
+                      this.getDefenseRating()
                     )
                   )
                 ),

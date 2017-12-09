@@ -35,6 +35,10 @@ class Info extends React.Component {
     this.getTeam = this.getTeam.bind(this);
     this.getLeagueStats = this.getLeagueStats.bind(this);
     this.sampleGLeague = this.sampleGLeague.bind(this);
+    this.getOverallRating = this.getOverallRating.bind(this);
+    this.getOffenseRating = this.getOffenseRating.bind(this);
+    this.getDefenseRating = this.getDefenseRating.bind(this);
+    this.calculateStars = this.calculateStars.bind(this);
   }
 
   componentDidMount() {
@@ -42,16 +46,6 @@ class Info extends React.Component {
     this.getLeagueStats();
     //this.getRoster();
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps) {
-  //     console.log("NEXTPROPS: ", nextProps.props.match.params.id);
-  //     this.setState({ id: nextProps.props.match.params.id }, () => {
-  //       this.getTeam();
-  //       //this.createChart();
-  //     });
-  //   }
-  // }
 
   getRoster() {
     var team = this.state.team.Name;
@@ -106,7 +100,404 @@ class Info extends React.Component {
     }
   }
 
+  getOffenseRating() {
+    if (this.state.team) {
+      var offRating = parseFloat(this.state.team.ORtg);
+      var stars = this.calculateStars(115.0, 100.0, offRating);
+      if (stars === 5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+          </span>
+        );
+      }
+      if (stars === 4.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+          </span>
+        );
+      }
+      if (stars === 4) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 3.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 3) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 2.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 2) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 1.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 1) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      return (
+        <span className="rating overall">
+          <i className="glyphicon glyphicon-star half" />
+          <i className="glyphicon glyphicon-star empty" />
+          <i className="glyphicon glyphicon-star empty" />
+          <i className="glyphicon glyphicon-star empty" />
+          <i className="glyphicon glyphicon-star empty" />
+        </span>
+      );
+    }
+  }
+
+  getDefenseRating() {
+    if (this.state.team) {
+      var defRating = parseFloat(this.state.team.DRtg);
+      var stars = this.calculateStars(112.0, 103.0, defRating);
+      if (stars === 0.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+          </span>
+        );
+      }
+      if (stars === 1) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+          </span>
+        );
+      }
+      if (stars === 1.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+          </span>
+        );
+      }
+      if (stars === 2) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 2.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 3) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 3.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 4) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 4.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      return (
+        <span className="rating overall">
+          <i className="glyphicon glyphicon-star half" />
+          <i className="glyphicon glyphicon-star empty" />
+          <i className="glyphicon glyphicon-star empty" />
+          <i className="glyphicon glyphicon-star empty" />
+          <i className="glyphicon glyphicon-star empty" />
+        </span>
+      );
+    }
+  }
+
+  getOverallRating() {
+    if (this.state.team) {
+      var wins = parseFloat(this.state.team.W) * 0.3;
+      var mov = parseFloat(this.state.team.MOV) * 0.3;
+      var sos = parseFloat(this.state.team.SOS) * 0.1;
+      var srs = parseFloat(this.state.team.SRS) * 0.3;
+      var weightedOvr = wins + mov + sos + srs;
+      var stars = this.calculateStars(10.0, -3.0, weightedOvr);
+      if (stars === 5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+          </span>
+        );
+      }
+      if (stars === 4.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+          </span>
+        );
+      }
+      if (stars === 4) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 3.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 3) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 2.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 2) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 1.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 1) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      return (
+        <span className="rating overall">
+          <i className="glyphicon glyphicon-star half" />
+          <i className="glyphicon glyphicon-star empty" />
+          <i className="glyphicon glyphicon-star empty" />
+          <i className="glyphicon glyphicon-star empty" />
+          <i className="glyphicon glyphicon-star empty" />
+        </span>
+      );
+    }
+  }
+
+  calculateStars(high, low, actual) {
+    var gradeScale = (high - low) / 8;
+    var fiveStars = high - gradeScale;
+    var fourHalfStars = fiveStars - gradeScale;
+    var fourStars = fourHalfStars - gradeScale;
+    var threeHalfStars = fourStars - gradeScale;
+    var threeStars = threeHalfStars - gradeScale;
+    var twoHalfStars = threeStars - gradeScale;
+    var twoStars = twoHalfStars - gradeScale;
+    var oneHalfStars = twoStars - gradeScale;
+    var oneStars = oneHalfStars - gradeScale;
+    var starRating;
+    if (actual >= fiveStars) {
+      starRating = 5;
+    } else if (actual >= fourHalfStars) {
+      starRating = 4.5;
+    } else if (actual >= fourStars) {
+      starRating = 4;
+    } else if (actual >= threeHalfStars) {
+      starRating = 3.5;
+    } else if (actual >= threeStars) {
+      starRating = 3;
+    } else if (actual >= twoHalfStars) {
+      starRating = 2.5;
+    } else if (actual >= twoStars) {
+      starRating = 2;
+    } else if (actual >= oneHalfStars) {
+      starRating = 1.5;
+    } else if (actual >= oneStars) {
+      starRating = 1;
+    } else {
+      starRating = 0.5;
+    }
+    return starRating;
+  }
+
   render() {
+    console.log(this.state.team);
     return (
       <div>
         <div id="info-container-max">
@@ -118,7 +509,7 @@ class Info extends React.Component {
                     <img src={this.state.team.Logo} />
                   </div>
                 </Col>
-                <Col lg={6}>
+                <Col lg={4}>
                   <div id="name-text">
                     <div id="team-name">{this.state.team.Name}</div>
                     <div id="info-text">
@@ -147,6 +538,19 @@ class Info extends React.Component {
                       <div>DRTG 2nd</div>
                     </Col>
                   </Row>
+                </Col>
+                <Col lg={2}>
+                  <div style={{ marginTop: "90px", fontSize: "16px" }}>
+                    <div style={{ textAlign: "right" }}>
+                      Overall: {this.getOverallRating()}
+                    </div>
+                    <div style={{ textAlign: "right" }}>
+                      Offense: {this.getOffenseRating()}
+                    </div>
+                    <div style={{ textAlign: "right" }}>
+                      Defense: {this.getDefenseRating()}
+                    </div>
+                  </div>
                 </Col>
                 <Col lg={2}>{this.sampleGLeague()}</Col>
               </div>
