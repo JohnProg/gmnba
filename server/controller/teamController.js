@@ -723,7 +723,12 @@ module.exports = {
   },
   getAllNbaPlayers: (req, res) => {
     db.Players
-      .findAll({})
+      .findAll({
+        where: {
+          mpg: { gt: 5 },
+          gamesPlayed: { gt: 9 }
+        }
+      })
       .then(data => {
         res.status(200).send(data);
       })

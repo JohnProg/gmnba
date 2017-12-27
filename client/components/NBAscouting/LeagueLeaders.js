@@ -4,6 +4,9 @@ import axios from "axios";
 import LeadersTable4 from "./LeadersTable4";
 import LeadersTable5 from "./LeadersTable5";
 import LeadersTable6 from "./LeadersTable6";
+import LeadersTable7 from "./LeadersTable7";
+import LeadersTable8 from "./LeadersTable8";
+import LeadersTable9 from "./LeadersTable9";
 
 export default class LeagueLeaders extends React.Component {
   constructor() {
@@ -221,20 +224,38 @@ export default class LeagueLeaders extends React.Component {
           <Col lg={4}>
             <div
               className="card"
-              style={{ height: "400px", backgroundColor: "white" }}
-            />
+              style={{
+                height: "400px",
+                backgroundColor: "white",
+                overflow: "scroll"
+              }}
+            >
+              <LeadersTable7 players={this.props.players} />
+            </div>
           </Col>
           <Col lg={4}>
             <div
               className="card"
-              style={{ height: "400px", backgroundColor: "white" }}
-            />
+              style={{
+                height: "400px",
+                backgroundColor: "white",
+                overflow: "scroll"
+              }}
+            >
+              <LeadersTable8 players={this.props.players} />
+            </div>
           </Col>
           <Col lg={4}>
             <div
               className="card"
-              style={{ height: "400px", backgroundColor: "white" }}
-            />
+              style={{
+                height: "400px",
+                backgroundColor: "white",
+                overflow: "scroll"
+              }}
+            >
+              <LeadersTable9 players={this.props.players} />
+            </div>
           </Col>
         </Row>
       </div>
