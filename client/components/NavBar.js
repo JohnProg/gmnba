@@ -140,7 +140,7 @@ export default class NavBar extends React.Component {
               GM NBA
             </a>
             <div className="w3-right w3-hide-small">
-              <a href="#about" className="w3-bar-item w3-button">
+              <a href="/scouting" className="w3-bar-item w3-button">
                 SCOUTING
               </a>
               <a href="#team" className="w3-bar-item w3-button">

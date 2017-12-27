@@ -720,5 +720,15 @@ module.exports = {
       .catch(err => {
         console.log(err);
       });
+  },
+  getAllNbaPlayers: (req, res) => {
+    db.Players
+      .findAll({})
+      .then(data => {
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };

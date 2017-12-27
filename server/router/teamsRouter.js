@@ -29,6 +29,7 @@ router.get("/getCollegeTeamsPlayers", controller.getCollegeTeamsPlayers);
 router.get("/getcLeagueStats", controller.getcLeagueStats);
 router.get("/getcPlayerStats", controller.getcPlayerStats);
 router.get("/getcPositionStats", controller.getcPositionStats);
+router.get("/getAllNbaPlayers", controller.getAllNbaPlayers);
 
 router.get("/nbaPlayersList", controller.nbaPlayersList);
 router.get("/collegePlayersList", controller.collegePlayersList);

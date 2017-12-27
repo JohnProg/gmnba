@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from "./NavBar";
+import NbaScouting from "./NBAscouting/NbaScouting";
 
 export default class ScoutingPage extends React.Component {
   constructor() {
@@ -10,6 +11,7 @@ export default class ScoutingPage extends React.Component {
     return (
       <div>
         <NavBar />
+        <NbaScouting props={this.props} />
       </div>
     );
   }
