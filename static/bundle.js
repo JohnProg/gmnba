@@ -58203,6 +58203,18 @@ var _LeadersTable11 = __webpack_require__(478);
 
 var _LeadersTable12 = _interopRequireDefault(_LeadersTable11);
 
+var _LeadersOverallTable = __webpack_require__(482);
+
+var _LeadersOverallTable2 = _interopRequireDefault(_LeadersOverallTable);
+
+var _LeadersOffenseTable = __webpack_require__(484);
+
+var _LeadersOffenseTable2 = _interopRequireDefault(_LeadersOffenseTable);
+
+var _LeadersDefenseTable = __webpack_require__(485);
+
+var _LeadersDefenseTable2 = _interopRequireDefault(_LeadersDefenseTable);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -58284,7 +58296,6 @@ var LeagueLeaders = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.state.players);
       var headerStyle = {
         backgroundColor: "#d00000",
         height: "45px",
@@ -58339,26 +58350,50 @@ var LeagueLeaders = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { lg: 4 },
-            _react2.default.createElement("div", {
-              className: "card",
-              style: { height: "400px", backgroundColor: "white" }
-            })
+            _react2.default.createElement(
+              "div",
+              {
+                className: "card",
+                style: {
+                  height: "400px",
+                  backgroundColor: "white",
+                  overflow: "scroll"
+                }
+              },
+              _react2.default.createElement(_LeadersOverallTable2.default, { players: this.props.players })
+            )
           ),
           _react2.default.createElement(
             _reactBootstrap.Col,
             { lg: 4 },
-            _react2.default.createElement("div", {
-              className: "card",
-              style: { height: "400px", backgroundColor: "white" }
-            })
+            _react2.default.createElement(
+              "div",
+              {
+                className: "card",
+                style: {
+                  height: "400px",
+                  backgroundColor: "white",
+                  overflow: "scroll"
+                }
+              },
+              _react2.default.createElement(_LeadersOffenseTable2.default, { players: this.props.players })
+            )
           ),
           _react2.default.createElement(
             _reactBootstrap.Col,
             { lg: 4 },
-            _react2.default.createElement("div", {
-              className: "card",
-              style: { height: "400px", backgroundColor: "white" }
-            })
+            _react2.default.createElement(
+              "div",
+              {
+                className: "card",
+                style: {
+                  height: "400px",
+                  backgroundColor: "white",
+                  overflow: "scroll"
+                }
+              },
+              _react2.default.createElement(_LeadersDefenseTable2.default, { players: this.props.players })
+            )
           )
         ),
         _react2.default.createElement(
@@ -59329,6 +59364,455 @@ var LeadersTable8 = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = LeadersTable8;
+
+/***/ }),
+/* 482 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(12);
+
+var _PlayerLeaderStarEntry = __webpack_require__(483);
+
+var _PlayerLeaderStarEntry2 = _interopRequireDefault(_PlayerLeaderStarEntry);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LeadersOverallTable = function (_React$Component) {
+  _inherits(LeadersOverallTable, _React$Component);
+
+  function LeadersOverallTable(props) {
+    _classCallCheck(this, LeadersOverallTable);
+
+    var _this = _possibleConstructorReturn(this, (LeadersOverallTable.__proto__ || Object.getPrototypeOf(LeadersOverallTable)).call(this, props));
+
+    _this.renderPlayers = _this.renderPlayers.bind(_this);
+    _this.getOverall = _this.getOverall.bind(_this);
+    return _this;
+  }
+
+  _createClass(LeadersOverallTable, [{
+    key: "renderPlayers",
+    value: function renderPlayers(stat) {
+      if (this.props.players) {
+        this.getOverall(this.props.players);
+        // this.props.players.sort(function(a, b) {
+        //   return parseFloat(b.pts) - parseFloat(a.pts);
+        // });
+        return this.props.players.map(function (player, i) {
+          return _react2.default.createElement(_PlayerLeaderStarEntry2.default, {
+            player: player,
+            key: i,
+            rank: i + 1,
+            stat: stat
+          });
+        });
+      }
+    }
+  }, {
+    key: "getOverall",
+    value: function getOverall(players) {
+      for (var i = 0; i < players.length; i++) {
+        var player = players[i];
+        var per = parseFloat(player.per) * 0.4;
+        var bpm = parseFloat(player.bpm) * 0.2;
+        var ws48 = parseFloat(player.wsFourtyEight) * 0.1;
+        var ws = parseFloat(player.ws) * 0.1;
+        var vorp = parseFloat(player.vorp) * 0.25;
+        var weightedOvr = per + bpm + ws48 + ws + vorp;
+        player["ovr"] = weightedOvr;
+      }
+      players.sort(function (a, b) {
+        return parseFloat(b.ovr) - parseFloat(a.ovr);
+      });
+      console.log(players);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Table,
+          { striped: true, hover: true },
+          _react2.default.createElement(
+            "thead",
+            null,
+            _react2.default.createElement(
+              "tr",
+              null,
+              _react2.default.createElement(
+                "th",
+                null,
+                "Rank"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "Name"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "Overall"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            "tbody",
+            null,
+            this.renderPlayers("ovr")
+          )
+        )
+      );
+    }
+  }]);
+
+  return LeadersOverallTable;
+}(_react2.default.Component);
+
+exports.default = LeadersOverallTable;
+
+/***/ }),
+/* 483 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlayerLeaderStarEntry = function (_React$Component) {
+  _inherits(PlayerLeaderStarEntry, _React$Component);
+
+  function PlayerLeaderStarEntry(props) {
+    _classCallCheck(this, PlayerLeaderStarEntry);
+
+    return _possibleConstructorReturn(this, (PlayerLeaderStarEntry.__proto__ || Object.getPrototypeOf(PlayerLeaderStarEntry)).call(this, props));
+  }
+
+  _createClass(PlayerLeaderStarEntry, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "tr",
+        null,
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.rank
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          _react2.default.createElement(
+            "a",
+            { href: "/player/" + this.props.player.id },
+            this.props.player.name
+          ),
+          " ",
+          _react2.default.createElement(
+            "span",
+            { style: { fontSize: "10px" } },
+            this.props.player.position
+          )
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player[this.props.stat].toFixed(2)
+        )
+      );
+    }
+  }]);
+
+  return PlayerLeaderStarEntry;
+}(_react2.default.Component);
+
+exports.default = PlayerLeaderStarEntry;
+
+/***/ }),
+/* 484 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(12);
+
+var _PlayerLeaderStarEntry = __webpack_require__(483);
+
+var _PlayerLeaderStarEntry2 = _interopRequireDefault(_PlayerLeaderStarEntry);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LeadersOffenseTable = function (_React$Component) {
+  _inherits(LeadersOffenseTable, _React$Component);
+
+  function LeadersOffenseTable(props) {
+    _classCallCheck(this, LeadersOffenseTable);
+
+    var _this = _possibleConstructorReturn(this, (LeadersOffenseTable.__proto__ || Object.getPrototypeOf(LeadersOffenseTable)).call(this, props));
+
+    _this.renderPlayers = _this.renderPlayers.bind(_this);
+    _this.getOffense = _this.getOffense.bind(_this);
+    return _this;
+  }
+
+  _createClass(LeadersOffenseTable, [{
+    key: "renderPlayers",
+    value: function renderPlayers(stat) {
+      if (this.props.players) {
+        this.getOffense(this.props.players);
+        // this.props.players.sort(function(a, b) {
+        //   return parseFloat(b.pts) - parseFloat(a.pts);
+        // });
+        return this.props.players.map(function (player, i) {
+          return _react2.default.createElement(_PlayerLeaderStarEntry2.default, {
+            player: player,
+            key: i,
+            rank: i + 1,
+            stat: stat
+          });
+        });
+      }
+    }
+  }, {
+    key: "getOffense",
+    value: function getOffense(players) {
+      for (var i = 0; i < players.length; i++) {
+        var player = players[i];
+        var obpm = parseFloat(player.obpm);
+        var ows = parseFloat(player.ows);
+        var offRating = obpm + ows;
+        player["off"] = offRating;
+      }
+      players.sort(function (a, b) {
+        return parseFloat(b.off) - parseFloat(a.off);
+      });
+      console.log(players);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Table,
+          { striped: true, hover: true },
+          _react2.default.createElement(
+            "thead",
+            null,
+            _react2.default.createElement(
+              "tr",
+              null,
+              _react2.default.createElement(
+                "th",
+                null,
+                "Rank"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "Name"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "Off"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            "tbody",
+            null,
+            this.renderPlayers("off")
+          )
+        )
+      );
+    }
+  }]);
+
+  return LeadersOffenseTable;
+}(_react2.default.Component);
+
+exports.default = LeadersOffenseTable;
+
+/***/ }),
+/* 485 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(12);
+
+var _PlayerLeaderStarEntry = __webpack_require__(483);
+
+var _PlayerLeaderStarEntry2 = _interopRequireDefault(_PlayerLeaderStarEntry);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LeadersDefenseTable = function (_React$Component) {
+  _inherits(LeadersDefenseTable, _React$Component);
+
+  function LeadersDefenseTable(props) {
+    _classCallCheck(this, LeadersDefenseTable);
+
+    var _this = _possibleConstructorReturn(this, (LeadersDefenseTable.__proto__ || Object.getPrototypeOf(LeadersDefenseTable)).call(this, props));
+
+    _this.renderPlayers = _this.renderPlayers.bind(_this);
+    _this.getDefense = _this.getDefense.bind(_this);
+    return _this;
+  }
+
+  _createClass(LeadersDefenseTable, [{
+    key: "renderPlayers",
+    value: function renderPlayers(stat) {
+      if (this.props.players) {
+        this.getDefense(this.props.players);
+        // this.props.players.sort(function(a, b) {
+        //   return parseFloat(b.pts) - parseFloat(a.pts);
+        // });
+        return this.props.players.map(function (player, i) {
+          return _react2.default.createElement(_PlayerLeaderStarEntry2.default, {
+            player: player,
+            key: i,
+            rank: i + 1,
+            stat: stat
+          });
+        });
+      }
+    }
+  }, {
+    key: "getDefense",
+    value: function getDefense(players) {
+      for (var i = 0; i < players.length; i++) {
+        var player = players[i];
+        var dbpm = parseFloat(player.dbpm);
+        var dws = parseFloat(player.dws);
+        var defRating = dbpm + dws;
+        player["def"] = defRating;
+      }
+      players.sort(function (a, b) {
+        return parseFloat(b.def) - parseFloat(a.def);
+      });
+      console.log(players);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Table,
+          { striped: true, hover: true },
+          _react2.default.createElement(
+            "thead",
+            null,
+            _react2.default.createElement(
+              "tr",
+              null,
+              _react2.default.createElement(
+                "th",
+                null,
+                "Rank"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "Name"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "Def"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            "tbody",
+            null,
+            this.renderPlayers("def")
+          )
+        )
+      );
+    }
+  }]);
+
+  return LeadersDefenseTable;
+}(_react2.default.Component);
+
+exports.default = LeadersDefenseTable;
 
 /***/ })
 /******/ ]);

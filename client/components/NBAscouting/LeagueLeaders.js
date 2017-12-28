@@ -7,6 +7,9 @@ import LeadersTable6 from "./LeadersTable6";
 import LeadersTable7 from "./LeadersTable7";
 import LeadersTable8 from "./LeadersTable8";
 import LeadersTable9 from "./LeadersTable9";
+import LeadersOverallTable from "./LeadersOverallTable";
+import LeadersOffenseTable from "./LeadersOffenseTable";
+import LeadersDefenseTable from "./LeadersDefenseTable";
 
 export default class LeagueLeaders extends React.Component {
   constructor() {
@@ -67,7 +70,6 @@ export default class LeagueLeaders extends React.Component {
   rankAssists() {}
 
   render() {
-    console.log(this.state.players);
     var headerStyle = {
       backgroundColor: "#d00000",
       height: "45px",
@@ -105,20 +107,38 @@ export default class LeagueLeaders extends React.Component {
           <Col lg={4}>
             <div
               className="card"
-              style={{ height: "400px", backgroundColor: "white" }}
-            />
+              style={{
+                height: "400px",
+                backgroundColor: "white",
+                overflow: "scroll"
+              }}
+            >
+              <LeadersOverallTable players={this.props.players} />
+            </div>
           </Col>
           <Col lg={4}>
             <div
               className="card"
-              style={{ height: "400px", backgroundColor: "white" }}
-            />
+              style={{
+                height: "400px",
+                backgroundColor: "white",
+                overflow: "scroll"
+              }}
+            >
+              <LeadersOffenseTable players={this.props.players} />
+            </div>
           </Col>
           <Col lg={4}>
             <div
               className="card"
-              style={{ height: "400px", backgroundColor: "white" }}
-            />
+              style={{
+                height: "400px",
+                backgroundColor: "white",
+                overflow: "scroll"
+              }}
+            >
+              <LeadersDefenseTable players={this.props.players} />
+            </div>
           </Col>
         </Row>
         <Row style={{ paddingTop: "60px", paddingLeft: "10px" }}>
