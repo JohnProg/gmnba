@@ -1,12 +1,13 @@
 import React from "react";
 import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
 import LeagueLeaders from "./LeagueLeaders";
+import PlayerComparison from "./PlayerComparison";
 
 export default class NbaScoutingTabs extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: 1
+      key: 2
     };
     this.handleSelect = this.handleSelect.bind(this);
   }
@@ -19,7 +20,8 @@ export default class NbaScoutingTabs extends React.Component {
     let component;
     if (this.state.key === 1)
       component = <LeagueLeaders players={this.props.players} />;
-    // if (this.state.key === 2) component = <TeamStats team={this.props.team} />;
+    if (this.state.key === 2)
+      component = <PlayerComparison players={this.props.players} />;
     // if (this.state.key === 3)
     //   component = <TeamPlayerStats team={this.props.team} />;
     // if (this.state.key === 4)
