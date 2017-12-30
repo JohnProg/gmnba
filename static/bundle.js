@@ -54518,6 +54518,7 @@ var PlayerPolarColumn = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log(this.props);
       return _react2.default.createElement(
         "div",
         { className: "card" },
@@ -59839,6 +59840,14 @@ var _PlayerScatter = __webpack_require__(487);
 
 var _PlayerScatter2 = _interopRequireDefault(_PlayerScatter);
 
+var _AddPlayerSearch = __webpack_require__(488);
+
+var _AddPlayerSearch2 = _interopRequireDefault(_AddPlayerSearch);
+
+var _AddPlayerSearch3 = __webpack_require__(489);
+
+var _AddPlayerSearch4 = _interopRequireDefault(_AddPlayerSearch3);
+
 var _reactBootstrap = __webpack_require__(12);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -59896,6 +59905,33 @@ var PlayerComparison = function (_React$Component) {
             _reactBootstrap.Col,
             { lg: 10, lgOffset: 1 },
             _react2.default.createElement(_PlayerScatter2.default, { players: this.props.players })
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "30px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "Player Comparison"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "40px", paddingBottom: "40px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 5, lgOffset: 1 },
+            _react2.default.createElement(_AddPlayerSearch2.default, { list: this.props.players })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 5 },
+            _react2.default.createElement(_AddPlayerSearch4.default, { list: this.props.players })
           )
         )
       );
@@ -60500,7 +60536,7 @@ var PlayerScatter = function (_React$Component) {
         }),
         _react2.default.createElement(
           _reactBootstrap.Row,
-          { style: { paddingTop: "30px" } },
+          { style: { paddingTop: "40px" } },
           _react2.default.createElement(
             _reactBootstrap.Col,
             { lg: 12 },
@@ -61089,6 +61125,1300 @@ var PlayerScatter = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = PlayerScatter;
+
+/***/ }),
+/* 488 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactAutosuggest = __webpack_require__(427);
+
+var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
+
+var _reactBootstrap = __webpack_require__(12);
+
+var _PlayerPolarColumn = __webpack_require__(490);
+
+var _PlayerPolarColumn2 = _interopRequireDefault(_PlayerPolarColumn);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var parse = __webpack_require__(439);
+var match = __webpack_require__(440);
+
+var AddPlayerSearch = function (_React$Component) {
+  _inherits(AddPlayerSearch, _React$Component);
+
+  function AddPlayerSearch(props) {
+    _classCallCheck(this, AddPlayerSearch);
+
+    var _this = _possibleConstructorReturn(this, (AddPlayerSearch.__proto__ || Object.getPrototypeOf(AddPlayerSearch)).call(this, props));
+
+    _this.state = {
+      value: "",
+      suggestions: [],
+      players: [],
+      player: {},
+      renderPlayer: false
+    };
+    _this.escapeRegexCharacters = _this.escapeRegexCharacters.bind(_this);
+    _this.getSuggestions = _this.getSuggestions.bind(_this);
+    _this.getSuggestionValue = _this.getSuggestionValue.bind(_this);
+    _this.renderSuggestion = _this.renderSuggestion.bind(_this);
+    _this.onChange = _this.onChange.bind(_this);
+    _this.onSuggestionsFetchRequested = _this.onSuggestionsFetchRequested.bind(_this);
+    _this.onSuggestionsClearRequested = _this.onSuggestionsClearRequested.bind(_this);
+    _this.handleClick = _this.handleClick.bind(_this);
+    _this.renderPlayer = _this.renderPlayer.bind(_this);
+    //this.handleChange = this.handleChange.bind(this);
+    return _this;
+  }
+
+  _createClass(AddPlayerSearch, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {}
+  }, {
+    key: "escapeRegexCharacters",
+    value: function escapeRegexCharacters(str) {
+      return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+  }, {
+    key: "getSuggestions",
+    value: function getSuggestions(value) {
+      var _this2 = this;
+
+      var escapedValue = this.escapeRegexCharacters(value.trim());
+
+      if (escapedValue === "") {
+        return [];
+      }
+
+      var regex = new RegExp("\\b" + escapedValue, "i");
+
+      return this.props.list.filter(function (player) {
+        return regex.test(_this2.getSuggestionValue(player));
+      });
+    }
+  }, {
+    key: "getSuggestionValue",
+    value: function getSuggestionValue(suggestion) {
+      if (suggestion.team) {
+        return suggestion.name + " " + suggestion.team;
+      } else {
+        return "" + suggestion.name;
+      }
+    }
+  }, {
+    key: "renderSuggestion",
+    value: function renderSuggestion(suggestion, _ref) {
+      var query = _ref.query;
+
+      var suggestionText;
+      if (suggestion.team) {
+        suggestionText = suggestion.name + " " + suggestion.team;
+      } else {
+        suggestionText = "" + suggestion.name;
+      }
+      var matches = match(suggestionText, query);
+      var parts = parse(suggestionText, matches);
+      var tag;
+      if (suggestion.league === "nba") {
+        if (suggestion.team) {
+          tag = "/player/" + suggestion.id;
+        } else {
+          tag = "/team/" + suggestion.id;
+        }
+      }
+      if (suggestion.league === "ncaa") {
+        if (suggestion.team) {
+          tag = "/college-player/" + suggestion.id;
+        } else {
+          tag = "/college-team/" + suggestion.id;
+        }
+      }
+
+      return _react2.default.createElement(
+        "span",
+        { className: "suggestion-content " + suggestion.league },
+        _react2.default.createElement(
+          "a",
+          { href: tag },
+          _react2.default.createElement(
+            "span",
+            { className: "name" },
+            parts.map(function (part, index) {
+              var className = part.highlight ? "highlight" : null;
+
+              return _react2.default.createElement(
+                "span",
+                { className: className, key: index },
+                part.text
+              );
+            })
+          )
+        )
+      );
+    }
+  }, {
+    key: "onChange",
+    value: function onChange(event, _ref2) {
+      var newValue = _ref2.newValue,
+          method = _ref2.method;
+
+      this.setState({
+        value: newValue
+      });
+    }
+  }, {
+    key: "onSuggestionsFetchRequested",
+    value: function onSuggestionsFetchRequested(_ref3) {
+      var value = _ref3.value;
+
+      this.setState({
+        suggestions: this.getSuggestions(value)
+      });
+    }
+  }, {
+    key: "onSuggestionsClearRequested",
+    value: function onSuggestionsClearRequested() {
+      this.setState({
+        suggestions: []
+      });
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(event) {
+      var _this3 = this;
+
+      event.preventDefault();
+      var value = this.state.value.split(" ");
+      var name = value[0] + " " + value[1];
+      var player = {};
+      for (var i = 0; i < this.props.list.length; i++) {
+        if (this.props.list[i].name === name) {
+          player = this.props.list[i];
+        }
+      }
+      this.setState({ player: player }, function () {
+        console.log(_this3.state.player);
+        _this3.setState({ renderPlayer: true });
+      });
+    }
+  }, {
+    key: "renderPlayer",
+    value: function renderPlayer() {
+      if (this.state.renderPlayer) {
+        console.log("Render!!");
+        return _react2.default.createElement(
+          "div",
+          {
+            className: "card",
+            style: {
+              backgroundColor: "white",
+              height: "620px",
+              overflow: "scroll"
+            }
+          },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 6, style: { paddingTop: "20px" } },
+            _react2.default.createElement(_reactBootstrap.Thumbnail, {
+              style: { border: "none" },
+              src: "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443"
+            })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 6, style: { paddingTop: "30px" } },
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                "span",
+                { style: { fontSize: "22px" } },
+                this.state.player.name
+              ),
+              _react2.default.createElement(
+                "span",
+                { style: { paddingLeft: "3px" } },
+                " ",
+                this.state.player.position
+              )
+            ),
+            _react2.default.createElement("hr", { style: { marginTop: "0px" } }),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Height: ",
+              this.state.player.height
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Weight: ",
+              this.state.player.weight
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Age: ",
+              this.state.player.age
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Experience: ",
+              this.state.player.experience
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Team: ",
+              this.state.player.team
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement("hr", { style: { marginTop: "0px" } })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(_PlayerPolarColumn2.default, { player: this.state.player })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(
+              "div",
+              {
+                style: {
+                  textDecoration: "underline",
+                  color: "#d00000",
+                  textAlign: "center",
+                  cursor: "pointer"
+                }
+              },
+              "Advanced Stats"
+            )
+          )
+        );
+      }
+    }
+
+    // handleChange(event) {
+    //   this.setState({ player: event.target.value });
+    // }
+
+  }, {
+    key: "render",
+    value: function render() {
+      var _state = this.state,
+          value = _state.value,
+          suggestions = _state.suggestions;
+
+      var inputProps = {
+        placeholder: "Search for Player...",
+        value: value,
+        onChange: this.onChange,
+        type: "search"
+      };
+
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 10, style: { paddingLeft: "0px" } },
+          _react2.default.createElement(
+            "div",
+            { className: "card" },
+            _react2.default.createElement(_reactAutosuggest2.default, {
+              suggestions: suggestions,
+              onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
+              onSuggestionsClearRequested: this.onSuggestionsClearRequested,
+              getSuggestionValue: this.getSuggestionValue,
+              renderSuggestion: this.renderSuggestion,
+              inputProps: inputProps
+            })
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 2, style: { paddingLeft: "0px" } },
+          _react2.default.createElement(
+            "div",
+            null,
+            _react2.default.createElement(
+              "button",
+              {
+                onClick: this.handleClick,
+                style: {
+                  width: "100%",
+                  height: "40px",
+                  backgroundColor: "#d00000",
+                  color: "white"
+                }
+              },
+              "Add"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 12, style: { paddingLeft: "0px", paddingTop: "20px" } },
+          this.renderPlayer()
+        )
+      );
+    }
+  }]);
+
+  return AddPlayerSearch;
+}(_react2.default.Component);
+
+exports.default = AddPlayerSearch;
+
+/***/ }),
+/* 489 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactAutosuggest = __webpack_require__(427);
+
+var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
+
+var _reactBootstrap = __webpack_require__(12);
+
+var _PlayerPolarColumn = __webpack_require__(491);
+
+var _PlayerPolarColumn2 = _interopRequireDefault(_PlayerPolarColumn);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var parse = __webpack_require__(439);
+var match = __webpack_require__(440);
+
+var AddPlayerSearch2 = function (_React$Component) {
+  _inherits(AddPlayerSearch2, _React$Component);
+
+  function AddPlayerSearch2(props) {
+    _classCallCheck(this, AddPlayerSearch2);
+
+    var _this = _possibleConstructorReturn(this, (AddPlayerSearch2.__proto__ || Object.getPrototypeOf(AddPlayerSearch2)).call(this, props));
+
+    _this.state = {
+      value: "",
+      suggestions: [],
+      players: [],
+      player: {},
+      renderPlayer: false
+    };
+    _this.escapeRegexCharacters = _this.escapeRegexCharacters.bind(_this);
+    _this.getSuggestions = _this.getSuggestions.bind(_this);
+    _this.getSuggestionValue = _this.getSuggestionValue.bind(_this);
+    _this.renderSuggestion = _this.renderSuggestion.bind(_this);
+    _this.onChange = _this.onChange.bind(_this);
+    _this.onSuggestionsFetchRequested = _this.onSuggestionsFetchRequested.bind(_this);
+    _this.onSuggestionsClearRequested = _this.onSuggestionsClearRequested.bind(_this);
+    _this.handleClick = _this.handleClick.bind(_this);
+    _this.renderPlayer = _this.renderPlayer.bind(_this);
+    return _this;
+  }
+
+  _createClass(AddPlayerSearch2, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {}
+  }, {
+    key: "escapeRegexCharacters",
+    value: function escapeRegexCharacters(str) {
+      return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+  }, {
+    key: "getSuggestions",
+    value: function getSuggestions(value) {
+      var _this2 = this;
+
+      var escapedValue = this.escapeRegexCharacters(value.trim());
+
+      if (escapedValue === "") {
+        return [];
+      }
+
+      var regex = new RegExp("\\b" + escapedValue, "i");
+
+      return this.props.list.filter(function (player) {
+        return regex.test(_this2.getSuggestionValue(player));
+      });
+    }
+  }, {
+    key: "getSuggestionValue",
+    value: function getSuggestionValue(suggestion) {
+      if (suggestion.team) {
+        return suggestion.name + " " + suggestion.team;
+      } else {
+        return "" + suggestion.name;
+      }
+    }
+  }, {
+    key: "renderSuggestion",
+    value: function renderSuggestion(suggestion, _ref) {
+      var query = _ref.query;
+
+      var suggestionText;
+      if (suggestion.team) {
+        suggestionText = suggestion.name + " " + suggestion.team;
+      } else {
+        suggestionText = "" + suggestion.name;
+      }
+      var matches = match(suggestionText, query);
+      var parts = parse(suggestionText, matches);
+      var tag;
+      if (suggestion.league === "nba") {
+        if (suggestion.team) {
+          tag = "/player/" + suggestion.id;
+        } else {
+          tag = "/team/" + suggestion.id;
+        }
+      }
+      if (suggestion.league === "ncaa") {
+        if (suggestion.team) {
+          tag = "/college-player/" + suggestion.id;
+        } else {
+          tag = "/college-team/" + suggestion.id;
+        }
+      }
+
+      return _react2.default.createElement(
+        "span",
+        { className: "suggestion-content " + suggestion.league },
+        _react2.default.createElement(
+          "a",
+          { href: tag },
+          _react2.default.createElement(
+            "span",
+            { className: "name" },
+            parts.map(function (part, index) {
+              var className = part.highlight ? "highlight" : null;
+
+              return _react2.default.createElement(
+                "span",
+                { className: className, key: index },
+                part.text
+              );
+            })
+          )
+        )
+      );
+    }
+  }, {
+    key: "onChange",
+    value: function onChange(event, _ref2) {
+      var newValue = _ref2.newValue,
+          method = _ref2.method;
+
+      this.setState({
+        value: newValue
+      });
+    }
+  }, {
+    key: "onSuggestionsFetchRequested",
+    value: function onSuggestionsFetchRequested(_ref3) {
+      var value = _ref3.value;
+
+      this.setState({
+        suggestions: this.getSuggestions(value)
+      });
+    }
+  }, {
+    key: "onSuggestionsClearRequested",
+    value: function onSuggestionsClearRequested() {
+      this.setState({
+        suggestions: []
+      });
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(event) {
+      var _this3 = this;
+
+      event.preventDefault();
+      var value = this.state.value.split(" ");
+      var name = value[0] + " " + value[1];
+      var player = {};
+      for (var i = 0; i < this.props.list.length; i++) {
+        if (this.props.list[i].name === name) {
+          player = this.props.list[i];
+        }
+      }
+      this.setState({ player: player }, function () {
+        console.log(_this3.state.player);
+        _this3.setState({ renderPlayer: true });
+      });
+    }
+  }, {
+    key: "renderPlayer",
+    value: function renderPlayer() {
+      if (this.state.renderPlayer) {
+        console.log("Render!!");
+        return _react2.default.createElement(
+          "div",
+          {
+            className: "card",
+            style: { backgroundColor: "white", height: "620px" }
+          },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 6, style: { paddingTop: "20px" } },
+            _react2.default.createElement(_reactBootstrap.Thumbnail, {
+              style: { border: "none" },
+              src: "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443"
+            })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 6, style: { paddingTop: "30px" } },
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                "span",
+                { style: { fontSize: "22px" } },
+                this.state.player.name
+              ),
+              _react2.default.createElement(
+                "span",
+                { style: { paddingLeft: "3px" } },
+                " ",
+                this.state.player.position
+              )
+            ),
+            _react2.default.createElement("hr", { style: { marginTop: "0px" } }),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Height: ",
+              this.state.player.height
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Weight: ",
+              this.state.player.weight
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Age: ",
+              this.state.player.age
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Experience: ",
+              this.state.player.experience
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Team: ",
+              this.state.player.team
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement("hr", { style: { marginTop: "0px" } })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(_PlayerPolarColumn2.default, { player: this.state.player })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(
+              "div",
+              {
+                style: {
+                  textDecoration: "underline",
+                  color: "#d00000",
+                  textAlign: "center",
+                  cursor: "pointer"
+                }
+              },
+              "Advanced Stats"
+            )
+          )
+        );
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _state = this.state,
+          value = _state.value,
+          suggestions = _state.suggestions;
+
+      var inputProps = {
+        placeholder: "Search for Player...",
+        value: value,
+        onChange: this.onChange,
+        type: "search"
+      };
+
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 10, style: { paddingLeft: "0px" } },
+          _react2.default.createElement(
+            "div",
+            { className: "card" },
+            _react2.default.createElement(_reactAutosuggest2.default, {
+              suggestions: suggestions,
+              onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
+              onSuggestionsClearRequested: this.onSuggestionsClearRequested,
+              getSuggestionValue: this.getSuggestionValue,
+              renderSuggestion: this.renderSuggestion,
+              inputProps: inputProps
+            })
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 2, style: { paddingLeft: "0px" } },
+          _react2.default.createElement(
+            "div",
+            null,
+            _react2.default.createElement(
+              "button",
+              {
+                onClick: this.handleClick,
+                style: {
+                  width: "100%",
+                  height: "40px",
+                  backgroundColor: "#d00000",
+                  color: "white"
+                }
+              },
+              "Add"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 12, style: { paddingLeft: "0px", paddingTop: "20px" } },
+          this.renderPlayer()
+        )
+      );
+    }
+  }]);
+
+  return AddPlayerSearch2;
+}(_react2.default.Component);
+
+exports.default = AddPlayerSearch2;
+
+/***/ }),
+/* 490 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlayerPolarColumn2 = function (_React$Component) {
+  _inherits(PlayerPolarColumn2, _React$Component);
+
+  function PlayerPolarColumn2() {
+    _classCallCheck(this, PlayerPolarColumn2);
+
+    var _this = _possibleConstructorReturn(this, (PlayerPolarColumn2.__proto__ || Object.getPrototypeOf(PlayerPolarColumn2)).call(this));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(PlayerPolarColumn2, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
+          _this2.calculateGrades();
+          //this.createChart();
+        });
+      }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // if (nextProps.player.name) {
+      //   this.setState({ player: nextProps.player }, () => {
+      //     this.calculateGrades();
+      //     //this.createChart();
+      //   });
+      // }
+    }
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highPoints = 30;
+      var highAst = 11;
+      var highReb = 15;
+      var highStl = 2.5;
+      var highBlk = 2.5;
+      var highFT = 0.93;
+      var highThree = 0.5;
+      var highTwo = 0.88;
+
+      var scoring = this.getGrade(highPoints, this.state.player.pts / this.state.player.mpg * 36, 0);
+      var ast = this.getGrade(highAst, this.state.player.ast / this.state.player.mpg * 36, 0);
+      var reb = this.getGrade(highReb, this.state.player.trb / this.state.player.mpg * 36, 0);
+      var stl = this.getGrade(highStl, this.state.player.stl / this.state.player.mpg * 36, 0);
+      var blk = this.getGrade(highBlk, this.state.player.blk / this.state.player.mpg * 36, 0);
+      var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
+      var threePoint = this.getGrade(highThree, this.state.player.threePtPct, 0.2);
+      var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.2);
+      this.setState({
+        scoring: scoring,
+        ast: ast,
+        reb: reb,
+        stl: stl,
+        blk: blk,
+        ft: ft,
+        threePoint: threePoint,
+        twoPoint: twoPoint
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-column", {
+        chart: {
+          polar: true,
+          type: "column"
+        },
+
+        title: {
+          text: null
+        },
+
+        pane: {
+          startAngle: 0,
+          endAngle: 360
+        },
+
+        xAxis: {
+          min: 0,
+          max: 360,
+          tickInterval: 45,
+          labels: {
+            enabled: false
+          }
+        },
+
+        yAxis: {
+          min: 0,
+          max: 60,
+          labels: {
+            enabled: false
+          }
+        },
+
+        plotOptions: {
+          series: {
+            pointStart: 0,
+            pointInterval: 45,
+            dataLabels: {
+              useHTML: true,
+              enabled: true,
+              format: '<span class="wheel-label" style="color: grey">{point.name}</span>',
+              style: {
+                fontSize: "12px"
+              }
+            }
+          },
+          column: {
+            pointPadding: 0,
+            groupPadding: 0,
+            events: {
+              legendItemClick: function legendItemClick() {
+                return false;
+              }
+            },
+            borderWidth: 2
+          }
+        },
+
+        legend: {
+          enabled: false
+        },
+
+        series: [{
+          name: "Rating",
+          data: [{
+            y: this.state.scoring.Grade,
+            color: this.state.scoring.Color,
+            name: "Scoring"
+          }, {
+            y: this.state.ast.Grade,
+            color: this.state.ast.Color,
+            name: "Ast"
+          }, {
+            y: this.state.reb.Grade,
+            color: this.state.reb.Color,
+            name: "Reb"
+          }, {
+            y: this.state.stl.Grade,
+            color: this.state.stl.Color,
+            name: "Stl"
+          }, {
+            y: this.state.blk.Grade,
+            color: this.state.blk.Color,
+            name: "Blk"
+          }, {
+            y: this.state.ft.Grade,
+            color: this.state.ft.Color,
+            name: "FT%"
+          }, {
+            y: this.state.threePoint.Grade,
+            color: this.state.threePoint.Color,
+            name: "3P%"
+          }, {
+            y: this.state.twoPoint.Grade,
+            color: this.state.twoPoint.Color,
+            name: "2P%"
+          }],
+          pointPlacement: "on"
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          id: "container-column",
+          style: { height: "350px", margin: "0 auto" }
+        })
+      );
+    }
+  }]);
+
+  return PlayerPolarColumn2;
+}(_react2.default.Component);
+
+exports.default = PlayerPolarColumn2;
+
+/***/ }),
+/* 491 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlayerPolarColumn2 = function (_React$Component) {
+  _inherits(PlayerPolarColumn2, _React$Component);
+
+  function PlayerPolarColumn2() {
+    _classCallCheck(this, PlayerPolarColumn2);
+
+    var _this = _possibleConstructorReturn(this, (PlayerPolarColumn2.__proto__ || Object.getPrototypeOf(PlayerPolarColumn2)).call(this));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(PlayerPolarColumn2, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
+          _this2.calculateGrades();
+          //this.createChart();
+        });
+      }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // if (nextProps.player.name) {
+      //   this.setState({ player: nextProps.player }, () => {
+      //     this.calculateGrades();
+      //     //this.createChart();
+      //   });
+      // }
+    }
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highPoints = 30;
+      var highAst = 11;
+      var highReb = 15;
+      var highStl = 2.5;
+      var highBlk = 2.5;
+      var highFT = 0.93;
+      var highThree = 0.5;
+      var highTwo = 0.88;
+
+      var scoring = this.getGrade(highPoints, this.state.player.pts / this.state.player.mpg * 36, 0);
+      var ast = this.getGrade(highAst, this.state.player.ast / this.state.player.mpg * 36, 0);
+      var reb = this.getGrade(highReb, this.state.player.trb / this.state.player.mpg * 36, 0);
+      var stl = this.getGrade(highStl, this.state.player.stl / this.state.player.mpg * 36, 0);
+      var blk = this.getGrade(highBlk, this.state.player.blk / this.state.player.mpg * 36, 0);
+      var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
+      var threePoint = this.getGrade(highThree, this.state.player.threePtPct, 0.2);
+      var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.2);
+      this.setState({
+        scoring: scoring,
+        ast: ast,
+        reb: reb,
+        stl: stl,
+        blk: blk,
+        ft: ft,
+        threePoint: threePoint,
+        twoPoint: twoPoint
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-column2", {
+        chart: {
+          polar: true,
+          type: "column"
+        },
+
+        title: {
+          text: null
+        },
+
+        pane: {
+          startAngle: 0,
+          endAngle: 360
+        },
+
+        xAxis: {
+          min: 0,
+          max: 360,
+          tickInterval: 45,
+          labels: {
+            enabled: false
+          }
+        },
+
+        yAxis: {
+          min: 0,
+          max: 60,
+          labels: {
+            enabled: false
+          }
+        },
+
+        plotOptions: {
+          series: {
+            pointStart: 0,
+            pointInterval: 45,
+            dataLabels: {
+              useHTML: true,
+              enabled: true,
+              format: '<span class="wheel-label" style="color: grey">{point.name}</span>',
+              style: {
+                fontSize: "12px"
+              }
+            }
+          },
+          column: {
+            pointPadding: 0,
+            groupPadding: 0,
+            events: {
+              legendItemClick: function legendItemClick() {
+                return false;
+              }
+            },
+            borderWidth: 2
+          }
+        },
+
+        legend: {
+          enabled: false
+        },
+
+        series: [{
+          name: "Rating",
+          data: [{
+            y: this.state.scoring.Grade,
+            color: this.state.scoring.Color,
+            name: "Scoring"
+          }, {
+            y: this.state.ast.Grade,
+            color: this.state.ast.Color,
+            name: "Ast"
+          }, {
+            y: this.state.reb.Grade,
+            color: this.state.reb.Color,
+            name: "Reb"
+          }, {
+            y: this.state.stl.Grade,
+            color: this.state.stl.Color,
+            name: "Stl"
+          }, {
+            y: this.state.blk.Grade,
+            color: this.state.blk.Color,
+            name: "Blk"
+          }, {
+            y: this.state.ft.Grade,
+            color: this.state.ft.Color,
+            name: "FT%"
+          }, {
+            y: this.state.threePoint.Grade,
+            color: this.state.threePoint.Color,
+            name: "3P%"
+          }, {
+            y: this.state.twoPoint.Grade,
+            color: this.state.twoPoint.Color,
+            name: "2P%"
+          }],
+          pointPlacement: "on"
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          id: "container-column2",
+          style: { height: "350px", margin: "0 auto" }
+        })
+      );
+    }
+  }]);
+
+  return PlayerPolarColumn2;
+}(_react2.default.Component);
+
+exports.default = PlayerPolarColumn2;
 
 /***/ })
 /******/ ]);

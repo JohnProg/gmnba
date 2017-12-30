@@ -280,7 +280,7 @@ export default class PlayerScatter extends React.Component {
             height: "500px"
           }}
         />
-        <Row style={{ paddingTop: "30px" }}>
+        <Row style={{ paddingTop: "40px" }}>
           <Col lg={12}>
             <div className="card" style={{ backgroundColor: "white" }}>
               <div>

@@ -1,5 +1,7 @@
 import React from "react";
 import PlayerScatter from "./PlayerScatter";
+import AddPlayerSearch from "./AddPlayerSearch";
+import AddPlayerSearch2 from "./AddPlayerSearch2";
 import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
 
 export default class PlayerComparison extends React.Component {
@@ -32,6 +34,21 @@ export default class PlayerComparison extends React.Component {
         >
           <Col lg={10} lgOffset={1}>
             <PlayerScatter players={this.props.players} />
+          </Col>
+        </Row>
+        <Row style={{ paddingTop: "30px" }}>
+          <Col lg={3} lgOffset={1}>
+            <div className="card" style={headerStyle}>
+              Player Comparison
+            </div>
+          </Col>
+        </Row>
+        <Row style={{ paddingTop: "40px", paddingBottom: "40px" }}>
+          <Col lg={5} lgOffset={1}>
+            <AddPlayerSearch list={this.props.players} />
+          </Col>
+          <Col lg={5}>
+            <AddPlayerSearch2 list={this.props.players} />
           </Col>
         </Row>
       </div>

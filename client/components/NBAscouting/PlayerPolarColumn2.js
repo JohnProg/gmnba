@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class PlayerPolarColumn extends React.Component {
+export default class PlayerPolarColumn2 extends React.Component {
   constructor() {
     super();
     this.createChart = this.createChart.bind(this);
@@ -8,15 +8,22 @@ export default class PlayerPolarColumn extends React.Component {
     this.getGrade = this.getGrade.bind(this);
   }
 
-  componentDidMount() {}
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.player.name) {
-      this.setState({ player: nextProps.player }, () => {
+  componentDidMount() {
+    if (this.props.player.name) {
+      this.setState({ player: this.props.player }, () => {
         this.calculateGrades();
         //this.createChart();
       });
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // if (nextProps.player.name) {
+    //   this.setState({ player: nextProps.player }, () => {
+    //     this.calculateGrades();
+    //     //this.createChart();
+    //   });
+    // }
   }
 
   calculateGrades() {
@@ -255,12 +262,11 @@ export default class PlayerPolarColumn extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
-      <div className="card">
+      <div>
         <div
           id="container-column"
-          style={{ height: "400px", margin: "0 auto" }}
+          style={{ height: "350px", margin: "0 auto" }}
         />
       </div>
     );
