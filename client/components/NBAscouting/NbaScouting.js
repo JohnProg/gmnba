@@ -7,13 +7,16 @@ export default class NbaScouting extends React.Component {
   constructor() {
     super();
     this.state = {
-      playerStats: []
+      playerStats: [],
+      teams: []
     };
     this.getAllNbaPlayers = this.getAllNbaPlayers.bind(this);
+    this.getTeams = this.getTeams.bind(this);
   }
 
   componentDidMount() {
     this.getAllNbaPlayers();
+    this.getTeams();
   }
 
   getAllNbaPlayers() {
@@ -21,6 +24,19 @@ export default class NbaScouting extends React.Component {
       .get("/api/teams/getAllNbaPlayers")
       .then(data => {
         this.setState({ playerStats: data.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  getTeams() {
+    axios
+      .get("/api/teams/getLeagueStats")
+      .then(data => {
+        this.setState({ teams: data.data }, () => {
+          console.log(this.state.teams);
+        });
       })
       .catch(err => {
         console.log(err);
@@ -57,6 +73,7 @@ export default class NbaScouting extends React.Component {
                   />
                   <NbaScoutingTabs
                     players={this.state.playerStats}
+                    teams={this.state.teams}
                     style={{ marginLeft: "20px", marginRight: "20px" }}
                   />
                 </Col>
