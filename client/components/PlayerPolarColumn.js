@@ -21,7 +21,7 @@ export default class PlayerPolarColumn extends React.Component {
 
   calculateGrades() {
     var highPoints = 30;
-    var highAst = 11;
+    var highAst = 10;
     var highReb = 15;
     var highStl = 2.5;
     var highBlk = 2.5;
@@ -163,6 +163,11 @@ export default class PlayerPolarColumn extends React.Component {
         labels: {
           enabled: false
         }
+      },
+
+      tooltip: {
+        headerFormat: "<b>{point.key}</b><br/>",
+        pointFormat: `<span>Rating: {point.y}</span><br/>`
       },
 
       yAxis: {

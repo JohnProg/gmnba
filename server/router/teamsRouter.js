@@ -6,6 +6,7 @@ router.post("/savePlayerInfo", controller.savePlayerInfo);
 router.put("/upsertPlayerInfo", controller.upsertPlayerInfo);
 router.get("/getTeamsPlayers", controller.getTeamsPlayers);
 router.put("/updateTeams", controller.updateTeams);
+router.put("/updatecTeams", controller.updatecTeams);
 router.post("/createTeams", controller.createTeams);
 router.get("/getTeamStats", controller.getTeamStats);
 router.put("/updatePlayerStats", controller.updatePlayerStats);
@@ -30,6 +31,7 @@ router.get("/getcLeagueStats", controller.getcLeagueStats);
 router.get("/getcPlayerStats", controller.getcPlayerStats);
 router.get("/getcPositionStats", controller.getcPositionStats);
 router.get("/getAllNbaPlayers", controller.getAllNbaPlayers);
+router.get("/getAllCollegePlayers", controller.getAllCollegePlayers);
 
 router.get("/nbaPlayersList", controller.nbaPlayersList);
 router.get("/collegePlayersList", controller.collegePlayersList);

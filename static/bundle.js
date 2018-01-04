@@ -14111,8 +14111,16 @@ var PlayerRankGuages = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (PlayerRankGuages.__proto__ || Object.getPrototypeOf(PlayerRankGuages)).call(this));
 
+    _this.state = {
+      gauge1: "pts",
+      gauge2: "trb",
+      gauge3: "ast"
+    };
     _this.createChart = _this.createChart.bind(_this);
     _this.getPlayerRank = _this.getPlayerRank.bind(_this);
+    _this.selectG1 = _this.selectG1.bind(_this);
+    _this.selectG2 = _this.selectG2.bind(_this);
+    _this.selectG3 = _this.selectG3.bind(_this);
     return _this;
   }
 
@@ -14130,14 +14138,15 @@ var PlayerRankGuages = function (_React$Component) {
         this.setState({ colors: nextProps.colors });
       }
       if (nextProps.positionStats) {
-        var ptsRank = this.getPlayerRank("pts");
-        var trbRank = this.getPlayerRank("trb");
-        var astRank = this.getPlayerRank("ast");
+        var gauge1Rank = this.getPlayerRank(this.state.gauge1);
+        var gauge2Rank = this.getPlayerRank(this.state.gauge2);
+        var gauge3Rank = this.getPlayerRank(this.state.gauge3);
         this.setState({
-          ptsRank: ptsRank,
-          trbRank: trbRank,
-          astRank: astRank
+          gauge1Rank: gauge1Rank,
+          gauge2Rank: gauge2Rank,
+          gauge3Rank: gauge3Rank
         }, function () {
+          console.log(_this2.state);
           _this2.createChart();
         });
       }
@@ -14169,6 +14178,42 @@ var PlayerRankGuages = function (_React$Component) {
       obj["rank"] = rank;
       obj["suffix"] = suffix;
       return obj;
+    }
+  }, {
+    key: "selectG1",
+    value: function selectG1(evt, eventKey) {
+      var _this3 = this;
+
+      this.setState({ gauge1: eventKey.target.innerHTML }, function () {
+        var gauge1Rank = _this3.getPlayerRank(_this3.state.gauge1);
+        _this3.setState({ gauge1Rank: gauge1Rank }, function () {
+          _this3.createChart();
+        });
+      });
+    }
+  }, {
+    key: "selectG2",
+    value: function selectG2(evt, eventKey) {
+      var _this4 = this;
+
+      this.setState({ gauge2: eventKey.target.innerHTML }, function () {
+        var gauge2Rank = _this4.getPlayerRank(_this4.state.gauge2);
+        _this4.setState({ gauge2Rank: gauge2Rank }, function () {
+          _this4.createChart();
+        });
+      });
+    }
+  }, {
+    key: "selectG3",
+    value: function selectG3(evt, eventKey) {
+      var _this5 = this;
+
+      this.setState({ gauge3: eventKey.target.innerHTML }, function () {
+        var gauge3Rank = _this5.getPlayerRank(_this5.state.gauge3);
+        _this5.setState({ gauge3Rank: gauge3Rank }, function () {
+          _this5.createChart();
+        });
+      });
     }
   }, {
     key: "createChart",
@@ -14244,9 +14289,9 @@ var PlayerRankGuages = function (_React$Component) {
 
         series: [{
           name: "PTS",
-          data: [this.state.playerCount + 1 - this.state.ptsRank.rank],
+          data: [this.state.playerCount + 1 - this.state.gauge1Rank.rank],
           dataLabels: {
-            format: '<div style="text-align:center"><span style="font-size:24px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + ("\">" + this.state.ptsRank.rank + this.state.ptsRank.suffix + "</span><br/>") + "</div>"
+            format: '<div style="text-align:center"><span style="font-size:24px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + ("\">" + this.state.gauge1Rank.rank + this.state.gauge1Rank.suffix + "</span><br/>") + "</div>"
           },
           tooltip: {
             valueSuffix: " km/h"
@@ -14269,9 +14314,9 @@ var PlayerRankGuages = function (_React$Component) {
 
         series: [{
           name: "PTS",
-          data: [this.state.playerCount + 1 - this.state.trbRank.rank],
+          data: [this.state.playerCount + 1 - this.state.gauge2Rank.rank],
           dataLabels: {
-            format: '<div style="text-align:center"><span style="font-size:24px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + ("\">" + this.state.trbRank.rank + this.state.trbRank.suffix + "</span><br/>") + "</div>"
+            format: '<div style="text-align:center"><span style="font-size:24px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + ("\">" + this.state.gauge2Rank.rank + this.state.gauge2Rank.suffix + "</span><br/>") + "</div>"
           },
           tooltip: {
             valueSuffix: " km/h"
@@ -14294,9 +14339,9 @@ var PlayerRankGuages = function (_React$Component) {
 
         series: [{
           name: "PTS",
-          data: [this.state.playerCount + 1 - this.state.astRank.rank],
+          data: [this.state.playerCount + 1 - this.state.gauge3Rank.rank],
           dataLabels: {
-            format: '<div style="text-align:center"><span style="font-size:24px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + ("\">" + this.state.astRank.rank + this.state.astRank.suffix + "</span><br/>") + "</div>"
+            format: '<div style="text-align:center"><span style="font-size:24px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + ("\">" + this.state.gauge3Rank.rank + this.state.gauge3Rank.suffix + "</span><br/>") + "</div>"
           },
           tooltip: {
             valueSuffix: " km/h"
@@ -14309,7 +14354,11 @@ var PlayerRankGuages = function (_React$Component) {
     value: function render() {
       var statLabels = {
         backgroundColor: this.props.colors.Color_Main,
-        color: this.props.colors.Color_Third || this.props.colors.Color_Sec
+        color: this.props.colors.Color_Third || this.props.colors.Color_Sec,
+        textAlign: "center",
+        fontSize: "16px",
+        borderRadius: "0px",
+        width: "150px"
       };
       return _react2.default.createElement(
         "div",
@@ -14322,11 +14371,233 @@ var PlayerRankGuages = function (_React$Component) {
             { lg: 4 },
             _react2.default.createElement(
               "div",
-              { className: "gauge-header-div" },
+              {
+                className: "gauge-header-div ",
+                style: { textAlign: "center", fontSize: "16px" }
+              },
               _react2.default.createElement(
-                "div",
-                { className: "card guage-header", style: statLabels },
-                "PTS"
+                _reactBootstrap.DropdownButton,
+                {
+                  title: this.state.gauge1.toUpperCase(),
+                  style: statLabels,
+                  className: "card",
+                  onSelect: this.selectG1
+                },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "1" },
+                  "pts"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "2" },
+                  "ast"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "3" },
+                  "trb"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "4" },
+                  "mpg"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "5" },
+                  "stl"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "6" },
+                  "blk"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "7" },
+                  "fgm"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "8" },
+                  "fga"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "9" },
+                  "fgPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "10" },
+                  "threePt"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "11" },
+                  "threePtAtt"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "12" },
+                  "twoPt"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "13" },
+                  "twoPtAtt"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "14" },
+                  "twoPtPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "15" },
+                  "threePtPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "16" },
+                  "ft"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "17" },
+                  "fta"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "18" },
+                  "freeThrowPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "19" },
+                  "efgPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "20" },
+                  "tov"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "21" },
+                  "orb"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "22" },
+                  "drb"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "23" },
+                  "pf"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "24" },
+                  "orbPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "25" },
+                  "astPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "26" },
+                  "tovPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "27" },
+                  "drbPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "28" },
+                  "stlPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "29" },
+                  "blkPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "30" },
+                  "usgPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "31" },
+                  "trbPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "32" },
+                  "tsPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "33" },
+                  "threePAr"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "34" },
+                  "ftr"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "35" },
+                  "per"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "36" },
+                  "ows"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "37" },
+                  "dws"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "38" },
+                  "bpm"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "39" },
+                  "ws"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "40" },
+                  "obpm"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "41" },
+                  "dbpm"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "42" },
+                  "wsFortyEight"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "43" },
+                  "vorp"
+                )
               )
             ),
             _react2.default.createElement("div", {
@@ -14342,11 +14613,233 @@ var PlayerRankGuages = function (_React$Component) {
             { lg: 4 },
             _react2.default.createElement(
               "div",
-              { className: "gauge-header-div" },
+              {
+                className: "gauge-header-div",
+                style: { textAlign: "center", fontSize: "16px" }
+              },
               _react2.default.createElement(
-                "div",
-                { className: "card guage-header", style: statLabels },
-                "TRB"
+                _reactBootstrap.DropdownButton,
+                {
+                  className: "card",
+                  style: statLabels,
+                  title: this.state.gauge2.toUpperCase(),
+                  onSelect: this.selectG2
+                },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { onSelect: this.selectG1, eventKey: "1" },
+                  "pts"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "2" },
+                  "ast"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "3" },
+                  "trb"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "4" },
+                  "mpg"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "5" },
+                  "stl"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "6" },
+                  "blk"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "7" },
+                  "fgm"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "8" },
+                  "fga"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "9" },
+                  "fgPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "10" },
+                  "threePt"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "11" },
+                  "threePtAtt"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "12" },
+                  "twoPt"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "13" },
+                  "twoPtAtt"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "14" },
+                  "twoPtPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "15" },
+                  "threePtPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "16" },
+                  "ft"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "17" },
+                  "fta"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "18" },
+                  "freeThrowPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "19" },
+                  "efgPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "20" },
+                  "tov"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "21" },
+                  "orb"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "22" },
+                  "drb"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "23" },
+                  "pf"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "24" },
+                  "orbPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "25" },
+                  "astPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "26" },
+                  "tovPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "27" },
+                  "drbPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "28" },
+                  "stlPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "29" },
+                  "blkPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "30" },
+                  "usgPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "31" },
+                  "trbPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "32" },
+                  "tsPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "33" },
+                  "threePAr"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "34" },
+                  "ftr"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "35" },
+                  "per"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "36" },
+                  "ows"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "37" },
+                  "dws"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "38" },
+                  "bpm"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "39" },
+                  "ws"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "40" },
+                  "obpm"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "41" },
+                  "dbpm"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "42" },
+                  "wsFortyEight"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "43" },
+                  "vorp"
+                )
               )
             ),
             _react2.default.createElement("div", {
@@ -14362,11 +14855,233 @@ var PlayerRankGuages = function (_React$Component) {
             { lg: 4 },
             _react2.default.createElement(
               "div",
-              { className: "gauge-header-div" },
+              {
+                className: "gauge-header-div",
+                style: { textAlign: "center", fontSize: "16px" }
+              },
               _react2.default.createElement(
-                "div",
-                { className: "card guage-header", style: statLabels },
-                "AST"
+                _reactBootstrap.DropdownButton,
+                {
+                  className: "card",
+                  style: statLabels,
+                  title: this.state.gauge3.toUpperCase(),
+                  onSelect: this.selectG3
+                },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "1" },
+                  "pts"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "2" },
+                  "ast"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "3" },
+                  "trb"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "4" },
+                  "mpg"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "5" },
+                  "stl"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "6" },
+                  "blk"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "7" },
+                  "fgm"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "8" },
+                  "fga"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "9" },
+                  "fgPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "10" },
+                  "threePt"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "11" },
+                  "threePtAtt"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "12" },
+                  "twoPt"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "13" },
+                  "twoPtAtt"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "14" },
+                  "twoPtPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "15" },
+                  "threePtPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "16" },
+                  "ft"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "17" },
+                  "fta"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "18" },
+                  "freeThrowPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "19" },
+                  "efgPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "20" },
+                  "tov"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "21" },
+                  "orb"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "22" },
+                  "drb"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "23" },
+                  "pf"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "24" },
+                  "orbPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "25" },
+                  "astPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "26" },
+                  "tovPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "27" },
+                  "drbPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "28" },
+                  "stlPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "29" },
+                  "blkPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "30" },
+                  "usgPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "31" },
+                  "trbPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "32" },
+                  "tsPct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "33" },
+                  "threePAr"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "34" },
+                  "ftr"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "35" },
+                  "per"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "36" },
+                  "ows"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "37" },
+                  "dws"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "38" },
+                  "bpm"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "39" },
+                  "ws"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "40" },
+                  "obpm"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "41" },
+                  "dbpm"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "42" },
+                  "wsFortyEight"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "43" },
+                  "vorp"
+                )
               )
             ),
             _react2.default.createElement("div", {
@@ -14902,42 +15617,42 @@ var PlayerSeasonStats = function (_React$Component) {
                       _react2.default.createElement(
                         "th",
                         null,
-                        "W"
+                        "AST%"
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        "L"
+                        "BLK%"
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        "MOV"
+                        "STL%"
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        "SOS"
+                        "DRB%"
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        "SRS"
+                        "ORB%"
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        "ORtg"
+                        "TRB%"
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        "DRtg"
+                        "eFG%"
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        "PACE"
+                        "TOV%"
                       ),
                       _react2.default.createElement(
                         "th",
@@ -14952,42 +15667,57 @@ var PlayerSeasonStats = function (_React$Component) {
                       _react2.default.createElement(
                         "th",
                         null,
-                        "Off eFG%"
+                        "TS%"
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        "Off TOV%"
+                        "USG%"
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        "ORB%"
+                        "DBPM"
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        "Off FT/FGA"
+                        "OBPM"
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        "Def eFG%"
+                        "BPM"
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        "Def TOV%"
+                        "PER"
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        "DRB%"
+                        "VORP"
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        "Def FT/FGA"
+                        "DWS"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "OWS"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "WS"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "WS/48"
                       )
                     )
                   ),
@@ -15000,92 +15730,107 @@ var PlayerSeasonStats = function (_React$Component) {
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["W"]
+                        stat["astPct"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["L"]
+                        stat["blkPct"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["MOV"]
+                        stat["stlPct"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["SOS"]
+                        stat["drbPct"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["SRS"]
+                        stat["orbPct"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["ORtg"]
+                        stat["trbPct"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["DRtg"]
+                        stat["efgPct"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["PACE"]
+                        stat["tovPct"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["FTr"]
+                        stat["ftr"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["Three_PAr"]
+                        stat["threePAr"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["OFF_eFG_PCT"]
+                        stat["tsPct"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["OFF_TOV_PCT"]
+                        stat["usgPct"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["ORB_PCT"]
+                        stat["dbpm"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["OFF_FT_FGA"]
+                        stat["obpm"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["DEF_eFG_PCT"]
+                        stat["bpm"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["DEF_TOV_PCT"]
+                        stat["per"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["DRB_PCT"]
+                        stat["vorp"]
                       ),
                       _react2.default.createElement(
                         "th",
                         null,
-                        stat["DEF_FT_FGA"]
+                        stat["dws"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["ows"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["ws"]
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        stat["wsFourtyEight"]
                       )
                     )
                   )
@@ -32400,6 +33145,10 @@ var _ScoutingPage = __webpack_require__(449);
 
 var _ScoutingPage2 = _interopRequireDefault(_ScoutingPage);
 
+var _CollegeScoutingPage = __webpack_require__(499);
+
+var _CollegeScoutingPage2 = _interopRequireDefault(_CollegeScoutingPage);
+
 var _CollegePlayerPage = __webpack_require__(450);
 
 var _CollegePlayerPage2 = _interopRequireDefault(_CollegePlayerPage);
@@ -32410,7 +33159,6 @@ var _CollegeTeamPage2 = _interopRequireDefault(_CollegeTeamPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//import TeamPage from "./TeamPage";
 var Main = function Main() {
   return _react2.default.createElement(
     _reactRouterDom.BrowserRouter,
@@ -32422,12 +33170,13 @@ var Main = function Main() {
       _react2.default.createElement(_reactRouterDom.Route, { path: "/team/:id", component: _LandingPage2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { path: "/player/:id", component: _PlayerPage2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { path: "/scouting", component: _ScoutingPage2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { path: "/college-scouting", component: _CollegeScoutingPage2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { path: "/college-player/:id", component: _CollegePlayerPage2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { path: "/college-team/:id", component: _CollegeTeamPage2.default })
     )
   );
 };
-
+//import TeamPage from "./TeamPage";
 exports.default = Main;
 // <Route exact path="/team/:id" component={TeamPage} />
 // <Route exact path="/player/:id" component={PlayerPage} />
@@ -53066,7 +53815,9 @@ var PlayerInfo = function (_React$Component) {
       var _this5 = this;
 
       _axios2.default.get("api/teams/getTeamColors/" + team).then(function (data) {
-        _this5.setState({ colors: data.data });
+        _this5.setState({ colors: data.data }, function () {
+          console.log(_this5.state.colors);
+        });
       }).catch(function (err) {
         console.log(err);
       });
@@ -53502,7 +54253,13 @@ var PlayerInfo = function (_React$Component) {
                     _react2.default.createElement(
                       "div",
                       { id: "team-name" },
-                      this.state.player.name
+                      this.state.player.name,
+                      _react2.default.createElement(
+                        "span",
+                        { style: { paddingLeft: "3px", fontSize: "14px" } },
+                        " ",
+                        this.state.player.position
+                      )
                     ),
                     _react2.default.createElement(
                       "div",
@@ -53510,8 +54267,19 @@ var PlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "Position: ",
-                        this.state.player.position
+                        _react2.default.createElement(
+                          "span",
+                          null,
+                          "Height: ",
+                          this.state.player.height
+                        ),
+                        _react2.default.createElement(
+                          "span",
+                          { style: { paddingLeft: "3px" } },
+                          " ",
+                          "Weight: ",
+                          this.state.player.weight
+                        )
                       ),
                       _react2.default.createElement(
                         "div",
@@ -53619,13 +54387,17 @@ var PlayerInfo = function (_React$Component) {
                   _reactBootstrap.Col,
                   { lg: 2 },
                   _react2.default.createElement(
-                    "div",
-                    { id: "logo-pic" },
-                    _react2.default.createElement("img", { id: "teamLogoPic", src: this.state.colors.Logo }),
+                    "a",
+                    { href: "/team/" + this.state.colors.id },
                     _react2.default.createElement(
                       "div",
-                      { id: "teamLogoHeader" },
-                      this.state.player.team
+                      { id: "logo-pic" },
+                      _react2.default.createElement("img", { id: "teamLogoPic", src: this.state.colors.Logo }),
+                      _react2.default.createElement(
+                        "div",
+                        { id: "teamLogoHeader" },
+                        this.state.player.team
+                      )
                     )
                   )
                 )
@@ -54320,7 +55092,7 @@ var PlayerPolarColumn = function (_React$Component) {
       var _this3 = this;
 
       var highPoints = 30;
-      var highAst = 11;
+      var highAst = 10;
       var highReb = 15;
       var highStl = 2.5;
       var highBlk = 2.5;
@@ -54437,6 +55209,11 @@ var PlayerPolarColumn = function (_React$Component) {
           labels: {
             enabled: false
           }
+        },
+
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/>"
         },
 
         yAxis: {
@@ -55062,8 +55839,19 @@ var CollegePlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "Age: ",
-                        this.state.player.age
+                        _react2.default.createElement(
+                          "span",
+                          null,
+                          "Height: ",
+                          this.state.player.height
+                        ),
+                        _react2.default.createElement(
+                          "span",
+                          { style: { paddingLeft: "3px" } },
+                          " ",
+                          "Weight: ",
+                          this.state.player.weight
+                        )
                       ),
                       _react2.default.createElement(
                         "div",
@@ -55074,8 +55862,8 @@ var CollegePlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "College: ",
-                        this.state.player.college || "None"
+                        "High School: ",
+                        this.state.player.highschool || ""
                       )
                     )
                   ),
@@ -58055,6 +58843,10 @@ var _TeamComparison = __webpack_require__(492);
 
 var _TeamComparison2 = _interopRequireDefault(_TeamComparison);
 
+var _PlayerFinder = __webpack_require__(498);
+
+var _PlayerFinder2 = _interopRequireDefault(_PlayerFinder);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -58091,13 +58883,7 @@ var NbaScoutingTabs = function (_React$Component) {
       if (this.state.key === 1) component = _react2.default.createElement(_LeagueLeaders2.default, { players: this.props.players });
       if (this.state.key === 2) component = _react2.default.createElement(_PlayerComparison2.default, { players: this.props.players });
       if (this.state.key === 3) component = _react2.default.createElement(_TeamComparison2.default, { teams: this.props.teams });
-      // if (this.state.key === 4)
-      //   component = (
-      //     <TeamLeagueRanks
-      //       leagueStats={this.props.leagueStats}
-      //       team={this.props.team}
-      //     />
-      //   );
+      if (this.state.key === 4) component = _react2.default.createElement(_PlayerFinder2.default, { players: this.props.players });
       return _react2.default.createElement(
         "div",
         null,
@@ -60017,14 +60803,14 @@ var PlayerScatter = function (_React$Component) {
   }
 
   _createClass(PlayerScatter, [{
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
+    key: "componentDidMount",
+    value: function componentDidMount() {
       var _this2 = this;
 
       var playerData = [];
       var scatterData = [];
-      if (nextProps.players) {
-        var data = nextProps.players;
+      if (this.props.players) {
+        var data = this.props.players;
         for (var i = 0; i < data.length; i++) {
           if (parseFloat(data[i]["mpg"]) >= 5.0) {
             playerData.push(data[i]);
@@ -60045,9 +60831,37 @@ var PlayerScatter = function (_React$Component) {
       }
     }
   }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      var _this3 = this;
+
+      var playerData = [];
+      var scatterData = [];
+      if (nextProps.players) {
+        var data = nextProps.players;
+        for (var i = 0; i < data.length; i++) {
+          if (parseFloat(data[i]["mpg"]) >= 5.0) {
+            playerData.push(data[i]);
+          }
+        }
+        this.setState({ teamPlayers: playerData });
+        for (var j = 0; j < playerData.length; j++) {
+          scatterData.push({
+            data: [[parseFloat(playerData[j][this.state.statTwo]), parseFloat(playerData[j][this.state.statOne])]],
+            name: playerData[j].name,
+            color: "#d00000",
+            _symbolIndex: 0
+          });
+        }
+        this.setState({ data: scatterData }, function () {
+          _this3.createChart();
+        });
+      }
+    }
+  }, {
     key: "createChart",
     value: function createChart() {
-      var chart = Highcharts.chart("containerScatter", {
+      var chart = Highcharts.chart("containerScatterP", {
         chart: {
           type: "scatter",
           zoomType: "xy"
@@ -60132,7 +60946,7 @@ var PlayerScatter = function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(event) {
-      var _this3 = this;
+      var _this4 = this;
 
       var statArr = [];
       event.preventDefault();
@@ -60147,7 +60961,7 @@ var PlayerScatter = function (_React$Component) {
       }
       this.setState({ data: statArr }, function () {
         //console.log(this.state.data);
-        _this3.createChart();
+        _this4.createChart();
       });
     }
   }, {
@@ -60550,7 +61364,7 @@ var PlayerScatter = function (_React$Component) {
         null,
         _react2.default.createElement("div", {
           className: "card playerScatter",
-          id: "containerScatter",
+          id: "containerScatterP",
           style: {
             height: "500px"
           }
@@ -65504,6 +66318,5573 @@ var TeamBarRatings2 = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = TeamBarRatings2;
+
+/***/ }),
+/* 498 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _TeamScatter = __webpack_require__(493);
+
+var _TeamScatter2 = _interopRequireDefault(_TeamScatter);
+
+var _reactBootstrap = __webpack_require__(12);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlayerFinder = function (_React$Component) {
+  _inherits(PlayerFinder, _React$Component);
+
+  function PlayerFinder(props) {
+    _classCallCheck(this, PlayerFinder);
+
+    return _possibleConstructorReturn(this, (PlayerFinder.__proto__ || Object.getPrototypeOf(PlayerFinder)).call(this, props));
+  }
+
+  _createClass(PlayerFinder, [{
+    key: "render",
+    value: function render() {
+      console.log(this.props.teams);
+      var headerStyle = {
+        backgroundColor: "#d00000",
+        height: "45px",
+        lineHeight: "45px",
+        fontSize: "20px",
+        paddingLeft: "20px",
+        color: "#fff"
+      };
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "40px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "Find Player"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "40px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 10, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              {
+                className: "card",
+                style: { height: "100px", backgroundColor: "white" }
+              },
+              "Find Player"
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return PlayerFinder;
+}(_react2.default.Component);
+
+exports.default = PlayerFinder;
+
+/***/ }),
+/* 499 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _NavBar = __webpack_require__(42);
+
+var _NavBar2 = _interopRequireDefault(_NavBar);
+
+var _CollegeScouting = __webpack_require__(500);
+
+var _CollegeScouting2 = _interopRequireDefault(_CollegeScouting);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CollegeScoutingPage = function (_React$Component) {
+  _inherits(CollegeScoutingPage, _React$Component);
+
+  function CollegeScoutingPage() {
+    _classCallCheck(this, CollegeScoutingPage);
+
+    return _possibleConstructorReturn(this, (CollegeScoutingPage.__proto__ || Object.getPrototypeOf(CollegeScoutingPage)).call(this));
+  }
+
+  _createClass(CollegeScoutingPage, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(_NavBar2.default, null),
+        _react2.default.createElement(_CollegeScouting2.default, { props: this.props })
+      );
+    }
+  }]);
+
+  return CollegeScoutingPage;
+}(_react2.default.Component);
+
+exports.default = CollegeScoutingPage;
+
+/***/ }),
+/* 500 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(12);
+
+var _CollegeScoutingTabs = __webpack_require__(501);
+
+var _CollegeScoutingTabs2 = _interopRequireDefault(_CollegeScoutingTabs);
+
+var _axios = __webpack_require__(19);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CollegeScouting = function (_React$Component) {
+  _inherits(CollegeScouting, _React$Component);
+
+  function CollegeScouting() {
+    _classCallCheck(this, CollegeScouting);
+
+    var _this = _possibleConstructorReturn(this, (CollegeScouting.__proto__ || Object.getPrototypeOf(CollegeScouting)).call(this));
+
+    _this.state = {
+      playerStats: [],
+      teams: []
+    };
+    _this.getCollegePlayers = _this.getCollegePlayers.bind(_this);
+    _this.getTeams = _this.getTeams.bind(_this);
+    return _this;
+  }
+
+  _createClass(CollegeScouting, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.getCollegePlayers();
+      this.getTeams();
+    }
+  }, {
+    key: "getCollegePlayers",
+    value: function getCollegePlayers() {
+      var _this2 = this;
+
+      _axios2.default.get("/api/teams/getAllCollegePlayers").then(function (data) {
+        _this2.setState({ playerStats: data.data });
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "getTeams",
+    value: function getTeams() {
+      var _this3 = this;
+
+      _axios2.default.get("/api/teams/getcLeagueStats").then(function (data) {
+        _this3.setState({ teams: data.data }, function () {
+          console.log(_this3.state.teams);
+        });
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        _reactBootstrap.Grid,
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingBottom: "40px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(
+              "div",
+              {
+                style: { marginTop: "100px", backgroundColor: "white" },
+                className: "card"
+              },
+              _react2.default.createElement(
+                _reactBootstrap.Row,
+                null,
+                _react2.default.createElement(
+                  _reactBootstrap.Col,
+                  { lg: 12 },
+                  _react2.default.createElement(
+                    "div",
+                    {
+                      style: {
+                        marginTop: "20px",
+                        marginLeft: "20px",
+                        fontSize: "22px",
+                        color: "#0055bf"
+                      }
+                    },
+                    "COLLEGE SCOUTING"
+                  ),
+                  _react2.default.createElement("hr", {
+                    style: {
+                      marginLeft: "20px",
+                      marginRight: "20px",
+                      marginBottom: "0px"
+                    }
+                  }),
+                  _react2.default.createElement(_CollegeScoutingTabs2.default, {
+                    players: this.state.playerStats,
+                    teams: this.state.teams,
+                    style: { marginLeft: "20px", marginRight: "20px" }
+                  })
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return CollegeScouting;
+}(_react2.default.Component);
+
+exports.default = CollegeScouting;
+
+/***/ }),
+/* 501 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(12);
+
+var _CollegeLeaders = __webpack_require__(502);
+
+var _CollegeLeaders2 = _interopRequireDefault(_CollegeLeaders);
+
+var _CPlayerComparison = __webpack_require__(504);
+
+var _CPlayerComparison2 = _interopRequireDefault(_CPlayerComparison);
+
+var _CTeamComparison = __webpack_require__(508);
+
+var _CTeamComparison2 = _interopRequireDefault(_CTeamComparison);
+
+var _PlayerFinder = __webpack_require__(498);
+
+var _PlayerFinder2 = _interopRequireDefault(_PlayerFinder);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CollegeScoutingTabs = function (_React$Component) {
+  _inherits(CollegeScoutingTabs, _React$Component);
+
+  function CollegeScoutingTabs(props) {
+    _classCallCheck(this, CollegeScoutingTabs);
+
+    var _this = _possibleConstructorReturn(this, (CollegeScoutingTabs.__proto__ || Object.getPrototypeOf(CollegeScoutingTabs)).call(this, props));
+
+    _this.state = {
+      key: 3
+    };
+    _this.handleSelect = _this.handleSelect.bind(_this);
+    return _this;
+  }
+
+  _createClass(CollegeScoutingTabs, [{
+    key: "handleSelect",
+    value: function handleSelect(key) {
+      this.setState({ key: key });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.props.teams);
+      var component = void 0;
+      if (this.state.key === 1) component = _react2.default.createElement(_CollegeLeaders2.default, { players: this.props.players });
+      if (this.state.key === 2) component = _react2.default.createElement(_CPlayerComparison2.default, { players: this.props.players });
+      if (this.state.key === 3) component = _react2.default.createElement(_CTeamComparison2.default, { teams: this.props.teams });
+      if (this.state.key === 4) component = _react2.default.createElement(_PlayerFinder2.default, { players: this.props.players });
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "div",
+          { className: "card" },
+          _react2.default.createElement(
+            _reactBootstrap.Nav,
+            {
+              bsStyle: "pills",
+              activeKey: this.state.key,
+              onSelect: this.handleSelect,
+              justified: true
+            },
+            _react2.default.createElement(
+              _reactBootstrap.NavItem,
+              { eventKey: 1, href: "/" },
+              _react2.default.createElement(
+                "span",
+                { className: "tab-text" },
+                "COLLEGE LEADERS"
+              )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.NavItem,
+              { eventKey: 2, href: "/" },
+              _react2.default.createElement(
+                "span",
+                { className: "tab-text" },
+                "PLAYER COMPARISON"
+              )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.NavItem,
+              { eventKey: 3, href: "/" },
+              _react2.default.createElement(
+                "span",
+                { className: "tab-text" },
+                "TEAM COMPARISON"
+              )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.NavItem,
+              { eventKey: 4, href: "/" },
+              _react2.default.createElement(
+                "span",
+                { className: "tab-text" },
+                "PLAYER FINDER"
+              )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.NavItem,
+              { eventKey: 5, title: "Item" },
+              _react2.default.createElement(
+                "span",
+                { className: "tab-text" },
+                "STATS"
+              )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.NavItem,
+              { eventKey: 6, title: "Item" },
+              _react2.default.createElement(
+                "span",
+                { className: "tab-text" },
+                "RANKINGS"
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { id: "tabs-container" },
+          component
+        )
+      );
+    }
+  }]);
+
+  return CollegeScoutingTabs;
+}(_react2.default.Component);
+
+exports.default = CollegeScoutingTabs;
+
+/***/ }),
+/* 502 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(12);
+
+var _axios = __webpack_require__(19);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _LeadersTable = __webpack_require__(474);
+
+var _LeadersTable2 = _interopRequireDefault(_LeadersTable);
+
+var _LeadersTable3 = __webpack_require__(476);
+
+var _LeadersTable4 = _interopRequireDefault(_LeadersTable3);
+
+var _LeadersTable5 = __webpack_require__(477);
+
+var _LeadersTable6 = _interopRequireDefault(_LeadersTable5);
+
+var _LeadersTable7 = __webpack_require__(480);
+
+var _LeadersTable8 = _interopRequireDefault(_LeadersTable7);
+
+var _LeadersTable9 = __webpack_require__(481);
+
+var _LeadersTable10 = _interopRequireDefault(_LeadersTable9);
+
+var _LeadersTable11 = __webpack_require__(478);
+
+var _LeadersTable12 = _interopRequireDefault(_LeadersTable11);
+
+var _LeadersOverallTable = __webpack_require__(482);
+
+var _LeadersOverallTable2 = _interopRequireDefault(_LeadersOverallTable);
+
+var _LeadersOffenseTable = __webpack_require__(484);
+
+var _LeadersOffenseTable2 = _interopRequireDefault(_LeadersOffenseTable);
+
+var _LeadersDefenseTable = __webpack_require__(485);
+
+var _LeadersDefenseTable2 = _interopRequireDefault(_LeadersDefenseTable);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CollegeLeaders = function (_React$Component) {
+  _inherits(CollegeLeaders, _React$Component);
+
+  function CollegeLeaders() {
+    _classCallCheck(this, CollegeLeaders);
+
+    var _this = _possibleConstructorReturn(this, (CollegeLeaders.__proto__ || Object.getPrototypeOf(CollegeLeaders)).call(this));
+
+    _this.state = {
+      table4: []
+    };
+    _this.rankOverall = _this.rankOverall.bind(_this);
+    _this.rankOffense = _this.rankOffense.bind(_this);
+    _this.rankDefense = _this.rankDefense.bind(_this);
+    _this.rankPoints = _this.rankPoints.bind(_this);
+    _this.rankRebounds = _this.rankRebounds.bind(_this);
+    _this.rankAssists = _this.rankAssists.bind(_this);
+    return _this;
+  }
+
+  _createClass(CollegeLeaders, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {}
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      var _this2 = this;
+
+      if (nextProps.players) {
+        this.setState({
+          players: nextProps.players
+        }, function () {
+          _this2.rankOverall();
+          _this2.rankOffense();
+          _this2.rankDefense();
+          _this2.rankPoints();
+          _this2.rankRebounds();
+          _this2.rankAssists();
+        });
+      }
+    }
+  }, {
+    key: "rankOverall",
+    value: function rankOverall() {
+      var players = this.state.players;
+    }
+  }, {
+    key: "rankOffense",
+    value: function rankOffense() {}
+  }, {
+    key: "rankDefense",
+    value: function rankDefense() {}
+  }, {
+    key: "rankPoints",
+    value: function rankPoints() {
+      var _this3 = this;
+
+      var players = this.state.players;
+      players.sort(function (a, b) {
+        return parseFloat(b.pts) - parseFloat(a.pts);
+      }, function () {
+        _this3.setState({ table4: players });
+      });
+    }
+  }, {
+    key: "rankRebounds",
+    value: function rankRebounds() {}
+  }, {
+    key: "rankAssists",
+    value: function rankAssists() {}
+  }, {
+    key: "render",
+    value: function render() {
+      var headerStyle = {
+        backgroundColor: "#0055bf",
+        height: "45px",
+        lineHeight: "45px",
+        fontSize: "20px",
+        paddingLeft: "20px",
+        color: "#fff"
+      };
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "40px", paddingLeft: "10px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "Overall"
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "Offense"
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "Defense"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          {
+            style: {
+              paddingTop: "40px",
+              paddingLeft: "10px",
+              paddingRight: "10px"
+            }
+          },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              {
+                className: "card",
+                style: {
+                  height: "400px",
+                  backgroundColor: "white",
+                  overflow: "scroll"
+                }
+              },
+              _react2.default.createElement(_LeadersOverallTable2.default, { players: this.props.players })
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              {
+                className: "card",
+                style: {
+                  height: "400px",
+                  backgroundColor: "white",
+                  overflow: "scroll"
+                }
+              },
+              _react2.default.createElement(_LeadersOffenseTable2.default, { players: this.props.players })
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              {
+                className: "card",
+                style: {
+                  height: "400px",
+                  backgroundColor: "white",
+                  overflow: "scroll"
+                }
+              },
+              _react2.default.createElement(_LeadersDefenseTable2.default, { players: this.props.players })
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "60px", paddingLeft: "10px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "Points"
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "Rebounds"
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "Assists"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          {
+            style: {
+              paddingTop: "40px",
+              paddingLeft: "10px",
+              paddingRight: "10px"
+            }
+          },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              {
+                className: "card",
+                style: {
+                  height: "400px",
+                  backgroundColor: "white",
+                  overflow: "scroll"
+                }
+              },
+              _react2.default.createElement(_LeadersTable2.default, { players: this.props.players })
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              {
+                className: "card",
+                style: {
+                  height: "400px",
+                  backgroundColor: "white",
+                  overflow: "scroll"
+                }
+              },
+              _react2.default.createElement(_LeadersTable4.default, { players: this.props.players })
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              {
+                className: "card",
+                style: {
+                  height: "400px",
+                  backgroundColor: "white",
+                  overflow: "scroll"
+                }
+              },
+              _react2.default.createElement(_LeadersTable6.default, { players: this.props.players })
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "60px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(
+              "div",
+              {
+                style: {
+                  paddingLeft: "20px",
+                  color: "#0055bf",
+                  fontSize: "18px",
+                  textDecoration: "underline"
+                }
+              },
+              "Per 36 Minutes"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "40px", paddingLeft: "10px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "Points"
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "Rebounds"
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "Assists"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          {
+            style: {
+              paddingTop: "40px",
+              paddingLeft: "10px",
+              paddingRight: "10px",
+              paddingBottom: "20px"
+            }
+          },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              {
+                className: "card",
+                style: {
+                  height: "400px",
+                  backgroundColor: "white",
+                  overflow: "scroll"
+                }
+              },
+              _react2.default.createElement(_LeadersTable8.default, { players: this.props.players })
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              {
+                className: "card",
+                style: {
+                  height: "400px",
+                  backgroundColor: "white",
+                  overflow: "scroll"
+                }
+              },
+              _react2.default.createElement(_LeadersTable10.default, { players: this.props.players })
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              {
+                className: "card",
+                style: {
+                  height: "400px",
+                  backgroundColor: "white",
+                  overflow: "scroll"
+                }
+              },
+              _react2.default.createElement(_LeadersTable12.default, { players: this.props.players })
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return CollegeLeaders;
+}(_react2.default.Component);
+
+exports.default = CollegeLeaders;
+
+/***/ }),
+/* 503 */,
+/* 504 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _CollegePlayerScatter = __webpack_require__(505);
+
+var _CollegePlayerScatter2 = _interopRequireDefault(_CollegePlayerScatter);
+
+var _AddCPlayerSearch = __webpack_require__(506);
+
+var _AddCPlayerSearch2 = _interopRequireDefault(_AddCPlayerSearch);
+
+var _AddCPlayerSearch3 = __webpack_require__(507);
+
+var _AddCPlayerSearch4 = _interopRequireDefault(_AddCPlayerSearch3);
+
+var _reactBootstrap = __webpack_require__(12);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CPlayerComparison = function (_React$Component) {
+  _inherits(CPlayerComparison, _React$Component);
+
+  function CPlayerComparison(props) {
+    _classCallCheck(this, CPlayerComparison);
+
+    return _possibleConstructorReturn(this, (CPlayerComparison.__proto__ || Object.getPrototypeOf(CPlayerComparison)).call(this, props));
+  }
+
+  _createClass(CPlayerComparison, [{
+    key: "render",
+    value: function render() {
+      var headerStyle = {
+        backgroundColor: "#0055bf",
+        height: "45px",
+        lineHeight: "45px",
+        fontSize: "20px",
+        paddingLeft: "20px",
+        color: "#fff"
+      };
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "40px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "League Comparison"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          {
+            style: {
+              paddingTop: "40px"
+            }
+          },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 10, lgOffset: 1 },
+            _react2.default.createElement(_CollegePlayerScatter2.default, { players: this.props.players })
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "30px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "Player Comparison"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "40px", paddingBottom: "40px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 5, lgOffset: 1 },
+            _react2.default.createElement(_AddCPlayerSearch2.default, { list: this.props.players })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 5 },
+            _react2.default.createElement(_AddCPlayerSearch4.default, { list: this.props.players })
+          )
+        )
+      );
+    }
+  }]);
+
+  return CPlayerComparison;
+}(_react2.default.Component);
+
+exports.default = CPlayerComparison;
+
+/***/ }),
+/* 505 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(12);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CollegePlayerScatter = function (_React$Component) {
+  _inherits(CollegePlayerScatter, _React$Component);
+
+  function CollegePlayerScatter(props) {
+    _classCallCheck(this, CollegePlayerScatter);
+
+    var _this = _possibleConstructorReturn(this, (CollegePlayerScatter.__proto__ || Object.getPrototypeOf(CollegePlayerScatter)).call(this, props));
+
+    _this.state = {
+      data: [],
+      statOne: "pts",
+      statTwo: "mpg",
+      position: "All",
+      teamPlayers: [],
+      showFilter: false
+    };
+    _this.createChart = _this.createChart.bind(_this);
+    _this.filterClick = _this.filterClick.bind(_this);
+    _this.renderFilter = _this.renderFilter.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.firstInputChange = _this.firstInputChange.bind(_this);
+    _this.secondInputChange = _this.secondInputChange.bind(_this);
+    return _this;
+  }
+
+  _createClass(CollegePlayerScatter, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var playerData = [];
+      var scatterData = [];
+      if (this.props.players) {
+        var data = this.props.players;
+        for (var i = 0; i < data.length; i++) {
+          if (parseFloat(data[i]["mpg"]) >= 5.0) {
+            playerData.push(data[i]);
+          }
+        }
+        this.setState({ teamPlayers: playerData });
+        for (var j = 0; j < playerData.length; j++) {
+          scatterData.push({
+            data: [[parseFloat(playerData[j][this.state.statTwo]), parseFloat(playerData[j][this.state.statOne])]],
+            name: playerData[j].name,
+            color: "#0055bf",
+            _symbolIndex: 0
+          });
+        }
+        this.setState({ data: scatterData }, function () {
+          _this2.createChart();
+        });
+      }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      var _this3 = this;
+
+      var playerData = [];
+      var scatterData = [];
+      if (nextProps.players) {
+        var data = nextProps.players;
+        for (var i = 0; i < data.length; i++) {
+          if (parseFloat(data[i]["mpg"]) >= 5.0) {
+            playerData.push(data[i]);
+          }
+        }
+        this.setState({ teamPlayers: playerData });
+        for (var j = 0; j < playerData.length; j++) {
+          scatterData.push({
+            data: [[parseFloat(playerData[j][this.state.statTwo]), parseFloat(playerData[j][this.state.statOne])]],
+            name: playerData[j].name,
+            color: "#0055bf",
+            _symbolIndex: 0
+          });
+        }
+        this.setState({ data: scatterData }, function () {
+          _this3.createChart();
+        });
+      }
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("containerScatterCP", {
+        chart: {
+          type: "scatter",
+          zoomType: "xy"
+        },
+        title: {
+          text: "Player Stats College"
+        },
+        subtitle: {
+          text: "Players Averaging Over 5 MPG"
+        },
+        xAxis: {
+          title: {
+            enabled: true,
+            text: "" + this.state.statTwo
+          },
+          startOnTick: true,
+          endOnTick: true,
+          showLastLabel: true
+        },
+        yAxis: {
+          title: {
+            text: "" + this.state.statOne
+          }
+        },
+        legend: {
+          enabled: false,
+          layout: "vertical",
+          align: "left",
+          verticalAlign: "top",
+          x: 100,
+          y: 70,
+          floating: true,
+          backgroundColor: Highcharts.theme && Highcharts.theme.legendBackgroundColor || "#FFFFFF",
+          borderWidth: 1
+        },
+        plotOptions: {
+          scatter: {
+            marker: {
+              radius: 5,
+              states: {
+                hover: {
+                  enabled: true,
+                  lineColor: "rgb(100,100,100)"
+                }
+              }
+            },
+            states: {
+              hover: {
+                marker: {
+                  enabled: false
+                }
+              }
+            },
+            tooltip: {
+              headerFormat: "<b>{series.name}</b><br>",
+              pointFormat: "{point.x} " + this.state.statTwo + ", {point.y} " + this.state.statOne
+            }
+          }
+        },
+        series: this.state.data
+      });
+    }
+  }, {
+    key: "filterClick",
+    value: function filterClick() {
+      this.setState({ showFilter: !this.state.showFilter });
+    }
+  }, {
+    key: "firstInputChange",
+    value: function firstInputChange(event) {
+      this.setState({ statOne: event.target.value }, function () {
+        //console.log(this.state.statOne);
+      });
+    }
+  }, {
+    key: "secondInputChange",
+    value: function secondInputChange(event) {
+      this.setState({ statTwo: event.target.value }, function () {
+        //console.log(this.state.statTwo);
+      });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(event) {
+      var _this4 = this;
+
+      var statArr = [];
+      event.preventDefault();
+      for (var i = 0; i < this.props.players.length; i++) {
+        var player = this.props.players[i];
+        statArr.push({
+          data: [[parseFloat(player[this.state.statTwo]), parseFloat(player[this.state.statOne])]],
+          name: player.name,
+          color: "#d00000",
+          _symbolIndex: 0
+        });
+      }
+      this.setState({ data: statArr }, function () {
+        //console.log(this.state.data);
+        _this4.createChart();
+      });
+    }
+  }, {
+    key: "renderFilter",
+    value: function renderFilter() {
+      if (this.state.showFilter === true) {
+        return _react2.default.createElement(
+          "div",
+          { style: { height: "100px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 1 },
+            _react2.default.createElement(
+              "div",
+              { style: { color: "#d00000", textDecoration: "underline" } },
+              "Position"
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.FormGroup,
+              { style: { paddingLeft: "10px" } },
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "PG"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "SG"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "SF"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "PF"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "C"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 2 },
+            _react2.default.createElement(
+              "div",
+              { style: { paddingLeft: "30px" } },
+              _react2.default.createElement(
+                "div",
+                { style: { color: "#d00000", textDecoration: "underline" } },
+                "MPG"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.FormGroup,
+                { style: { paddingLeft: "10px" } },
+                _react2.default.createElement(
+                  _reactBootstrap.Checkbox,
+                  null,
+                  "< 15"
+                ),
+                " ",
+                _react2.default.createElement(
+                  _reactBootstrap.Checkbox,
+                  null,
+                  "15-20"
+                ),
+                " ",
+                _react2.default.createElement(
+                  _reactBootstrap.Checkbox,
+                  null,
+                  "20-25"
+                ),
+                " ",
+                _react2.default.createElement(
+                  _reactBootstrap.Checkbox,
+                  null,
+                  "25-30"
+                ),
+                " ",
+                _react2.default.createElement(
+                  _reactBootstrap.Checkbox,
+                  null,
+                  "> 30"
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 2 },
+            _react2.default.createElement(
+              "div",
+              { style: { color: "#d00000", textDecoration: "underline" } },
+              "Experience"
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.FormGroup,
+              { style: { paddingLeft: "10px" } },
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Rookie"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "1-3"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "4-6"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "7-10"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "> 10"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3 },
+            _react2.default.createElement(
+              "div",
+              { style: { color: "#d00000", textDecoration: "underline" } },
+              "Teams"
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.FormGroup,
+              {
+                style: {
+                  paddingLeft: "10px",
+                  overflow: "scroll",
+                  height: "150px"
+                }
+              },
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Atlanta Hawks"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Brooklyn Nets"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Boston Celtics"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Charlotte Hornets"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Chicago Bulls"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Cleveland Cavaliers"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Dallas Mavericks"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Denver Nuggets"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Detroit Pistons"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Golden State Warriors"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Houston Rockets"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Indiana Pacers"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Los Angeles Clippers"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Los Angeles Lakers"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Memphis Grizzlies"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Miami Heat"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Milwaukee Bucks"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Minnesota Timberwolves"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "New York Knicks"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Oklahoma City Thunder"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Orlando Magic"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Philadelphia 76ers"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Phoenix Suns"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Portland Trail Blazers"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Sacramento Kings"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "San Antonio Spurs"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Toronto Raptors"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Utah Jazz"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Washington Wizardss"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 2 },
+            _react2.default.createElement(
+              "div",
+              { style: { color: "#d00000", textDecoration: "underline" } },
+              "Age"
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.FormGroup,
+              { style: { paddingLeft: "10px" } },
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "< 21"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "21-25"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "26-30"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "31-35"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "> 35"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 2 },
+            _react2.default.createElement(
+              "div",
+              { style: { color: "#d00000", textDecoration: "underline" } },
+              "Salary"
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.FormGroup,
+              { style: { paddingLeft: "10px" } },
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "< 5 mil."
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "5-10 mil."
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "10-15 mil."
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "15-20 mil."
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "> 20 mil."
+              )
+            )
+          )
+        );
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.props.players);
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          className: "card playerScatter",
+          id: "containerScatterCP",
+          style: {
+            height: "500px"
+          }
+        }),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "40px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: { backgroundColor: "white" } },
+              _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                  "form",
+                  null,
+                  _react2.default.createElement(
+                    _reactBootstrap.Col,
+                    { lg: 4, lgOffset: 1 },
+                    _react2.default.createElement(
+                      "div",
+                      null,
+                      _react2.default.createElement(
+                        "label",
+                        { htmlFor: "sel1" },
+                        "Select Stat ",
+                        _react2.default.createElement(
+                          "sub",
+                          null,
+                          "(y)"
+                        ),
+                        " :"
+                      ),
+                      _react2.default.createElement(
+                        "select",
+                        {
+                          id: "sel1",
+                          onChange: this.firstInputChange,
+                          style: { marginLeft: "10px" }
+                        },
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "pts"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ast"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "trb"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "mpg"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "stl"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "blk"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "experience"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "age"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "salary"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "fgm"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "fga"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "fgPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "threePt"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "threePtAtt"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "gamesPlayed"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "twoPt"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "twoPtAtt"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "twoPtPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "threePtPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ft"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "fta"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "freeThrowPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "efgPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "tov"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "orb"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "drb"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "pf"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "orbPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "astPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "tovPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "drbPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "stlPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "blkPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "usgPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "trbPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "tsPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "threePAr"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ftr"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "per"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ows"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "dws"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "bpm"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ws"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "obpm"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "dbpm"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "wsFortyEight"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "vorp"
+                        )
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.Col,
+                    { lg: 4 },
+                    _react2.default.createElement(
+                      "div",
+                      null,
+                      _react2.default.createElement(
+                        "label",
+                        { htmlFor: "sel2", className: "select-stat-label" },
+                        "Select Stat ",
+                        _react2.default.createElement(
+                          "sub",
+                          null,
+                          "(x)"
+                        ),
+                        " :"
+                      ),
+                      _react2.default.createElement(
+                        "select",
+                        {
+                          onChange: this.secondInputChange,
+                          id: "sel2",
+                          style: { marginLeft: "10px" }
+                        },
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "mpg"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "pts"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ast"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "trb"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "stl"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "blk"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "experience"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "age"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "salary"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "fgm"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "fga"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "fgPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "threePt"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "threePtAtt"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "gamesPlayed"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "twoPt"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "twoPtAtt"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "twoPtPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "threePtPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ft"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "fta"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "freeThrowPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "efgPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "tov"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "orb"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "drb"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "pf"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "orbPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "astPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "tovPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "drbPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "stlPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "blkPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "usgPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "trbPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "tsPct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "threePAr"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ftr"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "per"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ows"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "dws"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "bpm"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ws"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "obpm"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "dbpm"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "wsFortyEight"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "vorp"
+                        )
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.Col,
+                    { lg: 1 },
+                    _react2.default.createElement(
+                      "div",
+                      null,
+                      _react2.default.createElement(
+                        "button",
+                        {
+                          onClick: this.handleSubmit,
+                          id: "submit-button",
+                          style: { backgroundColor: "#0055bf", color: "white" }
+                        },
+                        "Submit"
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.Col,
+                    { lg: 1 },
+                    _react2.default.createElement(
+                      "div",
+                      {
+                        style: {
+                          color: "#0055bf",
+                          textDecoration: "underline",
+                          paddingTop: "2px",
+                          cursor: "pointer"
+                        },
+                        onClick: this.filterClick
+                      },
+                      "Filter"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.Col,
+                    { lg: 12, style: { paddingTop: "20px" } },
+                    this.renderFilter()
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return CollegePlayerScatter;
+}(_react2.default.Component);
+
+exports.default = CollegePlayerScatter;
+
+/***/ }),
+/* 506 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactAutosuggest = __webpack_require__(427);
+
+var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
+
+var _reactBootstrap = __webpack_require__(12);
+
+var _PlayerPolarColumn = __webpack_require__(490);
+
+var _PlayerPolarColumn2 = _interopRequireDefault(_PlayerPolarColumn);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var parse = __webpack_require__(439);
+var match = __webpack_require__(440);
+
+var AddCPlayerSearch = function (_React$Component) {
+  _inherits(AddCPlayerSearch, _React$Component);
+
+  function AddCPlayerSearch(props) {
+    _classCallCheck(this, AddCPlayerSearch);
+
+    var _this = _possibleConstructorReturn(this, (AddCPlayerSearch.__proto__ || Object.getPrototypeOf(AddCPlayerSearch)).call(this, props));
+
+    _this.state = {
+      value: "",
+      suggestions: [],
+      players: [],
+      player: {},
+      renderPlayer: false
+    };
+    _this.escapeRegexCharacters = _this.escapeRegexCharacters.bind(_this);
+    _this.getSuggestions = _this.getSuggestions.bind(_this);
+    _this.getSuggestionValue = _this.getSuggestionValue.bind(_this);
+    _this.renderSuggestion = _this.renderSuggestion.bind(_this);
+    _this.onChange = _this.onChange.bind(_this);
+    _this.onSuggestionsFetchRequested = _this.onSuggestionsFetchRequested.bind(_this);
+    _this.onSuggestionsClearRequested = _this.onSuggestionsClearRequested.bind(_this);
+    _this.handleClick = _this.handleClick.bind(_this);
+    _this.renderPlayer = _this.renderPlayer.bind(_this);
+    //this.handleChange = this.handleChange.bind(this);
+    return _this;
+  }
+
+  _createClass(AddCPlayerSearch, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {}
+  }, {
+    key: "escapeRegexCharacters",
+    value: function escapeRegexCharacters(str) {
+      return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+  }, {
+    key: "getSuggestions",
+    value: function getSuggestions(value) {
+      var _this2 = this;
+
+      var escapedValue = this.escapeRegexCharacters(value.trim());
+
+      if (escapedValue === "") {
+        return [];
+      }
+
+      var regex = new RegExp("\\b" + escapedValue, "i");
+
+      return this.props.list.filter(function (player) {
+        return regex.test(_this2.getSuggestionValue(player));
+      });
+    }
+  }, {
+    key: "getSuggestionValue",
+    value: function getSuggestionValue(suggestion) {
+      if (suggestion.team) {
+        return suggestion.name + " " + suggestion.team;
+      } else {
+        return "" + suggestion.name;
+      }
+    }
+  }, {
+    key: "renderSuggestion",
+    value: function renderSuggestion(suggestion, _ref) {
+      var query = _ref.query;
+
+      var suggestionText;
+      if (suggestion.team) {
+        suggestionText = suggestion.name + " " + suggestion.team;
+      } else {
+        suggestionText = "" + suggestion.name;
+      }
+      var matches = match(suggestionText, query);
+      var parts = parse(suggestionText, matches);
+      var tag;
+      if (suggestion.league === "nba") {
+        if (suggestion.team) {
+          tag = "/player/" + suggestion.id;
+        } else {
+          tag = "/team/" + suggestion.id;
+        }
+      }
+      if (suggestion.league === "ncaa") {
+        if (suggestion.team) {
+          tag = "/college-player/" + suggestion.id;
+        } else {
+          tag = "/college-team/" + suggestion.id;
+        }
+      }
+
+      return _react2.default.createElement(
+        "span",
+        { className: "suggestion-content " + suggestion.league },
+        _react2.default.createElement(
+          "a",
+          { href: tag },
+          _react2.default.createElement(
+            "span",
+            { className: "name" },
+            parts.map(function (part, index) {
+              var className = part.highlight ? "highlight" : null;
+
+              return _react2.default.createElement(
+                "span",
+                { className: className, key: index },
+                part.text
+              );
+            })
+          )
+        )
+      );
+    }
+  }, {
+    key: "onChange",
+    value: function onChange(event, _ref2) {
+      var newValue = _ref2.newValue,
+          method = _ref2.method;
+
+      this.setState({
+        value: newValue
+      });
+    }
+  }, {
+    key: "onSuggestionsFetchRequested",
+    value: function onSuggestionsFetchRequested(_ref3) {
+      var value = _ref3.value;
+
+      this.setState({
+        suggestions: this.getSuggestions(value)
+      });
+    }
+  }, {
+    key: "onSuggestionsClearRequested",
+    value: function onSuggestionsClearRequested() {
+      this.setState({
+        suggestions: []
+      });
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(event) {
+      var _this3 = this;
+
+      event.preventDefault();
+      var value = this.state.value.split(" ");
+      var name = value[0] + " " + value[1];
+      var player = {};
+      for (var i = 0; i < this.props.list.length; i++) {
+        if (this.props.list[i].name === name) {
+          player = this.props.list[i];
+        }
+      }
+      this.setState({ player: player }, function () {
+        console.log(_this3.state.player);
+        _this3.setState({ renderPlayer: true });
+      });
+    }
+  }, {
+    key: "renderPlayer",
+    value: function renderPlayer() {
+      if (this.state.renderPlayer) {
+        console.log("Render!!");
+        return _react2.default.createElement(
+          "div",
+          {
+            className: "card",
+            style: {
+              backgroundColor: "white",
+              height: "620px",
+              overflow: "scroll"
+            }
+          },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 6, style: { paddingTop: "20px" } },
+            _react2.default.createElement(_reactBootstrap.Thumbnail, {
+              style: { border: "none" },
+              src: "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443"
+            })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 6, style: { paddingTop: "30px" } },
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                "span",
+                { style: { fontSize: "22px" } },
+                this.state.player.name
+              ),
+              _react2.default.createElement(
+                "span",
+                { style: { paddingLeft: "3px" } },
+                " ",
+                this.state.player.position
+              )
+            ),
+            _react2.default.createElement("hr", { style: { marginTop: "0px" } }),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Height: ",
+              this.state.player.height
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Weight: ",
+              this.state.player.weight
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Age: ",
+              this.state.player.age
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Experience: ",
+              this.state.player.experience
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Team: ",
+              this.state.player.team
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement("hr", { style: { marginTop: "0px" } })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(_PlayerPolarColumn2.default, { player: this.state.player })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(
+              "div",
+              {
+                style: {
+                  textDecoration: "underline",
+                  color: "#0055bf",
+                  textAlign: "center",
+                  cursor: "pointer"
+                }
+              },
+              "Advanced Stats"
+            )
+          )
+        );
+      }
+    }
+
+    // handleChange(event) {
+    //   this.setState({ player: event.target.value });
+    // }
+
+  }, {
+    key: "render",
+    value: function render() {
+      var _state = this.state,
+          value = _state.value,
+          suggestions = _state.suggestions;
+
+      var inputProps = {
+        placeholder: "Search for Player...",
+        value: value,
+        onChange: this.onChange,
+        type: "search"
+      };
+
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 10, style: { paddingLeft: "0px" } },
+          _react2.default.createElement(
+            "div",
+            { className: "card" },
+            _react2.default.createElement(_reactAutosuggest2.default, {
+              suggestions: suggestions,
+              onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
+              onSuggestionsClearRequested: this.onSuggestionsClearRequested,
+              getSuggestionValue: this.getSuggestionValue,
+              renderSuggestion: this.renderSuggestion,
+              inputProps: inputProps
+            })
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 2, style: { paddingLeft: "0px" } },
+          _react2.default.createElement(
+            "div",
+            null,
+            _react2.default.createElement(
+              "button",
+              {
+                onClick: this.handleClick,
+                style: {
+                  width: "100%",
+                  height: "40px",
+                  backgroundColor: "#0055bf",
+                  color: "white"
+                }
+              },
+              "Add"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 12, style: { paddingLeft: "0px", paddingTop: "20px" } },
+          this.renderPlayer()
+        )
+      );
+    }
+  }]);
+
+  return AddCPlayerSearch;
+}(_react2.default.Component);
+
+exports.default = AddCPlayerSearch;
+
+/***/ }),
+/* 507 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactAutosuggest = __webpack_require__(427);
+
+var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
+
+var _reactBootstrap = __webpack_require__(12);
+
+var _PlayerPolarColumn = __webpack_require__(491);
+
+var _PlayerPolarColumn2 = _interopRequireDefault(_PlayerPolarColumn);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var parse = __webpack_require__(439);
+var match = __webpack_require__(440);
+
+var AddCPlayerSearch2 = function (_React$Component) {
+  _inherits(AddCPlayerSearch2, _React$Component);
+
+  function AddCPlayerSearch2(props) {
+    _classCallCheck(this, AddCPlayerSearch2);
+
+    var _this = _possibleConstructorReturn(this, (AddCPlayerSearch2.__proto__ || Object.getPrototypeOf(AddCPlayerSearch2)).call(this, props));
+
+    _this.state = {
+      value: "",
+      suggestions: [],
+      players: [],
+      player: {},
+      renderPlayer: false
+    };
+    _this.escapeRegexCharacters = _this.escapeRegexCharacters.bind(_this);
+    _this.getSuggestions = _this.getSuggestions.bind(_this);
+    _this.getSuggestionValue = _this.getSuggestionValue.bind(_this);
+    _this.renderSuggestion = _this.renderSuggestion.bind(_this);
+    _this.onChange = _this.onChange.bind(_this);
+    _this.onSuggestionsFetchRequested = _this.onSuggestionsFetchRequested.bind(_this);
+    _this.onSuggestionsClearRequested = _this.onSuggestionsClearRequested.bind(_this);
+    _this.handleClick = _this.handleClick.bind(_this);
+    _this.renderPlayer = _this.renderPlayer.bind(_this);
+    //this.handleChange = this.handleChange.bind(this);
+    return _this;
+  }
+
+  _createClass(AddCPlayerSearch2, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {}
+  }, {
+    key: "escapeRegexCharacters",
+    value: function escapeRegexCharacters(str) {
+      return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+  }, {
+    key: "getSuggestions",
+    value: function getSuggestions(value) {
+      var _this2 = this;
+
+      var escapedValue = this.escapeRegexCharacters(value.trim());
+
+      if (escapedValue === "") {
+        return [];
+      }
+
+      var regex = new RegExp("\\b" + escapedValue, "i");
+
+      return this.props.list.filter(function (player) {
+        return regex.test(_this2.getSuggestionValue(player));
+      });
+    }
+  }, {
+    key: "getSuggestionValue",
+    value: function getSuggestionValue(suggestion) {
+      if (suggestion.team) {
+        return suggestion.name + " " + suggestion.team;
+      } else {
+        return "" + suggestion.name;
+      }
+    }
+  }, {
+    key: "renderSuggestion",
+    value: function renderSuggestion(suggestion, _ref) {
+      var query = _ref.query;
+
+      var suggestionText;
+      if (suggestion.team) {
+        suggestionText = suggestion.name + " " + suggestion.team;
+      } else {
+        suggestionText = "" + suggestion.name;
+      }
+      var matches = match(suggestionText, query);
+      var parts = parse(suggestionText, matches);
+      var tag;
+      if (suggestion.league === "nba") {
+        if (suggestion.team) {
+          tag = "/player/" + suggestion.id;
+        } else {
+          tag = "/team/" + suggestion.id;
+        }
+      }
+      if (suggestion.league === "ncaa") {
+        if (suggestion.team) {
+          tag = "/college-player/" + suggestion.id;
+        } else {
+          tag = "/college-team/" + suggestion.id;
+        }
+      }
+
+      return _react2.default.createElement(
+        "span",
+        { className: "suggestion-content " + suggestion.league },
+        _react2.default.createElement(
+          "a",
+          { href: tag },
+          _react2.default.createElement(
+            "span",
+            { className: "name" },
+            parts.map(function (part, index) {
+              var className = part.highlight ? "highlight" : null;
+
+              return _react2.default.createElement(
+                "span",
+                { className: className, key: index },
+                part.text
+              );
+            })
+          )
+        )
+      );
+    }
+  }, {
+    key: "onChange",
+    value: function onChange(event, _ref2) {
+      var newValue = _ref2.newValue,
+          method = _ref2.method;
+
+      this.setState({
+        value: newValue
+      });
+    }
+  }, {
+    key: "onSuggestionsFetchRequested",
+    value: function onSuggestionsFetchRequested(_ref3) {
+      var value = _ref3.value;
+
+      this.setState({
+        suggestions: this.getSuggestions(value)
+      });
+    }
+  }, {
+    key: "onSuggestionsClearRequested",
+    value: function onSuggestionsClearRequested() {
+      this.setState({
+        suggestions: []
+      });
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(event) {
+      var _this3 = this;
+
+      event.preventDefault();
+      var value = this.state.value.split(" ");
+      var name = value[0] + " " + value[1];
+      var player = {};
+      for (var i = 0; i < this.props.list.length; i++) {
+        if (this.props.list[i].name === name) {
+          player = this.props.list[i];
+        }
+      }
+      this.setState({ player: player }, function () {
+        console.log(_this3.state.player);
+        _this3.setState({ renderPlayer: true });
+      });
+    }
+  }, {
+    key: "renderPlayer",
+    value: function renderPlayer() {
+      if (this.state.renderPlayer) {
+        console.log("Render!!");
+        return _react2.default.createElement(
+          "div",
+          {
+            className: "card",
+            style: {
+              backgroundColor: "white",
+              height: "620px",
+              overflow: "scroll"
+            }
+          },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 6, style: { paddingTop: "20px" } },
+            _react2.default.createElement(_reactBootstrap.Thumbnail, {
+              style: { border: "none" },
+              src: "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443"
+            })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 6, style: { paddingTop: "30px" } },
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                "span",
+                { style: { fontSize: "22px" } },
+                this.state.player.name
+              ),
+              _react2.default.createElement(
+                "span",
+                { style: { paddingLeft: "3px" } },
+                " ",
+                this.state.player.position
+              )
+            ),
+            _react2.default.createElement("hr", { style: { marginTop: "0px" } }),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Height: ",
+              this.state.player.height
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Weight: ",
+              this.state.player.weight
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Age: ",
+              this.state.player.age
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "High School: ",
+              this.state.player.highschool
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              "Team: ",
+              this.state.player.team
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement("hr", { style: { marginTop: "0px" } })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(_PlayerPolarColumn2.default, { player: this.state.player })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(
+              "div",
+              {
+                style: {
+                  textDecoration: "underline",
+                  color: "#0055bf",
+                  textAlign: "center",
+                  cursor: "pointer"
+                }
+              },
+              "Advanced Stats"
+            )
+          )
+        );
+      }
+    }
+
+    // handleChange(event) {
+    //   this.setState({ player: event.target.value });
+    // }
+
+  }, {
+    key: "render",
+    value: function render() {
+      var _state = this.state,
+          value = _state.value,
+          suggestions = _state.suggestions;
+
+      var inputProps = {
+        placeholder: "Search for Player...",
+        value: value,
+        onChange: this.onChange,
+        type: "search"
+      };
+
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 10, style: { paddingLeft: "0px" } },
+          _react2.default.createElement(
+            "div",
+            { className: "card" },
+            _react2.default.createElement(_reactAutosuggest2.default, {
+              suggestions: suggestions,
+              onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
+              onSuggestionsClearRequested: this.onSuggestionsClearRequested,
+              getSuggestionValue: this.getSuggestionValue,
+              renderSuggestion: this.renderSuggestion,
+              inputProps: inputProps
+            })
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 2, style: { paddingLeft: "0px" } },
+          _react2.default.createElement(
+            "div",
+            null,
+            _react2.default.createElement(
+              "button",
+              {
+                onClick: this.handleClick,
+                style: {
+                  width: "100%",
+                  height: "40px",
+                  backgroundColor: "#0055bf",
+                  color: "white"
+                }
+              },
+              "Add"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 12, style: { paddingLeft: "0px", paddingTop: "20px" } },
+          this.renderPlayer()
+        )
+      );
+    }
+  }]);
+
+  return AddCPlayerSearch2;
+}(_react2.default.Component);
+
+exports.default = AddCPlayerSearch2;
+
+/***/ }),
+/* 508 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _CTeamScatter = __webpack_require__(509);
+
+var _CTeamScatter2 = _interopRequireDefault(_CTeamScatter);
+
+var _AddCTeamSearch = __webpack_require__(510);
+
+var _AddCTeamSearch2 = _interopRequireDefault(_AddCTeamSearch);
+
+var _AddCTeamSearch3 = __webpack_require__(511);
+
+var _AddCTeamSearch4 = _interopRequireDefault(_AddCTeamSearch3);
+
+var _reactBootstrap = __webpack_require__(12);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CTeamComparison = function (_React$Component) {
+  _inherits(CTeamComparison, _React$Component);
+
+  function CTeamComparison(props) {
+    _classCallCheck(this, CTeamComparison);
+
+    return _possibleConstructorReturn(this, (CTeamComparison.__proto__ || Object.getPrototypeOf(CTeamComparison)).call(this, props));
+  }
+
+  _createClass(CTeamComparison, [{
+    key: "render",
+    value: function render() {
+      console.log(this.props.teams);
+      var headerStyle = {
+        backgroundColor: "#0055bf",
+        height: "45px",
+        lineHeight: "45px",
+        fontSize: "20px",
+        paddingLeft: "20px",
+        color: "#fff"
+      };
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "40px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "League Comparison"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          {
+            style: {
+              paddingTop: "40px"
+            }
+          },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 10, lgOffset: 1 },
+            _react2.default.createElement(_CTeamScatter2.default, { teams: this.props.teams })
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "30px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "Team Comparison"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "40px", paddingBottom: "40px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 5, lgOffset: 1 },
+            _react2.default.createElement(_AddCTeamSearch2.default, { list: this.props.teams })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 5 },
+            _react2.default.createElement(_AddCTeamSearch4.default, { list: this.props.teams })
+          )
+        )
+      );
+    }
+  }]);
+
+  return CTeamComparison;
+}(_react2.default.Component);
+
+exports.default = CTeamComparison;
+
+/***/ }),
+/* 509 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(12);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CTeamScatter = function (_React$Component) {
+  _inherits(CTeamScatter, _React$Component);
+
+  function CTeamScatter(props) {
+    _classCallCheck(this, CTeamScatter);
+
+    var _this = _possibleConstructorReturn(this, (CTeamScatter.__proto__ || Object.getPrototypeOf(CTeamScatter)).call(this, props));
+
+    _this.state = {
+      data: [],
+      statOne: "PTS",
+      statTwo: "AST",
+      position: "All",
+      teamPlayers: [],
+      showFilter: false,
+      teams: [],
+      teamData: []
+    };
+    _this.createChart = _this.createChart.bind(_this);
+    _this.filterClick = _this.filterClick.bind(_this);
+    _this.renderFilter = _this.renderFilter.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.firstInputChange = _this.firstInputChange.bind(_this);
+    _this.secondInputChange = _this.secondInputChange.bind(_this);
+    return _this;
+  }
+
+  _createClass(CTeamScatter, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      var _this2 = this;
+
+      var teamData = [];
+      var scatterData = [];
+      if (nextProps.teams) {
+        var data = nextProps.teams;
+        this.setState({ teamData: data });
+        for (var j = 0; j < data.length; j++) {
+          scatterData.push({
+            data: [[parseFloat(data[j][this.state.statTwo]), parseFloat(data[j][this.state.statOne])]],
+            name: data[j].Name,
+            color: "#0055bf",
+            _symbolIndex: 0
+          });
+        }
+        this.setState({ data: scatterData }, function () {
+          _this2.createChart();
+        });
+      }
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("containerScatter2", {
+        chart: {
+          type: "scatter",
+          zoomType: "xy"
+        },
+        title: {
+          text: "Team Stats College"
+        },
+        subtitle: {
+          text: ""
+        },
+        xAxis: {
+          title: {
+            enabled: true,
+            text: "" + this.state.statTwo
+          },
+          startOnTick: true,
+          endOnTick: true,
+          showLastLabel: true
+        },
+        yAxis: {
+          title: {
+            text: "" + this.state.statOne
+          }
+        },
+        legend: {
+          enabled: false,
+          layout: "vertical",
+          align: "left",
+          verticalAlign: "top",
+          x: 100,
+          y: 70,
+          floating: true,
+          backgroundColor: Highcharts.theme && Highcharts.theme.legendBackgroundColor || "#FFFFFF",
+          borderWidth: 1
+        },
+        plotOptions: {
+          scatter: {
+            marker: {
+              radius: 5,
+              states: {
+                hover: {
+                  enabled: true,
+                  lineColor: "rgb(100,100,100)"
+                }
+              }
+            },
+            states: {
+              hover: {
+                marker: {
+                  enabled: false
+                }
+              }
+            },
+            tooltip: {
+              headerFormat: "<b>{series.name}</b><br>",
+              pointFormat: "{point.x} " + this.state.statTwo + ", {point.y} " + this.state.statOne
+            }
+          }
+        },
+        series: this.state.data
+      });
+    }
+  }, {
+    key: "filterClick",
+    value: function filterClick() {
+      this.setState({ showFilter: !this.state.showFilter });
+    }
+  }, {
+    key: "firstInputChange",
+    value: function firstInputChange(event) {
+      this.setState({ statOne: event.target.value }, function () {
+        //console.log(this.state.statOne);
+      });
+    }
+  }, {
+    key: "secondInputChange",
+    value: function secondInputChange(event) {
+      this.setState({ statTwo: event.target.value }, function () {
+        //console.log(this.state.statTwo);
+      });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(event) {
+      var _this3 = this;
+
+      var statArr = [];
+      event.preventDefault();
+      for (var i = 0; i < this.props.teams.length; i++) {
+        var team = this.props.teams[i];
+        statArr.push({
+          data: [[parseFloat(team[this.state.statTwo]), parseFloat(team[this.state.statOne])]],
+          name: team.Name,
+          color: "#0055bf",
+          _symbolIndex: 0
+        });
+      }
+      this.setState({ data: statArr }, function () {
+        //console.log(this.state.data);
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "renderFilter",
+    value: function renderFilter() {}
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.props.teams);
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          className: "card playerScatter",
+          id: "containerScatter2",
+          style: {
+            height: "500px"
+          }
+        }),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "40px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: { backgroundColor: "white" } },
+              _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                  "form",
+                  null,
+                  _react2.default.createElement(
+                    _reactBootstrap.Col,
+                    { lg: 4, lgOffset: 1 },
+                    _react2.default.createElement(
+                      "div",
+                      null,
+                      _react2.default.createElement(
+                        "label",
+                        { htmlFor: "sel1" },
+                        "Select Stat ",
+                        _react2.default.createElement(
+                          "sub",
+                          null,
+                          "(y)"
+                        ),
+                        " :"
+                      ),
+                      _react2.default.createElement(
+                        "select",
+                        {
+                          id: "sel1",
+                          onChange: this.firstInputChange,
+                          style: { marginLeft: "10px" }
+                        },
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "PTS"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "AST"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "TRB"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "BLK"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "DEF_FT_FGA"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "DEF_TOV_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "DEF_eFG_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "DRB"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "DRB_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ORtg"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "DRtg"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "FG"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "FGA"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "FG_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "FTA"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "FTM"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "FT_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "FTr"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "GP"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "W"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "L"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "MOV"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "OFF_FT_FGA"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "OFF_TOV_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "OFF_eFG_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ORB"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ORB_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "PACE"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "PF"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "PW"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "PL"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "SOS"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "SRS"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "STL"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "TOV"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "Three_PAr"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "Three_Pointers"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "Three_Pointers_Att"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "Three_Pointers_Pct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "Two_Pointers"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "Two_Pointers_Att"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "Two_Pointers_Pct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "o2P"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "o2PA"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "o2PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "o3P"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "o3PA"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "o3PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oAST"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oBLK"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oDRB"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oFG"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oFGPCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oFTA"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oFTM"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oFTPCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oORB"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oPF"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oPTS"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oSTL"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oTOV"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oTRB"
+                        )
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.Col,
+                    { lg: 4 },
+                    _react2.default.createElement(
+                      "div",
+                      null,
+                      _react2.default.createElement(
+                        "label",
+                        { htmlFor: "sel2", className: "select-stat-label" },
+                        "Select Stat ",
+                        _react2.default.createElement(
+                          "sub",
+                          null,
+                          "(x)"
+                        ),
+                        " :"
+                      ),
+                      _react2.default.createElement(
+                        "select",
+                        {
+                          onChange: this.secondInputChange,
+                          id: "sel2",
+                          style: { marginLeft: "10px" }
+                        },
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "AST"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "PTS"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "W"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "TRB"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "BLK"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "DEF_FT_FGA"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "DEF_TOV_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "DEF_eFG_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "DRB"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "DRB_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ORtg"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "DRtg"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "FG"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "FGA"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "FG_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "FTA"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "FTM"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "FT_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "FTr"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "GP"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "L"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "MOV"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "OFF_FT_FGA"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "OFF_TOV_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "OFF_eFG_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ORB"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "ORB_PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "PACE"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "PF"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "PW"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "PL"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "SOS"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "SRS"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "STL"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "TOV"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "Three_PAr"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "Three_Pointers"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "Three_Pointers_Att"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "Three_Pointers_Pct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "Two_Pointers"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "Two_Pointers_Att"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "Two_Pointers_Pct"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "o2P"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "o2PA"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "o2PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "o3P"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "o3PA"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "o3PCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oAST"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oBLK"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oDRB"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oFG"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oFGPCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oFTA"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oFTM"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oFTPCT"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oORB"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oPF"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oPTS"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oSTL"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oTOV"
+                        ),
+                        _react2.default.createElement(
+                          "option",
+                          null,
+                          "oTRB"
+                        )
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.Col,
+                    { lg: 1 },
+                    _react2.default.createElement(
+                      "div",
+                      null,
+                      _react2.default.createElement(
+                        "button",
+                        {
+                          onClick: this.handleSubmit,
+                          id: "submit-button",
+                          style: { backgroundColor: "#0055bf", color: "white" }
+                        },
+                        "Submit"
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.Col,
+                    { lg: 12, style: { paddingTop: "20px" } },
+                    this.renderFilter()
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return CTeamScatter;
+}(_react2.default.Component);
+
+exports.default = CTeamScatter;
+
+/***/ }),
+/* 510 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactAutosuggest = __webpack_require__(427);
+
+var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
+
+var _reactBootstrap = __webpack_require__(12);
+
+var _TeamBarRatings = __webpack_require__(496);
+
+var _TeamBarRatings2 = _interopRequireDefault(_TeamBarRatings);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var parse = __webpack_require__(439);
+var match = __webpack_require__(440);
+
+var AddCTeamSearch = function (_React$Component) {
+  _inherits(AddCTeamSearch, _React$Component);
+
+  function AddCTeamSearch(props) {
+    _classCallCheck(this, AddCTeamSearch);
+
+    var _this = _possibleConstructorReturn(this, (AddCTeamSearch.__proto__ || Object.getPrototypeOf(AddCTeamSearch)).call(this, props));
+
+    _this.state = {
+      value: "",
+      suggestions: [],
+      players: [],
+      player: {},
+      renderPlayer: false
+    };
+    _this.escapeRegexCharacters = _this.escapeRegexCharacters.bind(_this);
+    _this.getSuggestions = _this.getSuggestions.bind(_this);
+    _this.getSuggestionValue = _this.getSuggestionValue.bind(_this);
+    _this.renderSuggestion = _this.renderSuggestion.bind(_this);
+    _this.onChange = _this.onChange.bind(_this);
+    _this.onSuggestionsFetchRequested = _this.onSuggestionsFetchRequested.bind(_this);
+    _this.onSuggestionsClearRequested = _this.onSuggestionsClearRequested.bind(_this);
+    _this.handleClick = _this.handleClick.bind(_this);
+    _this.renderPlayer = _this.renderPlayer.bind(_this);
+    //this.handleChange = this.handleChange.bind(this);
+    _this.getOverallRating = _this.getOverallRating.bind(_this);
+    _this.getOffenseRating = _this.getOffenseRating.bind(_this);
+    _this.getDefenseRating = _this.getDefenseRating.bind(_this);
+    _this.calculateStars = _this.calculateStars.bind(_this);
+    return _this;
+  }
+
+  _createClass(AddCTeamSearch, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {}
+  }, {
+    key: "escapeRegexCharacters",
+    value: function escapeRegexCharacters(str) {
+      return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+  }, {
+    key: "getSuggestions",
+    value: function getSuggestions(value) {
+      var _this2 = this;
+
+      var escapedValue = this.escapeRegexCharacters(value.trim());
+
+      if (escapedValue === "") {
+        return [];
+      }
+
+      var regex = new RegExp("\\b" + escapedValue, "i");
+
+      return this.props.list.filter(function (player) {
+        return regex.test(_this2.getSuggestionValue(player));
+      });
+    }
+  }, {
+    key: "getSuggestionValue",
+    value: function getSuggestionValue(suggestion) {
+      if (suggestion.team) {
+        return suggestion.name + " " + suggestion.team;
+      } else {
+        return "" + suggestion.Name;
+      }
+    }
+  }, {
+    key: "renderSuggestion",
+    value: function renderSuggestion(suggestion, _ref) {
+      var query = _ref.query;
+
+      var suggestionText;
+      if (suggestion.team) {
+        suggestionText = suggestion.name + " " + suggestion.team;
+      } else {
+        suggestionText = "" + suggestion.Name;
+      }
+      var matches = match(suggestionText, query);
+      var parts = parse(suggestionText, matches);
+      var tag;
+      if (suggestion.league === "nba") {
+        if (suggestion.team) {
+          tag = "/player/" + suggestion.id;
+        } else {
+          tag = "/team/" + suggestion.id;
+        }
+      }
+      if (suggestion.league === "ncaa") {
+        if (suggestion.team) {
+          tag = "/college-player/" + suggestion.id;
+        } else {
+          tag = "/college-team/" + suggestion.id;
+        }
+      }
+
+      return _react2.default.createElement(
+        "span",
+        { className: "suggestion-content " + suggestion.league },
+        _react2.default.createElement(
+          "a",
+          { href: tag },
+          _react2.default.createElement(
+            "span",
+            { className: "name" },
+            parts.map(function (part, index) {
+              var className = part.highlight ? "highlight" : null;
+
+              return _react2.default.createElement(
+                "span",
+                { className: className, key: index },
+                part.text
+              );
+            })
+          )
+        )
+      );
+    }
+  }, {
+    key: "onChange",
+    value: function onChange(event, _ref2) {
+      var newValue = _ref2.newValue,
+          method = _ref2.method;
+
+      this.setState({
+        value: newValue
+      });
+    }
+  }, {
+    key: "onSuggestionsFetchRequested",
+    value: function onSuggestionsFetchRequested(_ref3) {
+      var value = _ref3.value;
+
+      this.setState({
+        suggestions: this.getSuggestions(value)
+      });
+    }
+  }, {
+    key: "onSuggestionsClearRequested",
+    value: function onSuggestionsClearRequested() {
+      this.setState({
+        suggestions: []
+      });
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(event) {
+      var _this3 = this;
+
+      event.preventDefault();
+      var name = this.state.value;
+      var player = {};
+      for (var i = 0; i < this.props.list.length; i++) {
+        if (this.props.list[i].Name === name) {
+          player = this.props.list[i];
+        }
+      }
+      this.setState({ player: player }, function () {
+        console.log(_this3.state.player);
+        _this3.setState({ renderPlayer: true });
+      });
+    }
+  }, {
+    key: "getOverallRating",
+    value: function getOverallRating() {
+      if (this.state.player) {
+        var wins = parseFloat(this.state.player.W) * 0.3;
+        var mov = parseFloat(this.state.player.MOV) * 0.3;
+        var sos = parseFloat(this.state.player.SOS) * 0.1;
+        var srs = parseFloat(this.state.player.SRS) * 0.3;
+        var weightedOvr = wins + mov + sos + srs;
+        var stars = this.calculateStars(10.0, -3.0, weightedOvr);
+        if (stars === 5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" })
+          );
+        }
+        if (stars === 4.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" })
+          );
+        }
+        if (stars === 4) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        return _react2.default.createElement(
+          "span",
+          { className: "rating overall" },
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+        );
+      }
+    }
+  }, {
+    key: "getDefenseRating",
+    value: function getDefenseRating() {
+      if (this.state.player) {
+        var defRating = parseFloat(this.state.player.DRtg);
+        var stars = this.calculateStars(112.0, 103.0, defRating);
+        if (stars === 0.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" })
+          );
+        }
+        if (stars === 1) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" })
+          );
+        }
+        if (stars === 1.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" })
+          );
+        }
+        if (stars === 2) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 4) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 4.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        return _react2.default.createElement(
+          "span",
+          { className: "rating overall" },
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+        );
+      }
+    }
+  }, {
+    key: "getOffenseRating",
+    value: function getOffenseRating() {
+      if (this.state.player) {
+        var offRating = parseFloat(this.state.player.ORtg);
+        var stars = this.calculateStars(115.0, 100.0, offRating);
+        if (stars === 5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" })
+          );
+        }
+        if (stars === 4.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" })
+          );
+        }
+        if (stars === 4) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        return _react2.default.createElement(
+          "span",
+          { className: "rating overall" },
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+        );
+      }
+    }
+  }, {
+    key: "calculateStars",
+    value: function calculateStars(high, low, actual) {
+      var gradeScale = (high - low) / 8;
+      var fiveStars = high - gradeScale;
+      var fourHalfStars = fiveStars - gradeScale;
+      var fourStars = fourHalfStars - gradeScale;
+      var threeHalfStars = fourStars - gradeScale;
+      var threeStars = threeHalfStars - gradeScale;
+      var twoHalfStars = threeStars - gradeScale;
+      var twoStars = twoHalfStars - gradeScale;
+      var oneHalfStars = twoStars - gradeScale;
+      var oneStars = oneHalfStars - gradeScale;
+      var starRating;
+      if (actual >= fiveStars) {
+        starRating = 5;
+      } else if (actual >= fourHalfStars) {
+        starRating = 4.5;
+      } else if (actual >= fourStars) {
+        starRating = 4;
+      } else if (actual >= threeHalfStars) {
+        starRating = 3.5;
+      } else if (actual >= threeStars) {
+        starRating = 3;
+      } else if (actual >= twoHalfStars) {
+        starRating = 2.5;
+      } else if (actual >= twoStars) {
+        starRating = 2;
+      } else if (actual >= oneHalfStars) {
+        starRating = 1.5;
+      } else if (actual >= oneStars) {
+        starRating = 1;
+      } else {
+        starRating = 0.5;
+      }
+      return starRating;
+    }
+  }, {
+    key: "renderPlayer",
+    value: function renderPlayer() {
+      if (this.state.renderPlayer) {
+        console.log("Render!!");
+        return _react2.default.createElement(
+          "div",
+          {
+            className: "card",
+            style: {
+              backgroundColor: "white",
+              height: "620px",
+              overflow: "scroll"
+            }
+          },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 6, style: { paddingTop: "20px" } },
+            _react2.default.createElement(_reactBootstrap.Thumbnail, {
+              style: { border: "none", maxHeight: "150px" },
+              src: this.state.player.Logo
+            })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 6, style: { paddingTop: "30px", marginBottom: "20px" } },
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                "span",
+                { style: { fontSize: "22px", textAlign: "right" } },
+                this.state.player.Name
+              ),
+              _react2.default.createElement(
+                "span",
+                { style: { paddingLeft: "5px" } },
+                "(",
+                this.state.player.W,
+                " - ",
+                this.state.player.L,
+                ")"
+              )
+            ),
+            _react2.default.createElement("hr", { style: { marginTop: "0px" } }),
+            _react2.default.createElement(
+              "div",
+              { style: { fontSize: "16px", textAlign: "right" } },
+              _react2.default.createElement(
+                "div",
+                null,
+                "Overall: ",
+                this.getOverallRating()
+              ),
+              _react2.default.createElement(
+                "div",
+                null,
+                "Offense: ",
+                this.getOffenseRating()
+              ),
+              _react2.default.createElement(
+                "div",
+                null,
+                "Defense: ",
+                this.getDefenseRating()
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement("hr", { style: { marginTop: "0px" } })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(_TeamBarRatings2.default, { team: this.state.player })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(
+              "div",
+              {
+                style: {
+                  textDecoration: "underline",
+                  color: "#0055bf",
+                  textAlign: "center",
+                  cursor: "pointer"
+                }
+              },
+              "Advanced Stats"
+            )
+          )
+        );
+      }
+    }
+
+    // handleChange(event) {
+    //   this.setState({ player: event.target.value });
+    // }
+
+  }, {
+    key: "render",
+    value: function render() {
+      var _state = this.state,
+          value = _state.value,
+          suggestions = _state.suggestions;
+
+      var inputProps = {
+        placeholder: "Search for Team...",
+        value: value,
+        onChange: this.onChange,
+        type: "search"
+      };
+
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 10, style: { paddingLeft: "0px" } },
+          _react2.default.createElement(
+            "div",
+            { className: "card" },
+            _react2.default.createElement(_reactAutosuggest2.default, {
+              suggestions: suggestions,
+              onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
+              onSuggestionsClearRequested: this.onSuggestionsClearRequested,
+              getSuggestionValue: this.getSuggestionValue,
+              renderSuggestion: this.renderSuggestion,
+              inputProps: inputProps
+            })
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 2, style: { paddingLeft: "0px" } },
+          _react2.default.createElement(
+            "div",
+            null,
+            _react2.default.createElement(
+              "button",
+              {
+                onClick: this.handleClick,
+                style: {
+                  width: "100%",
+                  height: "40px",
+                  backgroundColor: "#0055bf",
+                  color: "white"
+                }
+              },
+              "Add"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 12, style: { paddingLeft: "0px", paddingTop: "20px" } },
+          this.renderPlayer()
+        )
+      );
+    }
+  }]);
+
+  return AddCTeamSearch;
+}(_react2.default.Component);
+
+exports.default = AddCTeamSearch;
+
+/***/ }),
+/* 511 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactAutosuggest = __webpack_require__(427);
+
+var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
+
+var _reactBootstrap = __webpack_require__(12);
+
+var _TeamBarRatings = __webpack_require__(497);
+
+var _TeamBarRatings2 = _interopRequireDefault(_TeamBarRatings);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var parse = __webpack_require__(439);
+var match = __webpack_require__(440);
+
+var AddCTeamSearch2 = function (_React$Component) {
+  _inherits(AddCTeamSearch2, _React$Component);
+
+  function AddCTeamSearch2(props) {
+    _classCallCheck(this, AddCTeamSearch2);
+
+    var _this = _possibleConstructorReturn(this, (AddCTeamSearch2.__proto__ || Object.getPrototypeOf(AddCTeamSearch2)).call(this, props));
+
+    _this.state = {
+      value: "",
+      suggestions: [],
+      players: [],
+      player: {},
+      renderPlayer: false
+    };
+    _this.escapeRegexCharacters = _this.escapeRegexCharacters.bind(_this);
+    _this.getSuggestions = _this.getSuggestions.bind(_this);
+    _this.getSuggestionValue = _this.getSuggestionValue.bind(_this);
+    _this.renderSuggestion = _this.renderSuggestion.bind(_this);
+    _this.onChange = _this.onChange.bind(_this);
+    _this.onSuggestionsFetchRequested = _this.onSuggestionsFetchRequested.bind(_this);
+    _this.onSuggestionsClearRequested = _this.onSuggestionsClearRequested.bind(_this);
+    _this.handleClick = _this.handleClick.bind(_this);
+    _this.renderPlayer = _this.renderPlayer.bind(_this);
+    //this.handleChange = this.handleChange.bind(this);
+    _this.getOverallRating = _this.getOverallRating.bind(_this);
+    _this.getOffenseRating = _this.getOffenseRating.bind(_this);
+    _this.getDefenseRating = _this.getDefenseRating.bind(_this);
+    _this.calculateStars = _this.calculateStars.bind(_this);
+    return _this;
+  }
+
+  _createClass(AddCTeamSearch2, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {}
+  }, {
+    key: "escapeRegexCharacters",
+    value: function escapeRegexCharacters(str) {
+      return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+  }, {
+    key: "getSuggestions",
+    value: function getSuggestions(value) {
+      var _this2 = this;
+
+      var escapedValue = this.escapeRegexCharacters(value.trim());
+
+      if (escapedValue === "") {
+        return [];
+      }
+
+      var regex = new RegExp("\\b" + escapedValue, "i");
+
+      return this.props.list.filter(function (player) {
+        return regex.test(_this2.getSuggestionValue(player));
+      });
+    }
+  }, {
+    key: "getSuggestionValue",
+    value: function getSuggestionValue(suggestion) {
+      if (suggestion.team) {
+        return suggestion.name + " " + suggestion.team;
+      } else {
+        return "" + suggestion.Name;
+      }
+    }
+  }, {
+    key: "renderSuggestion",
+    value: function renderSuggestion(suggestion, _ref) {
+      var query = _ref.query;
+
+      var suggestionText;
+      if (suggestion.team) {
+        suggestionText = suggestion.name + " " + suggestion.team;
+      } else {
+        suggestionText = "" + suggestion.Name;
+      }
+      var matches = match(suggestionText, query);
+      var parts = parse(suggestionText, matches);
+      var tag;
+      if (suggestion.league === "nba") {
+        if (suggestion.team) {
+          tag = "/player/" + suggestion.id;
+        } else {
+          tag = "/team/" + suggestion.id;
+        }
+      }
+      if (suggestion.league === "ncaa") {
+        if (suggestion.team) {
+          tag = "/college-player/" + suggestion.id;
+        } else {
+          tag = "/college-team/" + suggestion.id;
+        }
+      }
+
+      return _react2.default.createElement(
+        "span",
+        { className: "suggestion-content " + suggestion.league },
+        _react2.default.createElement(
+          "a",
+          { href: tag },
+          _react2.default.createElement(
+            "span",
+            { className: "name" },
+            parts.map(function (part, index) {
+              var className = part.highlight ? "highlight" : null;
+
+              return _react2.default.createElement(
+                "span",
+                { className: className, key: index },
+                part.text
+              );
+            })
+          )
+        )
+      );
+    }
+  }, {
+    key: "onChange",
+    value: function onChange(event, _ref2) {
+      var newValue = _ref2.newValue,
+          method = _ref2.method;
+
+      this.setState({
+        value: newValue
+      });
+    }
+  }, {
+    key: "onSuggestionsFetchRequested",
+    value: function onSuggestionsFetchRequested(_ref3) {
+      var value = _ref3.value;
+
+      this.setState({
+        suggestions: this.getSuggestions(value)
+      });
+    }
+  }, {
+    key: "onSuggestionsClearRequested",
+    value: function onSuggestionsClearRequested() {
+      this.setState({
+        suggestions: []
+      });
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(event) {
+      var _this3 = this;
+
+      event.preventDefault();
+      var name = this.state.value;
+      var player = {};
+      for (var i = 0; i < this.props.list.length; i++) {
+        if (this.props.list[i].Name === name) {
+          player = this.props.list[i];
+        }
+      }
+      this.setState({ player: player }, function () {
+        console.log(_this3.state.player);
+        _this3.setState({ renderPlayer: true });
+      });
+    }
+  }, {
+    key: "getOverallRating",
+    value: function getOverallRating() {
+      if (this.state.player) {
+        var wins = parseFloat(this.state.player.W) * 0.3;
+        var mov = parseFloat(this.state.player.MOV) * 0.3;
+        var sos = parseFloat(this.state.player.SOS) * 0.1;
+        var srs = parseFloat(this.state.player.SRS) * 0.3;
+        var weightedOvr = wins + mov + sos + srs;
+        var stars = this.calculateStars(10.0, -3.0, weightedOvr);
+        if (stars === 5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" })
+          );
+        }
+        if (stars === 4.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" })
+          );
+        }
+        if (stars === 4) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        return _react2.default.createElement(
+          "span",
+          { className: "rating overall" },
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+        );
+      }
+    }
+  }, {
+    key: "getDefenseRating",
+    value: function getDefenseRating() {
+      if (this.state.player) {
+        var defRating = parseFloat(this.state.player.DRtg);
+        var stars = this.calculateStars(112.0, 103.0, defRating);
+        if (stars === 0.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" })
+          );
+        }
+        if (stars === 1) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" })
+          );
+        }
+        if (stars === 1.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" })
+          );
+        }
+        if (stars === 2) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 4) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 4.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        return _react2.default.createElement(
+          "span",
+          { className: "rating overall" },
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+        );
+      }
+    }
+  }, {
+    key: "getOffenseRating",
+    value: function getOffenseRating() {
+      if (this.state.player) {
+        var offRating = parseFloat(this.state.player.ORtg);
+        var stars = this.calculateStars(115.0, 100.0, offRating);
+        if (stars === 5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" })
+          );
+        }
+        if (stars === 4.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" })
+          );
+        }
+        if (stars === 4) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        return _react2.default.createElement(
+          "span",
+          { className: "rating overall" },
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+        );
+      }
+    }
+  }, {
+    key: "calculateStars",
+    value: function calculateStars(high, low, actual) {
+      var gradeScale = (high - low) / 8;
+      var fiveStars = high - gradeScale;
+      var fourHalfStars = fiveStars - gradeScale;
+      var fourStars = fourHalfStars - gradeScale;
+      var threeHalfStars = fourStars - gradeScale;
+      var threeStars = threeHalfStars - gradeScale;
+      var twoHalfStars = threeStars - gradeScale;
+      var twoStars = twoHalfStars - gradeScale;
+      var oneHalfStars = twoStars - gradeScale;
+      var oneStars = oneHalfStars - gradeScale;
+      var starRating;
+      if (actual >= fiveStars) {
+        starRating = 5;
+      } else if (actual >= fourHalfStars) {
+        starRating = 4.5;
+      } else if (actual >= fourStars) {
+        starRating = 4;
+      } else if (actual >= threeHalfStars) {
+        starRating = 3.5;
+      } else if (actual >= threeStars) {
+        starRating = 3;
+      } else if (actual >= twoHalfStars) {
+        starRating = 2.5;
+      } else if (actual >= twoStars) {
+        starRating = 2;
+      } else if (actual >= oneHalfStars) {
+        starRating = 1.5;
+      } else if (actual >= oneStars) {
+        starRating = 1;
+      } else {
+        starRating = 0.5;
+      }
+      return starRating;
+    }
+  }, {
+    key: "renderPlayer",
+    value: function renderPlayer() {
+      if (this.state.renderPlayer) {
+        console.log("Render!!");
+        return _react2.default.createElement(
+          "div",
+          {
+            className: "card",
+            style: {
+              backgroundColor: "white",
+              height: "620px",
+              overflow: "scroll"
+            }
+          },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 6, style: { paddingTop: "20px" } },
+            _react2.default.createElement(_reactBootstrap.Thumbnail, {
+              style: { border: "none", maxHeight: "150px" },
+              src: this.state.player.Logo
+            })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 6, style: { paddingTop: "30px", marginBottom: "20px" } },
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                "span",
+                { style: { fontSize: "22px", textAlign: "right" } },
+                this.state.player.Name
+              ),
+              _react2.default.createElement(
+                "span",
+                { style: { paddingLeft: "5px" } },
+                "(",
+                this.state.player.W,
+                " - ",
+                this.state.player.L,
+                ")"
+              )
+            ),
+            _react2.default.createElement("hr", { style: { marginTop: "0px" } }),
+            _react2.default.createElement(
+              "div",
+              { style: { fontSize: "16px", textAlign: "right" } },
+              _react2.default.createElement(
+                "div",
+                null,
+                "Overall: ",
+                this.getOverallRating()
+              ),
+              _react2.default.createElement(
+                "div",
+                null,
+                "Offense: ",
+                this.getOffenseRating()
+              ),
+              _react2.default.createElement(
+                "div",
+                null,
+                "Defense: ",
+                this.getDefenseRating()
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement("hr", { style: { marginTop: "0px" } })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(_TeamBarRatings2.default, { team: this.state.player })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(
+              "div",
+              {
+                style: {
+                  textDecoration: "underline",
+                  color: "#0055bf",
+                  textAlign: "center",
+                  cursor: "pointer"
+                }
+              },
+              "Advanced Stats"
+            )
+          )
+        );
+      }
+    }
+
+    // handleChange(event) {
+    //   this.setState({ player: event.target.value });
+    // }
+
+  }, {
+    key: "render",
+    value: function render() {
+      var _state = this.state,
+          value = _state.value,
+          suggestions = _state.suggestions;
+
+      var inputProps = {
+        placeholder: "Search for Team...",
+        value: value,
+        onChange: this.onChange,
+        type: "search"
+      };
+
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 10, style: { paddingLeft: "0px" } },
+          _react2.default.createElement(
+            "div",
+            { className: "card" },
+            _react2.default.createElement(_reactAutosuggest2.default, {
+              suggestions: suggestions,
+              onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
+              onSuggestionsClearRequested: this.onSuggestionsClearRequested,
+              getSuggestionValue: this.getSuggestionValue,
+              renderSuggestion: this.renderSuggestion,
+              inputProps: inputProps
+            })
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 2, style: { paddingLeft: "0px" } },
+          _react2.default.createElement(
+            "div",
+            null,
+            _react2.default.createElement(
+              "button",
+              {
+                onClick: this.handleClick,
+                style: {
+                  width: "100%",
+                  height: "40px",
+                  backgroundColor: "#0055bf",
+                  color: "white"
+                }
+              },
+              "Add"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 12, style: { paddingLeft: "0px", paddingTop: "20px" } },
+          this.renderPlayer()
+        )
+      );
+    }
+  }]);
+
+  return AddCTeamSearch2;
+}(_react2.default.Component);
+
+exports.default = AddCTeamSearch2;
 
 /***/ })
 /******/ ]);

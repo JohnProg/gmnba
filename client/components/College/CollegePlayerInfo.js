@@ -94,9 +94,17 @@ class CollegePlayerInfo extends React.Component {
                     <div id="team-name">{this.state.player.name}</div>
                     <div id="info-text">
                       <div>Position: {this.state.player.position}</div>
-                      <div>Age: {this.state.player.age}</div>
+                      <div>
+                        <span>Height: {this.state.player.height}</span>
+                        <span style={{ paddingLeft: "3px" }}>
+                          {" "}
+                          Weight: {this.state.player.weight}
+                        </span>
+                      </div>
                       <div>Team: {this.state.player.team}</div>
-                      <div>College: {this.state.player.college || "None"}</div>
+                      <div>
+                        High School: {this.state.player.highschool || ""}
+                      </div>
                     </div>
                   </div>
                   <hr id="info-text-break" />

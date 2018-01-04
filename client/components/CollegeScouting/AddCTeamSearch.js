@@ -1,348 +1,402 @@
 import React from "react";
-import PlayerTabs from "./PlayerTabs";
-import { Col, Button, Well, Row, Grid, Glyphicon } from "react-bootstrap";
-import { connect } from "react-redux";
-import axios from "axios";
-import PlayersList from "./PlayersList";
+import Autosuggest from "react-autosuggest";
+var parse = require("autosuggest-highlight/parse");
+var match = require("autosuggest-highlight/match");
+import {
+  Col,
+  Button,
+  Well,
+  Row,
+  Grid,
+  Nav,
+  NavItem,
+  Image,
+  Thumbnail
+} from "react-bootstrap";
+import TeamBarRatings from "../NBAscouting/TeamBarRatings";
 
-const mapStateToProps = state => {
-  return {
-    players: state.playersReducer.players
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    addPlayers(players) {
-      dispatch({
-        type: "ADD_PLAYERS",
-        payload: players
-      });
-    }
-  };
-};
-
-class PlayerInfo extends React.Component {
+export default class AddCTeamSearch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      teamStats: [],
-      leagueStats: [],
-      id: this.props.props.match.params.id,
+      value: "",
+      suggestions: [],
+      players: [],
       player: {},
-      colors: {}
+      renderPlayer: false
     };
-    this.getRoster = this.getRoster.bind(this);
-    this.getLeagueStats = this.getLeagueStats.bind(this);
-    this.getPlayer = this.getPlayer.bind(this);
-    this.getTeamColors = this.getTeamColors.bind(this);
+    this.escapeRegexCharacters = this.escapeRegexCharacters.bind(this);
+    this.getSuggestions = this.getSuggestions.bind(this);
+    this.getSuggestionValue = this.getSuggestionValue.bind(this);
+    this.renderSuggestion = this.renderSuggestion.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(
+      this
+    );
+    this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(
+      this
+    );
+    this.handleClick = this.handleClick.bind(this);
+    this.renderPlayer = this.renderPlayer.bind(this);
+    //this.handleChange = this.handleChange.bind(this);
     this.getOverallRating = this.getOverallRating.bind(this);
     this.getOffenseRating = this.getOffenseRating.bind(this);
     this.getDefenseRating = this.getDefenseRating.bind(this);
     this.calculateStars = this.calculateStars.bind(this);
   }
 
-  componentDidMount() {
-    this.getRoster();
-    this.getLeagueStats();
-    this.getPlayer();
+  componentDidMount() {}
+
+  escapeRegexCharacters(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 
-  getRoster() {
-    var team = "San Antonio Spurs";
-    axios
-      .get("/api/teams/getTeamsPlayers", {
-        params: {
-          team: team
-        }
-      })
-      .then(data => {
-        var playersArray = data.data;
-        this.props.addPlayers(playersArray);
-      })
-      .catch("error retrieving players!!!");
+  getSuggestions(value) {
+    const escapedValue = this.escapeRegexCharacters(value.trim());
+
+    if (escapedValue === "") {
+      return [];
+    }
+
+    const regex = new RegExp("\\b" + escapedValue, "i");
+
+    return this.props.list.filter(player =>
+      regex.test(this.getSuggestionValue(player))
+    );
   }
 
-  getLeagueStats() {
-    axios
-      .get("/api/teams/getLeagueStats")
-      .then(data => {
-        this.setState({ leagueStats: data.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  getPlayer() {
-    axios
-      .get(`/api/teams/getPlayerProfile/${this.state.id}`)
-      .then(data => {
-        this.getTeamColors(data.data.team);
-        this.setState({ player: data.data }, () => {});
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  getTeamColors(team) {
-    axios
-      .get(`api/teams/getTeamColors/${team}`)
-      .then(data => {
-        this.setState({ colors: data.data }, () => {
-          console.log(this.state.colors);
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  getOffenseRating() {
-    if (this.state.player) {
-      var obpm = parseFloat(this.state.player.obpm);
-      var ows = parseFloat(this.state.player.ows);
-      var offRating = obpm + ows;
-      var stars = this.calculateStars(10.0, -5.0, offRating);
-      if (stars === 5) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-          </span>
-        );
-      }
-      if (stars === 4.5) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star half" />
-          </span>
-        );
-      }
-      if (stars === 4) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star empty" />
-          </span>
-        );
-      }
-      if (stars === 3.5) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star half" />
-            <i className="glyphicon glyphicon-star empty" />
-          </span>
-        );
-      }
-      if (stars === 3) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-          </span>
-        );
-      }
-      if (stars === 2.5) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star half" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-          </span>
-        );
-      }
-      if (stars === 2) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-          </span>
-        );
-      }
-      if (stars === 1.5) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star half" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-          </span>
-        );
-      }
-      if (stars === 1) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-          </span>
-        );
-      }
-      return (
-        <span className="rating overall">
-          <i className="glyphicon glyphicon-star half" />
-          <i className="glyphicon glyphicon-star empty" />
-          <i className="glyphicon glyphicon-star empty" />
-          <i className="glyphicon glyphicon-star empty" />
-          <i className="glyphicon glyphicon-star empty" />
-        </span>
-      );
+  getSuggestionValue(suggestion) {
+    if (suggestion.team) {
+      return `${suggestion.name} ${suggestion.team}`;
+    } else {
+      return `${suggestion.Name}`;
     }
   }
 
-  getDefenseRating() {
-    if (this.state.player) {
-      var dbpm = parseFloat(this.state.player.dbpm);
-      var dws = parseFloat(this.state.player.dws);
-      var defRating = dbpm + dws;
-      console.log(defRating);
-      var stars = this.calculateStars(5.0, -4.0, defRating);
-      if (stars === 5) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-          </span>
-        );
-      }
-      if (stars === 4.5) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star half" />
-          </span>
-        );
-      }
-      if (stars === 4) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star empty" />
-          </span>
-        );
-      }
-      if (stars === 3.5) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star half" />
-            <i className="glyphicon glyphicon-star empty" />
-          </span>
-        );
-      }
-      if (stars === 3) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-          </span>
-        );
-      }
-      if (stars === 2.5) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star half" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-          </span>
-        );
-      }
-      if (stars === 2) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-          </span>
-        );
-      }
-      if (stars === 1.5) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star half" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-          </span>
-        );
-      }
-      if (stars === 1) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-            <i className="glyphicon glyphicon-star empty" />
-          </span>
-        );
-      }
-      return (
-        <span className="rating overall">
-          <i className="glyphicon glyphicon-star half" />
-          <i className="glyphicon glyphicon-star empty" />
-          <i className="glyphicon glyphicon-star empty" />
-          <i className="glyphicon glyphicon-star empty" />
-          <i className="glyphicon glyphicon-star empty" />
-        </span>
-      );
+  renderSuggestion(suggestion, { query }) {
+    var suggestionText;
+    if (suggestion.team) {
+      suggestionText = `${suggestion.name} ${suggestion.team}`;
+    } else {
+      suggestionText = `${suggestion.Name}`;
     }
+    const matches = match(suggestionText, query);
+    const parts = parse(suggestionText, matches);
+    var tag;
+    if (suggestion.league === "nba") {
+      if (suggestion.team) {
+        tag = `/player/${suggestion.id}`;
+      } else {
+        tag = `/team/${suggestion.id}`;
+      }
+    }
+    if (suggestion.league === "ncaa") {
+      if (suggestion.team) {
+        tag = `/college-player/${suggestion.id}`;
+      } else {
+        tag = `/college-team/${suggestion.id}`;
+      }
+    }
+
+    return (
+      <span className={"suggestion-content " + suggestion.league}>
+        <a href={tag}>
+          <span className="name">
+            {parts.map((part, index) => {
+              const className = part.highlight ? "highlight" : null;
+
+              return (
+                <span className={className} key={index}>
+                  {part.text}
+                </span>
+              );
+            })}
+          </span>
+        </a>
+      </span>
+    );
+  }
+
+  onChange(event, { newValue, method }) {
+    this.setState({
+      value: newValue
+    });
+  }
+
+  onSuggestionsFetchRequested({ value }) {
+    this.setState({
+      suggestions: this.getSuggestions(value)
+    });
+  }
+
+  onSuggestionsClearRequested() {
+    this.setState({
+      suggestions: []
+    });
+  }
+
+  handleClick(event) {
+    event.preventDefault();
+    var name = this.state.value;
+    var player = {};
+    for (var i = 0; i < this.props.list.length; i++) {
+      if (this.props.list[i].Name === name) {
+        player = this.props.list[i];
+      }
+    }
+    this.setState({ player: player }, () => {
+      console.log(this.state.player);
+      this.setState({ renderPlayer: true });
+    });
   }
 
   getOverallRating() {
     if (this.state.player) {
-      var per = parseFloat(this.state.player.per) * 0.4;
-      var bpm = parseFloat(this.state.player.bpm) * 0.2;
-      var ws48 = parseFloat(this.state.player.wsFourtyEight) * 0.1;
-      var ws = parseFloat(this.state.player.ws) * 0.1;
-      var vorp = parseFloat(this.state.player.vorp) * 0.25;
-      var weightedOvr = per + bpm + ws48 + ws + vorp;
-      var stars = this.calculateStars(13.0, 1.8, weightedOvr);
+      var wins = parseFloat(this.state.player.W) * 0.3;
+      var mov = parseFloat(this.state.player.MOV) * 0.3;
+      var sos = parseFloat(this.state.player.SOS) * 0.1;
+      var srs = parseFloat(this.state.player.SRS) * 0.3;
+      var weightedOvr = wins + mov + sos + srs;
+      var stars = this.calculateStars(10.0, -3.0, weightedOvr);
+      if (stars === 5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+          </span>
+        );
+      }
+      if (stars === 4.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+          </span>
+        );
+      }
+      if (stars === 4) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 3.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 3) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 2.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 2) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 1.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 1) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      return (
+        <span className="rating overall">
+          <i className="glyphicon glyphicon-star half" />
+          <i className="glyphicon glyphicon-star empty" />
+          <i className="glyphicon glyphicon-star empty" />
+          <i className="glyphicon glyphicon-star empty" />
+          <i className="glyphicon glyphicon-star empty" />
+        </span>
+      );
+    }
+  }
+  getDefenseRating() {
+    if (this.state.player) {
+      var defRating = parseFloat(this.state.player.DRtg);
+      var stars = this.calculateStars(112.0, 103.0, defRating);
+      if (stars === 0.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+          </span>
+        );
+      }
+      if (stars === 1) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+          </span>
+        );
+      }
+      if (stars === 1.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+          </span>
+        );
+      }
+      if (stars === 2) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 2.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 3) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 3.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 4) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 4.5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star half" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      if (stars === 5) {
+        return (
+          <span className="rating overall">
+            <i className="glyphicon glyphicon-star" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+            <i className="glyphicon glyphicon-star empty" />
+          </span>
+        );
+      }
+      return (
+        <span className="rating overall">
+          <i className="glyphicon glyphicon-star half" />
+          <i className="glyphicon glyphicon-star empty" />
+          <i className="glyphicon glyphicon-star empty" />
+          <i className="glyphicon glyphicon-star empty" />
+          <i className="glyphicon glyphicon-star empty" />
+        </span>
+      );
+    }
+  }
+  getOffenseRating() {
+    if (this.state.player) {
+      var offRating = parseFloat(this.state.player.ORtg);
+      var stars = this.calculateStars(115.0, 100.0, offRating);
       if (stars === 5) {
         return (
           <span className="rating overall">
@@ -490,94 +544,109 @@ class PlayerInfo extends React.Component {
     return starRating;
   }
 
+  renderPlayer() {
+    if (this.state.renderPlayer) {
+      console.log("Render!!");
+      return (
+        <div
+          className="card"
+          style={{
+            backgroundColor: "white",
+            height: "620px",
+            overflow: "scroll"
+          }}
+        >
+          <Col lg={6} style={{ paddingTop: "20px" }}>
+            <Thumbnail
+              style={{ border: "none", maxHeight: "150px" }}
+              src={this.state.player.Logo}
+            />
+          </Col>
+          <Col lg={6} style={{ paddingTop: "30px", marginBottom: "20px" }}>
+            <div>
+              <span style={{ fontSize: "22px", textAlign: "right" }}>
+                {this.state.player.Name}
+              </span>
+              <span style={{ paddingLeft: "5px" }}>
+                &#40;{this.state.player.W} - {this.state.player.L}&#41;
+              </span>
+            </div>
+            <hr style={{ marginTop: "0px" }} />
+            <div style={{ fontSize: "16px", textAlign: "right" }}>
+              <div>Overall: {this.getOverallRating()}</div>
+              <div>Offense: {this.getOffenseRating()}</div>
+              <div>Defense: {this.getDefenseRating()}</div>
+            </div>
+          </Col>
+          <Col lg={12}>
+            <hr style={{ marginTop: "0px" }} />
+          </Col>
+          <Col lg={12}>
+            <TeamBarRatings team={this.state.player} />
+          </Col>
+          <Col lg={12}>
+            <div
+              style={{
+                textDecoration: "underline",
+                color: "#0055bf",
+                textAlign: "center",
+                cursor: "pointer"
+              }}
+            >
+              Advanced Stats
+            </div>
+          </Col>
+        </div>
+      );
+    }
+  }
+
+  // handleChange(event) {
+  //   this.setState({ player: event.target.value });
+  // }
+
   render() {
+    const { value, suggestions } = this.state;
+    const inputProps = {
+      placeholder: "Search for Team...",
+      value,
+      onChange: this.onChange,
+      type: "search"
+    };
+
     return (
       <div>
-        <div id="info-container-max">
-          <Grid id="info-container">
-            <Row className="full-height-row">
-              <div id="info">
-                <Col lg={3} id="pic-col">
-                  <div id="info-pic-team">
-                    <img src="https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443" />
-                  </div>
-                </Col>
-                <Col lg={4}>
-                  <div id="name-text">
-                    <div id="team-name">
-                      {this.state.player.name}
-                      <span style={{ paddingLeft: "3px", fontSize: "14px" }}>
-                        {" "}
-                        {this.state.player.position}
-                      </span>
-                    </div>
-                    <div id="info-text">
-                      <div>
-                        <span>Height: {this.state.player.height}</span>
-                        <span style={{ paddingLeft: "3px" }}>
-                          {" "}
-                          Weight: {this.state.player.weight}
-                        </span>
-                      </div>
-                      <div>Age: {this.state.player.age}</div>
-                      <div>Team: {this.state.player.team}</div>
-                      <div>College: {this.state.player.college || "None"}</div>
-                    </div>
-                  </div>
-                  <hr id="info-text-break" />
-                  <Row id="info-box-stats">
-                    <Col lg={2}>
-                      <div>PPG {this.state.player.pts}</div>
-                    </Col>
-                    <Col lg={2}>
-                      <div>RPG {this.state.player.trb}</div>
-                    </Col>
-                    <Col lg={2}>
-                      <div>APG {this.state.player.ast}</div>
-                    </Col>
-                    <Col lg={2}>
-                      <div>PER {this.state.player.per || "N/A"}</div>
-                    </Col>
-                    <Col lg={2}>
-                      <div>MPG {this.state.player.mpg}</div>
-                    </Col>
-                  </Row>
-                </Col>
-                <Col lg={2}>
-                  <div style={{ marginTop: "90px", fontSize: "16px" }}>
-                    <div style={{ textAlign: "right" }}>
-                      Overall: {this.getOverallRating()}
-                    </div>
-                    <div style={{ textAlign: "right" }}>
-                      Offense: {this.getOffenseRating()}
-                    </div>
-                    <div style={{ textAlign: "right" }}>
-                      Defense: {this.getDefenseRating()}
-                    </div>
-                  </div>
-                </Col>
-                <Col lg={2}>
-                  <a href={`/team/${this.state.colors.id}`}>
-                    <div id="logo-pic">
-                      <img id="teamLogoPic" src={this.state.colors.Logo} />
-                      <div id="teamLogoHeader">{this.state.player.team}</div>
-                    </div>
-                  </a>
-                </Col>
-              </div>
-            </Row>
-          </Grid>
-          <PlayerTabs
-            players={this.props.players[0]}
-            teamStats={this.state.teamStats}
-            leagueStats={this.state.leagueStats}
-            player={this.state.player}
-            colors={this.state.colors}
-          />
-        </div>
+        <Col lg={10} style={{ paddingLeft: "0px" }}>
+          <div className="card">
+            <Autosuggest
+              suggestions={suggestions}
+              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+              getSuggestionValue={this.getSuggestionValue}
+              renderSuggestion={this.renderSuggestion}
+              inputProps={inputProps}
+            />
+          </div>
+        </Col>
+        <Col lg={2} style={{ paddingLeft: "0px" }}>
+          <div>
+            <button
+              onClick={this.handleClick}
+              style={{
+                width: "100%",
+                height: "40px",
+                backgroundColor: "#0055bf",
+                color: "white"
+              }}
+            >
+              Add
+            </button>
+          </div>
+        </Col>
+        <Col lg={12} style={{ paddingLeft: "0px", paddingTop: "20px" }}>
+          {this.renderPlayer()}
+        </Col>
       </div>
     );
   }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerInfo);

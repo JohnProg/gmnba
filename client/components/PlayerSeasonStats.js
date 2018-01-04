@@ -91,46 +91,52 @@ export default class PlayerSeasonStats extends React.Component {
                 <Table striped hover>
                   <thead>
                     <tr>
-                      <th>W</th>
-                      <th>L</th>
-                      <th>MOV</th>
-                      <th>SOS</th>
-                      <th>SRS</th>
-                      <th>ORtg</th>
-                      <th>DRtg</th>
-                      <th>PACE</th>
+                      <th>AST%</th>
+                      <th>BLK%</th>
+                      <th>STL%</th>
+                      <th>DRB%</th>
+                      <th>ORB%</th>
+                      <th>TRB%</th>
+                      <th>eFG%</th>
+                      <th>TOV%</th>
                       <th>FTr</th>
                       <th>3PAr</th>
-                      <th>Off eFG%</th>
-                      <th>Off TOV%</th>
-                      <th>ORB%</th>
-                      <th>Off FT/FGA</th>
-                      <th>Def eFG%</th>
-                      <th>Def TOV%</th>
-                      <th>DRB%</th>
-                      <th>Def FT/FGA</th>
+                      <th>TS%</th>
+                      <th>USG%</th>
+                      <th>DBPM</th>
+                      <th>OBPM</th>
+                      <th>BPM</th>
+                      <th>PER</th>
+                      <th>VORP</th>
+                      <th>DWS</th>
+                      <th>OWS</th>
+                      <th>WS</th>
+                      <th>WS/48</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <th>{stat["W"]}</th>
-                      <th>{stat["L"]}</th>
-                      <th>{stat["MOV"]}</th>
-                      <th>{stat["SOS"]}</th>
-                      <th>{stat["SRS"]}</th>
-                      <th>{stat["ORtg"]}</th>
-                      <th>{stat["DRtg"]}</th>
-                      <th>{stat["PACE"]}</th>
-                      <th>{stat["FTr"]}</th>
-                      <th>{stat["Three_PAr"]}</th>
-                      <th>{stat["OFF_eFG_PCT"]}</th>
-                      <th>{stat["OFF_TOV_PCT"]}</th>
-                      <th>{stat["ORB_PCT"]}</th>
-                      <th>{stat["OFF_FT_FGA"]}</th>
-                      <th>{stat["DEF_eFG_PCT"]}</th>
-                      <th>{stat["DEF_TOV_PCT"]}</th>
-                      <th>{stat["DRB_PCT"]}</th>
-                      <th>{stat["DEF_FT_FGA"]}</th>
+                      <th>{stat["astPct"]}</th>
+                      <th>{stat["blkPct"]}</th>
+                      <th>{stat["stlPct"]}</th>
+                      <th>{stat["drbPct"]}</th>
+                      <th>{stat["orbPct"]}</th>
+                      <th>{stat["trbPct"]}</th>
+                      <th>{stat["efgPct"]}</th>
+                      <th>{stat["tovPct"]}</th>
+                      <th>{stat["ftr"]}</th>
+                      <th>{stat["threePAr"]}</th>
+                      <th>{stat["tsPct"]}</th>
+                      <th>{stat["usgPct"]}</th>
+                      <th>{stat["dbpm"]}</th>
+                      <th>{stat["obpm"]}</th>
+                      <th>{stat["bpm"]}</th>
+                      <th>{stat["per"]}</th>
+                      <th>{stat["vorp"]}</th>
+                      <th>{stat["dws"]}</th>
+                      <th>{stat["ows"]}</th>
+                      <th>{stat["ws"]}</th>
+                      <th>{stat["wsFourtyEight"]}</th>
                     </tr>
                   </tbody>
                 </Table>

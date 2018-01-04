@@ -1,11 +1,11 @@
 import React from "react";
 import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
-import LeagueLeaders from "./LeagueLeaders";
-import PlayerComparison from "./PlayerComparison";
-import TeamComparison from "./TeamComparison";
-import PlayerFinder from "./PlayerFinder";
+import CollegeLeaders from "./CollegeLeaders";
+import CPlayerComparison from "./CPlayerComparison";
+import CTeamComparison from "./CTeamComparison";
+import PlayerFinder from "../NBAscouting/PlayerFinder";
 
-export default class NbaScoutingTabs extends React.Component {
+export default class CollegeScoutingTabs extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,11 +22,11 @@ export default class NbaScoutingTabs extends React.Component {
     console.log(this.props.teams);
     let component;
     if (this.state.key === 1)
-      component = <LeagueLeaders players={this.props.players} />;
+      component = <CollegeLeaders players={this.props.players} />;
     if (this.state.key === 2)
-      component = <PlayerComparison players={this.props.players} />;
+      component = <CPlayerComparison players={this.props.players} />;
     if (this.state.key === 3)
-      component = <TeamComparison teams={this.props.teams} />;
+      component = <CTeamComparison teams={this.props.teams} />;
     if (this.state.key === 4)
       component = <PlayerFinder players={this.props.players} />;
     return (
@@ -39,7 +39,7 @@ export default class NbaScoutingTabs extends React.Component {
             justified
           >
             <NavItem eventKey={1} href="/">
-              <span className="tab-text">LEAGUE LEADERS</span>
+              <span className="tab-text">COLLEGE LEADERS</span>
             </NavItem>
             <NavItem eventKey={2} href="/">
               <span className="tab-text">PLAYER COMPARISON</span>
@@ -54,7 +54,7 @@ export default class NbaScoutingTabs extends React.Component {
               <span className="tab-text">STATS</span>
             </NavItem>
             <NavItem eventKey={6} title="Item">
-              <span className="tab-text">STANDINGS</span>
+              <span className="tab-text">RANKINGS</span>
             </NavItem>
           </Nav>
         </div>

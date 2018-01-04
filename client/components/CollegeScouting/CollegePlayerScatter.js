@@ -11,7 +11,7 @@ import {
   Checkbox
 } from "react-bootstrap";
 
-export default class PlayerScatter extends React.Component {
+export default class CollegePlayerScatter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -50,7 +50,7 @@ export default class PlayerScatter extends React.Component {
             ]
           ],
           name: playerData[j].name,
-          color: "#d00000",
+          color: "#0055bf",
           _symbolIndex: 0
         });
       }
@@ -80,7 +80,7 @@ export default class PlayerScatter extends React.Component {
             ]
           ],
           name: playerData[j].name,
-          color: "#d00000",
+          color: "#0055bf",
           _symbolIndex: 0
         });
       }
@@ -91,13 +91,13 @@ export default class PlayerScatter extends React.Component {
   }
 
   createChart() {
-    var chart = Highcharts.chart("containerScatterP", {
+    var chart = Highcharts.chart("containerScatterCP", {
       chart: {
         type: "scatter",
         zoomType: "xy"
       },
       title: {
-        text: "Player Stats NBA"
+        text: "Player Stats College"
       },
       subtitle: {
         text: "Players Averaging Over 5 MPG"
@@ -301,11 +301,12 @@ export default class PlayerScatter extends React.Component {
   }
 
   render() {
+    console.log(this.props.players);
     return (
       <div>
         <div
           className="card playerScatter"
-          id="containerScatterP"
+          id="containerScatterCP"
           style={{
             height: "500px"
           }}
@@ -440,7 +441,7 @@ export default class PlayerScatter extends React.Component {
                       <button
                         onClick={this.handleSubmit}
                         id="submit-button"
-                        style={{ backgroundColor: "#d00000", color: "white" }}
+                        style={{ backgroundColor: "#0055bf", color: "white" }}
                       >
                         Submit
                       </button>
@@ -449,7 +450,7 @@ export default class PlayerScatter extends React.Component {
                   <Col lg={1}>
                     <div
                       style={{
-                        color: "#d00000",
+                        color: "#0055bf",
                         textDecoration: "underline",
                         paddingTop: "2px",
                         cursor: "pointer"
