@@ -12820,10 +12820,16 @@ var TeamRankGuages = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (TeamRankGuages.__proto__ || Object.getPrototypeOf(TeamRankGuages)).call(this, props));
 
     _this.state = {
-      team: {}
+      team: {},
+      gauge1: "pts",
+      gauge2: "trb",
+      gauge3: "ast"
     };
     _this.createChart = _this.createChart.bind(_this);
     _this.getRanking = _this.getRanking.bind(_this);
+    _this.selectG1 = _this.selectG1.bind(_this);
+    _this.selectG2 = _this.selectG2.bind(_this);
+    _this.selectG3 = _this.selectG3.bind(_this);
     return _this;
   }
 
@@ -12837,18 +12843,54 @@ var TeamRankGuages = function (_React$Component) {
 
       if (nextProps.team.Color_Main) {
         this.setState({ team: nextProps.team, league: nextProps.league }, function () {
-          var ptsRank = _this2.getRanking("PTS");
-          var trbRank = _this2.getRanking("TRB");
-          var astRank = _this2.getRanking("AST");
+          var gauge1Rank = _this2.getRanking(_this2.state.gauge1.toUpperCase());
+          var gauge2Rank = _this2.getRanking(_this2.state.gauge2.toUpperCase());
+          var gauge3Rank = _this2.getRanking(_this2.state.gauge3.toUpperCase());
           _this2.setState({
-            ptsRank: ptsRank,
-            trbRank: trbRank,
-            astRank: astRank
+            gauge1Rank: gauge1Rank,
+            gauge2Rank: gauge2Rank,
+            gauge3Rank: gauge3Rank
           }, function () {
             _this2.createChart();
           });
         });
       }
+    }
+  }, {
+    key: "selectG1",
+    value: function selectG1(evt, eventKey) {
+      var _this3 = this;
+
+      this.setState({ gauge1: eventKey.target.innerHTML }, function () {
+        var gauge1Rank = _this3.getRanking(_this3.state.gauge1.toUpperCase());
+        _this3.setState({ gauge1Rank: gauge1Rank }, function () {
+          _this3.createChart();
+        });
+      });
+    }
+  }, {
+    key: "selectG2",
+    value: function selectG2(evt, eventKey) {
+      var _this4 = this;
+
+      this.setState({ gauge2: eventKey.target.innerHTML }, function () {
+        var gauge2Rank = _this4.getRanking(_this4.state.gauge2.toUpperCase());
+        _this4.setState({ gauge2Rank: gauge2Rank }, function () {
+          _this4.createChart();
+        });
+      });
+    }
+  }, {
+    key: "selectG3",
+    value: function selectG3(evt, eventKey) {
+      var _this5 = this;
+
+      this.setState({ gauge3: eventKey.target.innerHTML }, function () {
+        var gauge3Rank = _this5.getRanking(_this5.state.gauge3.toUpperCase());
+        _this5.setState({ gauge3Rank: gauge3Rank }, function () {
+          _this5.createChart();
+        });
+      });
     }
   }, {
     key: "getRanking",
@@ -12946,9 +12988,9 @@ var TeamRankGuages = function (_React$Component) {
 
         series: [{
           name: "PTS",
-          data: [31 - this.state.ptsRank.rank],
+          data: [31 - this.state.gauge1Rank.rank],
           dataLabels: {
-            format: '<div style="text-align:center"><span style="font-size:26px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + ("\">" + this.state.ptsRank.rank + this.state.ptsRank.suffix + "</span><br/>") + "</div>"
+            format: '<div style="text-align:center"><span style="font-size:26px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + ("\">" + this.state.gauge1Rank.rank + this.state.gauge1Rank.suffix + "</span><br/>") + "</div>"
           },
           tooltip: {
             valueSuffix: " km/h"
@@ -12971,9 +13013,9 @@ var TeamRankGuages = function (_React$Component) {
 
         series: [{
           name: "PTS",
-          data: [31 - this.state.trbRank.rank],
+          data: [31 - this.state.gauge2Rank.rank],
           dataLabels: {
-            format: '<div style="text-align:center"><span style="font-size:26px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + ("\">" + this.state.trbRank.rank + this.state.trbRank.suffix + "</span><br/>") + "</div>"
+            format: '<div style="text-align:center"><span style="font-size:26px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + ("\">" + this.state.gauge2Rank.rank + this.state.gauge2Rank.suffix + "</span><br/>") + "</div>"
           },
           tooltip: {
             valueSuffix: " km/h"
@@ -12996,9 +13038,9 @@ var TeamRankGuages = function (_React$Component) {
 
         series: [{
           name: "PTS",
-          data: [31 - this.state.astRank.rank],
+          data: [31 - this.state.gauge3Rank.rank],
           dataLabels: {
-            format: '<div style="text-align:center"><span style="font-size:26px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + ("\">" + this.state.astRank.rank + this.state.astRank.suffix + "</span><br/>") + "</div>"
+            format: '<div style="text-align:center"><span style="font-size:26px;color:' + (Highcharts.theme && Highcharts.theme.contrastTextColor || "black") + ("\">" + this.state.gauge3Rank.rank + this.state.gauge3Rank.suffix + "</span><br/>") + "</div>"
           },
           tooltip: {
             valueSuffix: " km/h"
@@ -13011,7 +13053,11 @@ var TeamRankGuages = function (_React$Component) {
     value: function render() {
       var statLabels = {
         backgroundColor: this.props.team.Color_Main,
-        color: this.props.team.Color_Third || this.props.team.Color_Sec
+        color: this.props.team.Color_Third || this.props.team.Color_Sec,
+        textAlign: "center",
+        fontSize: "16px",
+        borderRadius: "0px",
+        width: "150px"
       };
       return _react2.default.createElement(
         "div",
@@ -13024,11 +13070,293 @@ var TeamRankGuages = function (_React$Component) {
             { lg: 4 },
             _react2.default.createElement(
               "div",
-              { className: "gauge-header-div" },
+              {
+                className: "gauge-header-div",
+                style: { textAlign: "center", fontSize: "16px" }
+              },
               _react2.default.createElement(
-                "div",
-                { className: "card guage-header", style: statLabels },
-                "PTS"
+                _reactBootstrap.DropdownButton,
+                {
+                  title: this.state.gauge1.toUpperCase(),
+                  style: statLabels,
+                  className: "card",
+                  onSelect: this.selectG1
+                },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "1" },
+                  "PTS"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "2" },
+                  "AST"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "3" },
+                  "TRB"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "4" },
+                  "MOV"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "5" },
+                  "DRB"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "6" },
+                  "DRtg"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "7" },
+                  "ORtg"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "8" },
+                  "FG"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "9" },
+                  "FGA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "10" },
+                  "FG_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "11" },
+                  "FTA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "12" },
+                  "FTM"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "13" },
+                  "FT_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "14" },
+                  "FTr"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "15" },
+                  "W"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "16" },
+                  "L"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "17" },
+                  "ORB"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "18" },
+                  "oPTS"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "19" },
+                  "oFGPCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "20" },
+                  "oTOV"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "21" },
+                  "o2PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "22" },
+                  "o3PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "23" },
+                  "Two_Pointers_Pct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "24" },
+                  "Two_Pointers_Att"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "25" },
+                  "Two_Pointers"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "26" },
+                  "Three_Pointers_Pct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "27" },
+                  "Three_Pointers_Att"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "28" },
+                  "Three_Pointers"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "29" },
+                  "Three_PAr"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "30" },
+                  "TOV"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "31" },
+                  "STL"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "32" },
+                  "SRS"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "33" },
+                  "SOS"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "34" },
+                  "PF"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "35" },
+                  "PACE"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "36" },
+                  "ORB_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "37" },
+                  "OFF_eFG_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "38" },
+                  "OFF_TOV_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "39" },
+                  "OFF_FT_FGA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "40" },
+                  "DRB_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "41" },
+                  "DEF_eFG_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "42" },
+                  "DEF_TOV_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "43" },
+                  "DEF_FT_FGA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "44" },
+                  "o2P"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "45" },
+                  "o2PA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "46" },
+                  "o3P"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "47" },
+                  "o3PA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "48" },
+                  "oBLK"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "49" },
+                  "oDRB"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "50" },
+                  "oFG"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "51" },
+                  "oFTA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "52" },
+                  "oFTM"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "53" },
+                  "oPF"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "54" },
+                  "oTRB"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "55" },
+                  "oSTL"
+                )
               )
             ),
             _react2.default.createElement("div", {
@@ -13044,11 +13372,293 @@ var TeamRankGuages = function (_React$Component) {
             { lg: 4 },
             _react2.default.createElement(
               "div",
-              { className: "gauge-header-div" },
+              {
+                className: "gauge-header-div",
+                style: { textAlign: "center", fontSize: "16px" }
+              },
               _react2.default.createElement(
-                "div",
-                { className: "card guage-header", style: statLabels },
-                "TRB"
+                _reactBootstrap.DropdownButton,
+                {
+                  title: this.state.gauge2.toUpperCase(),
+                  style: statLabels,
+                  className: "card",
+                  onSelect: this.selectG2
+                },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "1" },
+                  "PTS"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "2" },
+                  "AST"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "3" },
+                  "TRB"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "4" },
+                  "MOV"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "5" },
+                  "DRB"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "6" },
+                  "DRtg"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "7" },
+                  "ORtg"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "8" },
+                  "FG"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "9" },
+                  "FGA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "10" },
+                  "FG_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "11" },
+                  "FTA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "12" },
+                  "FTM"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "13" },
+                  "FT_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "14" },
+                  "FTr"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "15" },
+                  "W"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "16" },
+                  "L"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "17" },
+                  "ORB"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "18" },
+                  "oPTS"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "19" },
+                  "oFGPCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "20" },
+                  "oTOV"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "21" },
+                  "o2PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "22" },
+                  "o3PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "23" },
+                  "Two_Pointers_Pct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "24" },
+                  "Two_Pointers_Att"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "25" },
+                  "Two_Pointers"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "26" },
+                  "Three_Pointers_Pct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "27" },
+                  "Three_Pointers_Att"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "28" },
+                  "Three_Pointers"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "29" },
+                  "Three_PAr"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "30" },
+                  "TOV"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "31" },
+                  "STL"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "32" },
+                  "SRS"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "33" },
+                  "SOS"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "34" },
+                  "PF"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "35" },
+                  "PACE"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "36" },
+                  "ORB_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "37" },
+                  "OFF_eFG_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "38" },
+                  "OFF_TOV_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "39" },
+                  "OFF_FT_FGA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "40" },
+                  "DRB_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "41" },
+                  "DEF_eFG_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "42" },
+                  "DEF_TOV_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "43" },
+                  "DEF_FT_FGA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "44" },
+                  "o2P"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "45" },
+                  "o2PA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "46" },
+                  "o3P"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "47" },
+                  "o3PA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "48" },
+                  "oBLK"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "49" },
+                  "oDRB"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "50" },
+                  "oFG"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "51" },
+                  "oFTA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "52" },
+                  "oFTM"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "53" },
+                  "oPF"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "54" },
+                  "oTRB"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "55" },
+                  "oSTL"
+                )
               )
             ),
             _react2.default.createElement("div", {
@@ -13064,11 +13674,293 @@ var TeamRankGuages = function (_React$Component) {
             { lg: 4 },
             _react2.default.createElement(
               "div",
-              { className: "gauge-header-div" },
+              {
+                className: "gauge-header-div",
+                style: { textAlign: "center", fontSize: "16px" }
+              },
               _react2.default.createElement(
-                "div",
-                { className: "card guage-header", style: statLabels },
-                "AST"
+                _reactBootstrap.DropdownButton,
+                {
+                  title: this.state.gauge3.toUpperCase(),
+                  style: statLabels,
+                  className: "card",
+                  onSelect: this.selectG3
+                },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "1" },
+                  "PTS"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "2" },
+                  "AST"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "3" },
+                  "TRB"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "4" },
+                  "MOV"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "5" },
+                  "DRB"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "6" },
+                  "DRtg"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "7" },
+                  "ORtg"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "8" },
+                  "FG"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "9" },
+                  "FGA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "10" },
+                  "FG_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "11" },
+                  "FTA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "12" },
+                  "FTM"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "13" },
+                  "FT_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "14" },
+                  "FTr"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "15" },
+                  "W"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "16" },
+                  "L"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "17" },
+                  "ORB"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "18" },
+                  "oPTS"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "19" },
+                  "oFGPCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "20" },
+                  "oTOV"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "21" },
+                  "o2PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "22" },
+                  "o3PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "23" },
+                  "Two_Pointers_Pct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "24" },
+                  "Two_Pointers_Att"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "25" },
+                  "Two_Pointers"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "26" },
+                  "Three_Pointers_Pct"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "27" },
+                  "Three_Pointers_Att"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "28" },
+                  "Three_Pointers"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "29" },
+                  "Three_PAr"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "30" },
+                  "TOV"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "31" },
+                  "STL"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "32" },
+                  "SRS"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "33" },
+                  "SOS"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "34" },
+                  "PF"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "35" },
+                  "PACE"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "36" },
+                  "ORB_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "37" },
+                  "OFF_eFG_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "38" },
+                  "OFF_TOV_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "39" },
+                  "OFF_FT_FGA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "40" },
+                  "DRB_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "41" },
+                  "DEF_eFG_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "42" },
+                  "DEF_TOV_PCT"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "43" },
+                  "DEF_FT_FGA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "44" },
+                  "o2P"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "45" },
+                  "o2PA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "46" },
+                  "o3P"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "47" },
+                  "o3PA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "48" },
+                  "oBLK"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "49" },
+                  "oDRB"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "50" },
+                  "oFG"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "51" },
+                  "oFTA"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "52" },
+                  "oFTM"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "53" },
+                  "oPF"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "54" },
+                  "oTRB"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "55" },
+                  "oSTL"
+                )
               )
             ),
             _react2.default.createElement("div", {

@@ -1,14 +1,30 @@
 import React from "react";
-import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
+import {
+  Col,
+  Button,
+  Well,
+  Row,
+  Grid,
+  Nav,
+  NavItem,
+  DropdownButton,
+  MenuItem
+} from "react-bootstrap";
 
 export default class TeamRankGuages extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      team: {}
+      team: {},
+      gauge1: "pts",
+      gauge2: "trb",
+      gauge3: "ast"
     };
     this.createChart = this.createChart.bind(this);
     this.getRanking = this.getRanking.bind(this);
+    this.selectG1 = this.selectG1.bind(this);
+    this.selectG2 = this.selectG2.bind(this);
+    this.selectG3 = this.selectG3.bind(this);
   }
 
   componentDidMount() {}
@@ -16,14 +32,14 @@ export default class TeamRankGuages extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.team.Color_Main) {
       this.setState({ team: nextProps.team, league: nextProps.league }, () => {
-        var ptsRank = this.getRanking("PTS");
-        var trbRank = this.getRanking("TRB");
-        var astRank = this.getRanking("AST");
+        var gauge1Rank = this.getRanking(this.state.gauge1.toUpperCase());
+        var gauge2Rank = this.getRanking(this.state.gauge2.toUpperCase());
+        var gauge3Rank = this.getRanking(this.state.gauge3.toUpperCase());
         this.setState(
           {
-            ptsRank: ptsRank,
-            trbRank: trbRank,
-            astRank: astRank
+            gauge1Rank: gauge1Rank,
+            gauge2Rank: gauge2Rank,
+            gauge3Rank: gauge3Rank
           },
           () => {
             this.createChart();
@@ -31,6 +47,31 @@ export default class TeamRankGuages extends React.Component {
         );
       });
     }
+  }
+
+  selectG1(evt, eventKey) {
+    this.setState({ gauge1: eventKey.target.innerHTML }, () => {
+      var gauge1Rank = this.getRanking(this.state.gauge1.toUpperCase());
+      this.setState({ gauge1Rank: gauge1Rank }, () => {
+        this.createChart();
+      });
+    });
+  }
+  selectG2(evt, eventKey) {
+    this.setState({ gauge2: eventKey.target.innerHTML }, () => {
+      var gauge2Rank = this.getRanking(this.state.gauge2.toUpperCase());
+      this.setState({ gauge2Rank: gauge2Rank }, () => {
+        this.createChart();
+      });
+    });
+  }
+  selectG3(evt, eventKey) {
+    this.setState({ gauge3: eventKey.target.innerHTML }, () => {
+      var gauge3Rank = this.getRanking(this.state.gauge3.toUpperCase());
+      this.setState({ gauge3Rank: gauge3Rank }, () => {
+        this.createChart();
+      });
+    });
   }
 
   getRanking(stat) {
@@ -134,13 +175,13 @@ export default class TeamRankGuages extends React.Component {
         series: [
           {
             name: "PTS",
-            data: [31 - this.state.ptsRank.rank],
+            data: [31 - this.state.gauge1Rank.rank],
             dataLabels: {
               format:
                 '<div style="text-align:center"><span style="font-size:26px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
                   "black") +
-                `">${this.state.ptsRank.rank}${this.state.ptsRank
+                `">${this.state.gauge1Rank.rank}${this.state.gauge1Rank
                   .suffix}</span><br/>` +
                 "</div>"
             },
@@ -170,13 +211,13 @@ export default class TeamRankGuages extends React.Component {
         series: [
           {
             name: "PTS",
-            data: [31 - this.state.trbRank.rank],
+            data: [31 - this.state.gauge2Rank.rank],
             dataLabels: {
               format:
                 '<div style="text-align:center"><span style="font-size:26px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
                   "black") +
-                `">${this.state.trbRank.rank}${this.state.trbRank
+                `">${this.state.gauge2Rank.rank}${this.state.gauge2Rank
                   .suffix}</span><br/>` +
                 "</div>"
             },
@@ -206,13 +247,13 @@ export default class TeamRankGuages extends React.Component {
         series: [
           {
             name: "PTS",
-            data: [31 - this.state.astRank.rank],
+            data: [31 - this.state.gauge3Rank.rank],
             dataLabels: {
               format:
                 '<div style="text-align:center"><span style="font-size:26px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
                   "black") +
-                `">${this.state.astRank.rank}${this.state.astRank
+                `">${this.state.gauge3Rank.rank}${this.state.gauge3Rank
                   .suffix}</span><br/>` +
                 "</div>"
             },
@@ -228,16 +269,82 @@ export default class TeamRankGuages extends React.Component {
   render() {
     var statLabels = {
       backgroundColor: this.props.team.Color_Main,
-      color: this.props.team.Color_Third || this.props.team.Color_Sec
+      color: this.props.team.Color_Third || this.props.team.Color_Sec,
+      textAlign: "center",
+      fontSize: "16px",
+      borderRadius: "0px",
+      width: "150px"
     };
     return (
       <div>
         <Row className="chart-row">
           <Col lg={4}>
-            <div className="gauge-header-div">
-              <div className="card guage-header" style={statLabels}>
-                PTS
-              </div>
+            <div
+              className="gauge-header-div"
+              style={{ textAlign: "center", fontSize: "16px" }}
+            >
+              <DropdownButton
+                title={this.state.gauge1.toUpperCase()}
+                style={statLabels}
+                className="card"
+                onSelect={this.selectG1}
+              >
+                <MenuItem eventKey="1">PTS</MenuItem>
+                <MenuItem eventKey="2">AST</MenuItem>
+                <MenuItem eventKey="3">TRB</MenuItem>
+                <MenuItem eventKey="4">MOV</MenuItem>
+                <MenuItem eventKey="5">DRB</MenuItem>
+                <MenuItem eventKey="6">DRtg</MenuItem>
+                <MenuItem eventKey="7">ORtg</MenuItem>
+                <MenuItem eventKey="8">FG</MenuItem>
+                <MenuItem eventKey="9">FGA</MenuItem>
+                <MenuItem eventKey="10">FG_PCT</MenuItem>
+                <MenuItem eventKey="11">FTA</MenuItem>
+                <MenuItem eventKey="12">FTM</MenuItem>
+                <MenuItem eventKey="13">FT_PCT</MenuItem>
+                <MenuItem eventKey="14">FTr</MenuItem>
+                <MenuItem eventKey="15">W</MenuItem>
+                <MenuItem eventKey="16">L</MenuItem>
+                <MenuItem eventKey="17">ORB</MenuItem>
+                <MenuItem eventKey="18">oPTS</MenuItem>
+                <MenuItem eventKey="19">oFGPCT</MenuItem>
+                <MenuItem eventKey="20">oTOV</MenuItem>
+                <MenuItem eventKey="21">o2PCT</MenuItem>
+                <MenuItem eventKey="22">o3PCT</MenuItem>
+                <MenuItem eventKey="23">Two_Pointers_Pct</MenuItem>
+                <MenuItem eventKey="24">Two_Pointers_Att</MenuItem>
+                <MenuItem eventKey="25">Two_Pointers</MenuItem>
+                <MenuItem eventKey="26">Three_Pointers_Pct</MenuItem>
+                <MenuItem eventKey="27">Three_Pointers_Att</MenuItem>
+                <MenuItem eventKey="28">Three_Pointers</MenuItem>
+                <MenuItem eventKey="29">Three_PAr</MenuItem>
+                <MenuItem eventKey="30">TOV</MenuItem>
+                <MenuItem eventKey="31">STL</MenuItem>
+                <MenuItem eventKey="32">SRS</MenuItem>
+                <MenuItem eventKey="33">SOS</MenuItem>
+                <MenuItem eventKey="34">PF</MenuItem>
+                <MenuItem eventKey="35">PACE</MenuItem>
+                <MenuItem eventKey="36">ORB_PCT</MenuItem>
+                <MenuItem eventKey="37">OFF_eFG_PCT</MenuItem>
+                <MenuItem eventKey="38">OFF_TOV_PCT</MenuItem>
+                <MenuItem eventKey="39">OFF_FT_FGA</MenuItem>
+                <MenuItem eventKey="40">DRB_PCT</MenuItem>
+                <MenuItem eventKey="41">DEF_eFG_PCT</MenuItem>
+                <MenuItem eventKey="42">DEF_TOV_PCT</MenuItem>
+                <MenuItem eventKey="43">DEF_FT_FGA</MenuItem>
+                <MenuItem eventKey="44">o2P</MenuItem>
+                <MenuItem eventKey="45">o2PA</MenuItem>
+                <MenuItem eventKey="46">o3P</MenuItem>
+                <MenuItem eventKey="47">o3PA</MenuItem>
+                <MenuItem eventKey="48">oBLK</MenuItem>
+                <MenuItem eventKey="49">oDRB</MenuItem>
+                <MenuItem eventKey="50">oFG</MenuItem>
+                <MenuItem eventKey="51">oFTA</MenuItem>
+                <MenuItem eventKey="52">oFTM</MenuItem>
+                <MenuItem eventKey="53">oPF</MenuItem>
+                <MenuItem eventKey="54">oTRB</MenuItem>
+                <MenuItem eventKey="55">oSTL</MenuItem>
+              </DropdownButton>
             </div>
             <div
               id="container"
@@ -248,10 +355,72 @@ export default class TeamRankGuages extends React.Component {
             />
           </Col>
           <Col lg={4}>
-            <div className="gauge-header-div">
-              <div className="card guage-header" style={statLabels}>
-                TRB
-              </div>
+            <div
+              className="gauge-header-div"
+              style={{ textAlign: "center", fontSize: "16px" }}
+            >
+              <DropdownButton
+                title={this.state.gauge2.toUpperCase()}
+                style={statLabels}
+                className="card"
+                onSelect={this.selectG2}
+              >
+                <MenuItem eventKey="1">PTS</MenuItem>
+                <MenuItem eventKey="2">AST</MenuItem>
+                <MenuItem eventKey="3">TRB</MenuItem>
+                <MenuItem eventKey="4">MOV</MenuItem>
+                <MenuItem eventKey="5">DRB</MenuItem>
+                <MenuItem eventKey="6">DRtg</MenuItem>
+                <MenuItem eventKey="7">ORtg</MenuItem>
+                <MenuItem eventKey="8">FG</MenuItem>
+                <MenuItem eventKey="9">FGA</MenuItem>
+                <MenuItem eventKey="10">FG_PCT</MenuItem>
+                <MenuItem eventKey="11">FTA</MenuItem>
+                <MenuItem eventKey="12">FTM</MenuItem>
+                <MenuItem eventKey="13">FT_PCT</MenuItem>
+                <MenuItem eventKey="14">FTr</MenuItem>
+                <MenuItem eventKey="15">W</MenuItem>
+                <MenuItem eventKey="16">L</MenuItem>
+                <MenuItem eventKey="17">ORB</MenuItem>
+                <MenuItem eventKey="18">oPTS</MenuItem>
+                <MenuItem eventKey="19">oFGPCT</MenuItem>
+                <MenuItem eventKey="20">oTOV</MenuItem>
+                <MenuItem eventKey="21">o2PCT</MenuItem>
+                <MenuItem eventKey="22">o3PCT</MenuItem>
+                <MenuItem eventKey="23">Two_Pointers_Pct</MenuItem>
+                <MenuItem eventKey="24">Two_Pointers_Att</MenuItem>
+                <MenuItem eventKey="25">Two_Pointers</MenuItem>
+                <MenuItem eventKey="26">Three_Pointers_Pct</MenuItem>
+                <MenuItem eventKey="27">Three_Pointers_Att</MenuItem>
+                <MenuItem eventKey="28">Three_Pointers</MenuItem>
+                <MenuItem eventKey="29">Three_PAr</MenuItem>
+                <MenuItem eventKey="30">TOV</MenuItem>
+                <MenuItem eventKey="31">STL</MenuItem>
+                <MenuItem eventKey="32">SRS</MenuItem>
+                <MenuItem eventKey="33">SOS</MenuItem>
+                <MenuItem eventKey="34">PF</MenuItem>
+                <MenuItem eventKey="35">PACE</MenuItem>
+                <MenuItem eventKey="36">ORB_PCT</MenuItem>
+                <MenuItem eventKey="37">OFF_eFG_PCT</MenuItem>
+                <MenuItem eventKey="38">OFF_TOV_PCT</MenuItem>
+                <MenuItem eventKey="39">OFF_FT_FGA</MenuItem>
+                <MenuItem eventKey="40">DRB_PCT</MenuItem>
+                <MenuItem eventKey="41">DEF_eFG_PCT</MenuItem>
+                <MenuItem eventKey="42">DEF_TOV_PCT</MenuItem>
+                <MenuItem eventKey="43">DEF_FT_FGA</MenuItem>
+                <MenuItem eventKey="44">o2P</MenuItem>
+                <MenuItem eventKey="45">o2PA</MenuItem>
+                <MenuItem eventKey="46">o3P</MenuItem>
+                <MenuItem eventKey="47">o3PA</MenuItem>
+                <MenuItem eventKey="48">oBLK</MenuItem>
+                <MenuItem eventKey="49">oDRB</MenuItem>
+                <MenuItem eventKey="50">oFG</MenuItem>
+                <MenuItem eventKey="51">oFTA</MenuItem>
+                <MenuItem eventKey="52">oFTM</MenuItem>
+                <MenuItem eventKey="53">oPF</MenuItem>
+                <MenuItem eventKey="54">oTRB</MenuItem>
+                <MenuItem eventKey="55">oSTL</MenuItem>
+              </DropdownButton>
             </div>
             <div
               id="container2"
@@ -262,10 +431,72 @@ export default class TeamRankGuages extends React.Component {
             />
           </Col>
           <Col lg={4}>
-            <div className="gauge-header-div">
-              <div className="card guage-header" style={statLabels}>
-                AST
-              </div>
+            <div
+              className="gauge-header-div"
+              style={{ textAlign: "center", fontSize: "16px" }}
+            >
+              <DropdownButton
+                title={this.state.gauge3.toUpperCase()}
+                style={statLabels}
+                className="card"
+                onSelect={this.selectG3}
+              >
+                <MenuItem eventKey="1">PTS</MenuItem>
+                <MenuItem eventKey="2">AST</MenuItem>
+                <MenuItem eventKey="3">TRB</MenuItem>
+                <MenuItem eventKey="4">MOV</MenuItem>
+                <MenuItem eventKey="5">DRB</MenuItem>
+                <MenuItem eventKey="6">DRtg</MenuItem>
+                <MenuItem eventKey="7">ORtg</MenuItem>
+                <MenuItem eventKey="8">FG</MenuItem>
+                <MenuItem eventKey="9">FGA</MenuItem>
+                <MenuItem eventKey="10">FG_PCT</MenuItem>
+                <MenuItem eventKey="11">FTA</MenuItem>
+                <MenuItem eventKey="12">FTM</MenuItem>
+                <MenuItem eventKey="13">FT_PCT</MenuItem>
+                <MenuItem eventKey="14">FTr</MenuItem>
+                <MenuItem eventKey="15">W</MenuItem>
+                <MenuItem eventKey="16">L</MenuItem>
+                <MenuItem eventKey="17">ORB</MenuItem>
+                <MenuItem eventKey="18">oPTS</MenuItem>
+                <MenuItem eventKey="19">oFGPCT</MenuItem>
+                <MenuItem eventKey="20">oTOV</MenuItem>
+                <MenuItem eventKey="21">o2PCT</MenuItem>
+                <MenuItem eventKey="22">o3PCT</MenuItem>
+                <MenuItem eventKey="23">Two_Pointers_Pct</MenuItem>
+                <MenuItem eventKey="24">Two_Pointers_Att</MenuItem>
+                <MenuItem eventKey="25">Two_Pointers</MenuItem>
+                <MenuItem eventKey="26">Three_Pointers_Pct</MenuItem>
+                <MenuItem eventKey="27">Three_Pointers_Att</MenuItem>
+                <MenuItem eventKey="28">Three_Pointers</MenuItem>
+                <MenuItem eventKey="29">Three_PAr</MenuItem>
+                <MenuItem eventKey="30">TOV</MenuItem>
+                <MenuItem eventKey="31">STL</MenuItem>
+                <MenuItem eventKey="32">SRS</MenuItem>
+                <MenuItem eventKey="33">SOS</MenuItem>
+                <MenuItem eventKey="34">PF</MenuItem>
+                <MenuItem eventKey="35">PACE</MenuItem>
+                <MenuItem eventKey="36">ORB_PCT</MenuItem>
+                <MenuItem eventKey="37">OFF_eFG_PCT</MenuItem>
+                <MenuItem eventKey="38">OFF_TOV_PCT</MenuItem>
+                <MenuItem eventKey="39">OFF_FT_FGA</MenuItem>
+                <MenuItem eventKey="40">DRB_PCT</MenuItem>
+                <MenuItem eventKey="41">DEF_eFG_PCT</MenuItem>
+                <MenuItem eventKey="42">DEF_TOV_PCT</MenuItem>
+                <MenuItem eventKey="43">DEF_FT_FGA</MenuItem>
+                <MenuItem eventKey="44">o2P</MenuItem>
+                <MenuItem eventKey="45">o2PA</MenuItem>
+                <MenuItem eventKey="46">o3P</MenuItem>
+                <MenuItem eventKey="47">o3PA</MenuItem>
+                <MenuItem eventKey="48">oBLK</MenuItem>
+                <MenuItem eventKey="49">oDRB</MenuItem>
+                <MenuItem eventKey="50">oFG</MenuItem>
+                <MenuItem eventKey="51">oFTA</MenuItem>
+                <MenuItem eventKey="52">oFTM</MenuItem>
+                <MenuItem eventKey="53">oPF</MenuItem>
+                <MenuItem eventKey="54">oTRB</MenuItem>
+                <MenuItem eventKey="55">oSTL</MenuItem>
+              </DropdownButton>
             </div>
             <div
               id="container3"
