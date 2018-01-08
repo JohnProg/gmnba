@@ -1,5 +1,15 @@
 import React from "react";
-import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
+import {
+  Col,
+  Button,
+  Well,
+  Row,
+  Grid,
+  Nav,
+  NavItem,
+  FormGroup,
+  Checkbox
+} from "react-bootstrap";
 import axios from "axios";
 import LeadersTable4 from "./LeadersTable4";
 import LeadersTable5 from "./LeadersTable5";
@@ -15,7 +25,8 @@ export default class LeagueLeaders extends React.Component {
   constructor() {
     super();
     this.state = {
-      table4: []
+      table4: [],
+      showFilter: false
     };
     this.rankOverall = this.rankOverall.bind(this);
     this.rankOffense = this.rankOffense.bind(this);
@@ -23,6 +34,8 @@ export default class LeagueLeaders extends React.Component {
     this.rankPoints = this.rankPoints.bind(this);
     this.rankRebounds = this.rankRebounds.bind(this);
     this.rankAssists = this.rankAssists.bind(this);
+    this.toggleFilter = this.toggleFilter.bind(this);
+    this.renderFilter = this.renderFilter.bind(this);
   }
 
   componentDidMount() {}
@@ -69,6 +82,72 @@ export default class LeagueLeaders extends React.Component {
 
   rankAssists() {}
 
+  toggleFilter() {
+    this.setState({ showFilter: !this.state.showFilter });
+  }
+
+  renderFilter() {
+    if (this.state.showFilter) {
+      return (
+        <div style={{ height: "100px" }}>
+          <Col lg={2} lgOffset={1}>
+            <div style={{ color: "#d00000", textDecoration: "underline" }}>
+              Position
+            </div>
+            <FormGroup style={{ paddingLeft: "10px" }}>
+              <Checkbox>Point Guard</Checkbox>{" "}
+              <Checkbox>Shooting Guard</Checkbox>{" "}
+              <Checkbox>Shooting Forward</Checkbox>{" "}
+              <Checkbox>Power Forward</Checkbox> <Checkbox>Center</Checkbox>
+            </FormGroup>
+          </Col>
+          <Col lg={2}>
+            <div style={{ paddingLeft: "30px" }}>
+              <div style={{ color: "#d00000", textDecoration: "underline" }}>
+                MPG
+              </div>
+              <FormGroup style={{ paddingLeft: "10px" }}>
+                <Checkbox>&#60; 15</Checkbox> <Checkbox>15-20</Checkbox>{" "}
+                <Checkbox>20-25</Checkbox> <Checkbox>25-30</Checkbox>{" "}
+                <Checkbox>> 30</Checkbox>
+              </FormGroup>
+            </div>
+          </Col>
+          <Col lg={2}>
+            <div style={{ color: "#d00000", textDecoration: "underline" }}>
+              Experience
+            </div>
+            <FormGroup style={{ paddingLeft: "10px" }}>
+              <Checkbox>Rookie</Checkbox> <Checkbox>1-3</Checkbox>{" "}
+              <Checkbox>4-6</Checkbox> <Checkbox>7-10</Checkbox>{" "}
+              <Checkbox>> 10</Checkbox>
+            </FormGroup>
+          </Col>
+          <Col lg={2}>
+            <div style={{ color: "#d00000", textDecoration: "underline" }}>
+              Age
+            </div>
+            <FormGroup style={{ paddingLeft: "10px" }}>
+              <Checkbox>&#60; 21</Checkbox> <Checkbox>21-25</Checkbox>{" "}
+              <Checkbox>26-30</Checkbox> <Checkbox>31-35</Checkbox>{" "}
+              <Checkbox>> 35</Checkbox>
+            </FormGroup>
+          </Col>
+          <Col lg={3}>
+            <div style={{ color: "#d00000", textDecoration: "underline" }}>
+              Salary Per Year
+            </div>
+            <FormGroup style={{ paddingLeft: "10px" }}>
+              <Checkbox>&#60; 5 mil.</Checkbox> <Checkbox>5-10 mil.</Checkbox>{" "}
+              <Checkbox>10-15 mil.</Checkbox> <Checkbox>15-20 mil.</Checkbox>{" "}
+              <Checkbox>> 20 mil.</Checkbox>
+            </FormGroup>
+          </Col>
+        </div>
+      );
+    }
+  }
+
   render() {
     var headerStyle = {
       backgroundColor: "#d00000",
@@ -80,6 +159,24 @@ export default class LeagueLeaders extends React.Component {
     };
     return (
       <div>
+        <Row style={{ paddingLeft: "20px", paddingTop: "30px" }}>
+          <Col lg={12}>
+            <div
+              onClick={this.toggleFilter}
+              style={{
+                color: "#d00000",
+                textDecoration: "underline",
+                fontSize: "16px",
+                cursor: "pointer"
+              }}
+            >
+              Filter
+            </div>
+          </Col>
+          <Col lg={12} style={{ paddingTop: "20px" }}>
+            {this.renderFilter()}
+          </Col>
+        </Row>
         <Row style={{ paddingTop: "40px", paddingLeft: "10px" }}>
           <Col lg={3}>
             <div className="card" style={headerStyle}>

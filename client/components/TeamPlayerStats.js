@@ -17,6 +17,9 @@ export default class TeamPlayerStats extends React.Component {
     this.createChart = this.createChart.bind(this);
     this.getPlayerShare = this.getPlayerShare.bind(this);
     this.getColumnData = this.getColumnData.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.firstInputChange = this.firstInputChange.bind(this);
+    this.secondInputChange = this.secondInputChange.bind(this);
   }
 
   componentDidMount() {
@@ -41,7 +44,12 @@ export default class TeamPlayerStats extends React.Component {
         this.setState({ teamPlayers: playerData });
         for (var j = 0; j < playerData.length; j++) {
           scatterData.push({
-            data: [[playerData[j].mpg, playerData[j].pts]],
+            data: [
+              [
+                playerData[j][this.state.statTwo],
+                playerData[j][this.state.statOne]
+              ]
+            ],
             name: playerData[j].name,
             color: this.props.team.Color_Main,
             _symbolIndex: 0
@@ -56,6 +64,42 @@ export default class TeamPlayerStats extends React.Component {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  handleSubmit(event) {
+    var statArr2 = [];
+    event.preventDefault();
+    for (let i = 0; i < this.state.teamPlayers.length; i++) {
+      console.log(i + ": " + this.state.teamPlayers[i]);
+      let player = this.state.teamPlayers[i];
+      statArr2.push({
+        data: [
+          [
+            parseFloat(player[this.state.statTwo]),
+            parseFloat(player[this.state.statOne])
+          ]
+        ],
+        name: player.name,
+        color: this.props.team.Color_Main,
+        _symbolIndex: 0
+      });
+    }
+    this.setState({ data: statArr2 }, () => {
+      //console.log(this.state.data);
+      this.createChart();
+    });
+  }
+
+  firstInputChange(event) {
+    this.setState({ statOne: event.target.value }, () => {
+      //console.log(this.state.statOne);
+    });
+  }
+
+  secondInputChange(event) {
+    this.setState({ statTwo: event.target.value }, () => {
+      //console.log(this.state.statTwo);
+    });
   }
 
   getPlayerShare(stat) {
@@ -252,6 +296,150 @@ export default class TeamPlayerStats extends React.Component {
                   margin: "0 auto"
                 }}
               />
+            </Col>
+          </Row>
+          <Row style={{ paddingTop: "40px", paddingLeft: "40px" }}>
+            <Col lg={12}>
+              <div className="card" style={{ backgroundColor: "white" }}>
+                <div>
+                  <form>
+                    <Col lg={4} lgOffset={1}>
+                      <div>
+                        <label htmlFor="sel1">
+                          Select Stat <sub>(y)</sub> :
+                        </label>
+                        <select
+                          id="sel1"
+                          onChange={this.firstInputChange}
+                          style={{ marginLeft: "10px" }}
+                        >
+                          <option>pts</option>
+                          <option>ast</option>
+                          <option>trb</option>
+                          <option>mpg</option>
+                          <option>stl</option>
+                          <option>blk</option>
+                          <option>experience</option>
+                          <option>age</option>
+                          <option>salary</option>
+                          <option>fgm</option>
+                          <option>fga</option>
+                          <option>fgPct</option>
+                          <option>threePt</option>
+                          <option>threePtAtt</option>
+                          <option>gamesPlayed</option>
+                          <option>twoPt</option>
+                          <option>twoPtAtt</option>
+                          <option>twoPtPct</option>
+                          <option>threePtPct</option>
+                          <option>ft</option>
+                          <option>fta</option>
+                          <option>freeThrowPct</option>
+                          <option>efgPct</option>
+                          <option>tov</option>
+                          <option>orb</option>
+                          <option>drb</option>
+                          <option>pf</option>
+                          <option>orbPct</option>
+                          <option>astPct</option>
+                          <option>tovPct</option>
+                          <option>drbPct</option>
+                          <option>stlPct</option>
+                          <option>blkPct</option>
+                          <option>usgPct</option>
+                          <option>trbPct</option>
+                          <option>tsPct</option>
+                          <option>threePAr</option>
+                          <option>ftr</option>
+                          <option>per</option>
+                          <option>ows</option>
+                          <option>dws</option>
+                          <option>bpm</option>
+                          <option>ws</option>
+                          <option>obpm</option>
+                          <option>dbpm</option>
+                          <option>wsFortyEight</option>
+                          <option>vorp</option>
+                        </select>
+                      </div>
+                    </Col>
+                    <Col lg={4}>
+                      <div>
+                        <label htmlFor="sel2" className="select-stat-label">
+                          Select Stat <sub>(x)</sub> :
+                        </label>
+                        <select
+                          onChange={this.secondInputChange}
+                          id="sel2"
+                          style={{ marginLeft: "10px" }}
+                        >
+                          <option>mpg</option>
+                          <option>pts</option>
+                          <option>ast</option>
+                          <option>trb</option>
+                          <option>stl</option>
+                          <option>blk</option>
+                          <option>experience</option>
+                          <option>age</option>
+                          <option>salary</option>
+                          <option>fgm</option>
+                          <option>fga</option>
+                          <option>fgPct</option>
+                          <option>threePt</option>
+                          <option>threePtAtt</option>
+                          <option>gamesPlayed</option>
+                          <option>twoPt</option>
+                          <option>twoPtAtt</option>
+                          <option>twoPtPct</option>
+                          <option>threePtPct</option>
+                          <option>ft</option>
+                          <option>fta</option>
+                          <option>freeThrowPct</option>
+                          <option>efgPct</option>
+                          <option>tov</option>
+                          <option>orb</option>
+                          <option>drb</option>
+                          <option>pf</option>
+                          <option>orbPct</option>
+                          <option>astPct</option>
+                          <option>tovPct</option>
+                          <option>drbPct</option>
+                          <option>stlPct</option>
+                          <option>blkPct</option>
+                          <option>usgPct</option>
+                          <option>trbPct</option>
+                          <option>tsPct</option>
+                          <option>threePAr</option>
+                          <option>ftr</option>
+                          <option>per</option>
+                          <option>ows</option>
+                          <option>dws</option>
+                          <option>bpm</option>
+                          <option>ws</option>
+                          <option>obpm</option>
+                          <option>dbpm</option>
+                          <option>wsFortyEight</option>
+                          <option>vorp</option>
+                        </select>
+                      </div>
+                    </Col>
+                    <Col lg={1}>
+                      <div>
+                        <button
+                          onClick={this.handleSubmit}
+                          id="submit-button"
+                          style={{
+                            backgroundColor: this.props.team.Color_Main,
+                            color: this.props.team.Color_Sec
+                          }}
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </Col>
+                  </form>
+                </div>
+              </div>
             </Col>
           </Row>
           <Row className="chart-row">

@@ -4,12 +4,13 @@ import LeagueLeaders from "./LeagueLeaders";
 import PlayerComparison from "./PlayerComparison";
 import TeamComparison from "./TeamComparison";
 import PlayerFinder from "./PlayerFinder";
+import Stats from "./Stats";
 
 export default class NbaScoutingTabs extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: 3
+      key: 5
     };
     this.handleSelect = this.handleSelect.bind(this);
   }
@@ -29,6 +30,10 @@ export default class NbaScoutingTabs extends React.Component {
       component = <TeamComparison teams={this.props.teams} />;
     if (this.state.key === 4)
       component = <PlayerFinder players={this.props.players} />;
+    if (this.state.key === 5)
+      component = (
+        <Stats players={this.props.players} teams={this.props.teams} />
+      );
     return (
       <div>
         <div className="card">

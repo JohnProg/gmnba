@@ -6857,6 +6857,9 @@ var TeamPlayerStats = function (_React$Component) {
     _this.createChart = _this.createChart.bind(_this);
     _this.getPlayerShare = _this.getPlayerShare.bind(_this);
     _this.getColumnData = _this.getColumnData.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.firstInputChange = _this.firstInputChange.bind(_this);
+    _this.secondInputChange = _this.secondInputChange.bind(_this);
     return _this;
   }
 
@@ -6884,7 +6887,7 @@ var TeamPlayerStats = function (_React$Component) {
         _this2.setState({ teamPlayers: playerData });
         for (var j = 0; j < playerData.length; j++) {
           scatterData.push({
-            data: [[playerData[j].mpg, playerData[j].pts]],
+            data: [[playerData[j][_this2.state.statTwo], playerData[j][_this2.state.statOne]]],
             name: playerData[j].name,
             color: _this2.props.team.Color_Main,
             _symbolIndex: 0
@@ -6900,9 +6903,45 @@ var TeamPlayerStats = function (_React$Component) {
       });
     }
   }, {
+    key: "handleSubmit",
+    value: function handleSubmit(event) {
+      var _this3 = this;
+
+      var statArr2 = [];
+      event.preventDefault();
+      for (var i = 0; i < this.state.teamPlayers.length; i++) {
+        console.log(i + ": " + this.state.teamPlayers[i]);
+        var player = this.state.teamPlayers[i];
+        statArr2.push({
+          data: [[parseFloat(player[this.state.statTwo]), parseFloat(player[this.state.statOne])]],
+          name: player.name,
+          color: this.props.team.Color_Main,
+          _symbolIndex: 0
+        });
+      }
+      this.setState({ data: statArr2 }, function () {
+        //console.log(this.state.data);
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "firstInputChange",
+    value: function firstInputChange(event) {
+      this.setState({ statOne: event.target.value }, function () {
+        //console.log(this.state.statOne);
+      });
+    }
+  }, {
+    key: "secondInputChange",
+    value: function secondInputChange(event) {
+      this.setState({ statTwo: event.target.value }, function () {
+        //console.log(this.state.statTwo);
+      });
+    }
+  }, {
     key: "getPlayerShare",
     value: function getPlayerShare(stat) {
-      var _this3 = this;
+      var _this4 = this;
 
       var numPlayers = this.state.teamPlayers.length;
       var total = 0;
@@ -6919,7 +6958,7 @@ var TeamPlayerStats = function (_React$Component) {
         }
       }
       this.setState({ pieData: pieData }, function () {
-        _this3.createChart();
+        _this4.createChart();
       });
     }
   }, {
@@ -7094,6 +7133,570 @@ var TeamPlayerStats = function (_React$Component) {
                   margin: "0 auto"
                 }
               })
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { style: { paddingTop: "40px", paddingLeft: "40px" } },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 12 },
+              _react2.default.createElement(
+                "div",
+                { className: "card", style: { backgroundColor: "white" } },
+                _react2.default.createElement(
+                  "div",
+                  null,
+                  _react2.default.createElement(
+                    "form",
+                    null,
+                    _react2.default.createElement(
+                      _reactBootstrap.Col,
+                      { lg: 4, lgOffset: 1 },
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        _react2.default.createElement(
+                          "label",
+                          { htmlFor: "sel1" },
+                          "Select Stat ",
+                          _react2.default.createElement(
+                            "sub",
+                            null,
+                            "(y)"
+                          ),
+                          " :"
+                        ),
+                        _react2.default.createElement(
+                          "select",
+                          {
+                            id: "sel1",
+                            onChange: this.firstInputChange,
+                            style: { marginLeft: "10px" }
+                          },
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "pts"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "ast"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "trb"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "mpg"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "stl"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "blk"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "experience"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "age"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "salary"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "fgm"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "fga"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "fgPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "threePt"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "threePtAtt"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "gamesPlayed"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "twoPt"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "twoPtAtt"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "twoPtPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "threePtPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "ft"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "fta"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "freeThrowPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "efgPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "tov"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "orb"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "drb"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "pf"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "orbPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "astPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "tovPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "drbPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "stlPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "blkPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "usgPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "trbPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "tsPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "threePAr"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "ftr"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "per"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "ows"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "dws"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "bpm"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "ws"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "obpm"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "dbpm"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "wsFortyEight"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "vorp"
+                          )
+                        )
+                      )
+                    ),
+                    _react2.default.createElement(
+                      _reactBootstrap.Col,
+                      { lg: 4 },
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        _react2.default.createElement(
+                          "label",
+                          { htmlFor: "sel2", className: "select-stat-label" },
+                          "Select Stat ",
+                          _react2.default.createElement(
+                            "sub",
+                            null,
+                            "(x)"
+                          ),
+                          " :"
+                        ),
+                        _react2.default.createElement(
+                          "select",
+                          {
+                            onChange: this.secondInputChange,
+                            id: "sel2",
+                            style: { marginLeft: "10px" }
+                          },
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "mpg"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "pts"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "ast"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "trb"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "stl"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "blk"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "experience"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "age"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "salary"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "fgm"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "fga"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "fgPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "threePt"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "threePtAtt"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "gamesPlayed"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "twoPt"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "twoPtAtt"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "twoPtPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "threePtPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "ft"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "fta"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "freeThrowPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "efgPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "tov"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "orb"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "drb"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "pf"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "orbPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "astPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "tovPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "drbPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "stlPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "blkPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "usgPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "trbPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "tsPct"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "threePAr"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "ftr"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "per"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "ows"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "dws"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "bpm"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "ws"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "obpm"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "dbpm"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "wsFortyEight"
+                          ),
+                          _react2.default.createElement(
+                            "option",
+                            null,
+                            "vorp"
+                          )
+                        )
+                      )
+                    ),
+                    _react2.default.createElement(
+                      _reactBootstrap.Col,
+                      { lg: 1 },
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        _react2.default.createElement(
+                          "button",
+                          {
+                            onClick: this.handleSubmit,
+                            id: "submit-button",
+                            style: {
+                              backgroundColor: this.props.team.Color_Main,
+                              color: this.props.team.Color_Sec
+                            }
+                          },
+                          "Submit"
+                        )
+                      )
+                    )
+                  )
+                )
+              )
             )
           ),
           _react2.default.createElement(
@@ -59795,6 +60398,10 @@ var _PlayerFinder = __webpack_require__(498);
 
 var _PlayerFinder2 = _interopRequireDefault(_PlayerFinder);
 
+var _Stats = __webpack_require__(517);
+
+var _Stats2 = _interopRequireDefault(_Stats);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59812,7 +60419,7 @@ var NbaScoutingTabs = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (NbaScoutingTabs.__proto__ || Object.getPrototypeOf(NbaScoutingTabs)).call(this, props));
 
     _this.state = {
-      key: 3
+      key: 5
     };
     _this.handleSelect = _this.handleSelect.bind(_this);
     return _this;
@@ -59832,6 +60439,7 @@ var NbaScoutingTabs = function (_React$Component) {
       if (this.state.key === 2) component = _react2.default.createElement(_PlayerComparison2.default, { players: this.props.players });
       if (this.state.key === 3) component = _react2.default.createElement(_TeamComparison2.default, { teams: this.props.teams });
       if (this.state.key === 4) component = _react2.default.createElement(_PlayerFinder2.default, { players: this.props.players });
+      if (this.state.key === 5) component = _react2.default.createElement(_Stats2.default, { players: this.props.players, teams: this.props.teams });
       return _react2.default.createElement(
         "div",
         null,
@@ -59992,7 +60600,8 @@ var LeagueLeaders = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (LeagueLeaders.__proto__ || Object.getPrototypeOf(LeagueLeaders)).call(this));
 
     _this.state = {
-      table4: []
+      table4: [],
+      showFilter: false
     };
     _this.rankOverall = _this.rankOverall.bind(_this);
     _this.rankOffense = _this.rankOffense.bind(_this);
@@ -60000,6 +60609,8 @@ var LeagueLeaders = function (_React$Component) {
     _this.rankPoints = _this.rankPoints.bind(_this);
     _this.rankRebounds = _this.rankRebounds.bind(_this);
     _this.rankAssists = _this.rankAssists.bind(_this);
+    _this.toggleFilter = _this.toggleFilter.bind(_this);
+    _this.renderFilter = _this.renderFilter.bind(_this);
     return _this;
   }
 
@@ -60054,6 +60665,235 @@ var LeagueLeaders = function (_React$Component) {
     key: "rankAssists",
     value: function rankAssists() {}
   }, {
+    key: "toggleFilter",
+    value: function toggleFilter() {
+      this.setState({ showFilter: !this.state.showFilter });
+    }
+  }, {
+    key: "renderFilter",
+    value: function renderFilter() {
+      if (this.state.showFilter) {
+        return _react2.default.createElement(
+          "div",
+          { style: { height: "100px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 2, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              { style: { color: "#d00000", textDecoration: "underline" } },
+              "Position"
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.FormGroup,
+              { style: { paddingLeft: "10px" } },
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Point Guard"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Shooting Guard"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Shooting Forward"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Power Forward"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Center"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 2 },
+            _react2.default.createElement(
+              "div",
+              { style: { paddingLeft: "30px" } },
+              _react2.default.createElement(
+                "div",
+                { style: { color: "#d00000", textDecoration: "underline" } },
+                "MPG"
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.FormGroup,
+                { style: { paddingLeft: "10px" } },
+                _react2.default.createElement(
+                  _reactBootstrap.Checkbox,
+                  null,
+                  "< 15"
+                ),
+                " ",
+                _react2.default.createElement(
+                  _reactBootstrap.Checkbox,
+                  null,
+                  "15-20"
+                ),
+                " ",
+                _react2.default.createElement(
+                  _reactBootstrap.Checkbox,
+                  null,
+                  "20-25"
+                ),
+                " ",
+                _react2.default.createElement(
+                  _reactBootstrap.Checkbox,
+                  null,
+                  "25-30"
+                ),
+                " ",
+                _react2.default.createElement(
+                  _reactBootstrap.Checkbox,
+                  null,
+                  "> 30"
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 2 },
+            _react2.default.createElement(
+              "div",
+              { style: { color: "#d00000", textDecoration: "underline" } },
+              "Experience"
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.FormGroup,
+              { style: { paddingLeft: "10px" } },
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "Rookie"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "1-3"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "4-6"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "7-10"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "> 10"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 2 },
+            _react2.default.createElement(
+              "div",
+              { style: { color: "#d00000", textDecoration: "underline" } },
+              "Age"
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.FormGroup,
+              { style: { paddingLeft: "10px" } },
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "< 21"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "21-25"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "26-30"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "31-35"
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "> 35"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3 },
+            _react2.default.createElement(
+              "div",
+              { style: { color: "#d00000", textDecoration: "underline" } },
+              "Salary Per Year"
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.FormGroup,
+              { style: { paddingLeft: "10px" } },
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "< 5 mil."
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "5-10 mil."
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "10-15 mil."
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "15-20 mil."
+              ),
+              " ",
+              _react2.default.createElement(
+                _reactBootstrap.Checkbox,
+                null,
+                "> 20 mil."
+              )
+            )
+          )
+        );
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var headerStyle = {
@@ -60067,6 +60907,32 @@ var LeagueLeaders = function (_React$Component) {
       return _react2.default.createElement(
         "div",
         null,
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingLeft: "20px", paddingTop: "30px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement(
+              "div",
+              {
+                onClick: this.toggleFilter,
+                style: {
+                  color: "#d00000",
+                  textDecoration: "underline",
+                  fontSize: "16px",
+                  cursor: "pointer"
+                }
+              },
+              "Filter"
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12, style: { paddingTop: "20px" } },
+            this.renderFilter()
+          )
+        ),
         _react2.default.createElement(
           _reactBootstrap.Row,
           { style: { paddingTop: "40px", paddingLeft: "10px" } },
@@ -74354,6 +75220,485 @@ var PlayerPolarColumn3 = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = PlayerPolarColumn3;
+
+/***/ }),
+/* 517 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(12);
+
+var _StatsPlayerEntry = __webpack_require__(518);
+
+var _StatsPlayerEntry2 = _interopRequireDefault(_StatsPlayerEntry);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Stats = function (_React$Component) {
+  _inherits(Stats, _React$Component);
+
+  function Stats(props) {
+    _classCallCheck(this, Stats);
+
+    var _this = _possibleConstructorReturn(this, (Stats.__proto__ || Object.getPrototypeOf(Stats)).call(this, props));
+
+    _this.renderPlayers = _this.renderPlayers.bind(_this);
+    return _this;
+  }
+
+  _createClass(Stats, [{
+    key: "renderPlayers",
+    value: function renderPlayers() {
+      var sorted = [];
+      if (this.props.players) {
+        var players = this.props.players;
+        sorted = players.sort(function (a, b) {
+          return parseFloat(b.pts) - parseFloat(a.pts);
+        });
+      }
+      return sorted.map(function (player, i) {
+        return _react2.default.createElement(_StatsPlayerEntry2.default, { player: player, key: i });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var headerStyle = {
+        backgroundColor: "#d00000",
+        height: "45px",
+        lineHeight: "45px",
+        fontSize: "20px",
+        paddingLeft: "20px",
+        color: "#fff"
+      };
+      var statHeader = {
+        lineHeight: "40px",
+        backgroundColor: "#d00000",
+        fontSize: "18px",
+        paddingLeft: "15px",
+        color: "white"
+      };
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "40px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: headerStyle },
+              "League Stats"
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "10px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3, lgOffset: 8, style: { paddingLeft: "70px" } },
+            _react2.default.createElement(
+              "span",
+              null,
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                {
+                  style: {
+                    borderRadius: "10px 0px 0px 10px",
+                    backgroundColor: "#d00000",
+                    color: "white",
+                    width: "100px",
+                    fontWeight: "bold"
+                  }
+                },
+                "Stats"
+              )
+            ),
+            _react2.default.createElement(
+              "span",
+              null,
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                {
+                  style: {
+                    borderRadius: "0px 10px 10px 0px",
+                    backgroundColor: "#fff",
+                    color: "#d00000",
+                    width: "100px"
+                  }
+                },
+                "Ratings"
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingBottom: "40px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 10, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              { className: "card", style: { marginTop: "30px" } },
+              _react2.default.createElement(
+                "div",
+                { style: statHeader },
+                "PLAYER STATS"
+              )
+            ),
+            _react2.default.createElement(
+              "div",
+              {
+                style: {
+                  overflowX: "scroll",
+                  height: "800px",
+                  overflowY: "scroll"
+                }
+              },
+              _react2.default.createElement(
+                _reactBootstrap.Table,
+                { striped: true, hover: true },
+                _react2.default.createElement(
+                  "thead",
+                  null,
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "Name"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "Position"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "GP"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "FG"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "FGA"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "FG%"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "3P"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "3PA"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "3P%"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "2P"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "2PA"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "2P%"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "FT"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "FTA"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "FT%"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "ORB"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "DRB"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "TRB"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "AST"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "STL"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "BLK"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "TOV"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "PF"
+                    ),
+                    _react2.default.createElement(
+                      "th",
+                      null,
+                      "PTS"
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  "tbody",
+                  null,
+                  this.renderPlayers()
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return Stats;
+}(_react2.default.Component);
+
+exports.default = Stats;
+
+/***/ }),
+/* 518 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StatsPlayersEntry = function (_React$Component) {
+  _inherits(StatsPlayersEntry, _React$Component);
+
+  function StatsPlayersEntry(props) {
+    _classCallCheck(this, StatsPlayersEntry);
+
+    return _possibleConstructorReturn(this, (StatsPlayersEntry.__proto__ || Object.getPrototypeOf(StatsPlayersEntry)).call(this, props));
+  }
+
+  _createClass(StatsPlayersEntry, [{
+    key: "render",
+    value: function render() {
+      console.log(this.props.player);
+      return _react2.default.createElement(
+        "tr",
+        null,
+        _react2.default.createElement(
+          "td",
+          null,
+          _react2.default.createElement(
+            "a",
+            { href: "/player/" + this.props.player.id },
+            this.props.player.name
+          )
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.position
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.gamesPlayed
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.fgm
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.fga
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.fgPct
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.threePt
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.threePtAtt
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.threePtPct
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.twoPt
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.twoPtAtt
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.twoPtPct
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.ft
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.fta
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.freeThrowPct
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.orb
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.drb
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.trb
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.ast
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.stl
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.blk
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.tov
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.pf
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.pts
+        )
+      );
+    }
+  }]);
+
+  return StatsPlayersEntry;
+}(_react2.default.Component);
+
+exports.default = StatsPlayersEntry;
 
 /***/ })
 /******/ ]);
