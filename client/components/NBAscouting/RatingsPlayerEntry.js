@@ -1,9 +1,8 @@
 import React from "react";
 
-export default class PlayerPolarColumn2 extends React.Component {
-  constructor() {
-    super();
-    this.createChart = this.createChart.bind(this);
+export default class RatingslayersEntry extends React.Component {
+  constructor(props) {
+    super(props);
     this.calculateGrades = this.calculateGrades.bind(this);
     this.getGrade = this.getGrade.bind(this);
   }
@@ -11,12 +10,11 @@ export default class PlayerPolarColumn2 extends React.Component {
   componentDidMount() {
     this.setState({ player: this.props.player }, () => {
       this.calculateGrades();
-      //this.createChart();
     });
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.player.name) {
+    if (nextProps.player) {
       this.setState({ player: nextProps.player }, () => {
         this.calculateGrades();
         //this.createChart();
@@ -31,8 +29,8 @@ export default class PlayerPolarColumn2 extends React.Component {
     var highStl = 2.5;
     var highBlk = 2.5;
     var highFT = 0.93;
-    var highThree = 0.45;
-    var highTwo = 0.7;
+    var highThree = 0.5;
+    var highTwo = 0.88;
 
     var scoring = this.getGrade(
       highPoints,
@@ -66,21 +64,16 @@ export default class PlayerPolarColumn2 extends React.Component {
       0.2
     );
     var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.2);
-    this.setState(
-      {
-        scoring: scoring,
-        ast: ast,
-        reb: reb,
-        stl: stl,
-        blk: blk,
-        ft: ft,
-        threePoint: threePoint,
-        twoPoint: twoPoint
-      },
-      () => {
-        this.createChart();
-      }
-    );
+    this.setState({
+      scoring: scoring,
+      ast: ast,
+      reb: reb,
+      stl: stl,
+      blk: blk,
+      ft: ft,
+      threePoint: threePoint,
+      twoPoint: twoPoint
+    });
   }
 
   getGrade(high, actual, min) {
@@ -145,134 +138,115 @@ export default class PlayerPolarColumn2 extends React.Component {
     return playerGrade;
   }
 
-  createChart() {
-    var chart = Highcharts.chart("container-column-comp", {
-      chart: {
-        polar: true,
-        type: "column"
-      },
-
-      title: {
-        text: null
-      },
-
-      pane: {
-        startAngle: 0,
-        endAngle: 360
-      },
-
-      xAxis: {
-        min: 0,
-        max: 360,
-        tickInterval: 45,
-        labels: {
-          enabled: false
-        }
-      },
-
-      tooltip: {
-        headerFormat: "<b>{point.key}</b><br/>",
-        pointFormat: `<span>Rating: {point.y}</span><br/>`
-      },
-
-      yAxis: {
-        min: 0,
-        max: 60,
-        labels: {
-          enabled: false
-        }
-      },
-
-      plotOptions: {
-        series: {
-          pointStart: 0,
-          pointInterval: 45,
-          dataLabels: {
-            useHTML: true,
-            enabled: true,
-            format:
-              '<span class="wheel-label" style="color: grey">{point.name}</span>',
-            style: {
-              fontSize: "12px"
-            }
-          }
-        },
-        column: {
-          pointPadding: 0,
-          groupPadding: 0,
-          events: {
-            legendItemClick: function() {
-              return false;
-            }
-          },
-          borderWidth: 2
-        }
-      },
-
-      legend: {
-        enabled: false
-      },
-
-      series: [
-        {
-          name: "Rating",
-          data: [
-            {
-              y: this.state.scoring.Grade,
-              color: this.state.scoring.Color,
-              name: "Scoring"
-            },
-            {
-              y: this.state.ast.Grade,
-              color: this.state.ast.Color,
-              name: "Ast"
-            },
-            {
-              y: this.state.reb.Grade,
-              color: this.state.reb.Color,
-              name: "Reb"
-            },
-            {
-              y: this.state.stl.Grade,
-              color: this.state.stl.Color,
-              name: "Stl"
-            },
-            {
-              y: this.state.blk.Grade,
-              color: this.state.blk.Color,
-              name: "Blk"
-            },
-            {
-              y: this.state.ft.Grade,
-              color: this.state.ft.Color,
-              name: "FT%"
-            },
-            {
-              y: this.state.threePoint.Grade,
-              color: this.state.threePoint.Color,
-              name: "3P%"
-            },
-            {
-              y: this.state.twoPoint.Grade,
-              color: this.state.twoPoint.Color,
-              name: "2P%"
-            }
-          ],
-          pointPlacement: "on"
-        }
-      ]
-    });
+  renderPlayer() {
+    if (this.state.scoring) {
+      return (
+        <tr>
+          <td>
+            <a href={`/player/${this.props.player.id}`}>
+              {this.props.player.name}
+            </a>
+          </td>
+          <td>{this.props.player.position}</td>
+          <td>{this.props.player.gamesPlayed}</td>
+          <td>-</td>
+          <td>{this.props.player.Grades.threePoint.Grade}</td>
+          <td>{this.props.player.Grades.twoPoint.Grade}</td>
+          <td>{this.props.player.Grades.ft.Grade}</td>
+          <td>-</td>
+          <td>-</td>
+          <td>{this.props.player.Grades.reb.Grade}</td>
+          <td>{this.props.player.Grades.ast.Grade}</td>
+          <td>{this.props.player.Grades.stl.Grade}</td>
+          <td>{this.props.player.Grades.blk.Grade}</td>
+          <td>-</td>
+          <td>-</td>
+          <td>{this.props.player.Grades.scoring.Grade}</td>
+        </tr>
+      );
+    }
   }
 
   render() {
-    console.log(this.props);
     return (
-      <div>
-        <div
-          id="container-column-comp"
-          style={{ height: "330px", margin: "0 auto" }}
-        />
-      </div>
+      <tr>
+        <td>
+          <a href={`/player/${this.props.player.id}`}>
+            {this.props.player.name}
+          </a>
+        </td>
+        <td>{this.props.player.position}</td>
+        <td>{this.props.player.gamesPlayed}</td>
+        <td>-</td>
+        <td
+          style={{
+            color: this.props.player.Grades.threePoint.Color,
+            fontWeight: "bold"
+          }}
+        >
+          {this.props.player.Grades.threePoint.Grade}
+        </td>
+        <td
+          style={{
+            color: this.props.player.Grades.twoPoint.Color,
+            fontWeight: "bold"
+          }}
+        >
+          {this.props.player.Grades.twoPoint.Grade}
+        </td>
+        <td
+          style={{
+            color: this.props.player.Grades.ft.Color,
+            fontWeight: "bold"
+          }}
+        >
+          {this.props.player.Grades.ft.Grade}
+        </td>
+        <td>-</td>
+        <td>-</td>
+        <td
+          style={{
+            color: this.props.player.Grades.reb.Color,
+            fontWeight: "bold"
+          }}
+        >
+          {this.props.player.Grades.reb.Grade}
+        </td>
+        <td
+          style={{
+            color: this.props.player.Grades.ast.Color,
+            fontWeight: "bold"
+          }}
+        >
+          {this.props.player.Grades.ast.Grade}
+        </td>
+        <td
+          style={{
+            color: this.props.player.Grades.stl.Color,
+            fontWeight: "bold"
+          }}
+        >
+          {this.props.player.Grades.stl.Grade}
+        </td>
+        <td
+          style={{
+            color: this.props.player.Grades.blk.Color,
+            fontWeight: "bold"
+          }}
+        >
+          {this.props.player.Grades.blk.Grade}
+        </td>
+        <td>-</td>
+        <td>-</td>
+        <td
+          style={{
+            color: this.props.player.Grades.scoring.Color,
+            fontWeight: "bold"
+          }}
+        >
+          {this.props.player.Grades.scoring.Grade}
+        </td>
+      </tr>
     );
   }
 }

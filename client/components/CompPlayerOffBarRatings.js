@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class PlayerBarRatings extends React.Component {
+export default class CompPlayerOffBarRatings extends React.Component {
   constructor(props) {
     super(props);
     this.createChart = this.createChart.bind(this);
@@ -8,69 +8,61 @@ export default class PlayerBarRatings extends React.Component {
     this.getGrade = this.getGrade.bind(this);
   }
 
-  componentDidMount() {}
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.player.name) {
-      this.setState({ player: nextProps.player }, () => {
-        this.calculateGrades();
-        //this.createChart();
-      });
-    }
+  componentDidMount() {
+    this.setState({ player: this.props.player }, () => {
+      console.log("TSPCT: ", this.state.player.tsPct);
+      this.calculateGrades();
+    });
   }
 
-  calculateGrades() {
-    var highPoints = 29;
-    var highAst = 11;
-    var highReb = 15;
-    var highStl = 2.5;
-    var highBlk = 2.5;
-    var highFT = 0.93;
-    var highThree = 0.45;
-    var highTwo = 0.7;
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.player) {
+  //     this.setState({ player: nextProps.player }, () => {
+  //       console.log("TSPCT: ", this.state.player.tsPct);
+  //       this.calculateGrades();
+  //       //this.createChart();
+  //     });
+  //   }
+  // }
 
-    var scoring = this.getGrade(
-      highPoints,
-      this.state.player.pts / this.state.player.mpg * 36,
-      0
+  calculateGrades() {
+    var highEFG = 0.66;
+    var highTS = 0.67;
+    var highFTr = 0.5;
+    var highThreePar = 0.7;
+    var highAstPct = 46.0;
+    var highTovPct = -5.0;
+    var highOrbPct = 17.0;
+    var highUsgPct = 35.0;
+    var highObpm = 10.0;
+    var highOws = 6.5;
+
+    var efg = this.getGrade(highEFG, this.state.player.efgPct, 0.25);
+    var ts = this.getGrade(highTS, this.state.player.tsPct, 0.35);
+    var ftr = this.getGrade(highFTr, this.state.player.ftr, 0.03);
+    var threePar = this.getGrade(highThreePar, this.state.player.threePAr, 0);
+    var astPct = this.getGrade(highAstPct, this.state.player.astPct, 2.0);
+    var tovPct = this.getGrade(
+      highTovPct,
+      this.state.player.tovPct * -1,
+      -18.0
     );
-    var ast = this.getGrade(
-      highAst,
-      this.state.player.ast / this.state.player.mpg * 36,
-      0
-    );
-    var reb = this.getGrade(
-      highReb,
-      this.state.player.trb / this.state.player.mpg * 36,
-      0
-    );
-    var stl = this.getGrade(
-      highStl,
-      this.state.player.stl / this.state.player.mpg * 36,
-      0
-    );
-    var blk = this.getGrade(
-      highBlk,
-      this.state.player.blk / this.state.player.mpg * 36,
-      0
-    );
-    var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
-    var threePoint = this.getGrade(
-      highThree,
-      this.state.player.threePtPct,
-      0.1
-    );
-    var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.15);
+    var orbPct = this.getGrade(highOrbPct, this.state.player.orbPct, 2.2);
+    var usgPct = this.getGrade(highUsgPct, this.state.player.usgPct, 7.0);
+    var obpm = this.getGrade(highObpm, this.state.player.obpm, -6.0);
+    var ows = this.getGrade(highOws, this.state.player.ows, -1.5);
     this.setState(
       {
-        scoring: scoring,
-        ast: ast,
-        reb: reb,
-        stl: stl,
-        blk: blk,
-        ft: ft,
-        threePoint: threePoint,
-        twoPoint: twoPoint
+        efg: efg,
+        ts: ts,
+        ftr: ftr,
+        threePar: threePar,
+        astPct: astPct,
+        tovPct: tovPct,
+        orbPct: orbPct,
+        usgPct: usgPct,
+        obpm: obpm,
+        ows: ows
       },
       () => {
         this.createChart();
@@ -141,7 +133,7 @@ export default class PlayerBarRatings extends React.Component {
   }
 
   createChart() {
-    var chart = Highcharts.chart("container-rating", {
+    var chart = Highcharts.chart("container-rating-off", {
       chart: {
         type: "bar"
       },
@@ -152,7 +144,18 @@ export default class PlayerBarRatings extends React.Component {
         text: null
       },
       xAxis: {
-        categories: ["PTS", "REB", "AST", "STL", "BLK"],
+        categories: [
+          "eFG%",
+          "TS%",
+          "FTr",
+          "3PAr",
+          "AST%",
+          "TOV%",
+          "ORB%",
+          "USG%",
+          "OBPM",
+          "OWS"
+        ],
         title: {
           text: null
         }
@@ -200,17 +203,27 @@ export default class PlayerBarRatings extends React.Component {
             { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" }
           ]
         },
         {
           name: "Grade",
           data: [
-            { y: this.state.scoring.Grade, color: this.state.scoring.Color },
-            { y: this.state.reb.Grade, color: this.state.reb.Color },
-            { y: this.state.ast.Grade, color: this.state.ast.Color },
-            { y: this.state.stl.Grade, color: this.state.stl.Color },
-            { y: this.state.blk.Grade, color: this.state.blk.Color }
+            { y: this.state.efg.Grade, color: this.state.efg.Color },
+            { y: this.state.ts.Grade, color: this.state.ts.Color },
+            { y: this.state.ftr.Grade, color: this.state.ftr.Color },
+            { y: this.state.threePar.Grade, color: this.state.threePar.Color },
+            { y: this.state.astPct.Grade, color: this.state.astPct.Color },
+            { y: this.state.tovPct.Grade, color: this.state.tovPct.Color },
+            { y: this.state.orbPct.Grade, color: this.state.orbPct.Color },
+            { y: this.state.usgPct.Grade, color: this.state.usgPct.Color },
+            { y: this.state.obpm.Grade, color: this.state.obpm.Color },
+            { y: this.state.ows.Grade, color: this.state.ows.Color }
           ]
         }
       ]
@@ -221,11 +234,9 @@ export default class PlayerBarRatings extends React.Component {
     return (
       <div>
         <div
-          className="card"
-          id="container-rating"
+          id="container-rating-off"
           style={{
-            height: "250px",
-            minWidth: "600px",
+            height: "500px",
             margin: "0 auto"
           }}
         />

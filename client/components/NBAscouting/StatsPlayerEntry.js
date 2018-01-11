@@ -6,7 +6,6 @@ export default class StatsPlayersEntry extends React.Component {
   }
 
   render() {
-    console.log(this.props.player);
     return (
       <tr>
         <td>

@@ -31,8 +31,8 @@ export default class PlayerPolarColumn3 extends React.Component {
     var highStl = 2.5;
     var highBlk = 2.5;
     var highFT = 0.93;
-    var highThree = 0.5;
-    var highTwo = 0.88;
+    var highThree = 0.45;
+    var highTwo = 0.7;
 
     var scoring = this.getGrade(
       highPoints,

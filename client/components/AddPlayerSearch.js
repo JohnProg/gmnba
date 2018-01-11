@@ -11,9 +11,13 @@ import {
   Nav,
   NavItem,
   Image,
-  Thumbnail
+  Thumbnail,
+  DropdownButton,
+  MenuItem
 } from "react-bootstrap";
 import PlayerPolarColumn2 from "./PlayerPolarColumn2";
+import CompPlayerOffBarRatings from "./CompPlayerOffBarRatings";
+import CompPlayerDefBarRatings from "./CompPlayerDefBarRatings";
 
 export default class AddPlayerSearch extends React.Component {
   constructor(props) {
@@ -23,7 +27,9 @@ export default class AddPlayerSearch extends React.Component {
       suggestions: [],
       players: [],
       player: {},
-      renderPlayer: false
+      renderPlayer: false,
+      renderAdvanced: false,
+      advancedCat: "Advanced Offense"
     };
     this.escapeRegexCharacters = this.escapeRegexCharacters.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
@@ -39,6 +45,11 @@ export default class AddPlayerSearch extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.renderPlayer = this.renderPlayer.bind(this);
     //this.handleChange = this.handleChange.bind(this);
+    this.handleAdvancedClick = this.handleAdvancedClick.bind(this);
+    this.renderAdvanced = this.renderAdvanced.bind(this);
+    this.getGrade = this.getGrade.bind(this);
+    this.selectAdvancedCat = this.selectAdvancedCat.bind(this);
+    this.renderBarRatings = this.renderBarRatings.bind(this);
   }
 
   componentDidMount() {}
@@ -67,6 +78,10 @@ export default class AddPlayerSearch extends React.Component {
     } else {
       return `${suggestion.name}`;
     }
+  }
+
+  handleAdvancedClick() {
+    this.setState({ renderAdvanced: !this.state.renderAdvanced });
   }
 
   renderSuggestion(suggestion, { query }) {
@@ -195,7 +210,7 @@ export default class AddPlayerSearch extends React.Component {
                 cursor: "pointer"
               }}
             >
-              Advanced Stats
+              Advanced Stats &#9660;
             </div>
           </Col>
         </div>
@@ -203,9 +218,111 @@ export default class AddPlayerSearch extends React.Component {
     }
   }
 
-  // handleChange(event) {
-  //   this.setState({ player: event.target.value });
-  // }
+  selectAdvancedCat(evt, eventKey) {
+    this.setState({ advancedCat: eventKey.target.innerHTML });
+  }
+
+  renderAdvanced() {
+    if (this.state.renderAdvanced) {
+      return (
+        <div>
+          <Col lg={12}>
+            <hr />
+            <div>
+              <DropdownButton
+                title={this.state.advancedCat}
+                className="card"
+                style={{ border: "none", fontSize: "16px" }}
+                onSelect={this.selectAdvancedCat}
+              >
+                <MenuItem eventKey="1">Advanced Offense</MenuItem>
+                <MenuItem eventKey="2">Advanced Defense</MenuItem>
+                <MenuItem eventKey="3">Advanced Overall</MenuItem>
+              </DropdownButton>
+            </div>
+          </Col>
+          <Col lg={12}>{this.renderBarRatings()}</Col>
+        </div>
+      );
+    }
+  }
+
+  renderBarRatings() {
+    if (this.state.advancedCat === "Advanced Overall") {
+      var category = "Advanced Overall";
+      //return <CompPlayerBarRatings type={category} player={this.props.list} />;
+    }
+    if (this.state.advancedCat === "Advanced Offense") {
+      var category = "Advanced Offense";
+      return <CompPlayerOffBarRatings player={this.props.list} />;
+    }
+    if (this.state.advancedCat === "Advanced Defense") {
+      var category = "Advanced Defense";
+      return <CompPlayerDefBarRatings player={this.props.list} />;
+    }
+  }
+
+  getGrade(high, actual, min) {
+    var playerGrade = {};
+    var gradeSlots = 13;
+    var adjusted = high - min;
+    var gradeScale = adjusted / gradeSlots;
+
+    var eighty = high - gradeScale;
+    var sevenFive = eighty - gradeScale;
+    var seventy = sevenFive - gradeScale;
+    var sixFive = seventy - gradeScale;
+    var sixty = sixFive - gradeScale;
+    var fiveFive = sixty - gradeScale;
+    var fifty = fiveFive - gradeScale;
+    var fourFive = fifty - gradeScale;
+    var fourty = fourFive - gradeScale;
+    var threeFive = fourty - gradeScale;
+    var thirty = threeFive - gradeScale;
+    var twoFive = thirty - gradeScale;
+
+    if (actual >= eighty) {
+      playerGrade["Grade"] = 80;
+      playerGrade["Color"] = "#1abded";
+    } else if (actual >= sevenFive) {
+      playerGrade["Grade"] = 75;
+      playerGrade["Color"] = "#00a3c4";
+    } else if (actual >= seventy) {
+      playerGrade["Grade"] = 70;
+      playerGrade["Color"] = "#00c7a2";
+    } else if (actual >= sixFive) {
+      playerGrade["Grade"] = 65;
+      playerGrade["Color"] = "#56ce00";
+    } else if (actual >= sixty) {
+      playerGrade["Grade"] = 60;
+      playerGrade["Color"] = "#b4d800";
+    } else if (actual >= fiveFive) {
+      playerGrade["Grade"] = 55;
+      playerGrade["Color"] = "#b3d800";
+    } else if (actual >= fifty) {
+      playerGrade["Grade"] = 50;
+      playerGrade["Color"] = "#ffdc00";
+    } else if (actual >= fourFive) {
+      playerGrade["Grade"] = 45;
+      playerGrade["Color"] = "#fac600";
+    } else if (actual >= fourty) {
+      playerGrade["Grade"] = 40;
+      playerGrade["Color"] = "#f0780d";
+    } else if (actual >= threeFive) {
+      playerGrade["Grade"] = 35;
+      playerGrade["Color"] = "#f53300";
+    } else if (actual >= thirty) {
+      playerGrade["Grade"] = 30;
+      playerGrade["Color"] = "#da000b";
+    } else if (actual >= twoFive) {
+      playerGrade["Grade"] = 25;
+      playerGrade["Color"] = "#da000c";
+    } else {
+      playerGrade["Grade"] = 20;
+      playerGrade["Color"] = "#b8000b";
+    }
+    return playerGrade;
+  }
 
   render() {
     const { value, suggestions } = this.state;
@@ -284,10 +401,12 @@ export default class AddPlayerSearch extends React.Component {
                   cursor: "pointer",
                   paddingBottom: "10px"
                 }}
+                onClick={this.handleAdvancedClick}
               >
-                Advanced Stats
+                Advanced Stats &#9660;
               </div>
             </Col>
+            {this.renderAdvanced()}
           </div>
         </Col>
       </div>
