@@ -91,6 +91,7 @@ export default class PlayerPositionAverages extends React.Component {
         shadow: false
       },
       tooltip: {
+        enabled: false,
         shared: true
       },
       plotOptions: {

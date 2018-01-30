@@ -5,6 +5,272 @@ import { Col, Button, Well, Row, Grid, Table } from "react-bootstrap";
 export default class PlayerSeasonStats extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      renderStats: true,
+      renderRatings: false
+    };
+    this.handleStatButton = this.handleStatButton.bind(this);
+    this.handleRatingButton = this.handleRatingButton.bind(this);
+    this.getGrade = this.getGrade.bind(this);
+    this.calculateGrades = this.calculateGrades.bind(this);
+    this.renderPlayer = this.renderPlayer.bind(this);
+  }
+
+  componentDidMount() {
+    this.calculateGrades();
+  }
+
+  getGrade(high, actual, min) {
+    var playerGrade = {};
+    var gradeSlots = 13;
+    var adjusted = high - min;
+    var gradeScale = adjusted / gradeSlots;
+
+    var eighty = high - gradeScale;
+    var sevenFive = eighty - gradeScale;
+    var seventy = sevenFive - gradeScale;
+    var sixFive = seventy - gradeScale;
+    var sixty = sixFive - gradeScale;
+    var fiveFive = sixty - gradeScale;
+    var fifty = fiveFive - gradeScale;
+    var fourFive = fifty - gradeScale;
+    var fourty = fourFive - gradeScale;
+    var threeFive = fourty - gradeScale;
+    var thirty = threeFive - gradeScale;
+    var twoFive = thirty - gradeScale;
+
+    if (actual >= eighty) {
+      playerGrade["Grade"] = 80;
+      playerGrade["Color"] = "#1abded";
+    } else if (actual >= sevenFive) {
+      playerGrade["Grade"] = 75;
+      playerGrade["Color"] = "#00a3c4";
+    } else if (actual >= seventy) {
+      playerGrade["Grade"] = 70;
+      playerGrade["Color"] = "#00c7a2";
+    } else if (actual >= sixFive) {
+      playerGrade["Grade"] = 65;
+      playerGrade["Color"] = "#56ce00";
+    } else if (actual >= sixty) {
+      playerGrade["Grade"] = 60;
+      playerGrade["Color"] = "#b4d800";
+    } else if (actual >= fiveFive) {
+      playerGrade["Grade"] = 55;
+      playerGrade["Color"] = "#b3d800";
+    } else if (actual >= fifty) {
+      playerGrade["Grade"] = 50;
+      playerGrade["Color"] = "#ffdc00";
+    } else if (actual >= fourFive) {
+      playerGrade["Grade"] = 45;
+      playerGrade["Color"] = "#fac600";
+    } else if (actual >= fourty) {
+      playerGrade["Grade"] = 40;
+      playerGrade["Color"] = "#f0780d";
+    } else if (actual >= threeFive) {
+      playerGrade["Grade"] = 35;
+      playerGrade["Color"] = "#f53300";
+    } else if (actual >= thirty) {
+      playerGrade["Grade"] = 30;
+      playerGrade["Color"] = "#da000b";
+    } else if (actual >= twoFive) {
+      playerGrade["Grade"] = 25;
+      playerGrade["Color"] = "#da000c";
+    } else {
+      playerGrade["Grade"] = 20;
+      playerGrade["Color"] = "#b8000b";
+    }
+    //console.log("PG: ", playerGrade);
+    return playerGrade;
+  }
+
+  calculateGrades() {
+    var highPoints = 30;
+    var highAst = 10;
+    var highReb = 15;
+    var highStl = 2.5;
+    var highBlk = 2.5;
+    var highFT = 0.93;
+    var highThree = 0.45;
+    var highTwo = 0.7;
+
+    var scoring = this.getGrade(
+      highPoints,
+      this.props.player.pts / this.props.player.mpg * 36,
+      0
+    );
+    var ast = this.getGrade(
+      highAst,
+      this.props.player.ast / this.props.player.mpg * 36,
+      0
+    );
+    var reb = this.getGrade(
+      highReb,
+      this.props.player.trb / this.props.player.mpg * 36,
+      0
+    );
+    var stl = this.getGrade(
+      highStl,
+      this.props.player.stl / this.props.player.mpg * 36,
+      0
+    );
+    var blk = this.getGrade(
+      highBlk,
+      this.props.player.blk / this.props.player.mpg * 36,
+      0
+    );
+    var ft = this.getGrade(highFT, this.props.player.freeThrowPct, 0.4);
+    var threePoint = this.getGrade(
+      highThree,
+      this.props.player.threePtPct,
+      0.2
+    );
+    var twoPoint = this.getGrade(highTwo, this.props.player.twoPtPct, 0.2);
+    this.setState({
+      scoring: scoring,
+      ast: ast,
+      reb: reb,
+      stl: stl,
+      blk: blk,
+      ft: ft,
+      threePoint: threePoint,
+      twoPoint: twoPoint
+    });
+  }
+
+  handleStatButton() {
+    this.setState({ renderStats: true, renderRatings: false });
+  }
+
+  handleRatingButton() {
+    this.setState({ renderRatings: true, renderStats: false });
+  }
+
+  renderPlayer(stat) {
+    if (this.state.renderStats === true) {
+      return (
+        <Table striped hover>
+          <thead>
+            <tr>
+              <th>GP</th>
+              <th>FG</th>
+              <th>FGA</th>
+              <th>FG%</th>
+              <th>3P</th>
+              <th>3PA</th>
+              <th>3P%</th>
+              <th>2P</th>
+              <th>2PA</th>
+              <th>2P%</th>
+              <th>FT</th>
+              <th>FTA</th>
+              <th>FT%</th>
+              <th>ORB</th>
+              <th>DRB</th>
+              <th>TRB</th>
+              <th>AST</th>
+              <th>STL</th>
+              <th>BLK</th>
+              <th>TOV</th>
+              <th>PF</th>
+              <th>PTS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>{stat["gamesPlayed"]}</th>
+              <th>{stat["fgm"]}</th>
+              <th>{stat["fga"]}</th>
+              <th>{stat["fgPct"]}</th>
+              <th>{stat["threePt"]}</th>
+              <th>{stat["threePtAtt"]}</th>
+              <th>{stat["threePtPct"]}</th>
+              <th>{stat["twoPt"]}</th>
+              <th>{stat["twoPtAtt"]}</th>
+              <th>{stat["twoPtPct"]}</th>
+              <th>{stat["ft"]}</th>
+              <th>{stat["fta"]}</th>
+              <th>{stat["freeThrowPct"]}</th>
+              <th>{stat["orb"]}</th>
+              <th>{stat["drb"]}</th>
+              <th>{stat["trb"]}</th>
+              <th>{stat["ast"]}</th>
+              <th>{stat["stl"]}</th>
+              <th>{stat["blk"]}</th>
+              <th>{stat["tov"]}</th>
+              <th>{stat["pf"]}</th>
+              <th>{stat["pts"]}</th>
+            </tr>
+          </tbody>
+        </Table>
+      );
+    } else if (this.state.renderRatings === true) {
+      // this.calculateGrades();
+      return (
+        <Table striped hover>
+          <thead>
+            <tr>
+              <th>GP</th>
+              <th>FG</th>
+              <th>3P</th>
+              <th>2P</th>
+              <th>FT</th>
+              <th>ORB</th>
+              <th>DRB</th>
+              <th>TRB</th>
+              <th>AST</th>
+              <th>STL</th>
+              <th>BLK</th>
+              <th>TOV</th>
+              <th>PF</th>
+              <th>PTS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>{stat["gamesPlayed"]}</th>
+              <th>{stat["fgm"]}</th>
+              <th
+                style={{
+                  color: this.state.threePoint.Color,
+                  fontWeight: "bold"
+                }}
+              >
+                {this.state.threePoint.Grade}
+              </th>
+              <th
+                style={{ color: this.state.twoPoint.Color, fontWeight: "bold" }}
+              >
+                {this.state.twoPoint.Grade}
+              </th>
+              <th style={{ color: this.state.ft.Color, fontWeight: "bold" }}>
+                {this.state.ft.Grade}
+              </th>
+              <th>{stat["orb"]}</th>
+              <th>{stat["drb"]}</th>
+              <th style={{ color: this.state.reb.Color, fontWeight: "bold" }}>
+                {this.state.reb.Grade}
+              </th>
+              <th style={{ color: this.state.ast.Color, fontWeight: "bold" }}>
+                {this.state.ast.Grade}
+              </th>
+              <th style={{ color: this.state.stl.Color, fontWeight: "bold" }}>
+                {this.state.stl.Grade}
+              </th>
+              <th style={{ color: this.state.blk.Color, fontWeight: "bold" }}>
+                {this.state.blk.Grade}
+              </th>
+              <th>{stat["tov"]}</th>
+              <th>{stat["pf"]}</th>
+              <th
+                style={{ color: this.state.scoring.Color, fontWeight: "bold" }}
+              >
+                {this.state.scoring.Grade}
+              </th>
+            </tr>
+          </tbody>
+        </Table>
+      );
+    }
   }
 
   render() {
@@ -15,70 +281,69 @@ export default class PlayerSeasonStats extends React.Component {
       paddingLeft: "15px",
       color: this.props.colors.Color_Sec
     };
+    var selectedStatButton = {
+      borderRadius: "10px 0px 0px 10px",
+      backgroundColor: this.props.colors.Color_Main,
+      color: this.props.colors.Color_Sec,
+      width: "100px",
+      fontWeight: "bold"
+    };
+    var unSelectedStatButton = {
+      borderRadius: "10px 0px 0px 10px",
+      backgroundColor: "#fff",
+      color: this.props.colors.Color_Main,
+      width: "100px"
+    };
+    var selectedRatingButton = {
+      borderRadius: "0px 10px 10px 0px",
+      backgroundColor: this.props.colors.Color_Main,
+      color: this.props.colors.Color_Sec,
+      width: "100px",
+      fontWeight: "bold"
+    };
+    var unSelectedRatingButton = {
+      borderRadius: "0px 10px 10px 0px",
+      backgroundColor: "#fff",
+      color: this.props.colors.Color_Main,
+      width: "100px"
+    };
+    var statStyle;
+    var ratingStyle;
+    if (this.state.renderStats) {
+      statStyle = selectedStatButton;
+    } else {
+      statStyle = unSelectedStatButton;
+    }
+    if (this.state.renderRatings) {
+      ratingStyle = selectedRatingButton;
+    } else {
+      ratingStyle = unSelectedRatingButton;
+    }
     var stat = this.props.player;
     return (
       <div>
         <Grid>
-          <Row>
+          <Row style={{ paddingTop: "30px" }}>
+            <Col lg={3} lgOffset={9} style={{ paddingLeft: "70px" }}>
+              <span>
+                <Button onClick={this.handleStatButton} style={statStyle}>
+                  Stats
+                </Button>
+              </span>
+              <span>
+                <Button onClick={this.handleRatingButton} style={ratingStyle}>
+                  Ratings
+                </Button>
+              </span>
+            </Col>
+          </Row>
+          <Row style={{ paddingTop: "20px" }}>
             <Col lg={12}>
               <div className="card">
-                <div id="roster-header">
+                <div>
                   <div style={headerStyle}>2017-18 PLAYER STATS</div>
                 </div>
-                <Table striped hover>
-                  <thead>
-                    <tr>
-                      <th>GP</th>
-                      <th>FG</th>
-                      <th>FGA</th>
-                      <th>FG%</th>
-                      <th>3P</th>
-                      <th>3PA</th>
-                      <th>3P%</th>
-                      <th>2P</th>
-                      <th>2PA</th>
-                      <th>2P%</th>
-                      <th>FT</th>
-                      <th>FTA</th>
-                      <th>FT%</th>
-                      <th>ORB</th>
-                      <th>DRB</th>
-                      <th>TRB</th>
-                      <th>AST</th>
-                      <th>STL</th>
-                      <th>BLK</th>
-                      <th>TOV</th>
-                      <th>PF</th>
-                      <th>PTS</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th>{stat["gamesPlayed"]}</th>
-                      <th>{stat["fgm"]}</th>
-                      <th>{stat["fga"]}</th>
-                      <th>{stat["fgPct"]}</th>
-                      <th>{stat["threePt"]}</th>
-                      <th>{stat["threePtAtt"]}</th>
-                      <th>{stat["threePtPct"]}</th>
-                      <th>{stat["twoPt"]}</th>
-                      <th>{stat["twoPtAtt"]}</th>
-                      <th>{stat["twoPtPct"]}</th>
-                      <th>{stat["ft"]}</th>
-                      <th>{stat["fta"]}</th>
-                      <th>{stat["freeThrowPct"]}</th>
-                      <th>{stat["orb"]}</th>
-                      <th>{stat["drb"]}</th>
-                      <th>{stat["trb"]}</th>
-                      <th>{stat["ast"]}</th>
-                      <th>{stat["stl"]}</th>
-                      <th>{stat["blk"]}</th>
-                      <th>{stat["tov"]}</th>
-                      <th>{stat["pf"]}</th>
-                      <th>{stat["pts"]}</th>
-                    </tr>
-                  </tbody>
-                </Table>
+                {this.renderPlayer(stat)}
               </div>
             </Col>
           </Row>

@@ -16716,6 +16716,7 @@ var PlayerPositionAverages = function (_React$Component) {
           shadow: false
         },
         tooltip: {
+          enabled: false,
           shared: true
         },
         plotOptions: {
@@ -16801,10 +16802,548 @@ var PlayerSeasonStats = function (_React$Component) {
   function PlayerSeasonStats(props) {
     _classCallCheck(this, PlayerSeasonStats);
 
-    return _possibleConstructorReturn(this, (PlayerSeasonStats.__proto__ || Object.getPrototypeOf(PlayerSeasonStats)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (PlayerSeasonStats.__proto__ || Object.getPrototypeOf(PlayerSeasonStats)).call(this, props));
+
+    _this.state = {
+      renderStats: true,
+      renderRatings: false
+    };
+    _this.handleStatButton = _this.handleStatButton.bind(_this);
+    _this.handleRatingButton = _this.handleRatingButton.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.renderPlayer = _this.renderPlayer.bind(_this);
+    return _this;
   }
 
   _createClass(PlayerSeasonStats, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.calculateGrades();
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      //console.log("PG: ", playerGrade);
+      return playerGrade;
+    }
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var highPoints = 30;
+      var highAst = 10;
+      var highReb = 15;
+      var highStl = 2.5;
+      var highBlk = 2.5;
+      var highFT = 0.93;
+      var highThree = 0.45;
+      var highTwo = 0.7;
+
+      var scoring = this.getGrade(highPoints, this.props.player.pts / this.props.player.mpg * 36, 0);
+      var ast = this.getGrade(highAst, this.props.player.ast / this.props.player.mpg * 36, 0);
+      var reb = this.getGrade(highReb, this.props.player.trb / this.props.player.mpg * 36, 0);
+      var stl = this.getGrade(highStl, this.props.player.stl / this.props.player.mpg * 36, 0);
+      var blk = this.getGrade(highBlk, this.props.player.blk / this.props.player.mpg * 36, 0);
+      var ft = this.getGrade(highFT, this.props.player.freeThrowPct, 0.4);
+      var threePoint = this.getGrade(highThree, this.props.player.threePtPct, 0.2);
+      var twoPoint = this.getGrade(highTwo, this.props.player.twoPtPct, 0.2);
+      this.setState({
+        scoring: scoring,
+        ast: ast,
+        reb: reb,
+        stl: stl,
+        blk: blk,
+        ft: ft,
+        threePoint: threePoint,
+        twoPoint: twoPoint
+      });
+    }
+  }, {
+    key: "handleStatButton",
+    value: function handleStatButton() {
+      this.setState({ renderStats: true, renderRatings: false });
+    }
+  }, {
+    key: "handleRatingButton",
+    value: function handleRatingButton() {
+      this.setState({ renderRatings: true, renderStats: false });
+    }
+  }, {
+    key: "renderPlayer",
+    value: function renderPlayer(stat) {
+      if (this.state.renderStats === true) {
+        return _react2.default.createElement(
+          _reactBootstrap.Table,
+          { striped: true, hover: true },
+          _react2.default.createElement(
+            "thead",
+            null,
+            _react2.default.createElement(
+              "tr",
+              null,
+              _react2.default.createElement(
+                "th",
+                null,
+                "GP"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "FG"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "FGA"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "FG%"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "3P"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "3PA"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "3P%"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "2P"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "2PA"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "2P%"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "FT"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "FTA"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "FT%"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "ORB"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "DRB"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "TRB"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "AST"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "STL"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "BLK"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "TOV"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "PF"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "PTS"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            "tbody",
+            null,
+            _react2.default.createElement(
+              "tr",
+              null,
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["gamesPlayed"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["fgm"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["fga"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["fgPct"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["threePt"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["threePtAtt"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["threePtPct"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["twoPt"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["twoPtAtt"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["twoPtPct"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["ft"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["fta"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["freeThrowPct"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["orb"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["drb"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["trb"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["ast"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["stl"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["blk"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["tov"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["pf"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["pts"]
+              )
+            )
+          )
+        );
+      } else if (this.state.renderRatings === true) {
+        // this.calculateGrades();
+        return _react2.default.createElement(
+          _reactBootstrap.Table,
+          { striped: true, hover: true },
+          _react2.default.createElement(
+            "thead",
+            null,
+            _react2.default.createElement(
+              "tr",
+              null,
+              _react2.default.createElement(
+                "th",
+                null,
+                "GP"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "FG"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "3P"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "2P"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "FT"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "ORB"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "DRB"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "TRB"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "AST"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "STL"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "BLK"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "TOV"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "PF"
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                "PTS"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            "tbody",
+            null,
+            _react2.default.createElement(
+              "tr",
+              null,
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["gamesPlayed"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["fgm"]
+              ),
+              _react2.default.createElement(
+                "th",
+                {
+                  style: {
+                    color: this.state.threePoint.Color,
+                    fontWeight: "bold"
+                  }
+                },
+                this.state.threePoint.Grade
+              ),
+              _react2.default.createElement(
+                "th",
+                {
+                  style: { color: this.state.twoPoint.Color, fontWeight: "bold" }
+                },
+                this.state.twoPoint.Grade
+              ),
+              _react2.default.createElement(
+                "th",
+                { style: { color: this.state.ft.Color, fontWeight: "bold" } },
+                this.state.ft.Grade
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["orb"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["drb"]
+              ),
+              _react2.default.createElement(
+                "th",
+                { style: { color: this.state.reb.Color, fontWeight: "bold" } },
+                this.state.reb.Grade
+              ),
+              _react2.default.createElement(
+                "th",
+                { style: { color: this.state.ast.Color, fontWeight: "bold" } },
+                this.state.ast.Grade
+              ),
+              _react2.default.createElement(
+                "th",
+                { style: { color: this.state.stl.Color, fontWeight: "bold" } },
+                this.state.stl.Grade
+              ),
+              _react2.default.createElement(
+                "th",
+                { style: { color: this.state.blk.Color, fontWeight: "bold" } },
+                this.state.blk.Grade
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["tov"]
+              ),
+              _react2.default.createElement(
+                "th",
+                null,
+                stat["pf"]
+              ),
+              _react2.default.createElement(
+                "th",
+                {
+                  style: { color: this.state.scoring.Color, fontWeight: "bold" }
+                },
+                this.state.scoring.Grade
+              )
+            )
+          )
+        );
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var headerStyle = {
@@ -16814,6 +17353,44 @@ var PlayerSeasonStats = function (_React$Component) {
         paddingLeft: "15px",
         color: this.props.colors.Color_Sec
       };
+      var selectedStatButton = {
+        borderRadius: "10px 0px 0px 10px",
+        backgroundColor: this.props.colors.Color_Main,
+        color: this.props.colors.Color_Sec,
+        width: "100px",
+        fontWeight: "bold"
+      };
+      var unSelectedStatButton = {
+        borderRadius: "10px 0px 0px 10px",
+        backgroundColor: "#fff",
+        color: this.props.colors.Color_Main,
+        width: "100px"
+      };
+      var selectedRatingButton = {
+        borderRadius: "0px 10px 10px 0px",
+        backgroundColor: this.props.colors.Color_Main,
+        color: this.props.colors.Color_Sec,
+        width: "100px",
+        fontWeight: "bold"
+      };
+      var unSelectedRatingButton = {
+        borderRadius: "0px 10px 10px 0px",
+        backgroundColor: "#fff",
+        color: this.props.colors.Color_Main,
+        width: "100px"
+      };
+      var statStyle;
+      var ratingStyle;
+      if (this.state.renderStats) {
+        statStyle = selectedStatButton;
+      } else {
+        statStyle = unSelectedStatButton;
+      }
+      if (this.state.renderRatings) {
+        ratingStyle = selectedRatingButton;
+      } else {
+        ratingStyle = unSelectedRatingButton;
+      }
       var stat = this.props.player;
       return _react2.default.createElement(
         "div",
@@ -16823,7 +17400,33 @@ var PlayerSeasonStats = function (_React$Component) {
           null,
           _react2.default.createElement(
             _reactBootstrap.Row,
-            null,
+            { style: { paddingTop: "30px" } },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 3, lgOffset: 9, style: { paddingLeft: "70px" } },
+              _react2.default.createElement(
+                "span",
+                null,
+                _react2.default.createElement(
+                  _reactBootstrap.Button,
+                  { onClick: this.handleStatButton, style: statStyle },
+                  "Stats"
+                )
+              ),
+              _react2.default.createElement(
+                "span",
+                null,
+                _react2.default.createElement(
+                  _reactBootstrap.Button,
+                  { onClick: this.handleRatingButton, style: ratingStyle },
+                  "Ratings"
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { style: { paddingTop: "20px" } },
             _react2.default.createElement(
               _reactBootstrap.Col,
               { lg: 12 },
@@ -16832,253 +17435,14 @@ var PlayerSeasonStats = function (_React$Component) {
                 { className: "card" },
                 _react2.default.createElement(
                   "div",
-                  { id: "roster-header" },
+                  null,
                   _react2.default.createElement(
                     "div",
                     { style: headerStyle },
                     "2017-18 PLAYER STATS"
                   )
                 ),
-                _react2.default.createElement(
-                  _reactBootstrap.Table,
-                  { striped: true, hover: true },
-                  _react2.default.createElement(
-                    "thead",
-                    null,
-                    _react2.default.createElement(
-                      "tr",
-                      null,
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "GP"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "FG"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "FGA"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "FG%"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "3P"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "3PA"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "3P%"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "2P"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "2PA"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "2P%"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "FT"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "FTA"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "FT%"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "ORB"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "DRB"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "TRB"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "AST"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "STL"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "BLK"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "TOV"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "PF"
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        "PTS"
-                      )
-                    )
-                  ),
-                  _react2.default.createElement(
-                    "tbody",
-                    null,
-                    _react2.default.createElement(
-                      "tr",
-                      null,
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["gamesPlayed"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["fgm"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["fga"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["fgPct"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["threePt"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["threePtAtt"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["threePtPct"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["twoPt"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["twoPtAtt"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["twoPtPct"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["ft"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["fta"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["freeThrowPct"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["orb"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["drb"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["trb"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["ast"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["stl"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["blk"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["tov"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["pf"]
-                      ),
-                      _react2.default.createElement(
-                        "th",
-                        null,
-                        stat["pts"]
-                      )
-                    )
-                  )
-                )
+                this.renderPlayer(stat)
               )
             )
           ),
@@ -73852,6 +74216,10 @@ var _CompPlayerDefBarRatings = __webpack_require__(522);
 
 var _CompPlayerDefBarRatings2 = _interopRequireDefault(_CompPlayerDefBarRatings);
 
+var _CompPlayerOvrBarRating = __webpack_require__(523);
+
+var _CompPlayerOvrBarRating2 = _interopRequireDefault(_CompPlayerOvrBarRating);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -74193,7 +74561,7 @@ var AddPlayerSearch = function (_React$Component) {
     value: function renderBarRatings() {
       if (this.state.advancedCat === "Advanced Overall") {
         var category = "Advanced Overall";
-        //return <CompPlayerBarRatings type={category} player={this.props.list} />;
+        return _react2.default.createElement(_CompPlayerOvrBarRating2.default, { player: this.props.list });
       }
       if (this.state.advancedCat === "Advanced Offense") {
         var category = "Advanced Offense";
@@ -74449,6 +74817,18 @@ var _PlayerPolarColumn = __webpack_require__(516);
 
 var _PlayerPolarColumn2 = _interopRequireDefault(_PlayerPolarColumn);
 
+var _CompPlayerOffBarRating = __webpack_require__(525);
+
+var _CompPlayerOffBarRating2 = _interopRequireDefault(_CompPlayerOffBarRating);
+
+var _CompPlayerDefBarRating = __webpack_require__(526);
+
+var _CompPlayerDefBarRating2 = _interopRequireDefault(_CompPlayerDefBarRating);
+
+var _CompPlayerOvrBarRating = __webpack_require__(524);
+
+var _CompPlayerOvrBarRating2 = _interopRequireDefault(_CompPlayerOvrBarRating);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -74473,7 +74853,9 @@ var AddPlayerSearch2 = function (_React$Component) {
       suggestions: [],
       players: [],
       player: {},
-      renderPlayer: false
+      renderPlayer: false,
+      renderAdvanced: false,
+      advancedCat: "Advanced Offense"
     };
     _this.escapeRegexCharacters = _this.escapeRegexCharacters.bind(_this);
     _this.getSuggestions = _this.getSuggestions.bind(_this);
@@ -74485,6 +74867,10 @@ var AddPlayerSearch2 = function (_React$Component) {
     _this.handleClick = _this.handleClick.bind(_this);
     _this.renderPlayer = _this.renderPlayer.bind(_this);
     //this.handleChange = this.handleChange.bind(this);
+    _this.handleAdvancedClick = _this.handleAdvancedClick.bind(_this);
+    _this.renderAdvanced = _this.renderAdvanced.bind(_this);
+    _this.selectAdvancedCat = _this.selectAdvancedCat.bind(_this);
+    _this.renderBarRatings = _this.renderBarRatings.bind(_this);
     return _this;
   }
 
@@ -74717,19 +75103,90 @@ var AddPlayerSearch2 = function (_React$Component) {
                   textAlign: "center",
                   cursor: "pointer",
                   paddingBottom: "10px"
-                }
+                },
+                onClick: this.handleAdvancedClick
               },
               "Advanced Stats"
             )
+          ),
+          this.renderAdvanced()
+        );
+      }
+    }
+  }, {
+    key: "renderBarRatings",
+    value: function renderBarRatings() {
+      if (this.state.advancedCat === "Advanced Overall") {
+        var category = "Advanced Overall";
+        return _react2.default.createElement(_CompPlayerOvrBarRating2.default, { player: this.state.player });
+      }
+      if (this.state.advancedCat === "Advanced Offense") {
+        var category = "Advanced Offense";
+        return _react2.default.createElement(_CompPlayerOffBarRating2.default, { player: this.state.player });
+      }
+      if (this.state.advancedCat === "Advanced Defense") {
+        var category = "Advanced Defense";
+        return _react2.default.createElement(_CompPlayerDefBarRating2.default, { player: this.state.player });
+      }
+    }
+  }, {
+    key: "handleAdvancedClick",
+    value: function handleAdvancedClick() {
+      this.setState({ renderAdvanced: !this.state.renderAdvanced });
+    }
+  }, {
+    key: "selectAdvancedCat",
+    value: function selectAdvancedCat(evt, eventKey) {
+      this.setState({ advancedCat: eventKey.target.innerHTML });
+    }
+  }, {
+    key: "renderAdvanced",
+    value: function renderAdvanced() {
+      if (this.state.renderAdvanced) {
+        return _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement("hr", null),
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                _reactBootstrap.DropdownButton,
+                {
+                  title: this.state.advancedCat,
+                  className: "card",
+                  style: { border: "none", fontSize: "16px" },
+                  onSelect: this.selectAdvancedCat
+                },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "1" },
+                  "Advanced Offense"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "2" },
+                  "Advanced Defense"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "3" },
+                  "Advanced Overall"
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            this.renderBarRatings()
           )
         );
       }
     }
-
-    // handleChange(event) {
-    //   this.setState({ player: event.target.value });
-    // }
-
   }, {
     key: "render",
     value: function render() {
@@ -76968,6 +77425,966 @@ var CompPlayerDefBarRatings = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = CompPlayerDefBarRatings;
+
+/***/ }),
+/* 523 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CompPlayerOvrBarRatings = function (_React$Component) {
+  _inherits(CompPlayerOvrBarRatings, _React$Component);
+
+  function CompPlayerOvrBarRatings(props) {
+    _classCallCheck(this, CompPlayerOvrBarRatings);
+
+    var _this = _possibleConstructorReturn(this, (CompPlayerOvrBarRatings.__proto__ || Object.getPrototypeOf(CompPlayerOvrBarRatings)).call(this, props));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CompPlayerOvrBarRatings, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.setState({ player: this.props.player }, function () {
+        console.log("TSPCT: ", _this2.state.player.tsPct);
+        _this2.calculateGrades();
+      });
+    }
+
+    // componentWillReceiveProps(nextProps) {
+    //   if (nextProps.player) {
+    //     this.setState({ player: nextProps.player }, () => {
+    //       console.log("TSPCT: ", this.state.player.tsPct);
+    //       this.calculateGrades();
+    //       //this.createChart();
+    //     });
+    //   }
+    // }
+
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highPER = 30.0;
+      var highBPM = 10.0;
+      var highVorp = 4.5;
+      var highWS = 8.0;
+      var highWs48 = 0.3;
+
+      var per = this.getGrade(highPER, this.state.player.per, 4.0);
+      var bpm = this.getGrade(highBPM, this.state.player.bpm, -7.0);
+      var vorp = this.getGrade(highVorp, this.state.player.vorp, -1.0);
+      var ws = this.getGrade(highWS, this.state.player.ws, -1.0);
+      var wsFourtyEight = this.getGrade(highWs48, this.state.player.wsFourtyEight, 0);
+      this.setState({
+        per: per,
+        bpm: bpm,
+        vorp: vorp,
+        ws: ws,
+        wsFourtyEight: wsFourtyEight
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating-ovr", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: null
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["PER", "BPM", "VORP", "WS", "WS/48"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          valueSuffix: null
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{ y: this.state.per.Grade, color: this.state.per.Color }, { y: this.state.bpm.Grade, color: this.state.bpm.Color }, { y: this.state.vorp.Grade, color: this.state.vorp.Color }, { y: this.state.ws.Grade, color: this.state.ws.Color }, {
+            y: this.state.wsFourtyEight.Grade,
+            color: this.state.wsFourtyEight.Color
+          }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          id: "container-rating-ovr",
+          style: {
+            height: "300px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return CompPlayerOvrBarRatings;
+}(_react2.default.Component);
+
+exports.default = CompPlayerOvrBarRatings;
+
+/***/ }),
+/* 524 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CompPlayerOvrBarRatings2 = function (_React$Component) {
+  _inherits(CompPlayerOvrBarRatings2, _React$Component);
+
+  function CompPlayerOvrBarRatings2(props) {
+    _classCallCheck(this, CompPlayerOvrBarRatings2);
+
+    var _this = _possibleConstructorReturn(this, (CompPlayerOvrBarRatings2.__proto__ || Object.getPrototypeOf(CompPlayerOvrBarRatings2)).call(this, props));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CompPlayerOvrBarRatings2, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.setState({ player: this.props.player }, function () {
+        console.log("TSPCT: ", _this2.state.player.tsPct);
+        _this2.calculateGrades();
+      });
+    }
+
+    // componentWillReceiveProps(nextProps) {
+    //   if (nextProps.player) {
+    //     this.setState({ player: nextProps.player }, () => {
+    //       console.log("TSPCT: ", this.state.player.tsPct);
+    //       this.calculateGrades();
+    //       //this.createChart();
+    //     });
+    //   }
+    // }
+
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highPER = 30.0;
+      var highBPM = 10.0;
+      var highVorp = 4.5;
+      var highWS = 8.0;
+      var highWs48 = 0.3;
+
+      var per = this.getGrade(highPER, this.state.player.per, 4.0);
+      var bpm = this.getGrade(highBPM, this.state.player.bpm, -7.0);
+      var vorp = this.getGrade(highVorp, this.state.player.vorp, -1.0);
+      var ws = this.getGrade(highWS, this.state.player.ws, -1.0);
+      var wsFourtyEight = this.getGrade(highWs48, this.state.player.wsFourtyEight, 0);
+      this.setState({
+        per: per,
+        bpm: bpm,
+        vorp: vorp,
+        ws: ws,
+        wsFourtyEight: wsFourtyEight
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating-ovr2", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: null
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["PER", "BPM", "VORP", "WS", "WS/48"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          valueSuffix: null
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{ y: this.state.per.Grade, color: this.state.per.Color }, { y: this.state.bpm.Grade, color: this.state.bpm.Color }, { y: this.state.vorp.Grade, color: this.state.vorp.Color }, { y: this.state.ws.Grade, color: this.state.ws.Color }, {
+            y: this.state.wsFourtyEight.Grade,
+            color: this.state.wsFourtyEight.Color
+          }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          id: "container-rating-ovr2",
+          style: {
+            height: "300px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return CompPlayerOvrBarRatings2;
+}(_react2.default.Component);
+
+exports.default = CompPlayerOvrBarRatings2;
+
+/***/ }),
+/* 525 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CompPlayerOffBarRatings2 = function (_React$Component) {
+  _inherits(CompPlayerOffBarRatings2, _React$Component);
+
+  function CompPlayerOffBarRatings2(props) {
+    _classCallCheck(this, CompPlayerOffBarRatings2);
+
+    var _this = _possibleConstructorReturn(this, (CompPlayerOffBarRatings2.__proto__ || Object.getPrototypeOf(CompPlayerOffBarRatings2)).call(this, props));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CompPlayerOffBarRatings2, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.setState({ player: this.props.player }, function () {
+        console.log("TSPCT: ", _this2.state.player.tsPct);
+        _this2.calculateGrades();
+      });
+    }
+
+    // componentWillReceiveProps(nextProps) {
+    //   if (nextProps.player) {
+    //     this.setState({ player: nextProps.player }, () => {
+    //       console.log("TSPCT: ", this.state.player.tsPct);
+    //       this.calculateGrades();
+    //       //this.createChart();
+    //     });
+    //   }
+    // }
+
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highEFG = 0.66;
+      var highTS = 0.67;
+      var highFTr = 0.5;
+      var highThreePar = 0.7;
+      var highAstPct = 46.0;
+      var highTovPct = -5.0;
+      var highOrbPct = 17.0;
+      var highUsgPct = 35.0;
+      var highObpm = 10.0;
+      var highOws = 6.5;
+
+      var efg = this.getGrade(highEFG, this.state.player.efgPct, 0.25);
+      var ts = this.getGrade(highTS, this.state.player.tsPct, 0.35);
+      var ftr = this.getGrade(highFTr, this.state.player.ftr, 0.03);
+      var threePar = this.getGrade(highThreePar, this.state.player.threePAr, 0);
+      var astPct = this.getGrade(highAstPct, this.state.player.astPct, 2.0);
+      var tovPct = this.getGrade(highTovPct, this.state.player.tovPct * -1, -18.0);
+      var orbPct = this.getGrade(highOrbPct, this.state.player.orbPct, 2.2);
+      var usgPct = this.getGrade(highUsgPct, this.state.player.usgPct, 7.0);
+      var obpm = this.getGrade(highObpm, this.state.player.obpm, -6.0);
+      var ows = this.getGrade(highOws, this.state.player.ows, -1.5);
+      this.setState({
+        efg: efg,
+        ts: ts,
+        ftr: ftr,
+        threePar: threePar,
+        astPct: astPct,
+        tovPct: tovPct,
+        orbPct: orbPct,
+        usgPct: usgPct,
+        obpm: obpm,
+        ows: ows
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating-off2", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: null
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["eFG%", "TS%", "FTr", "3PAr", "AST%", "TOV%", "ORB%", "USG%", "OBPM", "OWS"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          valueSuffix: null
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{ y: this.state.efg.Grade, color: this.state.efg.Color }, { y: this.state.ts.Grade, color: this.state.ts.Color }, { y: this.state.ftr.Grade, color: this.state.ftr.Color }, { y: this.state.threePar.Grade, color: this.state.threePar.Color }, { y: this.state.astPct.Grade, color: this.state.astPct.Color }, { y: this.state.tovPct.Grade, color: this.state.tovPct.Color }, { y: this.state.orbPct.Grade, color: this.state.orbPct.Color }, { y: this.state.usgPct.Grade, color: this.state.usgPct.Color }, { y: this.state.obpm.Grade, color: this.state.obpm.Color }, { y: this.state.ows.Grade, color: this.state.ows.Color }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          id: "container-rating-off2",
+          style: {
+            height: "500px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return CompPlayerOffBarRatings2;
+}(_react2.default.Component);
+
+exports.default = CompPlayerOffBarRatings2;
+
+/***/ }),
+/* 526 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CompPlayerDefBarRatings2 = function (_React$Component) {
+  _inherits(CompPlayerDefBarRatings2, _React$Component);
+
+  function CompPlayerDefBarRatings2(props) {
+    _classCallCheck(this, CompPlayerDefBarRatings2);
+
+    var _this = _possibleConstructorReturn(this, (CompPlayerDefBarRatings2.__proto__ || Object.getPrototypeOf(CompPlayerDefBarRatings2)).call(this, props));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CompPlayerDefBarRatings2, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.setState({ player: this.props.player }, function () {
+        console.log("TSPCT: ", _this2.state.player.tsPct);
+        _this2.calculateGrades();
+      });
+    }
+
+    // componentWillReceiveProps(nextProps) {
+    //   if (nextProps.player) {
+    //     this.setState({ player: nextProps.player }, () => {
+    //       console.log("TSPCT: ", this.state.player.tsPct);
+    //       this.calculateGrades();
+    //       //this.createChart();
+    //     });
+    //   }
+    // }
+
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highBlkPct = 6.1;
+      var highStlPct = 3.33;
+      var highDrbPct = 34.0;
+      var highTrbPct = 25.0;
+      var highDbpm = 4.5;
+      var highDws = 2.5;
+
+      var blkPct = this.getGrade(highBlkPct, this.state.player.blkPct, 0);
+      var stlPct = this.getGrade(highStlPct, this.state.player.stlPct, 0);
+      var drbPct = this.getGrade(highDrbPct, this.state.player.drbPct, 7.0);
+      var trbPct = this.getGrade(highTrbPct, this.state.player.trbPct, 2);
+      var dbpm = this.getGrade(highDbpm, this.state.player.dbpm, -4.5);
+      var dws = this.getGrade(highDws, this.state.player.dws, 0);
+      this.setState({
+        blkPct: blkPct,
+        stlPct: stlPct,
+        drbPct: drbPct,
+        trbPct: trbPct,
+        dbpm: dbpm,
+        dws: dws
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating-def2", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: null
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["BLK%", "STL%", "DRB%", "TRB%", "DBPM", "DWS"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          valueSuffix: null
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{ y: this.state.blkPct.Grade, color: this.state.blkPct.Color }, { y: this.state.stlPct.Grade, color: this.state.stlPct.Color }, { y: this.state.drbPct.Grade, color: this.state.drbPct.Color }, { y: this.state.trbPct.Grade, color: this.state.trbPct.Color }, { y: this.state.dbpm.Grade, color: this.state.dbpm.Color }, { y: this.state.dws.Grade, color: this.state.dws.Color }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          id: "container-rating-def2",
+          style: {
+            height: "300px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return CompPlayerDefBarRatings2;
+}(_react2.default.Component);
+
+exports.default = CompPlayerDefBarRatings2;
 
 /***/ })
 /******/ ]);

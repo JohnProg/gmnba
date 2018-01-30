@@ -11,9 +11,14 @@ import {
   Nav,
   NavItem,
   Image,
-  Thumbnail
+  Thumbnail,
+  DropdownButton,
+  MenuItem
 } from "react-bootstrap";
 import PlayerPolarColumn3 from "./PlayerPolarColumn3";
+import CompPlayerOffBarRatings2 from "./CompPlayerOffBarRating2";
+import CompPlayerDefBarRatings2 from "./CompPlayerDefBarRating2";
+import CompPlayerOvrBarRatings2 from "./CompPlayerOvrBarRating2";
 
 export default class AddPlayerSearch2 extends React.Component {
   constructor(props) {
@@ -23,7 +28,9 @@ export default class AddPlayerSearch2 extends React.Component {
       suggestions: [],
       players: [],
       player: {},
-      renderPlayer: false
+      renderPlayer: false,
+      renderAdvanced: false,
+      advancedCat: "Advanced Offense"
     };
     this.escapeRegexCharacters = this.escapeRegexCharacters.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
@@ -39,6 +46,10 @@ export default class AddPlayerSearch2 extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.renderPlayer = this.renderPlayer.bind(this);
     //this.handleChange = this.handleChange.bind(this);
+    this.handleAdvancedClick = this.handleAdvancedClick.bind(this);
+    this.renderAdvanced = this.renderAdvanced.bind(this);
+    this.selectAdvancedCat = this.selectAdvancedCat.bind(this);
+    this.renderBarRatings = this.renderBarRatings.bind(this);
   }
 
   componentDidMount() {}
@@ -197,18 +208,64 @@ export default class AddPlayerSearch2 extends React.Component {
                 cursor: "pointer",
                 paddingBottom: "10px"
               }}
+              onClick={this.handleAdvancedClick}
             >
               Advanced Stats
             </div>
           </Col>
+          {this.renderAdvanced()}
         </div>
       );
     }
   }
 
-  // handleChange(event) {
-  //   this.setState({ player: event.target.value });
-  // }
+  renderBarRatings() {
+    if (this.state.advancedCat === "Advanced Overall") {
+      var category = "Advanced Overall";
+      return <CompPlayerOvrBarRatings2 player={this.state.player} />;
+    }
+    if (this.state.advancedCat === "Advanced Offense") {
+      var category = "Advanced Offense";
+      return <CompPlayerOffBarRatings2 player={this.state.player} />;
+    }
+    if (this.state.advancedCat === "Advanced Defense") {
+      var category = "Advanced Defense";
+      return <CompPlayerDefBarRatings2 player={this.state.player} />;
+    }
+  }
+
+  handleAdvancedClick() {
+    this.setState({ renderAdvanced: !this.state.renderAdvanced });
+  }
+
+  selectAdvancedCat(evt, eventKey) {
+    this.setState({ advancedCat: eventKey.target.innerHTML });
+  }
+
+  renderAdvanced() {
+    if (this.state.renderAdvanced) {
+      return (
+        <div>
+          <Col lg={12}>
+            <hr />
+            <div>
+              <DropdownButton
+                title={this.state.advancedCat}
+                className="card"
+                style={{ border: "none", fontSize: "16px" }}
+                onSelect={this.selectAdvancedCat}
+              >
+                <MenuItem eventKey="1">Advanced Offense</MenuItem>
+                <MenuItem eventKey="2">Advanced Defense</MenuItem>
+                <MenuItem eventKey="3">Advanced Overall</MenuItem>
+              </DropdownButton>
+            </div>
+          </Col>
+          <Col lg={12}>{this.renderBarRatings()}</Col>
+        </div>
+      );
+    }
+  }
 
   render() {
     const { value, suggestions } = this.state;
