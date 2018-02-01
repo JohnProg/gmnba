@@ -209,7 +209,6 @@ export default class PlayerSeasonStats extends React.Component {
         <Table striped hover>
           <thead>
             <tr>
-              <th>GP</th>
               <th>FG</th>
               <th>3P</th>
               <th>2P</th>
@@ -227,8 +226,7 @@ export default class PlayerSeasonStats extends React.Component {
           </thead>
           <tbody>
             <tr>
-              <th>{stat["gamesPlayed"]}</th>
-              <th>{stat["fgm"]}</th>
+              <th>{stat["FGM"]}</th>
               <th
                 style={{
                   color: this.state.threePoint.Color,
@@ -245,8 +243,8 @@ export default class PlayerSeasonStats extends React.Component {
               <th style={{ color: this.state.ft.Color, fontWeight: "bold" }}>
                 {this.state.ft.Grade}
               </th>
-              <th>{stat["orb"]}</th>
-              <th>{stat["drb"]}</th>
+              <th>{stat["ORB"]}</th>
+              <th>{stat["DRB"]}</th>
               <th style={{ color: this.state.reb.Color, fontWeight: "bold" }}>
                 {this.state.reb.Grade}
               </th>
@@ -259,8 +257,8 @@ export default class PlayerSeasonStats extends React.Component {
               <th style={{ color: this.state.blk.Color, fontWeight: "bold" }}>
                 {this.state.blk.Grade}
               </th>
-              <th>{stat["tov"]}</th>
-              <th>{stat["pf"]}</th>
+              <th>{stat["TOV"]}</th>
+              <th>{stat["PF"]}</th>
               <th
                 style={{ color: this.state.scoring.Color, fontWeight: "bold" }}
               >
