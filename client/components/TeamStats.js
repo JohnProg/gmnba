@@ -55,7 +55,7 @@ export default class TeamStats extends React.Component {
                   </thead>
                   <tbody>
                     <tr>
-                      <th>-</th>
+                      <th>{parseInt(stat["W"]) + parseInt(stat["L"])}</th>
                       <th>{stat["FG"]}</th>
                       <th>{stat["FGA"]}</th>
                       <th>{stat["FG_PCT"]}</th>

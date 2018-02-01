@@ -38,6 +38,9 @@ export default class PlayersList extends React.Component {
                     <tr>
                       <th>Name</th>
                       <th>Position</th>
+                      <th>Overall</th>
+                      <th>Offense</th>
+                      <th>Defense</th>
                       <th>Experience</th>
                       <th>Height</th>
                       <th>Weight</th>

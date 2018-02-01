@@ -2250,6 +2250,21 @@ var PlayersList = function (_React$Component) {
                       _react2.default.createElement(
                         "th",
                         null,
+                        "Overall"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Offense"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
+                        "Defense"
+                      ),
+                      _react2.default.createElement(
+                        "th",
+                        null,
                         "Experience"
                       ),
                       _react2.default.createElement(
@@ -4520,7 +4535,7 @@ var TeamStats = function (_React$Component) {
                       _react2.default.createElement(
                         "th",
                         null,
-                        "-"
+                        parseInt(stat["W"]) + parseInt(stat["L"])
                       ),
                       _react2.default.createElement(
                         "th",
@@ -50839,6 +50854,21 @@ var PlayersListEntry = function (_React$Component) {
             { href: "/player/" + this.props.player.id },
             this.props.player.name
           )
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.position
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.position
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.player.position
         ),
         _react2.default.createElement(
           "td",
