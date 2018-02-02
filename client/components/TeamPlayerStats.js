@@ -43,6 +43,7 @@ export default class TeamPlayerStats extends React.Component {
         }
         this.setState({ teamPlayers: playerData });
         for (var j = 0; j < playerData.length; j++) {
+          console.log("J: ", playerData[j].id);
           scatterData.push({
             data: [
               [
@@ -52,7 +53,8 @@ export default class TeamPlayerStats extends React.Component {
             ],
             name: playerData[j].name,
             color: this.props.team.Color_Main,
-            _symbolIndex: 0
+            _symbolIndex: 0,
+            id: playerData[j].id
           });
         }
         this.setState({ data: scatterData }, () => {
@@ -72,6 +74,7 @@ export default class TeamPlayerStats extends React.Component {
     for (let i = 0; i < this.state.teamPlayers.length; i++) {
       console.log(i + ": " + this.state.teamPlayers[i]);
       let player = this.state.teamPlayers[i];
+      console.log("PLAYER ID: ", player.id);
       statArr2.push({
         data: [
           [
@@ -81,7 +84,8 @@ export default class TeamPlayerStats extends React.Component {
         ],
         name: player.name,
         color: this.props.team.Color_Main,
-        _symbolIndex: 0
+        _symbolIndex: 0,
+        id: player.id
       });
     }
     this.setState({ data: statArr2 }, () => {
@@ -178,6 +182,12 @@ export default class TeamPlayerStats extends React.Component {
           "#FFFFFF",
         borderWidth: 1
       },
+      tooltip: {
+        useHTML: true,
+        style: {
+          pointerEvents: "auto"
+        }
+      },
       plotOptions: {
         scatter: {
           marker: {
@@ -189,6 +199,19 @@ export default class TeamPlayerStats extends React.Component {
               }
             }
           },
+          cursor: "pointer",
+          point: {
+            events: {
+              click: event => {
+                console.log("Event: ", event.point.series.userOptions.id);
+                window.location =
+                  "/player/" + event.point.series.userOptions.id;
+                // this.setState({
+                //   name: event.point.series.userOptions.name
+                // });
+              }
+            }
+          },
           states: {
             hover: {
               marker: {
@@ -197,7 +220,7 @@ export default class TeamPlayerStats extends React.Component {
             }
           },
           tooltip: {
-            headerFormat: "<b>{series.name}</b><br>",
+            headerFormat: `<b>{series.name}</b><br>`,
             pointFormat: `{point.x} ${this.state.statTwo}, {point.y} ${this
               .state.statOne}`
           }
