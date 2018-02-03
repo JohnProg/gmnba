@@ -10,11 +10,12 @@ export default class TeamPlayerRanks extends React.Component {
 
   renderPlayers() {
     if (this.props.players) {
+      var stat = this.props.stat;
       this.props.players.sort(function(a, b) {
-        return parseFloat(b.pts) - parseFloat(a.pts);
+        return parseFloat(b[stat]) - parseFloat(a[stat]);
       });
       return this.props.players.map((player, i) => (
-        <TeamPlayerEntry player={player} key={i} />
+        <TeamPlayerEntry player={player} key={i} stat={stat} />
       ));
     }
   }
@@ -27,7 +28,7 @@ export default class TeamPlayerRanks extends React.Component {
             <tr>
               <th>Pos</th>
               <th>Name</th>
-              <th>Pts</th>
+              <th>{this.props.stat}</th>
             </tr>
           </thead>
           <tbody>{this.renderPlayers()}</tbody>

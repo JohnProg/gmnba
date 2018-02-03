@@ -14,7 +14,7 @@ export default class TeamPlayerEntry extends React.Component {
             {this.props.player.name}
           </a>
         </td>
-        <td>{this.props.player.pts}</td>
+        <td>{this.props.player[this.props.stat]}</td>
       </tr>
     );
   }
