@@ -1,5 +1,14 @@
 import React from "react";
-import { Col, Button, Well, Row, Grid, Table } from "react-bootstrap";
+import {
+  Col,
+  Button,
+  Well,
+  Row,
+  Grid,
+  Table,
+  DropdownButton,
+  MenuItem
+} from "react-bootstrap";
 import axios from "axios";
 import PieChart from "./PieChart.js";
 import TeamPlayerRanks from "./TeamPlayerRanks";
@@ -12,7 +21,8 @@ export default class TeamPlayerStats extends React.Component {
       statOne: "pts",
       statTwo: "mpg",
       position: "All",
-      teamPlayers: []
+      teamPlayers: [],
+      pieStat: "Mpg"
     };
     this.createChart = this.createChart.bind(this);
     this.getPlayerShare = this.getPlayerShare.bind(this);
@@ -20,6 +30,7 @@ export default class TeamPlayerStats extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.firstInputChange = this.firstInputChange.bind(this);
     this.secondInputChange = this.secondInputChange.bind(this);
+    this.selectPie = this.selectPie.bind(this);
   }
 
   componentDidMount() {
@@ -59,7 +70,7 @@ export default class TeamPlayerStats extends React.Component {
         }
         this.setState({ data: scatterData }, () => {
           this.getColumnData("pts");
-          this.getPlayerShare("mpg");
+          this.getPlayerShare(this.state.pieStat.toLowerCase());
           //this.createChart();
         });
       })
@@ -114,6 +125,7 @@ export default class TeamPlayerStats extends React.Component {
       for (var i = 0; i < this.state.teamPlayers.length; i++) {
         total += parseFloat(this.state.teamPlayers[i][stat]);
       }
+      console.log(total);
       for (var j = 0; j < this.state.teamPlayers.length; j++) {
         //var player = [];
         var pct = this.state.teamPlayers[j][stat] / total * 100;
@@ -141,6 +153,12 @@ export default class TeamPlayerStats extends React.Component {
       }
     }
     this.setState({ columnData: columnData });
+  }
+
+  selectPie(evt, eventKey) {
+    this.setState({ pieStat: eventKey.target.innerHTML }, () => {
+      this.getPlayerShare(this.state.pieStat);
+    });
   }
 
   createChart() {
@@ -304,6 +322,16 @@ export default class TeamPlayerStats extends React.Component {
       fontSize: "20px",
       paddingLeft: "25px",
       color: this.props.team.Color_Sec
+    };
+    var statLabels = {
+      backgroundColor: this.props.team.Color_Main,
+      color: this.props.team.Color_Third || this.props.team.Color_Sec,
+      textAlign: "center",
+      fontSize: "20px",
+      borderRadius: "0px",
+      width: "100px",
+      marginBottom: "3px",
+      border: "none"
     };
     return (
       <div>
@@ -469,14 +497,66 @@ export default class TeamPlayerStats extends React.Component {
             <Col lg={3} lgOffset={1}>
               <div className="card">
                 <div style={headerStyle}>
-                  <div>Team Shares - MPG</div>
+                  <div>
+                    Team Shares -{" "}
+                    <DropdownButton
+                      title={this.state.pieStat.toUpperCase()}
+                      style={statLabels}
+                      className="card"
+                      onSelect={this.selectPie}
+                    >
+                      <MenuItem eventKey="1">pts</MenuItem>
+                      <MenuItem eventKey="2">ast</MenuItem>
+                      <MenuItem eventKey="3">trb</MenuItem>
+                      <MenuItem eventKey="4">mpg</MenuItem>
+                      <MenuItem eventKey="5">stl</MenuItem>
+                      <MenuItem eventKey="6">blk</MenuItem>
+                      <MenuItem eventKey="7">fgm</MenuItem>
+                      <MenuItem eventKey="8">fga</MenuItem>
+                      <MenuItem eventKey="9">fgPct</MenuItem>
+                      <MenuItem eventKey="10">threePt</MenuItem>
+                      <MenuItem eventKey="11">threePtAtt</MenuItem>
+                      <MenuItem eventKey="12">twoPt</MenuItem>
+                      <MenuItem eventKey="13">twoPtAtt</MenuItem>
+                      <MenuItem eventKey="14">twoPtPct</MenuItem>
+                      <MenuItem eventKey="15">threePtPct</MenuItem>
+                      <MenuItem eventKey="16">ft</MenuItem>
+                      <MenuItem eventKey="17">fta</MenuItem>
+                      <MenuItem eventKey="18">freeThrowPct</MenuItem>
+                      <MenuItem eventKey="19">efgPct</MenuItem>
+                      <MenuItem eventKey="20">tov</MenuItem>
+                      <MenuItem eventKey="21">orb</MenuItem>
+                      <MenuItem eventKey="22">drb</MenuItem>
+                      <MenuItem eventKey="23">pf</MenuItem>
+                      <MenuItem eventKey="24">orbPct</MenuItem>
+                      <MenuItem eventKey="25">astPct</MenuItem>
+                      <MenuItem eventKey="26">tovPct</MenuItem>
+                      <MenuItem eventKey="27">drbPct</MenuItem>
+                      <MenuItem eventKey="28">stlPct</MenuItem>
+                      <MenuItem eventKey="29">blkPct</MenuItem>
+                      <MenuItem eventKey="30">usgPct</MenuItem>
+                      <MenuItem eventKey="31">trbPct</MenuItem>
+                      <MenuItem eventKey="32">tsPct</MenuItem>
+                      <MenuItem eventKey="33">threePAr</MenuItem>
+                      <MenuItem eventKey="34">ftr</MenuItem>
+                      <MenuItem eventKey="35">per</MenuItem>
+                      <MenuItem eventKey="36">ows</MenuItem>
+                      <MenuItem eventKey="37">dws</MenuItem>
+                      <MenuItem eventKey="38">bpm</MenuItem>
+                      <MenuItem eventKey="39">ws</MenuItem>
+                      <MenuItem eventKey="40">obpm</MenuItem>
+                      <MenuItem eventKey="41">dbpm</MenuItem>
+                      <MenuItem eventKey="42">wsFortyEight</MenuItem>
+                      <MenuItem eventKey="43">vorp</MenuItem>
+                    </DropdownButton>
+                  </div>
                 </div>
               </div>
             </Col>
             <Col lg={3} lgOffset={2}>
               <div className="card">
                 <div style={headerStyle}>
-                  <div>Team Leaders - PTS</div>
+                  <div>Team Leaders - Pts</div>
                 </div>
               </div>
             </Col>
@@ -507,7 +587,7 @@ export default class TeamPlayerStats extends React.Component {
             <Col lg={3} lgOffset={1}>
               <div className="card">
                 <div style={headerStyle}>
-                  <div>Player Averages - PTS</div>
+                  <div>Player Averages - Pts</div>
                 </div>
               </div>
             </Col>

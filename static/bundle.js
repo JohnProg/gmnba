@@ -7421,7 +7421,8 @@ var TeamPlayerStats = function (_React$Component) {
       statOne: "pts",
       statTwo: "mpg",
       position: "All",
-      teamPlayers: []
+      teamPlayers: [],
+      pieStat: "Mpg"
     };
     _this.createChart = _this.createChart.bind(_this);
     _this.getPlayerShare = _this.getPlayerShare.bind(_this);
@@ -7429,6 +7430,7 @@ var TeamPlayerStats = function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.firstInputChange = _this.firstInputChange.bind(_this);
     _this.secondInputChange = _this.secondInputChange.bind(_this);
+    _this.selectPie = _this.selectPie.bind(_this);
     return _this;
   }
 
@@ -7466,7 +7468,7 @@ var TeamPlayerStats = function (_React$Component) {
         }
         _this2.setState({ data: scatterData }, function () {
           _this2.getColumnData("pts");
-          _this2.getPlayerShare("mpg");
+          _this2.getPlayerShare(_this2.state.pieStat.toLowerCase());
           //this.createChart();
         });
       }).catch(function (err) {
@@ -7523,6 +7525,7 @@ var TeamPlayerStats = function (_React$Component) {
         for (var i = 0; i < this.state.teamPlayers.length; i++) {
           total += parseFloat(this.state.teamPlayers[i][stat]);
         }
+        console.log(total);
         for (var j = 0; j < this.state.teamPlayers.length; j++) {
           //var player = [];
           var pct = this.state.teamPlayers[j][stat] / total * 100;
@@ -7545,6 +7548,15 @@ var TeamPlayerStats = function (_React$Component) {
         }
       }
       this.setState({ columnData: columnData });
+    }
+  }, {
+    key: "selectPie",
+    value: function selectPie(evt, eventKey) {
+      var _this5 = this;
+
+      this.setState({ pieStat: eventKey.target.innerHTML }, function () {
+        _this5.getPlayerShare(_this5.state.pieStat);
+      });
     }
   }, {
     key: "createChart",
@@ -7702,6 +7714,16 @@ var TeamPlayerStats = function (_React$Component) {
         fontSize: "20px",
         paddingLeft: "25px",
         color: this.props.team.Color_Sec
+      };
+      var statLabels = {
+        backgroundColor: this.props.team.Color_Main,
+        color: this.props.team.Color_Third || this.props.team.Color_Sec,
+        textAlign: "center",
+        fontSize: "20px",
+        borderRadius: "0px",
+        width: "100px",
+        marginBottom: "3px",
+        border: "none"
       };
       return _react2.default.createElement(
         "div",
@@ -8305,7 +8327,232 @@ var TeamPlayerStats = function (_React$Component) {
                   _react2.default.createElement(
                     "div",
                     null,
-                    "Team Shares - MPG"
+                    "Team Shares -",
+                    " ",
+                    _react2.default.createElement(
+                      _reactBootstrap.DropdownButton,
+                      {
+                        title: this.state.pieStat.toUpperCase(),
+                        style: statLabels,
+                        className: "card",
+                        onSelect: this.selectPie
+                      },
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "1" },
+                        "pts"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "2" },
+                        "ast"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "3" },
+                        "trb"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "4" },
+                        "mpg"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "5" },
+                        "stl"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "6" },
+                        "blk"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "7" },
+                        "fgm"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "8" },
+                        "fga"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "9" },
+                        "fgPct"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "10" },
+                        "threePt"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "11" },
+                        "threePtAtt"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "12" },
+                        "twoPt"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "13" },
+                        "twoPtAtt"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "14" },
+                        "twoPtPct"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "15" },
+                        "threePtPct"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "16" },
+                        "ft"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "17" },
+                        "fta"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "18" },
+                        "freeThrowPct"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "19" },
+                        "efgPct"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "20" },
+                        "tov"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "21" },
+                        "orb"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "22" },
+                        "drb"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "23" },
+                        "pf"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "24" },
+                        "orbPct"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "25" },
+                        "astPct"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "26" },
+                        "tovPct"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "27" },
+                        "drbPct"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "28" },
+                        "stlPct"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "29" },
+                        "blkPct"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "30" },
+                        "usgPct"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "31" },
+                        "trbPct"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "32" },
+                        "tsPct"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "33" },
+                        "threePAr"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "34" },
+                        "ftr"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "35" },
+                        "per"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "36" },
+                        "ows"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "37" },
+                        "dws"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "38" },
+                        "bpm"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "39" },
+                        "ws"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "40" },
+                        "obpm"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "41" },
+                        "dbpm"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "42" },
+                        "wsFortyEight"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.MenuItem,
+                        { eventKey: "43" },
+                        "vorp"
+                      )
+                    )
                   )
                 )
               )
@@ -8322,7 +8569,7 @@ var TeamPlayerStats = function (_React$Component) {
                   _react2.default.createElement(
                     "div",
                     null,
-                    "Team Leaders - PTS"
+                    "Team Leaders - Pts"
                   )
                 )
               )
@@ -8377,7 +8624,7 @@ var TeamPlayerStats = function (_React$Component) {
                   _react2.default.createElement(
                     "div",
                     null,
-                    "Player Averages - PTS"
+                    "Player Averages - Pts"
                   )
                 )
               )
@@ -42609,8 +42856,7 @@ var LandingPage = function (_React$Component) {
         "div",
         null,
         _react2.default.createElement(_NavBar2.default, null),
-        _react2.default.createElement(_Info2.default, { props: this.props }),
-        _react2.default.createElement(_SearchBar2.default, null)
+        _react2.default.createElement(_Info2.default, { props: this.props })
       );
     }
   }]);

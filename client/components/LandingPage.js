@@ -13,7 +13,6 @@ export default class LandingPage extends React.Component {
       <div>
         <NavBar />
         <Info props={this.props} />
-        <SearchBar />
       </div>
     );
   }
