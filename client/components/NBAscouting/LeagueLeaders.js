@@ -27,26 +27,26 @@ export default class LeagueLeaders extends React.Component {
     this.state = {
       table4: [],
       showFilter: false,
-      pg: false,
-      sg: false,
-      sf: false,
-      pf: false,
-      c: false,
-      mpg1: false,
-      mpg2: false,
-      mpg3: false,
-      mpg4: false,
-      mpg5: false,
-      exp1: false,
-      exp2: false,
-      exp3: false,
-      exp4: false,
-      exp5: false,
-      age1: false,
-      age2: false,
-      age3: false,
-      age4: false,
-      age5: false
+      pg: true,
+      sg: true,
+      sf: true,
+      pf: true,
+      c: true,
+      mpg1: true,
+      mpg2: true,
+      mpg3: true,
+      mpg4: true,
+      mpg5: true,
+      exp1: true,
+      exp2: true,
+      exp3: true,
+      exp4: true,
+      exp5: true,
+      age1: true,
+      age2: true,
+      age3: true,
+      age4: true,
+      age5: true
     };
     this.rankOverall = this.rankOverall.bind(this);
     this.rankOffense = this.rankOffense.bind(this);
@@ -221,77 +221,138 @@ export default class LeagueLeaders extends React.Component {
   }
 
   filterPlayers() {
-    var playersArr = [];
-    if (this.state.pg) {
-      for (let k = 0; k < this.props.players.length; k++) {
-        if (this.props.players[k].position === "PG") {
-          playersArr.push(this.props.players[k]);
-        }
-      }
+    var playersArr = this.props.players;
+    if (!this.state.pg) {
+      playersArr = playersArr.filter(function(player) {
+        return player.position !== "PG";
+      });
     }
-    if (this.state.sg) {
-      for (let i = 0; i < this.props.players.length; i++) {
-        if (this.props.players[i].position === "SG") {
-          playersArr.push(this.props.players[i]);
-        }
-      }
+    if (!this.state.sg) {
+      playersArr = playersArr.filter(function(player) {
+        return player.position !== "SG";
+      });
     }
-    if (this.state.sf) {
-      for (let i = 0; i < this.props.players.length; i++) {
-        if (this.props.players[i].position === "SF") {
-          playersArr.push(this.props.players[i]);
-        }
-      }
+    if (!this.state.sf) {
+      playersArr = playersArr.filter(function(player) {
+        return player.position !== "SF";
+      });
     }
-    if (this.state.pf) {
-      for (let i = 0; i < this.props.players.length; i++) {
-        if (this.props.players[i].position === "PF") {
-          playersArr.push(this.props.players[i]);
-        }
-      }
+    if (!this.state.pf) {
+      playersArr = playersArr.filter(function(player) {
+        return player.position !== "PF";
+      });
     }
-    if (this.state.c) {
-      for (let i = 0; i < this.props.players.length; i++) {
-        if (this.props.players[i].position === "C") {
-          playersArr.push(this.props.players[i]);
-        }
-      }
+    if (!this.state.c) {
+      playersArr = playersArr.filter(function(player) {
+        return player.position !== "C";
+      });
     }
-    // if (this.state.mpg1) {
-    //   for (let k = 0; k < this.props.players.length; k++) {
-    //     if (this.props.players[k].position === "PG") {
-    //       playersArr.push(this.props.players[k]);
-    //     }
-    //   }
-    // }
-    // if (this.state.mpg2) {
-    //   for (let i = 0; i < this.props.players.length; i++) {
-    //     if (this.props.players[i].position === "SG") {
-    //       playersArr.push(this.props.players[i]);
-    //     }
-    //   }
-    // }
-    // if (this.state.mpg3) {
-    //   for (let i = 0; i < this.props.players.length; i++) {
-    //     if (this.props.players[i].position === "SF") {
-    //       playersArr.push(this.props.players[i]);
-    //     }
-    //   }
-    // }
-    // if (this.state.mpg4) {
-    //   for (let i = 0; i < this.props.players.length; i++) {
-    //     if (this.props.players[i].position === "PF") {
-    //       playersArr.push(this.props.players[i]);
-    //     }
-    //   }
-    // }
-    // if (this.state.mpg5) {
-    //   for (let i = 0; i < this.props.players.length; i++) {
-    //     if (this.props.players[i].position === "C") {
-    //       playersArr.push(this.props.players[i]);
-    //     }
-    //   }
-    // }
+
+    if (!this.state.mpg1) {
+      playersArr = playersArr.filter(function(player) {
+        return player.mpg >= 15.0;
+      });
+    }
+    if (!this.state.mpg2) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.mpg < 15.0 || player.mpg >= 20.0) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.mpg3) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.mpg < 20.0 || player.mpg >= 25.0) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.mpg4) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.mpg < 25.0 || player.mpg >= 30.0) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.mpg5) {
+      playersArr = playersArr.filter(function(player) {
+        return player.mpg < 30.0;
+      });
+    }
+
+    if (!this.state.exp1) {
+      playersArr = playersArr.filter(function(player) {
+        return player.experience !== "R";
+      });
+    }
+    if (!this.state.exp2) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.experience === "R" || player.experience > 3) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.exp3) {
+      playersArr = playersArr.filter(function(player) {
+        if (
+          player.experience === "R" ||
+          player.experience < 4 ||
+          player.experience > 6
+        ) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.exp4) {
+      playersArr = playersArr.filter(function(player) {
+        if (
+          player.experience === "R" ||
+          player.experience < 7 ||
+          player.experience > 10
+        ) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.exp5) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.experience === "R" || player.experience < 11) {
+          return player;
+        }
+      });
+    }
+
+    if (!this.state.age1) {
+      playersArr = playersArr.filter(function(player) {
+        return player.age >= 21;
+      });
+    }
+    if (!this.state.age2) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.age < 21 || player.age > 25.0) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.age3) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.age < 26 || player.age > 30) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.age4) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.age < 31 || player.age > 35) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.age5) {
+      playersArr = playersArr.filter(function(player) {
+        return player.age < 35;
+      });
+    }
     this.setState({ players: playersArr });
   }
 
