@@ -37,7 +37,7 @@ export default class LeadersOffenseTable extends React.Component {
     players.sort(function(a, b) {
       return parseFloat(b.off) - parseFloat(a.off);
     });
-    console.log(players);
+    //console.log(players);
   }
 
   render() {

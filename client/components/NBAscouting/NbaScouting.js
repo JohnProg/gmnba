@@ -35,7 +35,7 @@ export default class NbaScouting extends React.Component {
       .get("/api/teams/getLeagueStats")
       .then(data => {
         this.setState({ teams: data.data }, () => {
-          console.log(this.state.teams);
+          //console.log(this.state.teams);
         });
       })
       .catch(err => {

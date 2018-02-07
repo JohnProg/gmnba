@@ -40,7 +40,7 @@ export default class LeadersOverallTable extends React.Component {
     players.sort(function(a, b) {
       return parseFloat(b.ovr) - parseFloat(a.ovr);
     });
-    console.log(players);
+    //console.log(players);
   }
 
   render() {

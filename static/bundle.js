@@ -20019,7 +20019,7 @@ var LeadersOverallTable = function (_React$Component) {
       players.sort(function (a, b) {
         return parseFloat(b.ovr) - parseFloat(a.ovr);
       });
-      console.log(players);
+      //console.log(players);
     }
   }, {
     key: "render",
@@ -20143,7 +20143,7 @@ var LeadersOffenseTable = function (_React$Component) {
       players.sort(function (a, b) {
         return parseFloat(b.off) - parseFloat(a.off);
       });
-      console.log(players);
+      //console.log(players);
     }
   }, {
     key: "render",
@@ -20267,7 +20267,7 @@ var LeadersDefenseTable = function (_React$Component) {
       players.sort(function (a, b) {
         return parseFloat(b.def) - parseFloat(a.def);
       });
-      console.log(players);
+      //console.log(players);
     }
   }, {
     key: "render",
@@ -58180,7 +58180,7 @@ var Info = function (_React$Component) {
                   { lg: 2 },
                   _react2.default.createElement(
                     "div",
-                    { style: { marginTop: "90px", fontSize: "16px" } },
+                    { style: { marginTop: "90px", fontSize: "15.5px" } },
                     _react2.default.createElement(
                       "div",
                       { style: { textAlign: "right" } },
@@ -61013,7 +61013,7 @@ var PlayerInfo = function (_React$Component) {
                   { lg: 2 },
                   _react2.default.createElement(
                     "div",
-                    { style: { marginTop: "90px", fontSize: "16px" } },
+                    { style: { marginTop: "90px", fontSize: "15.5px" } },
                     _react2.default.createElement(
                       "div",
                       { style: { textAlign: "right" } },
@@ -65602,7 +65602,7 @@ var NbaScouting = function (_React$Component) {
 
       _axios2.default.get("/api/teams/getLeagueStats").then(function (data) {
         _this3.setState({ teams: data.data }, function () {
-          console.log(_this3.state.teams);
+          //console.log(this.state.teams);
         });
       }).catch(function (err) {
         console.log(err);
@@ -65740,7 +65740,6 @@ var NbaScoutingTabs = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props.teams);
       var component = void 0;
       if (this.state.key === 1) component = _react2.default.createElement(_LeagueLeaders2.default, { players: this.props.players });
       if (this.state.key === 2) component = _react2.default.createElement(_PlayerComparison2.default, { players: this.props.players });
@@ -65908,7 +65907,27 @@ var LeagueLeaders = function (_React$Component) {
 
     _this.state = {
       table4: [],
-      showFilter: false
+      showFilter: false,
+      pg: false,
+      sg: false,
+      sf: false,
+      pf: false,
+      c: false,
+      mpg1: false,
+      mpg2: false,
+      mpg3: false,
+      mpg4: false,
+      mpg5: false,
+      exp1: false,
+      exp2: false,
+      exp3: false,
+      exp4: false,
+      exp5: false,
+      age1: false,
+      age2: false,
+      age3: false,
+      age4: false,
+      age5: false
     };
     _this.rankOverall = _this.rankOverall.bind(_this);
     _this.rankOffense = _this.rankOffense.bind(_this);
@@ -65918,30 +65937,66 @@ var LeagueLeaders = function (_React$Component) {
     _this.rankAssists = _this.rankAssists.bind(_this);
     _this.toggleFilter = _this.toggleFilter.bind(_this);
     _this.renderFilter = _this.renderFilter.bind(_this);
+    _this.handlePG = _this.handlePG.bind(_this);
+    _this.handleSG = _this.handleSG.bind(_this);
+    _this.handleSF = _this.handleSF.bind(_this);
+    _this.handlePF = _this.handlePF.bind(_this);
+    _this.handleC = _this.handleC.bind(_this);
+    _this.handleMPG1 = _this.handleMPG1.bind(_this);
+    _this.handleMPG2 = _this.handleMPG2.bind(_this);
+    _this.handleMPG3 = _this.handleMPG3.bind(_this);
+    _this.handleMPG4 = _this.handleMPG4.bind(_this);
+    _this.handleMPG5 = _this.handleMPG5.bind(_this);
+    _this.handleEXP1 = _this.handleEXP1.bind(_this);
+    _this.handleEXP2 = _this.handleEXP2.bind(_this);
+    _this.handleEXP3 = _this.handleEXP3.bind(_this);
+    _this.handleEXP4 = _this.handleEXP4.bind(_this);
+    _this.handleEXP5 = _this.handleEXP5.bind(_this);
+    _this.handleAGE1 = _this.handleAGE1.bind(_this);
+    _this.handleAGE2 = _this.handleAGE2.bind(_this);
+    _this.handleAGE3 = _this.handleAGE3.bind(_this);
+    _this.handleAGE4 = _this.handleAGE4.bind(_this);
+    _this.handleAGE5 = _this.handleAGE5.bind(_this);
+    _this.filterPlayers = _this.filterPlayers.bind(_this);
+    _this.handleFilterSubmit = _this.handleFilterSubmit.bind(_this);
     return _this;
   }
 
   _createClass(LeagueLeaders, [{
     key: "componentDidMount",
-    value: function componentDidMount() {}
-  }, {
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
+    value: function componentDidMount() {
       var _this2 = this;
 
-      if (nextProps.players) {
-        this.setState({
-          players: nextProps.players
-        }, function () {
-          _this2.rankOverall();
-          _this2.rankOffense();
-          _this2.rankDefense();
-          _this2.rankPoints();
-          _this2.rankRebounds();
-          _this2.rankAssists();
-        });
-      }
+      this.setState({
+        players: this.props.players
+      }, function () {
+        _this2.rankOverall();
+        _this2.rankOffense();
+        _this2.rankDefense();
+        _this2.rankPoints();
+        _this2.rankRebounds();
+        _this2.rankAssists();
+      });
     }
+
+    // componentWillReceiveProps(nextProps) {
+    //   if (nextProps.players) {
+    //     this.setState(
+    //       {
+    //         players: nextProps.players
+    //       },
+    //       () => {
+    //         this.rankOverall();
+    //         this.rankOffense();
+    //         this.rankDefense();
+    //         this.rankPoints();
+    //         this.rankRebounds();
+    //         this.rankAssists();
+    //       }
+    //     );
+    //   }
+    // }
+
   }, {
     key: "rankOverall",
     value: function rankOverall() {
@@ -65977,6 +66032,207 @@ var LeagueLeaders = function (_React$Component) {
       this.setState({ showFilter: !this.state.showFilter });
     }
   }, {
+    key: "handlePG",
+    value: function handlePG(evt) {
+      var _this4 = this;
+
+      this.setState({ pg: evt.target.checked }, function () {
+        console.log(_this4.state.pg);
+      });
+    }
+  }, {
+    key: "handleSG",
+    value: function handleSG(evt) {
+      var _this5 = this;
+
+      this.setState({ sg: evt.target.checked }, function () {
+        console.log(_this5.state.sg);
+      });
+    }
+  }, {
+    key: "handleSF",
+    value: function handleSF(evt) {
+      var _this6 = this;
+
+      this.setState({ sf: evt.target.checked }, function () {
+        console.log(_this6.state.sf);
+      });
+    }
+  }, {
+    key: "handlePF",
+    value: function handlePF(evt) {
+      var _this7 = this;
+
+      this.setState({ pf: evt.target.checked }, function () {
+        console.log(_this7.state.pf);
+      });
+    }
+  }, {
+    key: "handleC",
+    value: function handleC(evt) {
+      var _this8 = this;
+
+      this.setState({ c: evt.target.checked }, function () {
+        console.log(_this8.state.c);
+      });
+    }
+  }, {
+    key: "handleMPG1",
+    value: function handleMPG1(evt) {
+      this.setState({ mpg1: evt.target.checked });
+    }
+  }, {
+    key: "handleMPG2",
+    value: function handleMPG2(evt) {
+      this.setState({ mpg2: evt.target.checked });
+    }
+  }, {
+    key: "handleMPG3",
+    value: function handleMPG3(evt) {
+      this.setState({ mpg3: evt.target.checked });
+    }
+  }, {
+    key: "handleMPG4",
+    value: function handleMPG4(evt) {
+      this.setState({ mpg4: evt.target.checked });
+    }
+  }, {
+    key: "handleMPG5",
+    value: function handleMPG5(evt) {
+      this.setState({ mpg5: evt.target.checked });
+    }
+  }, {
+    key: "handleEXP1",
+    value: function handleEXP1(evt) {
+      this.setState({ exp1: evt.target.checked });
+    }
+  }, {
+    key: "handleEXP2",
+    value: function handleEXP2(evt) {
+      this.setState({ exp2: evt.target.checked });
+    }
+  }, {
+    key: "handleEXP3",
+    value: function handleEXP3(evt) {
+      this.setState({ exp3: evt.target.checked });
+    }
+  }, {
+    key: "handleEXP4",
+    value: function handleEXP4(evt) {
+      this.setState({ exp4: evt.target.checked });
+    }
+  }, {
+    key: "handleEXP5",
+    value: function handleEXP5(evt) {
+      this.setState({ exp5: evt.target.checked });
+    }
+  }, {
+    key: "handleAGE1",
+    value: function handleAGE1(evt) {
+      this.setState({ age1: evt.target.checked });
+    }
+  }, {
+    key: "handleAGE2",
+    value: function handleAGE2(evt) {
+      this.setState({ age2: evt.target.checked });
+    }
+  }, {
+    key: "handleAGE3",
+    value: function handleAGE3(evt) {
+      this.setState({ age3: evt.target.checked });
+    }
+  }, {
+    key: "handleAGE4",
+    value: function handleAGE4(evt) {
+      this.setState({ age4: evt.target.checked });
+    }
+  }, {
+    key: "handleAGE5",
+    value: function handleAGE5(evt) {
+      this.setState({ age5: evt.target.checked });
+    }
+  }, {
+    key: "filterPlayers",
+    value: function filterPlayers() {
+      var playersArr = [];
+      if (this.state.pg) {
+        for (var k = 0; k < this.props.players.length; k++) {
+          if (this.props.players[k].position === "PG") {
+            playersArr.push(this.props.players[k]);
+          }
+        }
+      }
+      if (this.state.sg) {
+        for (var i = 0; i < this.props.players.length; i++) {
+          if (this.props.players[i].position === "SG") {
+            playersArr.push(this.props.players[i]);
+          }
+        }
+      }
+      if (this.state.sf) {
+        for (var _i = 0; _i < this.props.players.length; _i++) {
+          if (this.props.players[_i].position === "SF") {
+            playersArr.push(this.props.players[_i]);
+          }
+        }
+      }
+      if (this.state.pf) {
+        for (var _i2 = 0; _i2 < this.props.players.length; _i2++) {
+          if (this.props.players[_i2].position === "PF") {
+            playersArr.push(this.props.players[_i2]);
+          }
+        }
+      }
+      if (this.state.c) {
+        for (var _i3 = 0; _i3 < this.props.players.length; _i3++) {
+          if (this.props.players[_i3].position === "C") {
+            playersArr.push(this.props.players[_i3]);
+          }
+        }
+      }
+      // if (this.state.mpg1) {
+      //   for (let k = 0; k < this.props.players.length; k++) {
+      //     if (this.props.players[k].position === "PG") {
+      //       playersArr.push(this.props.players[k]);
+      //     }
+      //   }
+      // }
+      // if (this.state.mpg2) {
+      //   for (let i = 0; i < this.props.players.length; i++) {
+      //     if (this.props.players[i].position === "SG") {
+      //       playersArr.push(this.props.players[i]);
+      //     }
+      //   }
+      // }
+      // if (this.state.mpg3) {
+      //   for (let i = 0; i < this.props.players.length; i++) {
+      //     if (this.props.players[i].position === "SF") {
+      //       playersArr.push(this.props.players[i]);
+      //     }
+      //   }
+      // }
+      // if (this.state.mpg4) {
+      //   for (let i = 0; i < this.props.players.length; i++) {
+      //     if (this.props.players[i].position === "PF") {
+      //       playersArr.push(this.props.players[i]);
+      //     }
+      //   }
+      // }
+      // if (this.state.mpg5) {
+      //   for (let i = 0; i < this.props.players.length; i++) {
+      //     if (this.props.players[i].position === "C") {
+      //       playersArr.push(this.props.players[i]);
+      //     }
+      //   }
+      // }
+      this.setState({ players: playersArr });
+    }
+  }, {
+    key: "handleFilterSubmit",
+    value: function handleFilterSubmit() {
+      this.filterPlayers();
+    }
+  }, {
     key: "renderFilter",
     value: function renderFilter() {
       if (this.state.showFilter) {
@@ -65996,31 +66252,31 @@ var LeagueLeaders = function (_React$Component) {
               { style: { paddingLeft: "10px" } },
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.pg, onChange: this.handlePG },
                 "Point Guard"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.sg, onChange: this.handleSG },
                 "Shooting Guard"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.sf, onChange: this.handleSF },
                 "Shooting Forward"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.pf, onChange: this.handlePF },
                 "Power Forward"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.c, onChange: this.handleC },
                 "Center"
               )
             )
@@ -66041,31 +66297,31 @@ var LeagueLeaders = function (_React$Component) {
                 { style: { paddingLeft: "10px" } },
                 _react2.default.createElement(
                   _reactBootstrap.Checkbox,
-                  null,
+                  { checked: this.state.mpg1, onChange: this.handleMPG1 },
                   "< 15"
                 ),
                 " ",
                 _react2.default.createElement(
                   _reactBootstrap.Checkbox,
-                  null,
+                  { checked: this.state.mpg2, onChange: this.handleMPG2 },
                   "15-20"
                 ),
                 " ",
                 _react2.default.createElement(
                   _reactBootstrap.Checkbox,
-                  null,
+                  { checked: this.state.mpg3, onChange: this.handleMPG3 },
                   "20-25"
                 ),
                 " ",
                 _react2.default.createElement(
                   _reactBootstrap.Checkbox,
-                  null,
+                  { checked: this.state.mpg4, onChange: this.handleMPG4 },
                   "25-30"
                 ),
                 " ",
                 _react2.default.createElement(
                   _reactBootstrap.Checkbox,
-                  null,
+                  { checked: this.state.mpg5, onChange: this.handleMPG5 },
                   "> 30"
                 )
               )
@@ -66084,31 +66340,31 @@ var LeagueLeaders = function (_React$Component) {
               { style: { paddingLeft: "10px" } },
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.exp1, onChange: this.handleEXP1 },
                 "Rookie"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.exp2, onChange: this.handleEXP2 },
                 "1-3"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.exp3, onChange: this.handleEXP3 },
                 "4-6"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.exp4, onChange: this.handleEXP4 },
                 "7-10"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.exp5, onChange: this.handleEXP5 },
                 "> 10"
               )
             )
@@ -66126,31 +66382,31 @@ var LeagueLeaders = function (_React$Component) {
               { style: { paddingLeft: "10px" } },
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.age1, onChange: this.handleAGE1 },
                 "< 21"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.age2, onChange: this.handleAGE2 },
                 "21-25"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.age3, onChange: this.handleAGE3 },
                 "26-30"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.age4, onChange: this.handleAGE4 },
                 "31-35"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.age5, onChange: this.handleAGE5 },
                 "> 35"
               )
             )
@@ -66194,6 +66450,19 @@ var LeagueLeaders = function (_React$Component) {
                 _reactBootstrap.Checkbox,
                 null,
                 "> 20 mil."
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { onClick: this.handleFilterSubmit },
+                "Submit"
               )
             )
           )
@@ -66242,7 +66511,7 @@ var LeagueLeaders = function (_React$Component) {
         ),
         _react2.default.createElement(
           _reactBootstrap.Row,
-          { style: { paddingTop: "40px", paddingLeft: "10px" } },
+          { style: { paddingTop: "20px", paddingLeft: "10px" } },
           _react2.default.createElement(
             _reactBootstrap.Col,
             { lg: 3 },
@@ -66293,7 +66562,7 @@ var LeagueLeaders = function (_React$Component) {
                   overflow: "scroll"
                 }
               },
-              _react2.default.createElement(_LeadersOverallTable2.default, { players: this.props.players })
+              _react2.default.createElement(_LeadersOverallTable2.default, { players: this.state.players })
             )
           ),
           _react2.default.createElement(
@@ -66309,7 +66578,7 @@ var LeagueLeaders = function (_React$Component) {
                   overflow: "scroll"
                 }
               },
-              _react2.default.createElement(_LeadersOffenseTable2.default, { players: this.props.players })
+              _react2.default.createElement(_LeadersOffenseTable2.default, { players: this.state.players })
             )
           ),
           _react2.default.createElement(
@@ -66325,7 +66594,7 @@ var LeagueLeaders = function (_React$Component) {
                   overflow: "scroll"
                 }
               },
-              _react2.default.createElement(_LeadersDefenseTable2.default, { players: this.props.players })
+              _react2.default.createElement(_LeadersDefenseTable2.default, { players: this.state.players })
             )
           )
         ),
@@ -66382,7 +66651,7 @@ var LeagueLeaders = function (_React$Component) {
                   overflow: "scroll"
                 }
               },
-              _react2.default.createElement(_LeadersTable2.default, { players: this.props.players })
+              _react2.default.createElement(_LeadersTable2.default, { players: this.state.players })
             )
           ),
           _react2.default.createElement(
@@ -66398,7 +66667,7 @@ var LeagueLeaders = function (_React$Component) {
                   overflow: "scroll"
                 }
               },
-              _react2.default.createElement(_LeadersTable4.default, { players: this.props.players })
+              _react2.default.createElement(_LeadersTable4.default, { players: this.state.players })
             )
           ),
           _react2.default.createElement(
@@ -66414,7 +66683,7 @@ var LeagueLeaders = function (_React$Component) {
                   overflow: "scroll"
                 }
               },
-              _react2.default.createElement(_LeadersTable6.default, { players: this.props.players })
+              _react2.default.createElement(_LeadersTable6.default, { players: this.state.players })
             )
           )
         ),
@@ -66492,7 +66761,7 @@ var LeagueLeaders = function (_React$Component) {
                   overflow: "scroll"
                 }
               },
-              _react2.default.createElement(_LeadersTable8.default, { players: this.props.players })
+              _react2.default.createElement(_LeadersTable8.default, { players: this.state.players })
             )
           ),
           _react2.default.createElement(
@@ -66508,7 +66777,7 @@ var LeagueLeaders = function (_React$Component) {
                   overflow: "scroll"
                 }
               },
-              _react2.default.createElement(_LeadersTable10.default, { players: this.props.players })
+              _react2.default.createElement(_LeadersTable10.default, { players: this.state.players })
             )
           ),
           _react2.default.createElement(
@@ -66524,7 +66793,7 @@ var LeagueLeaders = function (_React$Component) {
                   overflow: "scroll"
                 }
               },
-              _react2.default.createElement(_LeadersTable12.default, { players: this.props.players })
+              _react2.default.createElement(_LeadersTable12.default, { players: this.state.players })
             )
           )
         )

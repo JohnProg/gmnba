@@ -26,7 +26,27 @@ export default class LeagueLeaders extends React.Component {
     super();
     this.state = {
       table4: [],
-      showFilter: false
+      showFilter: false,
+      pg: false,
+      sg: false,
+      sf: false,
+      pf: false,
+      c: false,
+      mpg1: false,
+      mpg2: false,
+      mpg3: false,
+      mpg4: false,
+      mpg5: false,
+      exp1: false,
+      exp2: false,
+      exp3: false,
+      exp4: false,
+      exp5: false,
+      age1: false,
+      age2: false,
+      age3: false,
+      age4: false,
+      age5: false
     };
     this.rankOverall = this.rankOverall.bind(this);
     this.rankOffense = this.rankOffense.bind(this);
@@ -36,27 +56,63 @@ export default class LeagueLeaders extends React.Component {
     this.rankAssists = this.rankAssists.bind(this);
     this.toggleFilter = this.toggleFilter.bind(this);
     this.renderFilter = this.renderFilter.bind(this);
+    this.handlePG = this.handlePG.bind(this);
+    this.handleSG = this.handleSG.bind(this);
+    this.handleSF = this.handleSF.bind(this);
+    this.handlePF = this.handlePF.bind(this);
+    this.handleC = this.handleC.bind(this);
+    this.handleMPG1 = this.handleMPG1.bind(this);
+    this.handleMPG2 = this.handleMPG2.bind(this);
+    this.handleMPG3 = this.handleMPG3.bind(this);
+    this.handleMPG4 = this.handleMPG4.bind(this);
+    this.handleMPG5 = this.handleMPG5.bind(this);
+    this.handleEXP1 = this.handleEXP1.bind(this);
+    this.handleEXP2 = this.handleEXP2.bind(this);
+    this.handleEXP3 = this.handleEXP3.bind(this);
+    this.handleEXP4 = this.handleEXP4.bind(this);
+    this.handleEXP5 = this.handleEXP5.bind(this);
+    this.handleAGE1 = this.handleAGE1.bind(this);
+    this.handleAGE2 = this.handleAGE2.bind(this);
+    this.handleAGE3 = this.handleAGE3.bind(this);
+    this.handleAGE4 = this.handleAGE4.bind(this);
+    this.handleAGE5 = this.handleAGE5.bind(this);
+    this.filterPlayers = this.filterPlayers.bind(this);
+    this.handleFilterSubmit = this.handleFilterSubmit.bind(this);
   }
 
-  componentDidMount() {}
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.players) {
-      this.setState(
-        {
-          players: nextProps.players
-        },
-        () => {
-          this.rankOverall();
-          this.rankOffense();
-          this.rankDefense();
-          this.rankPoints();
-          this.rankRebounds();
-          this.rankAssists();
-        }
-      );
-    }
+  componentDidMount() {
+    this.setState(
+      {
+        players: this.props.players
+      },
+      () => {
+        this.rankOverall();
+        this.rankOffense();
+        this.rankDefense();
+        this.rankPoints();
+        this.rankRebounds();
+        this.rankAssists();
+      }
+    );
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.players) {
+  //     this.setState(
+  //       {
+  //         players: nextProps.players
+  //       },
+  //       () => {
+  //         this.rankOverall();
+  //         this.rankOffense();
+  //         this.rankDefense();
+  //         this.rankPoints();
+  //         this.rankRebounds();
+  //         this.rankAssists();
+  //       }
+  //     );
+  //   }
+  // }
 
   rankOverall() {
     let players = this.state.players;
@@ -86,6 +142,163 @@ export default class LeagueLeaders extends React.Component {
     this.setState({ showFilter: !this.state.showFilter });
   }
 
+  handlePG(evt) {
+    this.setState({ pg: evt.target.checked }, () => {
+      console.log(this.state.pg);
+    });
+  }
+
+  handleSG(evt) {
+    this.setState({ sg: evt.target.checked }, () => {
+      console.log(this.state.sg);
+    });
+  }
+
+  handleSF(evt) {
+    this.setState({ sf: evt.target.checked }, () => {
+      console.log(this.state.sf);
+    });
+  }
+
+  handlePF(evt) {
+    this.setState({ pf: evt.target.checked }, () => {
+      console.log(this.state.pf);
+    });
+  }
+
+  handleC(evt) {
+    this.setState({ c: evt.target.checked }, () => {
+      console.log(this.state.c);
+    });
+  }
+
+  handleMPG1(evt) {
+    this.setState({ mpg1: evt.target.checked });
+  }
+  handleMPG2(evt) {
+    this.setState({ mpg2: evt.target.checked });
+  }
+  handleMPG3(evt) {
+    this.setState({ mpg3: evt.target.checked });
+  }
+  handleMPG4(evt) {
+    this.setState({ mpg4: evt.target.checked });
+  }
+  handleMPG5(evt) {
+    this.setState({ mpg5: evt.target.checked });
+  }
+
+  handleEXP1(evt) {
+    this.setState({ exp1: evt.target.checked });
+  }
+  handleEXP2(evt) {
+    this.setState({ exp2: evt.target.checked });
+  }
+  handleEXP3(evt) {
+    this.setState({ exp3: evt.target.checked });
+  }
+  handleEXP4(evt) {
+    this.setState({ exp4: evt.target.checked });
+  }
+  handleEXP5(evt) {
+    this.setState({ exp5: evt.target.checked });
+  }
+
+  handleAGE1(evt) {
+    this.setState({ age1: evt.target.checked });
+  }
+  handleAGE2(evt) {
+    this.setState({ age2: evt.target.checked });
+  }
+  handleAGE3(evt) {
+    this.setState({ age3: evt.target.checked });
+  }
+  handleAGE4(evt) {
+    this.setState({ age4: evt.target.checked });
+  }
+  handleAGE5(evt) {
+    this.setState({ age5: evt.target.checked });
+  }
+
+  filterPlayers() {
+    var playersArr = [];
+    if (this.state.pg) {
+      for (let k = 0; k < this.props.players.length; k++) {
+        if (this.props.players[k].position === "PG") {
+          playersArr.push(this.props.players[k]);
+        }
+      }
+    }
+    if (this.state.sg) {
+      for (let i = 0; i < this.props.players.length; i++) {
+        if (this.props.players[i].position === "SG") {
+          playersArr.push(this.props.players[i]);
+        }
+      }
+    }
+    if (this.state.sf) {
+      for (let i = 0; i < this.props.players.length; i++) {
+        if (this.props.players[i].position === "SF") {
+          playersArr.push(this.props.players[i]);
+        }
+      }
+    }
+    if (this.state.pf) {
+      for (let i = 0; i < this.props.players.length; i++) {
+        if (this.props.players[i].position === "PF") {
+          playersArr.push(this.props.players[i]);
+        }
+      }
+    }
+    if (this.state.c) {
+      for (let i = 0; i < this.props.players.length; i++) {
+        if (this.props.players[i].position === "C") {
+          playersArr.push(this.props.players[i]);
+        }
+      }
+    }
+    // if (this.state.mpg1) {
+    //   for (let k = 0; k < this.props.players.length; k++) {
+    //     if (this.props.players[k].position === "PG") {
+    //       playersArr.push(this.props.players[k]);
+    //     }
+    //   }
+    // }
+    // if (this.state.mpg2) {
+    //   for (let i = 0; i < this.props.players.length; i++) {
+    //     if (this.props.players[i].position === "SG") {
+    //       playersArr.push(this.props.players[i]);
+    //     }
+    //   }
+    // }
+    // if (this.state.mpg3) {
+    //   for (let i = 0; i < this.props.players.length; i++) {
+    //     if (this.props.players[i].position === "SF") {
+    //       playersArr.push(this.props.players[i]);
+    //     }
+    //   }
+    // }
+    // if (this.state.mpg4) {
+    //   for (let i = 0; i < this.props.players.length; i++) {
+    //     if (this.props.players[i].position === "PF") {
+    //       playersArr.push(this.props.players[i]);
+    //     }
+    //   }
+    // }
+    // if (this.state.mpg5) {
+    //   for (let i = 0; i < this.props.players.length; i++) {
+    //     if (this.props.players[i].position === "C") {
+    //       playersArr.push(this.props.players[i]);
+    //     }
+    //   }
+    // }
+    this.setState({ players: playersArr });
+  }
+
+  handleFilterSubmit() {
+    this.filterPlayers();
+  }
+
   renderFilter() {
     if (this.state.showFilter) {
       return (
@@ -95,10 +308,21 @@ export default class LeagueLeaders extends React.Component {
               Position
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
-              <Checkbox>Point Guard</Checkbox>{" "}
-              <Checkbox>Shooting Guard</Checkbox>{" "}
-              <Checkbox>Shooting Forward</Checkbox>{" "}
-              <Checkbox>Power Forward</Checkbox> <Checkbox>Center</Checkbox>
+              <Checkbox checked={this.state.pg} onChange={this.handlePG}>
+                Point Guard
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.sg} onChange={this.handleSG}>
+                Shooting Guard
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.sf} onChange={this.handleSF}>
+                Shooting Forward
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.pf} onChange={this.handlePF}>
+                Power Forward
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.c} onChange={this.handleC}>
+                Center
+              </Checkbox>
             </FormGroup>
           </Col>
           <Col lg={2}>
@@ -107,9 +331,21 @@ export default class LeagueLeaders extends React.Component {
                 MPG
               </div>
               <FormGroup style={{ paddingLeft: "10px" }}>
-                <Checkbox>&#60; 15</Checkbox> <Checkbox>15-20</Checkbox>{" "}
-                <Checkbox>20-25</Checkbox> <Checkbox>25-30</Checkbox>{" "}
-                <Checkbox>> 30</Checkbox>
+                <Checkbox checked={this.state.mpg1} onChange={this.handleMPG1}>
+                  &#60; 15
+                </Checkbox>{" "}
+                <Checkbox checked={this.state.mpg2} onChange={this.handleMPG2}>
+                  15-20
+                </Checkbox>{" "}
+                <Checkbox checked={this.state.mpg3} onChange={this.handleMPG3}>
+                  20-25
+                </Checkbox>{" "}
+                <Checkbox checked={this.state.mpg4} onChange={this.handleMPG4}>
+                  25-30
+                </Checkbox>{" "}
+                <Checkbox checked={this.state.mpg5} onChange={this.handleMPG5}>
+                  > 30
+                </Checkbox>
               </FormGroup>
             </div>
           </Col>
@@ -118,9 +354,21 @@ export default class LeagueLeaders extends React.Component {
               Experience
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
-              <Checkbox>Rookie</Checkbox> <Checkbox>1-3</Checkbox>{" "}
-              <Checkbox>4-6</Checkbox> <Checkbox>7-10</Checkbox>{" "}
-              <Checkbox>> 10</Checkbox>
+              <Checkbox checked={this.state.exp1} onChange={this.handleEXP1}>
+                Rookie
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.exp2} onChange={this.handleEXP2}>
+                1-3
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.exp3} onChange={this.handleEXP3}>
+                4-6
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.exp4} onChange={this.handleEXP4}>
+                7-10
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.exp5} onChange={this.handleEXP5}>
+                > 10
+              </Checkbox>
             </FormGroup>
           </Col>
           <Col lg={2}>
@@ -128,9 +376,21 @@ export default class LeagueLeaders extends React.Component {
               Age
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
-              <Checkbox>&#60; 21</Checkbox> <Checkbox>21-25</Checkbox>{" "}
-              <Checkbox>26-30</Checkbox> <Checkbox>31-35</Checkbox>{" "}
-              <Checkbox>> 35</Checkbox>
+              <Checkbox checked={this.state.age1} onChange={this.handleAGE1}>
+                &#60; 21
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.age2} onChange={this.handleAGE2}>
+                21-25
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.age3} onChange={this.handleAGE3}>
+                26-30
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.age4} onChange={this.handleAGE4}>
+                31-35
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.age5} onChange={this.handleAGE5}>
+                > 35
+              </Checkbox>
             </FormGroup>
           </Col>
           <Col lg={3}>
@@ -142,6 +402,11 @@ export default class LeagueLeaders extends React.Component {
               <Checkbox>10-15 mil.</Checkbox> <Checkbox>15-20 mil.</Checkbox>{" "}
               <Checkbox>> 20 mil.</Checkbox>
             </FormGroup>
+          </Col>
+          <Col lg={4}>
+            <div>
+              <Button onClick={this.handleFilterSubmit}>Submit</Button>
+            </div>
           </Col>
         </div>
       );
@@ -177,7 +442,7 @@ export default class LeagueLeaders extends React.Component {
             {this.renderFilter()}
           </Col>
         </Row>
-        <Row style={{ paddingTop: "40px", paddingLeft: "10px" }}>
+        <Row style={{ paddingTop: "20px", paddingLeft: "10px" }}>
           <Col lg={3}>
             <div className="card" style={headerStyle}>
               Overall
@@ -210,7 +475,7 @@ export default class LeagueLeaders extends React.Component {
                 overflow: "scroll"
               }}
             >
-              <LeadersOverallTable players={this.props.players} />
+              <LeadersOverallTable players={this.state.players} />
             </div>
           </Col>
           <Col lg={4}>
@@ -222,7 +487,7 @@ export default class LeagueLeaders extends React.Component {
                 overflow: "scroll"
               }}
             >
-              <LeadersOffenseTable players={this.props.players} />
+              <LeadersOffenseTable players={this.state.players} />
             </div>
           </Col>
           <Col lg={4}>
@@ -234,7 +499,7 @@ export default class LeagueLeaders extends React.Component {
                 overflow: "scroll"
               }}
             >
-              <LeadersDefenseTable players={this.props.players} />
+              <LeadersDefenseTable players={this.state.players} />
             </div>
           </Col>
         </Row>
@@ -271,7 +536,7 @@ export default class LeagueLeaders extends React.Component {
                 overflow: "scroll"
               }}
             >
-              <LeadersTable4 players={this.props.players} />
+              <LeadersTable4 players={this.state.players} />
             </div>
           </Col>
           <Col lg={4}>
@@ -283,7 +548,7 @@ export default class LeagueLeaders extends React.Component {
                 overflow: "scroll"
               }}
             >
-              <LeadersTable5 players={this.props.players} />
+              <LeadersTable5 players={this.state.players} />
             </div>
           </Col>
           <Col lg={4}>
@@ -295,7 +560,7 @@ export default class LeagueLeaders extends React.Component {
                 overflow: "scroll"
               }}
             >
-              <LeadersTable6 players={this.props.players} />
+              <LeadersTable6 players={this.state.players} />
             </div>
           </Col>
         </Row>
@@ -347,7 +612,7 @@ export default class LeagueLeaders extends React.Component {
                 overflow: "scroll"
               }}
             >
-              <LeadersTable7 players={this.props.players} />
+              <LeadersTable7 players={this.state.players} />
             </div>
           </Col>
           <Col lg={4}>
@@ -359,7 +624,7 @@ export default class LeagueLeaders extends React.Component {
                 overflow: "scroll"
               }}
             >
-              <LeadersTable8 players={this.props.players} />
+              <LeadersTable8 players={this.state.players} />
             </div>
           </Col>
           <Col lg={4}>
@@ -371,7 +636,7 @@ export default class LeagueLeaders extends React.Component {
                 overflow: "scroll"
               }}
             >
-              <LeadersTable9 players={this.props.players} />
+              <LeadersTable9 players={this.state.players} />
             </div>
           </Col>
         </Row>

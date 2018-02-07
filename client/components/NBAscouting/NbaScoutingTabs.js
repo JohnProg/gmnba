@@ -20,7 +20,6 @@ export default class NbaScoutingTabs extends React.Component {
   }
 
   render() {
-    console.log(this.props.teams);
     let component;
     if (this.state.key === 1)
       component = <LeagueLeaders players={this.props.players} />;
