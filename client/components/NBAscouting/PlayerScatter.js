@@ -20,7 +20,28 @@ export default class PlayerScatter extends React.Component {
       statTwo: "mpg",
       position: "All",
       teamPlayers: [],
-      showFilter: false
+      showFilter: false,
+      players: [],
+      pg: true,
+      sg: true,
+      sf: true,
+      pf: true,
+      c: true,
+      mpg1: true,
+      mpg2: true,
+      mpg3: true,
+      mpg4: true,
+      mpg5: true,
+      exp1: true,
+      exp2: true,
+      exp3: true,
+      exp4: true,
+      exp5: true,
+      age1: true,
+      age2: true,
+      age3: true,
+      age4: true,
+      age5: true
     };
     this.createChart = this.createChart.bind(this);
     this.filterClick = this.filterClick.bind(this);
@@ -28,6 +49,28 @@ export default class PlayerScatter extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.firstInputChange = this.firstInputChange.bind(this);
     this.secondInputChange = this.secondInputChange.bind(this);
+    this.handlePG = this.handlePG.bind(this);
+    this.handleSG = this.handleSG.bind(this);
+    this.handleSF = this.handleSF.bind(this);
+    this.handlePF = this.handlePF.bind(this);
+    this.handleC = this.handleC.bind(this);
+    this.handleMPG1 = this.handleMPG1.bind(this);
+    this.handleMPG2 = this.handleMPG2.bind(this);
+    this.handleMPG3 = this.handleMPG3.bind(this);
+    this.handleMPG4 = this.handleMPG4.bind(this);
+    this.handleMPG5 = this.handleMPG5.bind(this);
+    this.handleEXP1 = this.handleEXP1.bind(this);
+    this.handleEXP2 = this.handleEXP2.bind(this);
+    this.handleEXP3 = this.handleEXP3.bind(this);
+    this.handleEXP4 = this.handleEXP4.bind(this);
+    this.handleEXP5 = this.handleEXP5.bind(this);
+    this.handleAGE1 = this.handleAGE1.bind(this);
+    this.handleAGE2 = this.handleAGE2.bind(this);
+    this.handleAGE3 = this.handleAGE3.bind(this);
+    this.handleAGE4 = this.handleAGE4.bind(this);
+    this.handleAGE5 = this.handleAGE5.bind(this);
+    this.filterPlayers = this.filterPlayers.bind(this);
+    this.handleFilterSubmit = this.handleFilterSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -197,6 +240,250 @@ export default class PlayerScatter extends React.Component {
     });
   }
 
+  handlePG(evt) {
+    this.setState({ pg: evt.target.checked }, () => {
+      console.log(this.state.pg);
+    });
+  }
+
+  handleSG(evt) {
+    this.setState({ sg: evt.target.checked }, () => {
+      console.log(this.state.sg);
+    });
+  }
+
+  handleSF(evt) {
+    this.setState({ sf: evt.target.checked }, () => {
+      console.log(this.state.sf);
+    });
+  }
+
+  handlePF(evt) {
+    this.setState({ pf: evt.target.checked }, () => {
+      console.log(this.state.pf);
+    });
+  }
+
+  handleC(evt) {
+    this.setState({ c: evt.target.checked }, () => {
+      console.log(this.state.c);
+    });
+  }
+
+  handleMPG1(evt) {
+    this.setState({ mpg1: evt.target.checked });
+  }
+  handleMPG2(evt) {
+    this.setState({ mpg2: evt.target.checked });
+  }
+  handleMPG3(evt) {
+    this.setState({ mpg3: evt.target.checked });
+  }
+  handleMPG4(evt) {
+    this.setState({ mpg4: evt.target.checked });
+  }
+  handleMPG5(evt) {
+    this.setState({ mpg5: evt.target.checked });
+  }
+
+  handleEXP1(evt) {
+    this.setState({ exp1: evt.target.checked });
+  }
+  handleEXP2(evt) {
+    this.setState({ exp2: evt.target.checked });
+  }
+  handleEXP3(evt) {
+    this.setState({ exp3: evt.target.checked });
+  }
+  handleEXP4(evt) {
+    this.setState({ exp4: evt.target.checked });
+  }
+  handleEXP5(evt) {
+    this.setState({ exp5: evt.target.checked });
+  }
+
+  handleAGE1(evt) {
+    this.setState({ age1: evt.target.checked });
+  }
+  handleAGE2(evt) {
+    this.setState({ age2: evt.target.checked });
+  }
+  handleAGE3(evt) {
+    this.setState({ age3: evt.target.checked });
+  }
+  handleAGE4(evt) {
+    this.setState({ age4: evt.target.checked });
+  }
+  handleAGE5(evt) {
+    this.setState({ age5: evt.target.checked });
+  }
+
+  filterPlayers() {
+    var playersArr = this.state.teamPlayers;
+
+    if (!this.state.pg) {
+      playersArr = playersArr.filter(function(player) {
+        return player.position !== "PG";
+      });
+    }
+
+    if (!this.state.sg) {
+      playersArr = playersArr.filter(function(player) {
+        return player.position !== "SG";
+      });
+    }
+
+    if (!this.state.sf) {
+      playersArr = playersArr.filter(function(player) {
+        return player.position !== "SF";
+      });
+    }
+
+    if (!this.state.pf) {
+      playersArr = playersArr.filter(function(player) {
+        return player.position !== "PF";
+      });
+    }
+
+    if (!this.state.c) {
+      playersArr = playersArr.filter(function(player) {
+        return player.position !== "C";
+      });
+    }
+
+    if (!this.state.mpg1) {
+      playersArr = playersArr.filter(function(player) {
+        return player.mpg >= 15.0;
+      });
+    }
+    if (!this.state.mpg2) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.mpg < 15.0 || player.mpg >= 20.0) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.mpg3) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.mpg < 20.0 || player.mpg >= 25.0) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.mpg4) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.mpg < 25.0 || player.mpg >= 30.0) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.mpg5) {
+      playersArr = playersArr.filter(function(player) {
+        return player.mpg < 30.0;
+      });
+    }
+
+    if (!this.state.exp1) {
+      playersArr = playersArr.filter(function(player) {
+        return player.experience !== "R";
+      });
+    }
+    if (!this.state.exp2) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.experience === "R" || player.experience > 3) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.exp3) {
+      playersArr = playersArr.filter(function(player) {
+        if (
+          player.experience === "R" ||
+          player.experience < 4 ||
+          player.experience > 6
+        ) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.exp4) {
+      playersArr = playersArr.filter(function(player) {
+        if (
+          player.experience === "R" ||
+          player.experience < 7 ||
+          player.experience > 10
+        ) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.exp5) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.experience === "R" || player.experience < 11) {
+          return player;
+        }
+      });
+    }
+
+    if (!this.state.age1) {
+      playersArr = playersArr.filter(function(player) {
+        return player.age >= 21;
+      });
+    }
+    if (!this.state.age2) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.age < 21 || player.age > 25.0) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.age3) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.age < 26 || player.age > 30) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.age4) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.age < 31 || player.age > 35) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.age5) {
+      playersArr = playersArr.filter(function(player) {
+        return player.age < 35;
+      });
+    }
+    this.setState({ players: playersArr }, () => {
+      //console.log("End Arr: ", this.state.players);
+      var statArr = [];
+      for (let i = 0; i < this.state.players.length; i++) {
+        let player = this.state.players[i];
+        statArr.push({
+          data: [
+            [
+              parseFloat(player[this.state.statTwo]),
+              parseFloat(player[this.state.statOne])
+            ]
+          ],
+          name: player.name,
+          color: "#d00000",
+          _symbolIndex: 0
+        });
+      }
+      this.setState({ data: statArr }, () => {
+        //console.log(this.state.data);
+        this.createChart();
+      });
+    });
+  }
+
+  handleFilterSubmit() {
+    this.filterPlayers();
+  }
+
   renderFilter() {
     if (this.state.showFilter === true) {
       return (
@@ -206,9 +493,21 @@ export default class PlayerScatter extends React.Component {
               Position
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
-              <Checkbox>PG</Checkbox> <Checkbox>SG</Checkbox>{" "}
-              <Checkbox>SF</Checkbox> <Checkbox>PF</Checkbox>{" "}
-              <Checkbox>C</Checkbox>
+              <Checkbox checked={this.state.pg} onChange={this.handlePG}>
+                PG
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.sg} onChange={this.handleSG}>
+                SG
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.sf} onChange={this.handleSF}>
+                SF
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.pf} onChange={this.handlePF}>
+                PF
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.c} onChange={this.handleC}>
+                C
+              </Checkbox>
             </FormGroup>
           </Col>
           <Col lg={2}>
@@ -217,9 +516,21 @@ export default class PlayerScatter extends React.Component {
                 MPG
               </div>
               <FormGroup style={{ paddingLeft: "10px" }}>
-                <Checkbox>&#60; 15</Checkbox> <Checkbox>15-20</Checkbox>{" "}
-                <Checkbox>20-25</Checkbox> <Checkbox>25-30</Checkbox>{" "}
-                <Checkbox>> 30</Checkbox>
+                <Checkbox checked={this.state.mpg1} onChange={this.handleMPG1}>
+                  5-15
+                </Checkbox>{" "}
+                <Checkbox checked={this.state.mpg2} onChange={this.handleMPG2}>
+                  15-20
+                </Checkbox>{" "}
+                <Checkbox checked={this.state.mpg3} onChange={this.handleMPG3}>
+                  20-25
+                </Checkbox>{" "}
+                <Checkbox checked={this.state.mpg4} onChange={this.handleMPG4}>
+                  25-30
+                </Checkbox>{" "}
+                <Checkbox checked={this.state.mpg5} onChange={this.handleMPG5}>
+                  > 30
+                </Checkbox>
               </FormGroup>
             </div>
           </Col>
@@ -228,9 +539,21 @@ export default class PlayerScatter extends React.Component {
               Experience
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
-              <Checkbox>Rookie</Checkbox> <Checkbox>1-3</Checkbox>{" "}
-              <Checkbox>4-6</Checkbox> <Checkbox>7-10</Checkbox>{" "}
-              <Checkbox>> 10</Checkbox>
+              <Checkbox checked={this.state.exp1} onChange={this.handleEXP1}>
+                Rookie
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.exp2} onChange={this.handleEXP2}>
+                1-3
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.exp3} onChange={this.handleEXP3}>
+                4-6
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.exp4} onChange={this.handleEXP4}>
+                7-10
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.exp5} onChange={this.handleEXP5}>
+                > 10
+              </Checkbox>
             </FormGroup>
           </Col>
           <Col lg={3}>
@@ -241,7 +564,7 @@ export default class PlayerScatter extends React.Component {
               style={{
                 paddingLeft: "10px",
                 overflow: "scroll",
-                height: "150px"
+                height: "135px"
               }}
             >
               <Checkbox>Atlanta Hawks</Checkbox>{" "}
@@ -280,9 +603,21 @@ export default class PlayerScatter extends React.Component {
               Age
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
-              <Checkbox>&#60; 21</Checkbox> <Checkbox>21-25</Checkbox>{" "}
-              <Checkbox>26-30</Checkbox> <Checkbox>31-35</Checkbox>{" "}
-              <Checkbox>> 35</Checkbox>
+              <Checkbox checked={this.state.age1} onChange={this.handleAGE1}>
+                &#60; 21
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.age2} onChange={this.handleAGE2}>
+                21-25
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.age3} onChange={this.handleAGE3}>
+                26-30
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.age4} onChange={this.handleAGE4}>
+                31-35
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.age5} onChange={this.handleAGE5}>
+                > 35
+              </Checkbox>
             </FormGroup>
           </Col>
           <Col lg={2}>
@@ -294,6 +629,11 @@ export default class PlayerScatter extends React.Component {
               <Checkbox>10-15 mil.</Checkbox> <Checkbox>15-20 mil.</Checkbox>{" "}
               <Checkbox>> 20 mil.</Checkbox>
             </FormGroup>
+          </Col>
+          <Col lg={4}>
+            <div>
+              <Button onClick={this.handleFilterSubmit}>Submit</Button>
+            </div>
           </Col>
         </div>
       );

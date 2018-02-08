@@ -67024,7 +67024,28 @@ var PlayerScatter = function (_React$Component) {
       statTwo: "mpg",
       position: "All",
       teamPlayers: [],
-      showFilter: false
+      showFilter: false,
+      players: [],
+      pg: true,
+      sg: true,
+      sf: true,
+      pf: true,
+      c: true,
+      mpg1: true,
+      mpg2: true,
+      mpg3: true,
+      mpg4: true,
+      mpg5: true,
+      exp1: true,
+      exp2: true,
+      exp3: true,
+      exp4: true,
+      exp5: true,
+      age1: true,
+      age2: true,
+      age3: true,
+      age4: true,
+      age5: true
     };
     _this.createChart = _this.createChart.bind(_this);
     _this.filterClick = _this.filterClick.bind(_this);
@@ -67032,6 +67053,28 @@ var PlayerScatter = function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.firstInputChange = _this.firstInputChange.bind(_this);
     _this.secondInputChange = _this.secondInputChange.bind(_this);
+    _this.handlePG = _this.handlePG.bind(_this);
+    _this.handleSG = _this.handleSG.bind(_this);
+    _this.handleSF = _this.handleSF.bind(_this);
+    _this.handlePF = _this.handlePF.bind(_this);
+    _this.handleC = _this.handleC.bind(_this);
+    _this.handleMPG1 = _this.handleMPG1.bind(_this);
+    _this.handleMPG2 = _this.handleMPG2.bind(_this);
+    _this.handleMPG3 = _this.handleMPG3.bind(_this);
+    _this.handleMPG4 = _this.handleMPG4.bind(_this);
+    _this.handleMPG5 = _this.handleMPG5.bind(_this);
+    _this.handleEXP1 = _this.handleEXP1.bind(_this);
+    _this.handleEXP2 = _this.handleEXP2.bind(_this);
+    _this.handleEXP3 = _this.handleEXP3.bind(_this);
+    _this.handleEXP4 = _this.handleEXP4.bind(_this);
+    _this.handleEXP5 = _this.handleEXP5.bind(_this);
+    _this.handleAGE1 = _this.handleAGE1.bind(_this);
+    _this.handleAGE2 = _this.handleAGE2.bind(_this);
+    _this.handleAGE3 = _this.handleAGE3.bind(_this);
+    _this.handleAGE4 = _this.handleAGE4.bind(_this);
+    _this.handleAGE5 = _this.handleAGE5.bind(_this);
+    _this.filterPlayers = _this.filterPlayers.bind(_this);
+    _this.handleFilterSubmit = _this.handleFilterSubmit.bind(_this);
     return _this;
   }
 
@@ -67198,6 +67241,283 @@ var PlayerScatter = function (_React$Component) {
       });
     }
   }, {
+    key: "handlePG",
+    value: function handlePG(evt) {
+      var _this5 = this;
+
+      this.setState({ pg: evt.target.checked }, function () {
+        console.log(_this5.state.pg);
+      });
+    }
+  }, {
+    key: "handleSG",
+    value: function handleSG(evt) {
+      var _this6 = this;
+
+      this.setState({ sg: evt.target.checked }, function () {
+        console.log(_this6.state.sg);
+      });
+    }
+  }, {
+    key: "handleSF",
+    value: function handleSF(evt) {
+      var _this7 = this;
+
+      this.setState({ sf: evt.target.checked }, function () {
+        console.log(_this7.state.sf);
+      });
+    }
+  }, {
+    key: "handlePF",
+    value: function handlePF(evt) {
+      var _this8 = this;
+
+      this.setState({ pf: evt.target.checked }, function () {
+        console.log(_this8.state.pf);
+      });
+    }
+  }, {
+    key: "handleC",
+    value: function handleC(evt) {
+      var _this9 = this;
+
+      this.setState({ c: evt.target.checked }, function () {
+        console.log(_this9.state.c);
+      });
+    }
+  }, {
+    key: "handleMPG1",
+    value: function handleMPG1(evt) {
+      this.setState({ mpg1: evt.target.checked });
+    }
+  }, {
+    key: "handleMPG2",
+    value: function handleMPG2(evt) {
+      this.setState({ mpg2: evt.target.checked });
+    }
+  }, {
+    key: "handleMPG3",
+    value: function handleMPG3(evt) {
+      this.setState({ mpg3: evt.target.checked });
+    }
+  }, {
+    key: "handleMPG4",
+    value: function handleMPG4(evt) {
+      this.setState({ mpg4: evt.target.checked });
+    }
+  }, {
+    key: "handleMPG5",
+    value: function handleMPG5(evt) {
+      this.setState({ mpg5: evt.target.checked });
+    }
+  }, {
+    key: "handleEXP1",
+    value: function handleEXP1(evt) {
+      this.setState({ exp1: evt.target.checked });
+    }
+  }, {
+    key: "handleEXP2",
+    value: function handleEXP2(evt) {
+      this.setState({ exp2: evt.target.checked });
+    }
+  }, {
+    key: "handleEXP3",
+    value: function handleEXP3(evt) {
+      this.setState({ exp3: evt.target.checked });
+    }
+  }, {
+    key: "handleEXP4",
+    value: function handleEXP4(evt) {
+      this.setState({ exp4: evt.target.checked });
+    }
+  }, {
+    key: "handleEXP5",
+    value: function handleEXP5(evt) {
+      this.setState({ exp5: evt.target.checked });
+    }
+  }, {
+    key: "handleAGE1",
+    value: function handleAGE1(evt) {
+      this.setState({ age1: evt.target.checked });
+    }
+  }, {
+    key: "handleAGE2",
+    value: function handleAGE2(evt) {
+      this.setState({ age2: evt.target.checked });
+    }
+  }, {
+    key: "handleAGE3",
+    value: function handleAGE3(evt) {
+      this.setState({ age3: evt.target.checked });
+    }
+  }, {
+    key: "handleAGE4",
+    value: function handleAGE4(evt) {
+      this.setState({ age4: evt.target.checked });
+    }
+  }, {
+    key: "handleAGE5",
+    value: function handleAGE5(evt) {
+      this.setState({ age5: evt.target.checked });
+    }
+  }, {
+    key: "filterPlayers",
+    value: function filterPlayers() {
+      var _this10 = this;
+
+      var playersArr = this.state.teamPlayers;
+
+      if (!this.state.pg) {
+        playersArr = playersArr.filter(function (player) {
+          return player.position !== "PG";
+        });
+      }
+
+      if (!this.state.sg) {
+        playersArr = playersArr.filter(function (player) {
+          return player.position !== "SG";
+        });
+      }
+
+      if (!this.state.sf) {
+        playersArr = playersArr.filter(function (player) {
+          return player.position !== "SF";
+        });
+      }
+
+      if (!this.state.pf) {
+        playersArr = playersArr.filter(function (player) {
+          return player.position !== "PF";
+        });
+      }
+
+      if (!this.state.c) {
+        playersArr = playersArr.filter(function (player) {
+          return player.position !== "C";
+        });
+      }
+
+      if (!this.state.mpg1) {
+        playersArr = playersArr.filter(function (player) {
+          return player.mpg >= 15.0;
+        });
+      }
+      if (!this.state.mpg2) {
+        playersArr = playersArr.filter(function (player) {
+          if (player.mpg < 15.0 || player.mpg >= 20.0) {
+            return player;
+          }
+        });
+      }
+      if (!this.state.mpg3) {
+        playersArr = playersArr.filter(function (player) {
+          if (player.mpg < 20.0 || player.mpg >= 25.0) {
+            return player;
+          }
+        });
+      }
+      if (!this.state.mpg4) {
+        playersArr = playersArr.filter(function (player) {
+          if (player.mpg < 25.0 || player.mpg >= 30.0) {
+            return player;
+          }
+        });
+      }
+      if (!this.state.mpg5) {
+        playersArr = playersArr.filter(function (player) {
+          return player.mpg < 30.0;
+        });
+      }
+
+      if (!this.state.exp1) {
+        playersArr = playersArr.filter(function (player) {
+          return player.experience !== "R";
+        });
+      }
+      if (!this.state.exp2) {
+        playersArr = playersArr.filter(function (player) {
+          if (player.experience === "R" || player.experience > 3) {
+            return player;
+          }
+        });
+      }
+      if (!this.state.exp3) {
+        playersArr = playersArr.filter(function (player) {
+          if (player.experience === "R" || player.experience < 4 || player.experience > 6) {
+            return player;
+          }
+        });
+      }
+      if (!this.state.exp4) {
+        playersArr = playersArr.filter(function (player) {
+          if (player.experience === "R" || player.experience < 7 || player.experience > 10) {
+            return player;
+          }
+        });
+      }
+      if (!this.state.exp5) {
+        playersArr = playersArr.filter(function (player) {
+          if (player.experience === "R" || player.experience < 11) {
+            return player;
+          }
+        });
+      }
+
+      if (!this.state.age1) {
+        playersArr = playersArr.filter(function (player) {
+          return player.age >= 21;
+        });
+      }
+      if (!this.state.age2) {
+        playersArr = playersArr.filter(function (player) {
+          if (player.age < 21 || player.age > 25.0) {
+            return player;
+          }
+        });
+      }
+      if (!this.state.age3) {
+        playersArr = playersArr.filter(function (player) {
+          if (player.age < 26 || player.age > 30) {
+            return player;
+          }
+        });
+      }
+      if (!this.state.age4) {
+        playersArr = playersArr.filter(function (player) {
+          if (player.age < 31 || player.age > 35) {
+            return player;
+          }
+        });
+      }
+      if (!this.state.age5) {
+        playersArr = playersArr.filter(function (player) {
+          return player.age < 35;
+        });
+      }
+      this.setState({ players: playersArr }, function () {
+        //console.log("End Arr: ", this.state.players);
+        var statArr = [];
+        for (var i = 0; i < _this10.state.players.length; i++) {
+          var player = _this10.state.players[i];
+          statArr.push({
+            data: [[parseFloat(player[_this10.state.statTwo]), parseFloat(player[_this10.state.statOne])]],
+            name: player.name,
+            color: "#d00000",
+            _symbolIndex: 0
+          });
+        }
+        _this10.setState({ data: statArr }, function () {
+          //console.log(this.state.data);
+          _this10.createChart();
+        });
+      });
+    }
+  }, {
+    key: "handleFilterSubmit",
+    value: function handleFilterSubmit() {
+      this.filterPlayers();
+    }
+  }, {
     key: "renderFilter",
     value: function renderFilter() {
       if (this.state.showFilter === true) {
@@ -67217,31 +67537,31 @@ var PlayerScatter = function (_React$Component) {
               { style: { paddingLeft: "10px" } },
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.pg, onChange: this.handlePG },
                 "PG"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.sg, onChange: this.handleSG },
                 "SG"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.sf, onChange: this.handleSF },
                 "SF"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.pf, onChange: this.handlePF },
                 "PF"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.c, onChange: this.handleC },
                 "C"
               )
             )
@@ -67262,31 +67582,31 @@ var PlayerScatter = function (_React$Component) {
                 { style: { paddingLeft: "10px" } },
                 _react2.default.createElement(
                   _reactBootstrap.Checkbox,
-                  null,
-                  "< 15"
+                  { checked: this.state.mpg1, onChange: this.handleMPG1 },
+                  "5-15"
                 ),
                 " ",
                 _react2.default.createElement(
                   _reactBootstrap.Checkbox,
-                  null,
+                  { checked: this.state.mpg2, onChange: this.handleMPG2 },
                   "15-20"
                 ),
                 " ",
                 _react2.default.createElement(
                   _reactBootstrap.Checkbox,
-                  null,
+                  { checked: this.state.mpg3, onChange: this.handleMPG3 },
                   "20-25"
                 ),
                 " ",
                 _react2.default.createElement(
                   _reactBootstrap.Checkbox,
-                  null,
+                  { checked: this.state.mpg4, onChange: this.handleMPG4 },
                   "25-30"
                 ),
                 " ",
                 _react2.default.createElement(
                   _reactBootstrap.Checkbox,
-                  null,
+                  { checked: this.state.mpg5, onChange: this.handleMPG5 },
                   "> 30"
                 )
               )
@@ -67305,31 +67625,31 @@ var PlayerScatter = function (_React$Component) {
               { style: { paddingLeft: "10px" } },
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.exp1, onChange: this.handleEXP1 },
                 "Rookie"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.exp2, onChange: this.handleEXP2 },
                 "1-3"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.exp3, onChange: this.handleEXP3 },
                 "4-6"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.exp4, onChange: this.handleEXP4 },
                 "7-10"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.exp5, onChange: this.handleEXP5 },
                 "> 10"
               )
             )
@@ -67348,7 +67668,7 @@ var PlayerScatter = function (_React$Component) {
                 style: {
                   paddingLeft: "10px",
                   overflow: "scroll",
-                  height: "150px"
+                  height: "135px"
                 }
               },
               _react2.default.createElement(
@@ -67515,31 +67835,31 @@ var PlayerScatter = function (_React$Component) {
               { style: { paddingLeft: "10px" } },
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.age1, onChange: this.handleAGE1 },
                 "< 21"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.age2, onChange: this.handleAGE2 },
                 "21-25"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.age3, onChange: this.handleAGE3 },
                 "26-30"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.age4, onChange: this.handleAGE4 },
                 "31-35"
               ),
               " ",
               _react2.default.createElement(
                 _reactBootstrap.Checkbox,
-                null,
+                { checked: this.state.age5, onChange: this.handleAGE5 },
                 "> 35"
               )
             )
@@ -67583,6 +67903,19 @@ var PlayerScatter = function (_React$Component) {
                 _reactBootstrap.Checkbox,
                 null,
                 "> 20 mil."
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 4 },
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { onClick: this.handleFilterSubmit },
+                "Submit"
               )
             )
           )
