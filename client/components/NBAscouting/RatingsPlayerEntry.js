@@ -31,6 +31,7 @@ export default class RatingslayersEntry extends React.Component {
     var highFT = 0.93;
     var highThree = 0.5;
     var highTwo = 0.88;
+    var highEFg = 0.65;
 
     var scoring = this.getGrade(
       highPoints,
@@ -63,6 +64,7 @@ export default class RatingslayersEntry extends React.Component {
       this.state.player.threePtPct,
       0.2
     );
+    var fg = this.getGrade(highEFg, this.state.player.efgPct, 0.3);
     var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.2);
     this.setState({
       scoring: scoring,
@@ -72,7 +74,8 @@ export default class RatingslayersEntry extends React.Component {
       blk: blk,
       ft: ft,
       threePoint: threePoint,
-      twoPoint: twoPoint
+      twoPoint: twoPoint,
+      fg: fg
     });
   }
 
@@ -138,35 +141,6 @@ export default class RatingslayersEntry extends React.Component {
     return playerGrade;
   }
 
-  renderPlayer() {
-    if (this.state.scoring) {
-      return (
-        <tr>
-          <td>
-            <a href={`/player/${this.props.player.id}`}>
-              {this.props.player.name}
-            </a>
-          </td>
-          <td>{this.props.player.position}</td>
-          <td>{this.props.player.gamesPlayed}</td>
-          <td>-</td>
-          <td>{this.props.player.Grades.threePoint.Grade}</td>
-          <td>{this.props.player.Grades.twoPoint.Grade}</td>
-          <td>{this.props.player.Grades.ft.Grade}</td>
-          <td>-</td>
-          <td>-</td>
-          <td>{this.props.player.Grades.reb.Grade}</td>
-          <td>{this.props.player.Grades.ast.Grade}</td>
-          <td>{this.props.player.Grades.stl.Grade}</td>
-          <td>{this.props.player.Grades.blk.Grade}</td>
-          <td>-</td>
-          <td>-</td>
-          <td>{this.props.player.Grades.scoring.Grade}</td>
-        </tr>
-      );
-    }
-  }
-
   render() {
     return (
       <tr>
@@ -177,7 +151,14 @@ export default class RatingslayersEntry extends React.Component {
         </td>
         <td>{this.props.player.position}</td>
         <td>{this.props.player.gamesPlayed}</td>
-        <td>-</td>
+        <td
+          style={{
+            color: this.props.player.Grades.fg.Color,
+            fontWeight: "bold"
+          }}
+        >
+          {this.props.player.Grades.fg.Grade}
+        </td>
         <td
           style={{
             color: this.props.player.Grades.threePoint.Color,
@@ -202,8 +183,22 @@ export default class RatingslayersEntry extends React.Component {
         >
           {this.props.player.Grades.ft.Grade}
         </td>
-        <td>-</td>
-        <td>-</td>
+        <td
+          style={{
+            color: this.props.player.Grades.orb.Color,
+            fontWeight: "bold"
+          }}
+        >
+          {this.props.player.Grades.orb.Grade}
+        </td>
+        <td
+          style={{
+            color: this.props.player.Grades.drb.Color,
+            fontWeight: "bold"
+          }}
+        >
+          {this.props.player.Grades.drb.Grade}
+        </td>
         <td
           style={{
             color: this.props.player.Grades.reb.Color,
@@ -236,8 +231,14 @@ export default class RatingslayersEntry extends React.Component {
         >
           {this.props.player.Grades.blk.Grade}
         </td>
-        <td>-</td>
-        <td>-</td>
+        <td
+          style={{
+            color: this.props.player.Grades.tov.Color,
+            fontWeight: "bold"
+          }}
+        >
+          {this.props.player.Grades.tov.Grade}
+        </td>
         <td
           style={{
             color: this.props.player.Grades.scoring.Color,

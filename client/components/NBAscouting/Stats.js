@@ -99,6 +99,10 @@ export default class Stats extends React.Component {
     var highFT = 0.93;
     var highThree = 0.45;
     var highTwo = 0.7;
+    var highEFg = 0.65;
+    var highOrb = 5.0;
+    var highDrb = 10.0;
+    var highTov = 0;
 
     var scoring = this.getGrade(highPoints, player.pts / player.mpg * 36, 0);
     var ast = this.getGrade(highAst, player.ast / player.mpg * 36, 0);
@@ -108,6 +112,10 @@ export default class Stats extends React.Component {
     var ft = this.getGrade(highFT, player.freeThrowPct, 0.4);
     var threePoint = this.getGrade(highThree, player.threePtPct, 0.2);
     var twoPoint = this.getGrade(highTwo, player.twoPtPct, 0.2);
+    var fg = this.getGrade(highEFg, player.efgPct, 0.3);
+    var orb = this.getGrade(highOrb, player.orb, 0);
+    var drb = this.getGrade(highDrb, player.drb, 1.0);
+    var tov = this.getGrade(highTov, player.tov * -1, -5.0);
     var grades = {
       scoring: scoring,
       ast: ast,
@@ -116,7 +124,11 @@ export default class Stats extends React.Component {
       blk: blk,
       ft: ft,
       threePoint: threePoint,
-      twoPoint: twoPoint
+      twoPoint: twoPoint,
+      fg: fg,
+      orb: orb,
+      drb: drb,
+      tov: tov
     };
     return grades;
   }
@@ -195,7 +207,6 @@ export default class Stats extends React.Component {
           <th>STL</th>
           <th>BLK</th>
           <th>TOV</th>
-          <th>PF</th>
           <th>PTS</th>
         </tr>
       );

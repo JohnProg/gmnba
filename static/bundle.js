@@ -73676,6 +73676,10 @@ var Stats = function (_React$Component) {
       var highFT = 0.93;
       var highThree = 0.45;
       var highTwo = 0.7;
+      var highEFg = 0.65;
+      var highOrb = 5.0;
+      var highDrb = 10.0;
+      var highTov = 0;
 
       var scoring = this.getGrade(highPoints, player.pts / player.mpg * 36, 0);
       var ast = this.getGrade(highAst, player.ast / player.mpg * 36, 0);
@@ -73685,6 +73689,10 @@ var Stats = function (_React$Component) {
       var ft = this.getGrade(highFT, player.freeThrowPct, 0.4);
       var threePoint = this.getGrade(highThree, player.threePtPct, 0.2);
       var twoPoint = this.getGrade(highTwo, player.twoPtPct, 0.2);
+      var fg = this.getGrade(highEFg, player.efgPct, 0.3);
+      var orb = this.getGrade(highOrb, player.orb, 0);
+      var drb = this.getGrade(highDrb, player.drb, 1.0);
+      var tov = this.getGrade(highTov, player.tov * -1, -5.0);
       var grades = {
         scoring: scoring,
         ast: ast,
@@ -73693,7 +73701,11 @@ var Stats = function (_React$Component) {
         blk: blk,
         ft: ft,
         threePoint: threePoint,
-        twoPoint: twoPoint
+        twoPoint: twoPoint,
+        fg: fg,
+        orb: orb,
+        drb: drb,
+        tov: tov
       };
       return grades;
     }
@@ -73926,11 +73938,6 @@ var Stats = function (_React$Component) {
             "th",
             null,
             "TOV"
-          ),
-          _react2.default.createElement(
-            "th",
-            null,
-            "PF"
           ),
           _react2.default.createElement(
             "th",
@@ -74341,6 +74348,7 @@ var RatingslayersEntry = function (_React$Component) {
       var highFT = 0.93;
       var highThree = 0.5;
       var highTwo = 0.88;
+      var highEFg = 0.65;
 
       var scoring = this.getGrade(highPoints, this.state.player.pts / this.state.player.mpg * 36, 0);
       var ast = this.getGrade(highAst, this.state.player.ast / this.state.player.mpg * 36, 0);
@@ -74349,6 +74357,7 @@ var RatingslayersEntry = function (_React$Component) {
       var blk = this.getGrade(highBlk, this.state.player.blk / this.state.player.mpg * 36, 0);
       var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
       var threePoint = this.getGrade(highThree, this.state.player.threePtPct, 0.2);
+      var fg = this.getGrade(highEFg, this.state.player.efgPct, 0.3);
       var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.2);
       this.setState({
         scoring: scoring,
@@ -74358,7 +74367,8 @@ var RatingslayersEntry = function (_React$Component) {
         blk: blk,
         ft: ft,
         threePoint: threePoint,
-        twoPoint: twoPoint
+        twoPoint: twoPoint,
+        fg: fg
       });
     }
   }, {
@@ -74425,100 +74435,6 @@ var RatingslayersEntry = function (_React$Component) {
       return playerGrade;
     }
   }, {
-    key: "renderPlayer",
-    value: function renderPlayer() {
-      if (this.state.scoring) {
-        return _react2.default.createElement(
-          "tr",
-          null,
-          _react2.default.createElement(
-            "td",
-            null,
-            _react2.default.createElement(
-              "a",
-              { href: "/player/" + this.props.player.id },
-              this.props.player.name
-            )
-          ),
-          _react2.default.createElement(
-            "td",
-            null,
-            this.props.player.position
-          ),
-          _react2.default.createElement(
-            "td",
-            null,
-            this.props.player.gamesPlayed
-          ),
-          _react2.default.createElement(
-            "td",
-            null,
-            "-"
-          ),
-          _react2.default.createElement(
-            "td",
-            null,
-            this.props.player.Grades.threePoint.Grade
-          ),
-          _react2.default.createElement(
-            "td",
-            null,
-            this.props.player.Grades.twoPoint.Grade
-          ),
-          _react2.default.createElement(
-            "td",
-            null,
-            this.props.player.Grades.ft.Grade
-          ),
-          _react2.default.createElement(
-            "td",
-            null,
-            "-"
-          ),
-          _react2.default.createElement(
-            "td",
-            null,
-            "-"
-          ),
-          _react2.default.createElement(
-            "td",
-            null,
-            this.props.player.Grades.reb.Grade
-          ),
-          _react2.default.createElement(
-            "td",
-            null,
-            this.props.player.Grades.ast.Grade
-          ),
-          _react2.default.createElement(
-            "td",
-            null,
-            this.props.player.Grades.stl.Grade
-          ),
-          _react2.default.createElement(
-            "td",
-            null,
-            this.props.player.Grades.blk.Grade
-          ),
-          _react2.default.createElement(
-            "td",
-            null,
-            "-"
-          ),
-          _react2.default.createElement(
-            "td",
-            null,
-            "-"
-          ),
-          _react2.default.createElement(
-            "td",
-            null,
-            this.props.player.Grades.scoring.Grade
-          )
-        );
-      }
-    }
-  }, {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
@@ -74545,8 +74461,13 @@ var RatingslayersEntry = function (_React$Component) {
         ),
         _react2.default.createElement(
           "td",
-          null,
-          "-"
+          {
+            style: {
+              color: this.props.player.Grades.fg.Color,
+              fontWeight: "bold"
+            }
+          },
+          this.props.player.Grades.fg.Grade
         ),
         _react2.default.createElement(
           "td",
@@ -74580,13 +74501,23 @@ var RatingslayersEntry = function (_React$Component) {
         ),
         _react2.default.createElement(
           "td",
-          null,
-          "-"
+          {
+            style: {
+              color: this.props.player.Grades.orb.Color,
+              fontWeight: "bold"
+            }
+          },
+          this.props.player.Grades.orb.Grade
         ),
         _react2.default.createElement(
           "td",
-          null,
-          "-"
+          {
+            style: {
+              color: this.props.player.Grades.drb.Color,
+              fontWeight: "bold"
+            }
+          },
+          this.props.player.Grades.drb.Grade
         ),
         _react2.default.createElement(
           "td",
@@ -74630,13 +74561,13 @@ var RatingslayersEntry = function (_React$Component) {
         ),
         _react2.default.createElement(
           "td",
-          null,
-          "-"
-        ),
-        _react2.default.createElement(
-          "td",
-          null,
-          "-"
+          {
+            style: {
+              color: this.props.player.Grades.tov.Color,
+              fontWeight: "bold"
+            }
+          },
+          this.props.player.Grades.tov.Grade
         ),
         _react2.default.createElement(
           "td",
