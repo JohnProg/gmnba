@@ -20933,14 +20933,14 @@ var TeamScatter = function (_React$Component) {
   }
 
   _createClass(TeamScatter, [{
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
+    key: "componentDidMount",
+    value: function componentDidMount() {
       var _this2 = this;
 
       var teamData = [];
       var scatterData = [];
-      if (nextProps.teams) {
-        var data = nextProps.teams;
+      if (this.props.teams) {
+        var data = this.props.teams;
         this.setState({ teamData: data });
         for (var j = 0; j < data.length; j++) {
           scatterData.push({
@@ -20954,6 +20954,32 @@ var TeamScatter = function (_React$Component) {
           _this2.createChart();
         });
       }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // var teamData = [];
+      // var scatterData = [];
+      // if (nextProps.teams) {
+      //   var data = nextProps.teams;
+      //   this.setState({ teamData: data });
+      //   for (var j = 0; j < data.length; j++) {
+      //     scatterData.push({
+      //       data: [
+      //         [
+      //           parseFloat(data[j][this.state.statTwo]),
+      //           parseFloat(data[j][this.state.statOne])
+      //         ]
+      //       ],
+      //       name: data[j].Name,
+      //       color: "#d00000",
+      //       _symbolIndex: 0
+      //     });
+      //   }
+      //   this.setState({ data: scatterData }, () => {
+      //     this.createChart();
+      //   });
+      // }
     }
   }, {
     key: "createChart",
@@ -22316,7 +22342,31 @@ var PlayerFinder = function (_React$Component) {
   function PlayerFinder(props) {
     _classCallCheck(this, PlayerFinder);
 
-    return _possibleConstructorReturn(this, (PlayerFinder.__proto__ || Object.getPrototypeOf(PlayerFinder)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (PlayerFinder.__proto__ || Object.getPrototypeOf(PlayerFinder)).call(this, props));
+
+    _this.state = {
+      pg: false,
+      sg: false,
+      sf: false,
+      pf: false,
+      c: false,
+      exp1: false,
+      exp2: false,
+      exp3: false,
+      exp4: false,
+      exp5: false,
+      age1: false,
+      age2: false,
+      age3: false,
+      age4: false,
+      age5: false,
+      mpg1: false,
+      mpg2: false,
+      mpg3: false,
+      mpg4: false,
+      mpg5: false
+    };
+    return _this;
   }
 
   _createClass(PlayerFinder, [{
@@ -22349,17 +22399,2590 @@ var PlayerFinder = function (_React$Component) {
         ),
         _react2.default.createElement(
           _reactBootstrap.Row,
-          { style: { paddingTop: "40px" } },
+          { style: { paddingTop: "40px", paddingBottom: "20px" } },
           _react2.default.createElement(
             _reactBootstrap.Col,
             { lg: 10, lgOffset: 1 },
             _react2.default.createElement(
               "div",
-              {
-                className: "card",
-                style: { height: "100px", backgroundColor: "white" }
-              },
-              "Find Player"
+              { className: "card", style: { backgroundColor: "white" } },
+              _react2.default.createElement(
+                _reactBootstrap.Tab.Container,
+                {
+                  id: "left-tabs-example",
+                  defaultActiveKey: "first",
+                  style: { paddingTop: "20px", paddingLeft: "10px" }
+                },
+                _react2.default.createElement(
+                  _reactBootstrap.Row,
+                  { className: "clearfix" },
+                  _react2.default.createElement(
+                    _reactBootstrap.Col,
+                    { sm: 4 },
+                    _react2.default.createElement(
+                      _reactBootstrap.Nav,
+                      { bsStyle: "pills", stacked: true, style: { border: "1px" } },
+                      _react2.default.createElement(
+                        _reactBootstrap.NavItem,
+                        { eventKey: "first" },
+                        "Basic Info"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.NavItem,
+                        { eventKey: "second" },
+                        "Ratings"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.NavItem,
+                        { eventKey: "third" },
+                        "Statistics"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.NavItem,
+                        { eventKey: "fourth" },
+                        "Advanced Statistics"
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.Col,
+                    { sm: 8 },
+                    _react2.default.createElement(
+                      _reactBootstrap.Tab.Content,
+                      { animation: true },
+                      _react2.default.createElement(
+                        _reactBootstrap.Tab.Pane,
+                        { eventKey: "first" },
+                        _react2.default.createElement(
+                          _reactBootstrap.Row,
+                          null,
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 4 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "Position"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pg,
+                                  onChange: this.handlePG
+                                },
+                                "Point Guard"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sg,
+                                  onChange: this.handleSG
+                                },
+                                "Shooting Guard"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sf,
+                                  onChange: this.handleSF
+                                },
+                                "Shooting Forward"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pf,
+                                  onChange: this.handlePF
+                                },
+                                "Power Forward"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.c,
+                                  onChange: this.handleC
+                                },
+                                "Center"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 4 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "Experience"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.exp1,
+                                  onChange: this.handleEXP1
+                                },
+                                "Rookie"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.exp2,
+                                  onChange: this.handleEXP2
+                                },
+                                "1-3 yrs"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.exp3,
+                                  onChange: this.handleEXP3
+                                },
+                                "4-6 yrs"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.exp4,
+                                  onChange: this.handleEXP4
+                                },
+                                "7-10 yrs"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.exp5,
+                                  onChange: this.handleEXP5
+                                },
+                                "> 10 yrs"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 4 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "Age"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 21"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "21-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "26-30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "31-35"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 35"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 4 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "Height"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pg,
+                                  onChange: this.handlePG
+                                },
+                                "< 6'0"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sg,
+                                  onChange: this.handleSG
+                                },
+                                "6'0 - 6'3"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sf,
+                                  onChange: this.handleSF
+                                },
+                                "6'4 - 6'7"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pf,
+                                  onChange: this.handlePF
+                                },
+                                "6'8 - 6'11"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.c,
+                                  onChange: this.handleC
+                                },
+                                "7'0 +"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 4 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "Weight"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pg,
+                                  onChange: this.handlePG
+                                },
+                                "< 180lbs"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sg,
+                                  onChange: this.handleSG
+                                },
+                                "180lbs - 220lbs"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sf,
+                                  onChange: this.handleSF
+                                },
+                                "220lbs - 260lbs"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pf,
+                                  onChange: this.handlePF
+                                },
+                                "260lbs - 280lbs"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.c,
+                                  onChange: this.handleC
+                                },
+                                "280lbs +"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "Salary Per Year"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              null,
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                null,
+                                "< 5 mil."
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                null,
+                                "5-10 mil."
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                null,
+                                "10-15 mil."
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                null,
+                                "15-20 mil."
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                null,
+                                "> 20 mil."
+                              )
+                            )
+                          )
+                        )
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.Tab.Pane,
+                        { eventKey: "second" },
+                        "Ratings Content"
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.Tab.Pane,
+                        {
+                          style: { height: "320px", overflowY: "scroll" },
+                          eventKey: "fourth"
+                        },
+                        _react2.default.createElement(
+                          _reactBootstrap.Row,
+                          null,
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "PER"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pg,
+                                  onChange: this.handlePG
+                                },
+                                "< 20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sg,
+                                  onChange: this.handleSG
+                                },
+                                "20 - 30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sf,
+                                  onChange: this.handleSF
+                                },
+                                "30 - 40"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pf,
+                                  onChange: this.handlePF
+                                },
+                                "40 - 50"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.c,
+                                  onChange: this.handleC
+                                },
+                                "> 50"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "WS"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg1,
+                                  onChange: this.handleMPG1
+                                },
+                                "< 15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg2,
+                                  onChange: this.handleMPG2
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg3,
+                                  onChange: this.handleMPG3
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg4,
+                                  onChange: this.handleMPG4
+                                },
+                                "25-30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg5,
+                                  onChange: this.handleMPG5
+                                },
+                                "> 30"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "OWS"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 10"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "10-15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 25"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "DWS"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 2"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "2-3"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "4-5"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "6-7"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 7"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "WS/48"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pg,
+                                  onChange: this.handlePG
+                                },
+                                "< 20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sg,
+                                  onChange: this.handleSG
+                                },
+                                "20 - 30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sf,
+                                  onChange: this.handleSF
+                                },
+                                "30 - 40"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pf,
+                                  onChange: this.handlePF
+                                },
+                                "40 - 50"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.c,
+                                  onChange: this.handleC
+                                },
+                                "> 50"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "VORP"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg1,
+                                  onChange: this.handleMPG1
+                                },
+                                "< 15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg2,
+                                  onChange: this.handleMPG2
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg3,
+                                  onChange: this.handleMPG3
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg4,
+                                  onChange: this.handleMPG4
+                                },
+                                "25-30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg5,
+                                  onChange: this.handleMPG5
+                                },
+                                "> 30"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "OBPM"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 10"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "10-15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 25"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "DBPM"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 2"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "2-3"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "4-5"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "6-7"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 7"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "USG%"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pg,
+                                  onChange: this.handlePG
+                                },
+                                "< 20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sg,
+                                  onChange: this.handleSG
+                                },
+                                "20 - 30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sf,
+                                  onChange: this.handleSF
+                                },
+                                "30 - 40"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pf,
+                                  onChange: this.handlePF
+                                },
+                                "40 - 50"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.c,
+                                  onChange: this.handleC
+                                },
+                                "> 50"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "TS%"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg1,
+                                  onChange: this.handleMPG1
+                                },
+                                "< 15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg2,
+                                  onChange: this.handleMPG2
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg3,
+                                  onChange: this.handleMPG3
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg4,
+                                  onChange: this.handleMPG4
+                                },
+                                "25-30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg5,
+                                  onChange: this.handleMPG5
+                                },
+                                "> 30"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "3PAr"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 10"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "10-15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 25"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "AST%"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 2"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "2-3"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "4-5"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "6-7"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 7"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "BLK%"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pg,
+                                  onChange: this.handlePG
+                                },
+                                "< 20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sg,
+                                  onChange: this.handleSG
+                                },
+                                "20 - 30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sf,
+                                  onChange: this.handleSF
+                                },
+                                "30 - 40"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pf,
+                                  onChange: this.handlePF
+                                },
+                                "40 - 50"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.c,
+                                  onChange: this.handleC
+                                },
+                                "> 50"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "STL%"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg1,
+                                  onChange: this.handleMPG1
+                                },
+                                "< 15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg2,
+                                  onChange: this.handleMPG2
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg3,
+                                  onChange: this.handleMPG3
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg4,
+                                  onChange: this.handleMPG4
+                                },
+                                "25-30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg5,
+                                  onChange: this.handleMPG5
+                                },
+                                "> 30"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "DRB%"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 10"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "10-15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 25"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "ORB%"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 2"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "2-3"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "4-5"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "6-7"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 7"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "TRB%"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 10"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "10-15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 25"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "eFG%"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 2"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "2-3"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "4-5"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "6-7"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 7"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "TOV%"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 2"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "2-3"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "4-5"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "6-7"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 7"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "FTr"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 2"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "2-3"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "4-5"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "6-7"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 7"
+                              )
+                            )
+                          )
+                        )
+                      ),
+                      _react2.default.createElement(
+                        _reactBootstrap.Tab.Pane,
+                        {
+                          style: { height: "320px", overflowY: "scroll" },
+                          eventKey: "third"
+                        },
+                        _react2.default.createElement(
+                          _reactBootstrap.Row,
+                          null,
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "GP"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pg,
+                                  onChange: this.handlePG
+                                },
+                                "< 20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sg,
+                                  onChange: this.handleSG
+                                },
+                                "20 - 30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sf,
+                                  onChange: this.handleSF
+                                },
+                                "30 - 40"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pf,
+                                  onChange: this.handlePF
+                                },
+                                "40 - 50"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.c,
+                                  onChange: this.handleC
+                                },
+                                "> 50"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "MPG"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg1,
+                                  onChange: this.handleMPG1
+                                },
+                                "< 15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg2,
+                                  onChange: this.handleMPG2
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg3,
+                                  onChange: this.handleMPG3
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg4,
+                                  onChange: this.handleMPG4
+                                },
+                                "25-30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg5,
+                                  onChange: this.handleMPG5
+                                },
+                                "> 30"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "PTS"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 10"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "10-15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 25"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "AST"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 2"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "2-3"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "4-5"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "6-7"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 7"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "STL"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pg,
+                                  onChange: this.handlePG
+                                },
+                                "< 20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sg,
+                                  onChange: this.handleSG
+                                },
+                                "20 - 30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sf,
+                                  onChange: this.handleSF
+                                },
+                                "30 - 40"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pf,
+                                  onChange: this.handlePF
+                                },
+                                "40 - 50"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.c,
+                                  onChange: this.handleC
+                                },
+                                "> 50"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "BLK"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg1,
+                                  onChange: this.handleMPG1
+                                },
+                                "< 15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg2,
+                                  onChange: this.handleMPG2
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg3,
+                                  onChange: this.handleMPG3
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg4,
+                                  onChange: this.handleMPG4
+                                },
+                                "25-30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg5,
+                                  onChange: this.handleMPG5
+                                },
+                                "> 30"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "TOV"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 10"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "10-15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 25"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "REB"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 2"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "2-3"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "4-5"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "6-7"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 7"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "DRB"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pg,
+                                  onChange: this.handlePG
+                                },
+                                "< 20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sg,
+                                  onChange: this.handleSG
+                                },
+                                "20 - 30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sf,
+                                  onChange: this.handleSF
+                                },
+                                "30 - 40"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pf,
+                                  onChange: this.handlePF
+                                },
+                                "40 - 50"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.c,
+                                  onChange: this.handleC
+                                },
+                                "> 50"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "ORB"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg1,
+                                  onChange: this.handleMPG1
+                                },
+                                "< 15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg2,
+                                  onChange: this.handleMPG2
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg3,
+                                  onChange: this.handleMPG3
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg4,
+                                  onChange: this.handleMPG4
+                                },
+                                "25-30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg5,
+                                  onChange: this.handleMPG5
+                                },
+                                "> 30"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "FT%"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 10"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "10-15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 25"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "FTA"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 2"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "2-3"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "4-5"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "6-7"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 7"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "2P%"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pg,
+                                  onChange: this.handlePG
+                                },
+                                "< 20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sg,
+                                  onChange: this.handleSG
+                                },
+                                "20 - 30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.sf,
+                                  onChange: this.handleSF
+                                },
+                                "30 - 40"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.pf,
+                                  onChange: this.handlePF
+                                },
+                                "40 - 50"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.c,
+                                  onChange: this.handleC
+                                },
+                                "> 50"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "2PA"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg1,
+                                  onChange: this.handleMPG1
+                                },
+                                "< 15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg2,
+                                  onChange: this.handleMPG2
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg3,
+                                  onChange: this.handleMPG3
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg4,
+                                  onChange: this.handleMPG4
+                                },
+                                "25-30"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.mpg5,
+                                  onChange: this.handleMPG5
+                                },
+                                "> 30"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "3P%"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 10"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "10-15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 25"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "3PA"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 2"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "2-3"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "4-5"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "6-7"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 7"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "FG%"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 10"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "10-15"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "15-20"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "20-25"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 25"
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            _reactBootstrap.Col,
+                            { lg: 3 },
+                            _react2.default.createElement(
+                              "div",
+                              { style: { textDecoration: "underline" } },
+                              "FGA"
+                            ),
+                            _react2.default.createElement(
+                              _reactBootstrap.FormGroup,
+                              { style: { paddingLeft: "10px" } },
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age1,
+                                  onChange: this.handleAGE1
+                                },
+                                "< 2"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age2,
+                                  onChange: this.handleAGE2
+                                },
+                                "2-3"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age3,
+                                  onChange: this.handleAGE3
+                                },
+                                "4-5"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age4,
+                                  onChange: this.handleAGE4
+                                },
+                                "6-7"
+                              ),
+                              " ",
+                              _react2.default.createElement(
+                                _reactBootstrap.Checkbox,
+                                {
+                                  checked: this.state.age5,
+                                  onChange: this.handleAGE5
+                                },
+                                "> 7"
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ),
+              _react2.default.createElement("hr", { style: { paddingBottom: "10px" } })
             )
           )
         )

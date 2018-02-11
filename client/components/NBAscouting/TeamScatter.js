@@ -32,11 +32,11 @@ export default class TeamScatter extends React.Component {
     this.secondInputChange = this.secondInputChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidMount() {
     var teamData = [];
     var scatterData = [];
-    if (nextProps.teams) {
-      var data = nextProps.teams;
+    if (this.props.teams) {
+      var data = this.props.teams;
       this.setState({ teamData: data });
       for (var j = 0; j < data.length; j++) {
         scatterData.push({
@@ -55,6 +55,31 @@ export default class TeamScatter extends React.Component {
         this.createChart();
       });
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // var teamData = [];
+    // var scatterData = [];
+    // if (nextProps.teams) {
+    //   var data = nextProps.teams;
+    //   this.setState({ teamData: data });
+    //   for (var j = 0; j < data.length; j++) {
+    //     scatterData.push({
+    //       data: [
+    //         [
+    //           parseFloat(data[j][this.state.statTwo]),
+    //           parseFloat(data[j][this.state.statOne])
+    //         ]
+    //       ],
+    //       name: data[j].Name,
+    //       color: "#d00000",
+    //       _symbolIndex: 0
+    //     });
+    //   }
+    //   this.setState({ data: scatterData }, () => {
+    //     this.createChart();
+    //   });
+    // }
   }
 
   createChart() {
