@@ -5,6 +5,7 @@ import PlayerComparison from "./PlayerComparison";
 import TeamComparison from "./TeamComparison";
 import PlayerFinder from "./PlayerFinder";
 import Stats from "./Stats";
+import Standings from "./Standings";
 
 export default class NbaScoutingTabs extends React.Component {
   constructor(props) {
@@ -33,6 +34,8 @@ export default class NbaScoutingTabs extends React.Component {
       component = (
         <Stats players={this.props.players} teams={this.props.teams} />
       );
+    if (this.state.key === 6)
+      component = <Standings teams={this.props.teams} />;
     return (
       <div>
         <div className="card">
@@ -43,22 +46,22 @@ export default class NbaScoutingTabs extends React.Component {
             justified
           >
             <NavItem eventKey={1} href="/">
-              <span className="tab-text">LEAGUE LEADERS</span>
+              <span className="tab-text">League Leaders</span>
             </NavItem>
             <NavItem eventKey={2} href="/">
-              <span className="tab-text">PLAYER COMPARISON</span>
+              <span className="tab-text">Player Comparison</span>
             </NavItem>
             <NavItem eventKey={3} href="/">
-              <span className="tab-text">TEAM COMPARISON</span>
+              <span className="tab-text">Team Comparison</span>
             </NavItem>
             <NavItem eventKey={4} href="/">
-              <span className="tab-text">PLAYER FINDER</span>
+              <span className="tab-text">Player Finder</span>
             </NavItem>
             <NavItem eventKey={5} title="Item">
-              <span className="tab-text">STATS</span>
+              <span className="tab-text">Stats</span>
             </NavItem>
             <NavItem eventKey={6} title="Item">
-              <span className="tab-text">STANDINGS</span>
+              <span className="tab-text">Standings</span>
             </NavItem>
           </Nav>
         </div>

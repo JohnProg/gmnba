@@ -68332,6 +68332,10 @@ var _Stats = __webpack_require__(478);
 
 var _Stats2 = _interopRequireDefault(_Stats);
 
+var _Standings = __webpack_require__(509);
+
+var _Standings2 = _interopRequireDefault(_Standings);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -68369,6 +68373,7 @@ var NbaScoutingTabs = function (_React$Component) {
       if (this.state.key === 3) component = _react2.default.createElement(_TeamComparison2.default, { teams: this.props.teams });
       if (this.state.key === 4) component = _react2.default.createElement(_PlayerFinder2.default, { players: this.props.players });
       if (this.state.key === 5) component = _react2.default.createElement(_Stats2.default, { players: this.props.players, teams: this.props.teams });
+      if (this.state.key === 6) component = _react2.default.createElement(_Standings2.default, { teams: this.props.teams });
       return _react2.default.createElement(
         "div",
         null,
@@ -68389,7 +68394,7 @@ var NbaScoutingTabs = function (_React$Component) {
               _react2.default.createElement(
                 "span",
                 { className: "tab-text" },
-                "LEAGUE LEADERS"
+                "League Leaders"
               )
             ),
             _react2.default.createElement(
@@ -68398,7 +68403,7 @@ var NbaScoutingTabs = function (_React$Component) {
               _react2.default.createElement(
                 "span",
                 { className: "tab-text" },
-                "PLAYER COMPARISON"
+                "Player Comparison"
               )
             ),
             _react2.default.createElement(
@@ -68407,7 +68412,7 @@ var NbaScoutingTabs = function (_React$Component) {
               _react2.default.createElement(
                 "span",
                 { className: "tab-text" },
-                "TEAM COMPARISON"
+                "Team Comparison"
               )
             ),
             _react2.default.createElement(
@@ -68416,7 +68421,7 @@ var NbaScoutingTabs = function (_React$Component) {
               _react2.default.createElement(
                 "span",
                 { className: "tab-text" },
-                "PLAYER FINDER"
+                "Player Finder"
               )
             ),
             _react2.default.createElement(
@@ -68425,7 +68430,7 @@ var NbaScoutingTabs = function (_React$Component) {
               _react2.default.createElement(
                 "span",
                 { className: "tab-text" },
-                "STATS"
+                "Stats"
               )
             ),
             _react2.default.createElement(
@@ -68434,7 +68439,7 @@ var NbaScoutingTabs = function (_React$Component) {
               _react2.default.createElement(
                 "span",
                 { className: "tab-text" },
-                "STANDINGS"
+                "Standings"
               )
             )
           )
@@ -83114,6 +83119,677 @@ module.exports = function () {
       return state;
   }
 };
+
+/***/ }),
+/* 509 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(9);
+
+var _ConferenceStandings = __webpack_require__(510);
+
+var _ConferenceStandings2 = _interopRequireDefault(_ConferenceStandings);
+
+var _LeagueStandings = __webpack_require__(512);
+
+var _LeagueStandings2 = _interopRequireDefault(_LeagueStandings);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Standings = function (_React$Component) {
+  _inherits(Standings, _React$Component);
+
+  function Standings(props) {
+    _classCallCheck(this, Standings);
+
+    var _this = _possibleConstructorReturn(this, (Standings.__proto__ || Object.getPrototypeOf(Standings)).call(this, props));
+
+    _this.state = {
+      renderConference: true,
+      renderLeague: false,
+      westArr: [],
+      eastArr: []
+    };
+    _this.handleConferenceButton = _this.handleConferenceButton.bind(_this);
+    _this.handleLeagueButton = _this.handleLeagueButton.bind(_this);
+    _this.renderStandings = _this.renderStandings.bind(_this);
+    return _this;
+  }
+
+  _createClass(Standings, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var west = ["Oklahoma City Thunder", "Denver Nuggets", "Golden State Warriors", "Los Angeles Clippers", "Los Angeles Lakers", "Memphis Grizzlies", "San Antonio Spurs", "Phoenix Suns", "Utah Jazz", "Portland Trail Blazers", "Sacramento Kings", "Dallas Mavericks", "Houston Rockets", "Minnesota Timberwolves", "New Orleans Pelicans"];
+      var westArr = [];
+      var eastArr = [];
+      for (var i = 0; i < this.props.teams.length; i++) {
+        if (west.includes(this.props.teams[i].Name)) {
+          // var wins = this.props.teams[i].W;
+          // var total = this.props.teams[i].W + this.props.teams[i].L;
+          // console.log(total);
+          var winPct = parseInt(this.props.teams[i].W) / (parseInt(this.props.teams[i].W) + parseInt(this.props.teams[i].L));
+          this.props.teams[i].winPct = winPct;
+          westArr.push(this.props.teams[i]);
+        } else {
+          var winPct = parseInt(this.props.teams[i].W) / (parseInt(this.props.teams[i].W) + parseInt(this.props.teams[i].L));
+          this.props.teams[i].winPct = winPct;
+          eastArr.push(this.props.teams[i]);
+        }
+      }
+      this.setState({ westArr: westArr, eastArr: eastArr }, function () {
+        //console.log(this.state);
+      });
+    }
+  }, {
+    key: "handleConferenceButton",
+    value: function handleConferenceButton() {
+      this.setState({ renderConference: true, renderLeague: false }, function () {
+        //console.log(this.state);
+      });
+    }
+  }, {
+    key: "handleLeagueButton",
+    value: function handleLeagueButton() {
+      this.setState({ renderLeague: true, renderConference: false }, function () {
+        //console.log(this.state);
+      });
+    }
+  }, {
+    key: "renderStandings",
+    value: function renderStandings() {
+      var headerStyle = {
+        backgroundColor: "#d00000",
+        height: "45px",
+        lineHeight: "45px",
+        fontSize: "20px",
+        paddingLeft: "20px",
+        color: "#fff"
+      };
+      if (this.state.renderConference) {
+        return _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { style: { paddingTop: "30px" } },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 3, lgOffset: 1 },
+              _react2.default.createElement(
+                "div",
+                { className: "card", style: headerStyle },
+                "Western Conference"
+              )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 3, lgOffset: 2 },
+              _react2.default.createElement(
+                "div",
+                { className: "card", style: headerStyle },
+                "Eastern Conference"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { style: { paddingTop: "30px" } },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 10, lgOffset: 1 },
+              _react2.default.createElement(_ConferenceStandings2.default, {
+                west: this.state.westArr,
+                east: this.state.eastArr
+              })
+            )
+          )
+        );
+      } else {
+        //var teams = this.state.westArr.concat(this.state.eastArr);
+        return _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { style: { paddingTop: "20px" } },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 3, lgOffset: 1 },
+              _react2.default.createElement(
+                "div",
+                { className: "card", style: headerStyle },
+                "League Standings"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            { style: { paddingTop: "20px" } },
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 10, lgOffset: 1 },
+              _react2.default.createElement(_LeagueStandings2.default, { teams: this.props.teams })
+            )
+          )
+        );
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var headerStyle = {
+        backgroundColor: "#d00000",
+        height: "45px",
+        lineHeight: "45px",
+        fontSize: "20px",
+        paddingLeft: "20px",
+        color: "#fff"
+      };
+      var selectedStatButton = {
+        borderRadius: "10px 0px 0px 10px",
+        backgroundColor: "#d00000",
+        color: "white",
+        width: "100px",
+        fontWeight: "bold"
+      };
+      var unSelectedStatButton = {
+        borderRadius: "10px 0px 0px 10px",
+        backgroundColor: "#fff",
+        color: "#d00000",
+        width: "100px"
+      };
+      var selectedRatingButton = {
+        borderRadius: "0px 10px 10px 0px",
+        backgroundColor: "#d00000",
+        color: "white",
+        width: "100px",
+        fontWeight: "bold"
+      };
+      var unSelectedRatingButton = {
+        borderRadius: "0px 10px 10px 0px",
+        backgroundColor: "#fff",
+        color: "#d00000",
+        width: "100px"
+      };
+      var statStyle;
+      var ratingStyle;
+      if (this.state.renderConference) {
+        statStyle = selectedStatButton;
+      } else {
+        statStyle = unSelectedStatButton;
+      }
+      if (this.state.renderLeague) {
+        ratingStyle = selectedRatingButton;
+      } else {
+        ratingStyle = unSelectedRatingButton;
+      }
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { style: { paddingTop: "40px" } },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 3, lgOffset: 1 },
+            _react2.default.createElement(
+              "span",
+              null,
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { onClick: this.handleConferenceButton, style: statStyle },
+                "Conference"
+              )
+            ),
+            _react2.default.createElement(
+              "span",
+              null,
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { onClick: this.handleLeagueButton, style: ratingStyle },
+                "League"
+              )
+            )
+          )
+        ),
+        this.renderStandings()
+      );
+    }
+  }]);
+
+  return Standings;
+}(_react2.default.Component);
+
+exports.default = Standings;
+
+/***/ }),
+/* 510 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(9);
+
+var _StandingsTeamEntry = __webpack_require__(511);
+
+var _StandingsTeamEntry2 = _interopRequireDefault(_StandingsTeamEntry);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ConferenceStandings = function (_React$Component) {
+  _inherits(ConferenceStandings, _React$Component);
+
+  function ConferenceStandings(props) {
+    _classCallCheck(this, ConferenceStandings);
+
+    var _this = _possibleConstructorReturn(this, (ConferenceStandings.__proto__ || Object.getPrototypeOf(ConferenceStandings)).call(this, props));
+
+    _this.state = {
+      west: [],
+      east: [],
+      rankedWest: [],
+      rankedEast: []
+    };
+    _this.rankTeamsWest = _this.rankTeamsWest.bind(_this);
+    _this.rankTeamsEast = _this.rankTeamsEast.bind(_this);
+    _this.renderWestTeams = _this.renderWestTeams.bind(_this);
+    _this.renderEastTeams = _this.renderEastTeams.bind(_this);
+    return _this;
+  }
+
+  _createClass(ConferenceStandings, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      var _this2 = this;
+
+      if (nextProps.west) {
+        this.setState({ west: nextProps.west, east: nextProps.east }, function () {
+          _this2.rankTeamsWest(_this2.state.west);
+          _this2.rankTeamsEast(_this2.state.east);
+        });
+      }
+    }
+  }, {
+    key: "rankTeamsWest",
+    value: function rankTeamsWest(teams) {
+      teams.sort(function (a, b) {
+        return parseFloat(b.winPct) - parseFloat(a.winPct);
+      });
+      this.setState({ rankedWest: teams });
+    }
+  }, {
+    key: "rankTeamsEast",
+    value: function rankTeamsEast(teams) {
+      teams.sort(function (a, b) {
+        return parseFloat(b.winPct) - parseFloat(a.winPct);
+      });
+      this.setState({ rankedEast: teams });
+    }
+  }, {
+    key: "renderWestTeams",
+    value: function renderWestTeams() {
+      return this.state.rankedWest.map(function (team, i) {
+        return _react2.default.createElement(_StandingsTeamEntry2.default, { team: team, key: i, rank: i + 1 });
+      });
+    }
+  }, {
+    key: "renderEastTeams",
+    value: function renderEastTeams() {
+      return this.state.rankedEast.map(function (team, i) {
+        return _react2.default.createElement(_StandingsTeamEntry2.default, { team: team, key: i, rank: i + 1 });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.state);
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 6 },
+          _react2.default.createElement(
+            _reactBootstrap.Table,
+            { striped: true, hover: true },
+            _react2.default.createElement(
+              "thead",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement("th", null),
+                _react2.default.createElement("th", null),
+                _react2.default.createElement(
+                  "th",
+                  null,
+                  "W"
+                ),
+                _react2.default.createElement(
+                  "th",
+                  null,
+                  "L"
+                ),
+                _react2.default.createElement(
+                  "th",
+                  null,
+                  "Win Pct"
+                )
+              )
+            ),
+            _react2.default.createElement(
+              "tbody",
+              null,
+              this.renderWestTeams()
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 6 },
+          _react2.default.createElement(
+            _reactBootstrap.Table,
+            { striped: true, hover: true },
+            _react2.default.createElement(
+              "thead",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement("th", null),
+                _react2.default.createElement("th", null),
+                _react2.default.createElement(
+                  "th",
+                  null,
+                  "W"
+                ),
+                _react2.default.createElement(
+                  "th",
+                  null,
+                  "L"
+                ),
+                _react2.default.createElement(
+                  "th",
+                  null,
+                  "Win Pct"
+                )
+              )
+            ),
+            _react2.default.createElement(
+              "tbody",
+              null,
+              this.renderEastTeams()
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return ConferenceStandings;
+}(_react2.default.Component);
+
+exports.default = ConferenceStandings;
+
+/***/ }),
+/* 511 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StandingsTeamEntry = function (_React$Component) {
+  _inherits(StandingsTeamEntry, _React$Component);
+
+  function StandingsTeamEntry(props) {
+    _classCallCheck(this, StandingsTeamEntry);
+
+    return _possibleConstructorReturn(this, (StandingsTeamEntry.__proto__ || Object.getPrototypeOf(StandingsTeamEntry)).call(this, props));
+  }
+
+  _createClass(StandingsTeamEntry, [{
+    key: "render",
+    value: function render() {
+      var headerStyle = {
+        backgroundColor: this.props.team.Color_Main,
+        height: "50px",
+        lineHeight: "50px",
+        fontSize: "18px",
+        paddingLeft: "20px",
+        color: this.props.team.Color_Sec
+      };
+      return _react2.default.createElement(
+        "tr",
+        null,
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.rank
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          _react2.default.createElement(
+            "a",
+            { href: "/team/" + this.props.team.id },
+            this.props.team.Name
+          )
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.team.W
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.team.L
+        ),
+        _react2.default.createElement(
+          "td",
+          null,
+          this.props.team.winPct.toFixed(3)
+        )
+      );
+    }
+  }]);
+
+  return StandingsTeamEntry;
+}(_react2.default.Component);
+
+exports.default = StandingsTeamEntry;
+
+/***/ }),
+/* 512 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(9);
+
+var _StandingsTeamEntry = __webpack_require__(511);
+
+var _StandingsTeamEntry2 = _interopRequireDefault(_StandingsTeamEntry);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LeagueStandings = function (_React$Component) {
+  _inherits(LeagueStandings, _React$Component);
+
+  function LeagueStandings(props) {
+    _classCallCheck(this, LeagueStandings);
+
+    var _this = _possibleConstructorReturn(this, (LeagueStandings.__proto__ || Object.getPrototypeOf(LeagueStandings)).call(this, props));
+
+    _this.state = {
+      teams: [],
+      rankedTeams: []
+    };
+    _this.rankTeams = _this.rankTeams.bind(_this);
+    _this.renderTeams = _this.renderTeams.bind(_this);
+    return _this;
+  }
+
+  _createClass(LeagueStandings, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      console.log(this.props.teams);
+      if (this.props.teams) {
+        this.setState({ teams: this.props.teams }, function () {
+          _this2.rankTeams(_this2.state.teams);
+        });
+      }
+    }
+
+    // componentWillReceiveProps(nextProps) {
+    //   if (nextProps.teams) {
+    //     this.setState({ teams: nextProps.teams }, () => {
+    //       this.rankTeams(this.state.teams);
+    //     });
+    //   }
+    // }
+
+  }, {
+    key: "rankTeams",
+    value: function rankTeams(teams) {
+      teams.sort(function (a, b) {
+        return parseFloat(b.winPct) - parseFloat(a.winPct);
+      });
+      this.setState({ rankedTeams: teams });
+    }
+  }, {
+    key: "renderTeams",
+    value: function renderTeams() {
+      return this.state.rankedTeams.map(function (team, i) {
+        return _react2.default.createElement(_StandingsTeamEntry2.default, { team: team, key: i, rank: i + 1 });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log("state: ", this.state);
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Col,
+          { lg: 8 },
+          _react2.default.createElement(
+            _reactBootstrap.Table,
+            { striped: true, hover: true },
+            _react2.default.createElement(
+              "thead",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement("th", null),
+                _react2.default.createElement("th", null),
+                _react2.default.createElement(
+                  "th",
+                  null,
+                  "W"
+                ),
+                _react2.default.createElement(
+                  "th",
+                  null,
+                  "L"
+                ),
+                _react2.default.createElement(
+                  "th",
+                  null,
+                  "Win Pct"
+                )
+              )
+            ),
+            _react2.default.createElement(
+              "tbody",
+              null,
+              this.renderTeams()
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return LeagueStandings;
+}(_react2.default.Component);
+
+exports.default = LeagueStandings;
 
 /***/ })
 /******/ ]);
