@@ -499,70 +499,112 @@ class PlayerInfo extends React.Component {
               <div id="info">
                 <Col lg={3} id="pic-col">
                   <div id="info-pic-team">
-                    <img src="https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443" />
+                    <img
+                      style={{ maxHeight: "200px" }}
+                      src="https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443"
+                    />
                   </div>
                 </Col>
-                <Col lg={4}>
-                  <div id="name-text">
-                    <div id="team-name">
-                      {this.state.player.name}
-                      <span style={{ paddingLeft: "3px", fontSize: "14px" }}>
-                        {" "}
-                        {this.state.player.position}
-                      </span>
-                    </div>
-                    <div id="info-text">
-                      <div>
-                        <span>Height: {this.state.player.height}</span>
-                        <span style={{ paddingLeft: "3px" }}>
-                          {" "}
-                          Weight: {this.state.player.weight}
-                        </span>
+                <Col lg={9}>
+                  <Row>
+                    <Col lg={5}>
+                      <div id="name-text">
+                        <div id="team-name">
+                          {this.state.player.name}
+                          <span
+                            style={{ paddingLeft: "3px", fontSize: "14px" }}
+                          >
+                            {" "}
+                            {this.state.player.position}
+                          </span>
+                        </div>
+                        <div id="info-text">
+                          <div>
+                            <span>Height: {this.state.player.height}</span>
+                            <span style={{ paddingLeft: "3px" }}>
+                              {" "}
+                              Weight: {this.state.player.weight}
+                            </span>
+                          </div>
+                          <div>Age: {this.state.player.age}</div>
+                          <div>Team: {this.state.player.team}</div>
+                          <div>
+                            College: {this.state.player.college || "None"}
+                          </div>
+                        </div>
                       </div>
-                      <div>Age: {this.state.player.age}</div>
-                      <div>Team: {this.state.player.team}</div>
-                      <div>College: {this.state.player.college || "None"}</div>
-                    </div>
-                  </div>
-                  <hr id="info-text-break" />
-                  <Row id="info-box-stats">
-                    <Col lg={2}>
-                      <div>PPG {this.state.player.pts}</div>
+                      <hr id="info-text-break" />
                     </Col>
-                    <Col lg={2}>
-                      <div>RPG {this.state.player.trb}</div>
+                    <Col lg={3}>
+                      <div style={{ marginTop: "70px", fontSize: "15.5px" }}>
+                        <div style={{ textAlign: "right" }}>
+                          Overall: {this.getOverallRating()}
+                        </div>
+                        <div style={{ textAlign: "right" }}>
+                          Offense: {this.getOffenseRating()}
+                        </div>
+                        <div style={{ textAlign: "right" }}>
+                          Defense: {this.getDefenseRating()}
+                        </div>
+                      </div>
                     </Col>
-                    <Col lg={2}>
-                      <div>APG {this.state.player.ast}</div>
-                    </Col>
-                    <Col lg={2}>
-                      <div>PER {this.state.player.per || "N/A"}</div>
-                    </Col>
-                    <Col lg={2}>
-                      <div>MPG {this.state.player.mpg}</div>
+                    <Col lg={3}>
+                      <a href={`/team/${this.state.colors.id}`}>
+                        <div id="logo-pic">
+                          <img
+                            id="teamLogoPic"
+                            src={this.state.colors.Logo}
+                            style={{ maxHeight: "100px" }}
+                          />
+                          <div id="teamLogoHeader">
+                            {this.state.player.team}
+                          </div>
+                        </div>
+                      </a>
                     </Col>
                   </Row>
-                </Col>
-                <Col lg={2}>
-                  <div style={{ marginTop: "90px", fontSize: "15.5px" }}>
-                    <div style={{ textAlign: "right" }}>
-                      Overall: {this.getOverallRating()}
-                    </div>
-                    <div style={{ textAlign: "right" }}>
-                      Offense: {this.getOffenseRating()}
-                    </div>
-                    <div style={{ textAlign: "right" }}>
-                      Defense: {this.getDefenseRating()}
-                    </div>
-                  </div>
-                </Col>
-                <Col lg={2}>
-                  <a href={`/team/${this.state.colors.id}`}>
-                    <div id="logo-pic">
-                      <img id="teamLogoPic" src={this.state.colors.Logo} />
-                      <div id="teamLogoHeader">{this.state.player.team}</div>
-                    </div>
-                  </a>
+                  <Row id="info-box-stats">
+                    <Col lg={2}>
+                      <div>
+                        <span style={{ color: "#404040" }}>PPG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.player.pts}
+                        </span>
+                      </div>
+                    </Col>
+                    <Col lg={2}>
+                      <div>
+                        <span style={{ color: "#404040" }}>RPG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.player.trb}
+                        </span>
+                      </div>
+                    </Col>
+                    <Col lg={2}>
+                      <div>
+                        <span style={{ color: "#404040" }}>APG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.player.ast}
+                        </span>
+                      </div>
+                    </Col>
+                    <Col lg={2}>
+                      <div>
+                        <span style={{ color: "#404040" }}>GP</span>{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.player.gamesPlayed || 0}
+                        </span>
+                      </div>
+                    </Col>
+                    <Col lg={2}>
+                      <div>
+                        <span style={{ color: "#404040" }}>MPG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.player.mpg}
+                        </span>
+                      </div>
+                    </Col>
+                  </Row>
                 </Col>
               </div>
             </Row>

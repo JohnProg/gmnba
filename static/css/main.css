@@ -32,7 +32,7 @@ img {
 }
 
 .full-height-row {
-  height: 250px;
+  height: 200px;
 }
 
 /* Info Section */
@@ -113,7 +113,7 @@ li.lakers > a {
 }
 
 #info-text {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 #roster-header {
@@ -139,7 +139,7 @@ li.lakers > a {
 }
 
 .chart-row {
-  padding-top: 50px;
+  padding-top: 40px;
 }
 
 #stat-comp-header {

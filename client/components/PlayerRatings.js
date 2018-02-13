@@ -17,22 +17,15 @@ export default class PlayerRatings extends React.Component {
     this.getPositionStats = this.getPositionStats.bind(this);
   }
 
-  componentDidMount() {
-    if (this.props.player.name) {
-      this.setState({ player: this.props.player }, () => {
+  componentDidMount() {}
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.player.name) {
+      this.setState({ player: nextProps.player }, () => {
         this.getPositionStats(this.state.player.position);
         //this.createChart();
       });
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // if (nextProps.player.name) {
-    //   this.setState({ player: nextProps.player }, () => {
-    //     this.getPositionStats(this.state.player.position);
-    //     //this.createChart();
-    //   });
-    // }
   }
 
   getPositionStats(position) {

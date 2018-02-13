@@ -69522,67 +69522,128 @@ var PlayerInfo = function (_React$Component) {
                   _react2.default.createElement(
                     "div",
                     { id: "info-pic-team" },
-                    _react2.default.createElement("img", { src: "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443" })
+                    _react2.default.createElement("img", {
+                      style: { maxHeight: "200px" },
+                      src: "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443"
+                    })
                   )
                 ),
                 _react2.default.createElement(
                   _reactBootstrap.Col,
-                  { lg: 4 },
+                  { lg: 9 },
                   _react2.default.createElement(
-                    "div",
-                    { id: "name-text" },
+                    _reactBootstrap.Row,
+                    null,
                     _react2.default.createElement(
-                      "div",
-                      { id: "team-name" },
-                      this.state.player.name,
+                      _reactBootstrap.Col,
+                      { lg: 5 },
                       _react2.default.createElement(
-                        "span",
-                        { style: { paddingLeft: "3px", fontSize: "14px" } },
-                        " ",
-                        this.state.player.position
+                        "div",
+                        { id: "name-text" },
+                        _react2.default.createElement(
+                          "div",
+                          { id: "team-name" },
+                          this.state.player.name,
+                          _react2.default.createElement(
+                            "span",
+                            {
+                              style: { paddingLeft: "3px", fontSize: "14px" }
+                            },
+                            " ",
+                            this.state.player.position
+                          )
+                        ),
+                        _react2.default.createElement(
+                          "div",
+                          { id: "info-text" },
+                          _react2.default.createElement(
+                            "div",
+                            null,
+                            _react2.default.createElement(
+                              "span",
+                              null,
+                              "Height: ",
+                              this.state.player.height
+                            ),
+                            _react2.default.createElement(
+                              "span",
+                              { style: { paddingLeft: "3px" } },
+                              " ",
+                              "Weight: ",
+                              this.state.player.weight
+                            )
+                          ),
+                          _react2.default.createElement(
+                            "div",
+                            null,
+                            "Age: ",
+                            this.state.player.age
+                          ),
+                          _react2.default.createElement(
+                            "div",
+                            null,
+                            "Team: ",
+                            this.state.player.team
+                          ),
+                          _react2.default.createElement(
+                            "div",
+                            null,
+                            "College: ",
+                            this.state.player.college || "None"
+                          )
+                        )
+                      ),
+                      _react2.default.createElement("hr", { id: "info-text-break" })
+                    ),
+                    _react2.default.createElement(
+                      _reactBootstrap.Col,
+                      { lg: 3 },
+                      _react2.default.createElement(
+                        "div",
+                        { style: { marginTop: "70px", fontSize: "15.5px" } },
+                        _react2.default.createElement(
+                          "div",
+                          { style: { textAlign: "right" } },
+                          "Overall: ",
+                          this.getOverallRating()
+                        ),
+                        _react2.default.createElement(
+                          "div",
+                          { style: { textAlign: "right" } },
+                          "Offense: ",
+                          this.getOffenseRating()
+                        ),
+                        _react2.default.createElement(
+                          "div",
+                          { style: { textAlign: "right" } },
+                          "Defense: ",
+                          this.getDefenseRating()
+                        )
                       )
                     ),
                     _react2.default.createElement(
-                      "div",
-                      { id: "info-text" },
+                      _reactBootstrap.Col,
+                      { lg: 3 },
                       _react2.default.createElement(
-                        "div",
-                        null,
+                        "a",
+                        { href: "/team/" + this.state.colors.id },
                         _react2.default.createElement(
-                          "span",
-                          null,
-                          "Height: ",
-                          this.state.player.height
-                        ),
-                        _react2.default.createElement(
-                          "span",
-                          { style: { paddingLeft: "3px" } },
-                          " ",
-                          "Weight: ",
-                          this.state.player.weight
+                          "div",
+                          { id: "logo-pic" },
+                          _react2.default.createElement("img", {
+                            id: "teamLogoPic",
+                            src: this.state.colors.Logo,
+                            style: { maxHeight: "100px" }
+                          }),
+                          _react2.default.createElement(
+                            "div",
+                            { id: "teamLogoHeader" },
+                            this.state.player.team
+                          )
                         )
-                      ),
-                      _react2.default.createElement(
-                        "div",
-                        null,
-                        "Age: ",
-                        this.state.player.age
-                      ),
-                      _react2.default.createElement(
-                        "div",
-                        null,
-                        "Team: ",
-                        this.state.player.team
-                      ),
-                      _react2.default.createElement(
-                        "div",
-                        null,
-                        "College: ",
-                        this.state.player.college || "None"
                       )
                     )
                   ),
-                  _react2.default.createElement("hr", { id: "info-text-break" }),
                   _react2.default.createElement(
                     _reactBootstrap.Row,
                     { id: "info-box-stats" },
@@ -69592,8 +69653,17 @@ var PlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "PPG ",
-                        this.state.player.pts
+                        _react2.default.createElement(
+                          "span",
+                          { style: { color: "#404040" } },
+                          "PPG"
+                        ),
+                        " ",
+                        _react2.default.createElement(
+                          "span",
+                          { style: { fontSize: "18px" } },
+                          this.state.player.pts
+                        )
                       )
                     ),
                     _react2.default.createElement(
@@ -69602,8 +69672,17 @@ var PlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "RPG ",
-                        this.state.player.trb
+                        _react2.default.createElement(
+                          "span",
+                          { style: { color: "#404040" } },
+                          "RPG"
+                        ),
+                        " ",
+                        _react2.default.createElement(
+                          "span",
+                          { style: { fontSize: "18px" } },
+                          this.state.player.trb
+                        )
                       )
                     ),
                     _react2.default.createElement(
@@ -69612,8 +69691,17 @@ var PlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "APG ",
-                        this.state.player.ast
+                        _react2.default.createElement(
+                          "span",
+                          { style: { color: "#404040" } },
+                          "APG"
+                        ),
+                        " ",
+                        _react2.default.createElement(
+                          "span",
+                          { style: { fontSize: "18px" } },
+                          this.state.player.ast
+                        )
                       )
                     ),
                     _react2.default.createElement(
@@ -69622,8 +69710,17 @@ var PlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "PER ",
-                        this.state.player.per || "N/A"
+                        _react2.default.createElement(
+                          "span",
+                          { style: { color: "#404040" } },
+                          "GP"
+                        ),
+                        " ",
+                        _react2.default.createElement(
+                          "span",
+                          { style: { fontSize: "18px" } },
+                          this.state.player.gamesPlayed || 0
+                        )
                       )
                     ),
                     _react2.default.createElement(
@@ -69632,52 +69729,17 @@ var PlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "MPG ",
-                        this.state.player.mpg
-                      )
-                    )
-                  )
-                ),
-                _react2.default.createElement(
-                  _reactBootstrap.Col,
-                  { lg: 2 },
-                  _react2.default.createElement(
-                    "div",
-                    { style: { marginTop: "90px", fontSize: "15.5px" } },
-                    _react2.default.createElement(
-                      "div",
-                      { style: { textAlign: "right" } },
-                      "Overall: ",
-                      this.getOverallRating()
-                    ),
-                    _react2.default.createElement(
-                      "div",
-                      { style: { textAlign: "right" } },
-                      "Offense: ",
-                      this.getOffenseRating()
-                    ),
-                    _react2.default.createElement(
-                      "div",
-                      { style: { textAlign: "right" } },
-                      "Defense: ",
-                      this.getDefenseRating()
-                    )
-                  )
-                ),
-                _react2.default.createElement(
-                  _reactBootstrap.Col,
-                  { lg: 2 },
-                  _react2.default.createElement(
-                    "a",
-                    { href: "/team/" + this.state.colors.id },
-                    _react2.default.createElement(
-                      "div",
-                      { id: "logo-pic" },
-                      _react2.default.createElement("img", { id: "teamLogoPic", src: this.state.colors.Logo }),
-                      _react2.default.createElement(
-                        "div",
-                        { id: "teamLogoHeader" },
-                        this.state.player.team
+                        _react2.default.createElement(
+                          "span",
+                          { style: { color: "#404040" } },
+                          "MPG"
+                        ),
+                        " ",
+                        _react2.default.createElement(
+                          "span",
+                          { style: { fontSize: "18px" } },
+                          this.state.player.mpg
+                        )
                       )
                     )
                   )
@@ -69969,25 +70031,18 @@ var PlayerRatings = function (_React$Component) {
 
   _createClass(PlayerRatings, [{
     key: "componentDidMount",
-    value: function componentDidMount() {
+    value: function componentDidMount() {}
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
       var _this2 = this;
 
-      if (this.props.player.name) {
-        this.setState({ player: this.props.player }, function () {
+      if (nextProps.player.name) {
+        this.setState({ player: nextProps.player }, function () {
           _this2.getPositionStats(_this2.state.player.position);
           //this.createChart();
         });
       }
-    }
-  }, {
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
-      // if (nextProps.player.name) {
-      //   this.setState({ player: nextProps.player }, () => {
-      //     this.getPositionStats(this.state.player.position);
-      //     //this.createChart();
-      //   });
-      // }
     }
   }, {
     key: "getPositionStats",
