@@ -178,7 +178,11 @@ export default class AddPlayerSearch2 extends React.Component {
           </Col>
           <Col lg={6} style={{ paddingTop: "30px" }}>
             <div>
-              <span style={{ fontSize: "22px" }}>{this.state.player.name}</span>
+              <a href={`/player/${this.state.player.id}`}>
+                <span style={{ fontSize: "22px" }}>
+                  {this.state.player.name}
+                </span>
+              </a>
               <span style={{ paddingLeft: "3px" }}>
                 {" "}
                 {this.state.player.position}
@@ -210,7 +214,7 @@ export default class AddPlayerSearch2 extends React.Component {
               }}
               onClick={this.handleAdvancedClick}
             >
-              Advanced Stats
+              Advanced Stats &#9660;
             </div>
           </Col>
           {this.renderAdvanced()}
@@ -284,7 +288,7 @@ export default class AddPlayerSearch2 extends React.Component {
 
     return (
       <div>
-        <Col lg={9} lgOffset={1} style={{ paddingLeft: "0px" }}>
+        <Col lg={9} lgOffset={1} style={{ paddingLeft: "32px" }}>
           <div className="card">
             <Autosuggest
               suggestions={suggestions}

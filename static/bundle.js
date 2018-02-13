@@ -5145,7 +5145,12 @@ var TeamStats = function (_React$Component) {
                 { className: "card" },
                 _react2.default.createElement(
                   "div",
-                  { id: "roster-header" },
+                  {
+                    style: {
+                      marginTop: "30px",
+                      height: "50px"
+                    }
+                  },
                   _react2.default.createElement(
                     "div",
                     { style: headerStyle },
@@ -9312,7 +9317,8 @@ var TeamRatings = function (_React$Component) {
           minorGridLineWidth: 0
         },
         tooltip: {
-          valueSuffix: null
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span>"
         },
         plotOptions: {
           bar: {
@@ -9337,7 +9343,27 @@ var TeamRatings = function (_React$Component) {
           data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
         }, {
           name: "Grade",
-          data: [{ y: this.state.Scoring.Grade, color: this.state.Scoring.Color }, { y: this.state.Reb.Grade, color: this.state.Reb.Color }, { y: this.state.Ast.Grade, color: this.state.Ast.Color }, { y: this.state.Stl.Grade, color: this.state.Stl.Color }, { y: this.state.Blk.Grade, color: this.state.Blk.Color }]
+          data: [{
+            y: this.state.Scoring.Grade,
+            color: this.state.Scoring.Color,
+            stat: this.state.team.PTS
+          }, {
+            y: this.state.Reb.Grade,
+            color: this.state.Reb.Color,
+            stat: this.state.team.TRB
+          }, {
+            y: this.state.Ast.Grade,
+            color: this.state.Ast.Color,
+            stat: this.state.team.AST
+          }, {
+            y: this.state.Stl.Grade,
+            color: this.state.Stl.Color,
+            stat: this.state.team.STL
+          }, {
+            y: this.state.Blk.Grade,
+            color: this.state.Blk.Color,
+            stat: this.state.team.BLK
+          }]
         }]
       });
     }
@@ -18348,7 +18374,6 @@ var PlayerPositionAverages = function (_React$Component) {
           shadow: false
         },
         tooltip: {
-          enabled: false,
           shared: true
         },
         plotOptions: {
@@ -18361,13 +18386,13 @@ var PlayerPositionAverages = function (_React$Component) {
         series: [{
           name: "Position Average",
           color: "#c2ced5",
-          data: [parseFloat(this.state.ptsAvg) * 3, parseFloat(this.state.trbAvg) * 10, parseFloat(this.state.astAvg) * 10, parseFloat(this.state.stlAvg) * 30, parseFloat(this.state.blkAvg) * 60, parseFloat(this.state.fgAvg) * 100],
+          data: [parseFloat(this.state.ptsAvg), parseFloat(this.state.trbAvg), parseFloat(this.state.astAvg), parseFloat(this.state.stlAvg), parseFloat(this.state.blkAvg)],
           pointPadding: 0.3,
           pointPlacement: 0
         }, {
           name: "Player Average",
           color: "" + this.state.colors.Color_Main,
-          data: [parseFloat(this.state.player.pts) * 3, parseFloat(this.state.player.trb) * 10, parseFloat(this.state.player.ast) * 10, parseFloat(this.state.player.stl) * 30, parseFloat(this.state.player.blk) * 60, parseFloat(this.state.player.fgPct) * 100],
+          data: [parseFloat(this.state.player.pts), parseFloat(this.state.player.trb), parseFloat(this.state.player.ast), parseFloat(this.state.player.stl), parseFloat(this.state.player.blk)],
           pointPadding: 0.4,
           pointPlacement: 0
         }]
@@ -19101,7 +19126,12 @@ var PlayerSeasonStats = function (_React$Component) {
                 { className: "card" },
                 _react2.default.createElement(
                   "div",
-                  { id: "roster-header" },
+                  {
+                    style: {
+                      marginTop: "30px",
+                      height: "50px"
+                    }
+                  },
                   _react2.default.createElement(
                     "div",
                     { style: headerStyle },
@@ -66785,7 +66815,7 @@ var Info = function (_React$Component) {
                       { lg: 3 },
                       _react2.default.createElement(
                         "div",
-                        { style: { marginTop: "70px", fontSize: "15.5px" } },
+                        { style: { marginTop: "50px", fontSize: "15.5px" } },
                         _react2.default.createElement(
                           "div",
                           { style: { textAlign: "right" } },
@@ -67065,7 +67095,7 @@ var Tabs = function (_React$Component) {
             ),
             _react2.default.createElement(
               _reactBootstrap.NavItem,
-              { eventKey: 5, title: "Item" },
+              { eventKey: 5, href: "/", disabled: true },
               _react2.default.createElement(
                 "span",
                 { style: tabColor, className: "tab-text" },
@@ -67074,7 +67104,7 @@ var Tabs = function (_React$Component) {
             ),
             _react2.default.createElement(
               _reactBootstrap.NavItem,
-              { eventKey: 6, title: "Item" },
+              { eventKey: 6, href: "/", disabled: true },
               _react2.default.createElement(
                 "span",
                 { style: tabColor, className: "tab-text" },
@@ -69985,7 +70015,7 @@ var PlayerTabs = function (_React$Component) {
             ),
             _react2.default.createElement(
               _reactBootstrap.NavItem,
-              { eventKey: 3, href: "/" },
+              { eventKey: 3, href: "/", disabled: true },
               _react2.default.createElement(
                 "span",
                 { style: tabColor },
@@ -70012,7 +70042,7 @@ var PlayerTabs = function (_React$Component) {
             ),
             _react2.default.createElement(
               _reactBootstrap.NavItem,
-              { eventKey: 6, title: "Item" },
+              { eventKey: 6, href: "/", disabled: true },
               _react2.default.createElement(
                 "span",
                 { style: tabColor },
@@ -70964,7 +70994,8 @@ var PlayerBarRatings = function (_React$Component) {
           minorGridLineWidth: 0
         },
         tooltip: {
-          valueSuffix: null
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>"
         },
         plotOptions: {
           bar: {
@@ -70989,7 +71020,32 @@ var PlayerBarRatings = function (_React$Component) {
           data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
         }, {
           name: "Grade",
-          data: [{ y: this.state.scoring.Grade, color: this.state.scoring.Color }, { y: this.state.reb.Grade, color: this.state.reb.Color }, { y: this.state.ast.Grade, color: this.state.ast.Color }, { y: this.state.stl.Grade, color: this.state.stl.Color }, { y: this.state.blk.Grade, color: this.state.blk.Color }]
+          data: [{
+            y: this.state.scoring.Grade,
+            color: this.state.scoring.Color,
+            stat: this.state.player.pts,
+            per36: (this.state.player.pts / this.state.player.mpg * 36).toFixed(1)
+          }, {
+            y: this.state.reb.Grade,
+            color: this.state.reb.Color,
+            stat: this.state.player.trb,
+            per36: (this.state.player.trb / this.state.player.mpg * 36).toFixed(1)
+          }, {
+            y: this.state.ast.Grade,
+            color: this.state.ast.Color,
+            stat: this.state.player.ast,
+            per36: (this.state.player.ast / this.state.player.mpg * 36).toFixed(1)
+          }, {
+            y: this.state.stl.Grade,
+            color: this.state.stl.Color,
+            stat: this.state.player.stl,
+            per36: (this.state.player.stl / this.state.player.mpg * 36).toFixed(1)
+          }, {
+            y: this.state.blk.Grade,
+            color: this.state.blk.Color,
+            stat: this.state.player.blk,
+            per36: (this.state.player.blk / this.state.player.mpg * 36).toFixed(1)
+          }]
         }]
       });
     }
@@ -71656,9 +71712,13 @@ var AddPlayerSearch = function (_React$Component) {
                 "div",
                 null,
                 _react2.default.createElement(
-                  "span",
-                  { style: { fontSize: "22px" } },
-                  this.props.list.name
+                  "a",
+                  { href: "/player/" + this.props.list.id },
+                  _react2.default.createElement(
+                    "span",
+                    { style: { fontSize: "22px" } },
+                    this.props.list.name
+                  )
                 ),
                 _react2.default.createElement(
                   "span",
@@ -71931,7 +71991,7 @@ var PlayerPolarColumn2 = function (_React$Component) {
 
         tooltip: {
           headerFormat: "<b>{point.key}</b><br/>",
-          pointFormat: "<span>Rating: {point.y}</span><br/>"
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>"
         },
 
         yAxis: {
@@ -71976,35 +72036,48 @@ var PlayerPolarColumn2 = function (_React$Component) {
           data: [{
             y: this.state.scoring.Grade,
             color: this.state.scoring.Color,
-            name: "Scoring"
+            name: "Scoring",
+            stat: this.state.player.pts,
+            per36: (this.state.player.pts / this.state.player.mpg * 36).toFixed(1)
           }, {
             y: this.state.ast.Grade,
             color: this.state.ast.Color,
-            name: "Ast"
+            name: "Ast",
+            stat: this.state.player.ast,
+            per36: (this.state.player.ast / this.state.player.mpg * 36).toFixed(1)
           }, {
             y: this.state.reb.Grade,
             color: this.state.reb.Color,
-            name: "Reb"
+            name: "Reb",
+            stat: this.state.player.trb,
+            per36: (this.state.player.trb / this.state.player.mpg * 36).toFixed(1)
           }, {
             y: this.state.stl.Grade,
             color: this.state.stl.Color,
-            name: "Stl"
+            name: "Stl",
+            stat: this.state.player.stl,
+            per36: (this.state.player.stl / this.state.player.mpg * 36).toFixed(1)
           }, {
             y: this.state.blk.Grade,
             color: this.state.blk.Color,
-            name: "Blk"
+            name: "Blk",
+            stat: this.state.player.blk,
+            per36: (this.state.player.blk / this.state.player.mpg * 36).toFixed(1)
           }, {
             y: this.state.ft.Grade,
             color: this.state.ft.Color,
-            name: "FT%"
+            name: "FT%",
+            stat: (this.state.player.freeThrowPct * 100).toFixed(1)
           }, {
             y: this.state.threePoint.Grade,
             color: this.state.threePoint.Color,
-            name: "3P%"
+            name: "3P%",
+            stat: (this.state.player.threePtPct * 100).toFixed(1)
           }, {
             y: this.state.twoPoint.Grade,
             color: this.state.twoPoint.Color,
-            name: "2P%"
+            name: "2P%",
+            stat: (this.state.player.twoPtPct * 100).toFixed(1)
           }],
           pointPlacement: "on"
         }]
@@ -72013,7 +72086,6 @@ var PlayerPolarColumn2 = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props);
       return _react2.default.createElement(
         "div",
         null,
@@ -72228,7 +72300,8 @@ var CompPlayerOffBarRatings = function (_React$Component) {
           minorGridLineWidth: 0
         },
         tooltip: {
-          valueSuffix: null
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>"
         },
         plotOptions: {
           bar: {
@@ -72253,7 +72326,47 @@ var CompPlayerOffBarRatings = function (_React$Component) {
           data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
         }, {
           name: "Grade",
-          data: [{ y: this.state.efg.Grade, color: this.state.efg.Color }, { y: this.state.ts.Grade, color: this.state.ts.Color }, { y: this.state.ftr.Grade, color: this.state.ftr.Color }, { y: this.state.threePar.Grade, color: this.state.threePar.Color }, { y: this.state.astPct.Grade, color: this.state.astPct.Color }, { y: this.state.tovPct.Grade, color: this.state.tovPct.Color }, { y: this.state.orbPct.Grade, color: this.state.orbPct.Color }, { y: this.state.usgPct.Grade, color: this.state.usgPct.Color }, { y: this.state.obpm.Grade, color: this.state.obpm.Color }, { y: this.state.ows.Grade, color: this.state.ows.Color }]
+          data: [{
+            y: this.state.efg.Grade,
+            color: this.state.efg.Color,
+            stat: this.props.player.efgPct
+          }, {
+            y: this.state.ts.Grade,
+            color: this.state.ts.Color,
+            stat: this.props.player.tsPct
+          }, {
+            y: this.state.ftr.Grade,
+            color: this.state.ftr.Color,
+            stat: this.props.player.ftr
+          }, {
+            y: this.state.threePar.Grade,
+            color: this.state.threePar.Color,
+            stat: this.props.player.threePAr
+          }, {
+            y: this.state.astPct.Grade,
+            color: this.state.astPct.Color,
+            stat: this.props.player.astPct
+          }, {
+            y: this.state.tovPct.Grade,
+            color: this.state.tovPct.Color,
+            stat: this.props.player.tovPct
+          }, {
+            y: this.state.orbPct.Grade,
+            color: this.state.orbPct.Color,
+            stat: this.props.player.orbPct
+          }, {
+            y: this.state.usgPct.Grade,
+            color: this.state.usgPct.Color,
+            stat: this.props.player.usgPct
+          }, {
+            y: this.state.obpm.Grade,
+            color: this.state.obpm.Color,
+            stat: this.props.player.obpm
+          }, {
+            y: this.state.ows.Grade,
+            color: this.state.ows.Color,
+            stat: this.props.player.ows
+          }]
         }]
       });
     }
@@ -72465,7 +72578,8 @@ var CompPlayerDefBarRatings = function (_React$Component) {
           minorGridLineWidth: 0
         },
         tooltip: {
-          valueSuffix: null
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>"
         },
         plotOptions: {
           bar: {
@@ -72490,7 +72604,31 @@ var CompPlayerDefBarRatings = function (_React$Component) {
           data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
         }, {
           name: "Grade",
-          data: [{ y: this.state.blkPct.Grade, color: this.state.blkPct.Color }, { y: this.state.stlPct.Grade, color: this.state.stlPct.Color }, { y: this.state.drbPct.Grade, color: this.state.drbPct.Color }, { y: this.state.trbPct.Grade, color: this.state.trbPct.Color }, { y: this.state.dbpm.Grade, color: this.state.dbpm.Color }, { y: this.state.dws.Grade, color: this.state.dws.Color }]
+          data: [{
+            y: this.state.blkPct.Grade,
+            color: this.state.blkPct.Color,
+            stat: this.props.player.blkPct
+          }, {
+            y: this.state.stlPct.Grade,
+            color: this.state.stlPct.Color,
+            stat: this.props.player.stlPct
+          }, {
+            y: this.state.drbPct.Grade,
+            color: this.state.drbPct.Color,
+            stat: this.props.player.drbPct
+          }, {
+            y: this.state.trbPct.Grade,
+            color: this.state.trbPct.Color,
+            stat: this.props.player.trbPct
+          }, {
+            y: this.state.dbpm.Grade,
+            color: this.state.dbpm.Color,
+            stat: this.props.player.dbpm
+          }, {
+            y: this.state.dws.Grade,
+            color: this.state.dws.Color,
+            stat: this.props.player.dws
+          }]
         }]
       });
     }
@@ -72699,7 +72837,8 @@ var CompPlayerOvrBarRatings = function (_React$Component) {
           minorGridLineWidth: 0
         },
         tooltip: {
-          valueSuffix: null
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>"
         },
         plotOptions: {
           bar: {
@@ -72724,9 +72863,26 @@ var CompPlayerOvrBarRatings = function (_React$Component) {
           data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
         }, {
           name: "Grade",
-          data: [{ y: this.state.per.Grade, color: this.state.per.Color }, { y: this.state.bpm.Grade, color: this.state.bpm.Color }, { y: this.state.vorp.Grade, color: this.state.vorp.Color }, { y: this.state.ws.Grade, color: this.state.ws.Color }, {
+          data: [{
+            y: this.state.per.Grade,
+            color: this.state.per.Color,
+            stat: this.props.player.per
+          }, {
+            y: this.state.bpm.Grade,
+            color: this.state.bpm.Color,
+            stat: this.props.player.bpm
+          }, {
+            y: this.state.vorp.Grade,
+            color: this.state.vorp.Color,
+            stat: this.props.player.vorp
+          }, {
+            y: this.state.ws.Grade,
+            color: this.state.ws.Color,
+            stat: this.props.player.ws
+          }, {
             y: this.state.wsFourtyEight.Grade,
-            color: this.state.wsFourtyEight.Color
+            color: this.state.wsFourtyEight.Color,
+            stat: this.props.player.wsFourtyEight
           }]
         }]
       });
@@ -72997,9 +73153,13 @@ var AddPlayerSearch2 = function (_React$Component) {
               "div",
               null,
               _react2.default.createElement(
-                "span",
-                { style: { fontSize: "22px" } },
-                this.state.player.name
+                "a",
+                { href: "/player/" + this.state.player.id },
+                _react2.default.createElement(
+                  "span",
+                  { style: { fontSize: "22px" } },
+                  this.state.player.name
+                )
               ),
               _react2.default.createElement(
                 "span",
@@ -73069,7 +73229,7 @@ var AddPlayerSearch2 = function (_React$Component) {
                 },
                 onClick: this.handleAdvancedClick
               },
-              "Advanced Stats"
+              "Advanced Stats \u25BC"
             )
           ),
           this.renderAdvanced()
@@ -73175,7 +73335,7 @@ var AddPlayerSearch2 = function (_React$Component) {
         null,
         _react2.default.createElement(
           _reactBootstrap.Col,
-          { lg: 9, lgOffset: 1, style: { paddingLeft: "0px" } },
+          { lg: 9, lgOffset: 1, style: { paddingLeft: "32px" } },
           _react2.default.createElement(
             "div",
             { className: "card" },
@@ -73404,7 +73564,7 @@ var PlayerPolarColumn3 = function (_React$Component) {
 
         tooltip: {
           headerFormat: "<b>{point.key}</b><br/>",
-          pointFormat: "<span>Rating: {point.y}</span><br/>"
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>"
         },
 
         yAxis: {
@@ -73449,35 +73609,48 @@ var PlayerPolarColumn3 = function (_React$Component) {
           data: [{
             y: this.state.scoring.Grade,
             color: this.state.scoring.Color,
-            name: "Scoring"
+            name: "Scoring",
+            stat: this.state.player.pts,
+            per36: (this.state.player.pts / this.state.player.mpg * 36).toFixed(1)
           }, {
             y: this.state.ast.Grade,
             color: this.state.ast.Color,
-            name: "Ast"
+            name: "Ast",
+            stat: this.state.player.ast,
+            per36: (this.state.player.ast / this.state.player.mpg * 36).toFixed(1)
           }, {
             y: this.state.reb.Grade,
             color: this.state.reb.Color,
-            name: "Reb"
+            name: "Reb",
+            stat: this.state.player.trb,
+            per36: (this.state.player.trb / this.state.player.mpg * 36).toFixed(1)
           }, {
             y: this.state.stl.Grade,
             color: this.state.stl.Color,
-            name: "Stl"
+            name: "Stl",
+            stat: this.state.player.stl,
+            per36: (this.state.player.stl / this.state.player.mpg * 36).toFixed(1)
           }, {
             y: this.state.blk.Grade,
             color: this.state.blk.Color,
-            name: "Blk"
+            name: "Blk",
+            stat: this.state.player.blk,
+            per36: (this.state.player.blk / this.state.player.mpg * 36).toFixed(1)
           }, {
             y: this.state.ft.Grade,
             color: this.state.ft.Color,
-            name: "FT%"
+            name: "FT%",
+            stat: (this.state.player.freeThrowPct * 100).toFixed(1)
           }, {
             y: this.state.threePoint.Grade,
             color: this.state.threePoint.Color,
-            name: "3P%"
+            name: "3P%",
+            stat: (this.state.player.threePtPct * 100).toFixed(1)
           }, {
             y: this.state.twoPoint.Grade,
             color: this.state.twoPoint.Color,
-            name: "2P%"
+            name: "2P%",
+            stat: (this.state.player.twoPtPct * 100).toFixed(1)
           }],
           pointPlacement: "on"
         }]
@@ -73486,7 +73659,6 @@ var PlayerPolarColumn3 = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props);
       return _react2.default.createElement(
         "div",
         null,
@@ -73701,7 +73873,8 @@ var CompPlayerOffBarRatings2 = function (_React$Component) {
           minorGridLineWidth: 0
         },
         tooltip: {
-          valueSuffix: null
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>"
         },
         plotOptions: {
           bar: {
@@ -73726,7 +73899,47 @@ var CompPlayerOffBarRatings2 = function (_React$Component) {
           data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
         }, {
           name: "Grade",
-          data: [{ y: this.state.efg.Grade, color: this.state.efg.Color }, { y: this.state.ts.Grade, color: this.state.ts.Color }, { y: this.state.ftr.Grade, color: this.state.ftr.Color }, { y: this.state.threePar.Grade, color: this.state.threePar.Color }, { y: this.state.astPct.Grade, color: this.state.astPct.Color }, { y: this.state.tovPct.Grade, color: this.state.tovPct.Color }, { y: this.state.orbPct.Grade, color: this.state.orbPct.Color }, { y: this.state.usgPct.Grade, color: this.state.usgPct.Color }, { y: this.state.obpm.Grade, color: this.state.obpm.Color }, { y: this.state.ows.Grade, color: this.state.ows.Color }]
+          data: [{
+            y: this.state.efg.Grade,
+            color: this.state.efg.Color,
+            stat: this.props.player.efgPct
+          }, {
+            y: this.state.ts.Grade,
+            color: this.state.ts.Color,
+            stat: this.props.player.tsPct
+          }, {
+            y: this.state.ftr.Grade,
+            color: this.state.ftr.Color,
+            stat: this.props.player.ftr
+          }, {
+            y: this.state.threePar.Grade,
+            color: this.state.threePar.Color,
+            stat: this.props.player.threePAr
+          }, {
+            y: this.state.astPct.Grade,
+            color: this.state.astPct.Color,
+            stat: this.props.player.astPct
+          }, {
+            y: this.state.tovPct.Grade,
+            color: this.state.tovPct.Color,
+            stat: this.props.player.tovPct
+          }, {
+            y: this.state.orbPct.Grade,
+            color: this.state.orbPct.Color,
+            stat: this.props.player.orbPct
+          }, {
+            y: this.state.usgPct.Grade,
+            color: this.state.usgPct.Color,
+            stat: this.props.player.usgPct
+          }, {
+            y: this.state.obpm.Grade,
+            color: this.state.obpm.Color,
+            stat: this.props.player.obpm
+          }, {
+            y: this.state.ows.Grade,
+            color: this.state.ows.Color,
+            stat: this.props.player.ows
+          }]
         }]
       });
     }
@@ -73938,7 +74151,8 @@ var CompPlayerDefBarRatings2 = function (_React$Component) {
           minorGridLineWidth: 0
         },
         tooltip: {
-          valueSuffix: null
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>"
         },
         plotOptions: {
           bar: {
@@ -73963,7 +74177,31 @@ var CompPlayerDefBarRatings2 = function (_React$Component) {
           data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
         }, {
           name: "Grade",
-          data: [{ y: this.state.blkPct.Grade, color: this.state.blkPct.Color }, { y: this.state.stlPct.Grade, color: this.state.stlPct.Color }, { y: this.state.drbPct.Grade, color: this.state.drbPct.Color }, { y: this.state.trbPct.Grade, color: this.state.trbPct.Color }, { y: this.state.dbpm.Grade, color: this.state.dbpm.Color }, { y: this.state.dws.Grade, color: this.state.dws.Color }]
+          data: [{
+            y: this.state.blkPct.Grade,
+            color: this.state.blkPct.Color,
+            stat: this.props.player.blkPct
+          }, {
+            y: this.state.stlPct.Grade,
+            color: this.state.stlPct.Color,
+            stat: this.props.player.stlPct
+          }, {
+            y: this.state.drbPct.Grade,
+            color: this.state.drbPct.Color,
+            stat: this.props.player.drbPct
+          }, {
+            y: this.state.trbPct.Grade,
+            color: this.state.trbPct.Color,
+            stat: this.props.player.trbPct
+          }, {
+            y: this.state.dbpm.Grade,
+            color: this.state.dbpm.Color,
+            stat: this.props.player.dbpm
+          }, {
+            y: this.state.dws.Grade,
+            color: this.state.dws.Color,
+            stat: this.props.player.dws
+          }]
         }]
       });
     }
@@ -74172,7 +74410,8 @@ var CompPlayerOvrBarRatings2 = function (_React$Component) {
           minorGridLineWidth: 0
         },
         tooltip: {
-          valueSuffix: null
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>"
         },
         plotOptions: {
           bar: {
@@ -74197,9 +74436,26 @@ var CompPlayerOvrBarRatings2 = function (_React$Component) {
           data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
         }, {
           name: "Grade",
-          data: [{ y: this.state.per.Grade, color: this.state.per.Color }, { y: this.state.bpm.Grade, color: this.state.bpm.Color }, { y: this.state.vorp.Grade, color: this.state.vorp.Color }, { y: this.state.ws.Grade, color: this.state.ws.Color }, {
+          data: [{
+            y: this.state.per.Grade,
+            color: this.state.per.Color,
+            stat: this.props.player.per
+          }, {
+            y: this.state.bpm.Grade,
+            color: this.state.bpm.Color,
+            stat: this.props.player.bpm
+          }, {
+            y: this.state.vorp.Grade,
+            color: this.state.vorp.Color,
+            stat: this.props.player.vorp
+          }, {
+            y: this.state.ws.Grade,
+            color: this.state.ws.Color,
+            stat: this.props.player.ws
+          }, {
             y: this.state.wsFourtyEight.Grade,
-            color: this.state.wsFourtyEight.Color
+            color: this.state.wsFourtyEight.Color,
+            stat: this.props.player.wsFourtyEight
           }]
         }]
       });

@@ -172,7 +172,8 @@ export default class PlayerBarRatings extends React.Component {
         minorGridLineWidth: 0
       },
       tooltip: {
-        valueSuffix: null
+        headerFormat: "<b>{point.key}</b><br/>",
+        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>`
       },
       plotOptions: {
         bar: {
@@ -206,11 +207,51 @@ export default class PlayerBarRatings extends React.Component {
         {
           name: "Grade",
           data: [
-            { y: this.state.scoring.Grade, color: this.state.scoring.Color },
-            { y: this.state.reb.Grade, color: this.state.reb.Color },
-            { y: this.state.ast.Grade, color: this.state.ast.Color },
-            { y: this.state.stl.Grade, color: this.state.stl.Color },
-            { y: this.state.blk.Grade, color: this.state.blk.Color }
+            {
+              y: this.state.scoring.Grade,
+              color: this.state.scoring.Color,
+              stat: this.state.player.pts,
+              per36: (this.state.player.pts /
+                this.state.player.mpg *
+                36
+              ).toFixed(1)
+            },
+            {
+              y: this.state.reb.Grade,
+              color: this.state.reb.Color,
+              stat: this.state.player.trb,
+              per36: (this.state.player.trb /
+                this.state.player.mpg *
+                36
+              ).toFixed(1)
+            },
+            {
+              y: this.state.ast.Grade,
+              color: this.state.ast.Color,
+              stat: this.state.player.ast,
+              per36: (this.state.player.ast /
+                this.state.player.mpg *
+                36
+              ).toFixed(1)
+            },
+            {
+              y: this.state.stl.Grade,
+              color: this.state.stl.Color,
+              stat: this.state.player.stl,
+              per36: (this.state.player.stl /
+                this.state.player.mpg *
+                36
+              ).toFixed(1)
+            },
+            {
+              y: this.state.blk.Grade,
+              color: this.state.blk.Color,
+              stat: this.state.player.blk,
+              per36: (this.state.player.blk /
+                this.state.player.mpg *
+                36
+              ).toFixed(1)
+            }
           ]
         }
       ]

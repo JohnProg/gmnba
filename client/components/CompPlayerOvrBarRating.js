@@ -149,7 +149,8 @@ export default class CompPlayerOvrBarRatings extends React.Component {
         minorGridLineWidth: 0
       },
       tooltip: {
-        valueSuffix: null
+        headerFormat: "<b>{point.key}</b><br/>",
+        pointFormat: `<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>`
       },
       plotOptions: {
         bar: {
@@ -183,13 +184,30 @@ export default class CompPlayerOvrBarRatings extends React.Component {
         {
           name: "Grade",
           data: [
-            { y: this.state.per.Grade, color: this.state.per.Color },
-            { y: this.state.bpm.Grade, color: this.state.bpm.Color },
-            { y: this.state.vorp.Grade, color: this.state.vorp.Color },
-            { y: this.state.ws.Grade, color: this.state.ws.Color },
+            {
+              y: this.state.per.Grade,
+              color: this.state.per.Color,
+              stat: this.props.player.per
+            },
+            {
+              y: this.state.bpm.Grade,
+              color: this.state.bpm.Color,
+              stat: this.props.player.bpm
+            },
+            {
+              y: this.state.vorp.Grade,
+              color: this.state.vorp.Color,
+              stat: this.props.player.vorp
+            },
+            {
+              y: this.state.ws.Grade,
+              color: this.state.ws.Color,
+              stat: this.props.player.ws
+            },
             {
               y: this.state.wsFourtyEight.Grade,
-              color: this.state.wsFourtyEight.Color
+              color: this.state.wsFourtyEight.Color,
+              stat: this.props.player.wsFourtyEight
             }
           ]
         }

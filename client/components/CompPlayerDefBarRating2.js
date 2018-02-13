@@ -148,7 +148,8 @@ export default class CompPlayerDefBarRatings2 extends React.Component {
         minorGridLineWidth: 0
       },
       tooltip: {
-        valueSuffix: null
+        headerFormat: "<b>{point.key}</b><br/>",
+        pointFormat: `<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>`
       },
       plotOptions: {
         bar: {
@@ -183,12 +184,36 @@ export default class CompPlayerDefBarRatings2 extends React.Component {
         {
           name: "Grade",
           data: [
-            { y: this.state.blkPct.Grade, color: this.state.blkPct.Color },
-            { y: this.state.stlPct.Grade, color: this.state.stlPct.Color },
-            { y: this.state.drbPct.Grade, color: this.state.drbPct.Color },
-            { y: this.state.trbPct.Grade, color: this.state.trbPct.Color },
-            { y: this.state.dbpm.Grade, color: this.state.dbpm.Color },
-            { y: this.state.dws.Grade, color: this.state.dws.Color }
+            {
+              y: this.state.blkPct.Grade,
+              color: this.state.blkPct.Color,
+              stat: this.props.player.blkPct
+            },
+            {
+              y: this.state.stlPct.Grade,
+              color: this.state.stlPct.Color,
+              stat: this.props.player.stlPct
+            },
+            {
+              y: this.state.drbPct.Grade,
+              color: this.state.drbPct.Color,
+              stat: this.props.player.drbPct
+            },
+            {
+              y: this.state.trbPct.Grade,
+              color: this.state.trbPct.Color,
+              stat: this.props.player.trbPct
+            },
+            {
+              y: this.state.dbpm.Grade,
+              color: this.state.dbpm.Color,
+              stat: this.props.player.dbpm
+            },
+            {
+              y: this.state.dws.Grade,
+              color: this.state.dws.Color,
+              stat: this.props.player.dws
+            }
           ]
         }
       ]

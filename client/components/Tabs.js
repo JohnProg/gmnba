@@ -72,12 +72,12 @@ export default class Tabs extends React.Component {
                 RANKINGS
               </span>
             </NavItem>
-            <NavItem eventKey={5} title="Item">
+            <NavItem eventKey={5} href="/" disabled>
               <span style={tabColor} className="tab-text">
                 LINEUP
               </span>
             </NavItem>
-            <NavItem eventKey={6} title="Item">
+            <NavItem eventKey={6} href="/" disabled>
               <span style={tabColor} className="tab-text">
                 SCHEDULE
               </span>

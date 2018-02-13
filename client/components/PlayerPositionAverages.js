@@ -91,7 +91,6 @@ export default class PlayerPositionAverages extends React.Component {
         shadow: false
       },
       tooltip: {
-        enabled: false,
         shared: true
       },
       plotOptions: {
@@ -106,12 +105,11 @@ export default class PlayerPositionAverages extends React.Component {
           name: "Position Average",
           color: "#c2ced5",
           data: [
-            parseFloat(this.state.ptsAvg) * 3,
-            parseFloat(this.state.trbAvg) * 10,
-            parseFloat(this.state.astAvg) * 10,
-            parseFloat(this.state.stlAvg) * 30,
-            parseFloat(this.state.blkAvg) * 60,
-            parseFloat(this.state.fgAvg) * 100
+            parseFloat(this.state.ptsAvg),
+            parseFloat(this.state.trbAvg),
+            parseFloat(this.state.astAvg),
+            parseFloat(this.state.stlAvg),
+            parseFloat(this.state.blkAvg)
           ],
           pointPadding: 0.3,
           pointPlacement: 0
@@ -120,12 +118,11 @@ export default class PlayerPositionAverages extends React.Component {
           name: "Player Average",
           color: `${this.state.colors.Color_Main}`,
           data: [
-            parseFloat(this.state.player.pts) * 3,
-            parseFloat(this.state.player.trb) * 10,
-            parseFloat(this.state.player.ast) * 10,
-            parseFloat(this.state.player.stl) * 30,
-            parseFloat(this.state.player.blk) * 60,
-            parseFloat(this.state.player.fgPct) * 100
+            parseFloat(this.state.player.pts),
+            parseFloat(this.state.player.trb),
+            parseFloat(this.state.player.ast),
+            parseFloat(this.state.player.stl),
+            parseFloat(this.state.player.blk)
           ],
           pointPadding: 0.4,
           pointPlacement: 0

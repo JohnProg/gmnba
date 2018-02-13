@@ -386,7 +386,12 @@ export default class PlayerSeasonStats extends React.Component {
           <Row>
             <Col lg={12}>
               <div className="card">
-                <div id="roster-header">
+                <div
+                  style={{
+                    marginTop: "30px",
+                    height: "50px"
+                  }}
+                >
                   <div style={headerStyle}>2017-18 PLAYER ADVANCED STATS</div>
                 </div>
                 <Table striped hover>

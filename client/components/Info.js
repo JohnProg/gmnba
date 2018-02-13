@@ -530,7 +530,7 @@ class Info extends React.Component {
                     </Col>
 
                     <Col lg={3}>
-                      <div style={{ marginTop: "70px", fontSize: "15.5px" }}>
+                      <div style={{ marginTop: "50px", fontSize: "15.5px" }}>
                         <div style={{ textAlign: "right" }}>
                           Overall: {this.getOverallRating()}
                         </div>

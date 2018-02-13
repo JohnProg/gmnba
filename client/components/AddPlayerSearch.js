@@ -372,7 +372,11 @@ export default class AddPlayerSearch extends React.Component {
             </Col>
             <Col lg={6} style={{ paddingTop: "30px" }}>
               <div>
-                <span style={{ fontSize: "22px" }}>{this.props.list.name}</span>
+                <a href={`/player/${this.props.list.id}`}>
+                  <span style={{ fontSize: "22px" }}>
+                    {this.props.list.name}
+                  </span>
+                </a>
                 <span style={{ paddingLeft: "3px" }}>
                   {" "}
                   {this.props.list.position}

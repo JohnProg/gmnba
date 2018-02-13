@@ -142,7 +142,8 @@ export default class TeamRatings extends React.Component {
         minorGridLineWidth: 0
       },
       tooltip: {
-        valueSuffix: null
+        headerFormat: "<b>{point.key}</b><br/>",
+        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span>`
       },
       plotOptions: {
         bar: {
@@ -176,11 +177,31 @@ export default class TeamRatings extends React.Component {
         {
           name: "Grade",
           data: [
-            { y: this.state.Scoring.Grade, color: this.state.Scoring.Color },
-            { y: this.state.Reb.Grade, color: this.state.Reb.Color },
-            { y: this.state.Ast.Grade, color: this.state.Ast.Color },
-            { y: this.state.Stl.Grade, color: this.state.Stl.Color },
-            { y: this.state.Blk.Grade, color: this.state.Blk.Color }
+            {
+              y: this.state.Scoring.Grade,
+              color: this.state.Scoring.Color,
+              stat: this.state.team.PTS
+            },
+            {
+              y: this.state.Reb.Grade,
+              color: this.state.Reb.Color,
+              stat: this.state.team.TRB
+            },
+            {
+              y: this.state.Ast.Grade,
+              color: this.state.Ast.Color,
+              stat: this.state.team.AST
+            },
+            {
+              y: this.state.Stl.Grade,
+              color: this.state.Stl.Color,
+              stat: this.state.team.STL
+            },
+            {
+              y: this.state.Blk.Grade,
+              color: this.state.Blk.Color,
+              stat: this.state.team.BLK
+            }
           ]
         }
       ]

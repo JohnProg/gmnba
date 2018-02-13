@@ -84,7 +84,7 @@ export default class PlayerTabs extends React.Component {
             <NavItem eventKey={2} href="/">
               <span style={tabColor}>SEASON</span>
             </NavItem>
-            <NavItem eventKey={3} href="/">
+            <NavItem eventKey={3} href="/" disabled>
               <span style={tabColor}>CAREER</span>
             </NavItem>
             <NavItem eventKey={4} href="/">
@@ -93,7 +93,7 @@ export default class PlayerTabs extends React.Component {
             <NavItem eventKey={5} href="/">
               <span style={tabColor}>COMPARISON</span>
             </NavItem>
-            <NavItem eventKey={6} title="Item">
+            <NavItem eventKey={6} href="/" disabled>
               <span style={tabColor}>VIDEOS</span>
             </NavItem>
           </Nav>

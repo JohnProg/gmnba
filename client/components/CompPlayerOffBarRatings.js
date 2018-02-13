@@ -175,7 +175,8 @@ export default class CompPlayerOffBarRatings extends React.Component {
         minorGridLineWidth: 0
       },
       tooltip: {
-        valueSuffix: null
+        headerFormat: "<b>{point.key}</b><br/>",
+        pointFormat: `<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>`
       },
       plotOptions: {
         bar: {
@@ -214,16 +215,56 @@ export default class CompPlayerOffBarRatings extends React.Component {
         {
           name: "Grade",
           data: [
-            { y: this.state.efg.Grade, color: this.state.efg.Color },
-            { y: this.state.ts.Grade, color: this.state.ts.Color },
-            { y: this.state.ftr.Grade, color: this.state.ftr.Color },
-            { y: this.state.threePar.Grade, color: this.state.threePar.Color },
-            { y: this.state.astPct.Grade, color: this.state.astPct.Color },
-            { y: this.state.tovPct.Grade, color: this.state.tovPct.Color },
-            { y: this.state.orbPct.Grade, color: this.state.orbPct.Color },
-            { y: this.state.usgPct.Grade, color: this.state.usgPct.Color },
-            { y: this.state.obpm.Grade, color: this.state.obpm.Color },
-            { y: this.state.ows.Grade, color: this.state.ows.Color }
+            {
+              y: this.state.efg.Grade,
+              color: this.state.efg.Color,
+              stat: this.props.player.efgPct
+            },
+            {
+              y: this.state.ts.Grade,
+              color: this.state.ts.Color,
+              stat: this.props.player.tsPct
+            },
+            {
+              y: this.state.ftr.Grade,
+              color: this.state.ftr.Color,
+              stat: this.props.player.ftr
+            },
+            {
+              y: this.state.threePar.Grade,
+              color: this.state.threePar.Color,
+              stat: this.props.player.threePAr
+            },
+            {
+              y: this.state.astPct.Grade,
+              color: this.state.astPct.Color,
+              stat: this.props.player.astPct
+            },
+            {
+              y: this.state.tovPct.Grade,
+              color: this.state.tovPct.Color,
+              stat: this.props.player.tovPct
+            },
+            {
+              y: this.state.orbPct.Grade,
+              color: this.state.orbPct.Color,
+              stat: this.props.player.orbPct
+            },
+            {
+              y: this.state.usgPct.Grade,
+              color: this.state.usgPct.Color,
+              stat: this.props.player.usgPct
+            },
+            {
+              y: this.state.obpm.Grade,
+              color: this.state.obpm.Color,
+              stat: this.props.player.obpm
+            },
+            {
+              y: this.state.ows.Grade,
+              color: this.state.ows.Color,
+              stat: this.props.player.ows
+            }
           ]
         }
       ]
