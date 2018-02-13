@@ -69970,26 +69970,24 @@ var PlayerRatings = function (_React$Component) {
   _createClass(PlayerRatings, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      // axios
-      //   .put("/api/teams/loadTeamLogoColor")
-      //   .then(data => {
-      //     console.log("Team updated successfully");
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
-    }
-  }, {
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
       var _this2 = this;
 
-      if (nextProps.player.name) {
-        this.setState({ player: nextProps.player }, function () {
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
           _this2.getPositionStats(_this2.state.player.position);
           //this.createChart();
         });
       }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // if (nextProps.player.name) {
+      //   this.setState({ player: nextProps.player }, () => {
+      //     this.getPositionStats(this.state.player.position);
+      //     //this.createChart();
+      //   });
+      // }
     }
   }, {
     key: "getPositionStats",
