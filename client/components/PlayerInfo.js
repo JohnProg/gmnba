@@ -563,7 +563,7 @@ class PlayerInfo extends React.Component {
                       </a>
                     </Col>
                   </Row>
-                  <Row id="info-box-stats">
+                  <Row style={{ paddingBottom: "20px" }}>
                     <Col lg={2}>
                       <div>
                         <span style={{ color: "#404040" }}>PPG</span>{" "}

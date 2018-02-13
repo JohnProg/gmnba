@@ -66282,7 +66282,8 @@ var Info = function (_React$Component) {
           { id: "affiliate-pic" },
           _react2.default.createElement("img", {
             id: "gLeaguePic",
-            src: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b5/Iowa_Wolves_logo.svg/1200px-Iowa_Wolves_logo.svg.png"
+            src: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b5/Iowa_Wolves_logo.svg/1200px-Iowa_Wolves_logo.svg.png",
+            style: { maxHeight: "100px" }
           }),
           _react2.default.createElement(
             "div",
@@ -66717,124 +66718,185 @@ var Info = function (_React$Component) {
                   _react2.default.createElement(
                     "div",
                     { id: "info-pic" },
-                    _react2.default.createElement("img", { src: this.state.team.Logo })
+                    _react2.default.createElement("img", {
+                      src: this.state.team.Logo,
+                      style: { maxHeight: "170px" }
+                    })
                   )
                 ),
                 _react2.default.createElement(
                   _reactBootstrap.Col,
-                  { lg: 4 },
-                  _react2.default.createElement(
-                    "div",
-                    { id: "name-text" },
-                    _react2.default.createElement(
-                      "div",
-                      { id: "team-name" },
-                      this.state.team.Name
-                    ),
-                    _react2.default.createElement(
-                      "div",
-                      { id: "info-text" },
-                      _react2.default.createElement(
-                        "div",
-                        null,
-                        "Record: ",
-                        this.state.team.W,
-                        "-",
-                        this.state.team.L
-                      ),
-                      _react2.default.createElement(
-                        "div",
-                        null,
-                        "#5 in the Western Conference"
-                      ),
-                      _react2.default.createElement(
-                        "div",
-                        null,
-                        "#3 in the Southwest Division"
-                      )
-                    )
-                  ),
-                  _react2.default.createElement("hr", { id: "info-text-break" }),
+                  { lg: 9 },
                   _react2.default.createElement(
                     _reactBootstrap.Row,
                     null,
                     _react2.default.createElement(
                       _reactBootstrap.Col,
-                      { lg: 2 },
+                      { lg: 5 },
                       _react2.default.createElement(
                         "div",
-                        null,
-                        "PPG 1st"
+                        { id: "name-text" },
+                        _react2.default.createElement(
+                          "div",
+                          { id: "team-name" },
+                          this.state.team.Name
+                        ),
+                        _react2.default.createElement(
+                          "div",
+                          { id: "info-text" },
+                          _react2.default.createElement(
+                            "div",
+                            null,
+                            "Record: ",
+                            this.state.team.W,
+                            "-",
+                            this.state.team.L
+                          ),
+                          _react2.default.createElement(
+                            "div",
+                            null,
+                            "#5 in the Western Conference"
+                          ),
+                          _react2.default.createElement(
+                            "div",
+                            null,
+                            "#3 in the Southwest Division"
+                          )
+                        )
+                      ),
+                      _react2.default.createElement("hr", { id: "info-text-break" })
+                    ),
+                    _react2.default.createElement(
+                      _reactBootstrap.Col,
+                      { lg: 3 },
+                      _react2.default.createElement(
+                        "div",
+                        { style: { marginTop: "70px", fontSize: "15.5px" } },
+                        _react2.default.createElement(
+                          "div",
+                          { style: { textAlign: "right" } },
+                          "Overall: ",
+                          this.getOverallRating()
+                        ),
+                        _react2.default.createElement(
+                          "div",
+                          { style: { textAlign: "right" } },
+                          "Offense: ",
+                          this.getOffenseRating()
+                        ),
+                        _react2.default.createElement(
+                          "div",
+                          { style: { textAlign: "right" } },
+                          "Defense: ",
+                          this.getDefenseRating()
+                        )
                       )
                     ),
                     _react2.default.createElement(
                       _reactBootstrap.Col,
-                      { lg: 2 },
-                      _react2.default.createElement(
-                        "div",
-                        null,
-                        "RPG 6th"
-                      )
-                    ),
-                    _react2.default.createElement(
-                      _reactBootstrap.Col,
-                      { lg: 2 },
-                      _react2.default.createElement(
-                        "div",
-                        null,
-                        "APG 13th"
-                      )
-                    ),
-                    _react2.default.createElement(
-                      _reactBootstrap.Col,
-                      { lg: 2 },
-                      _react2.default.createElement(
-                        "div",
-                        null,
-                        "ORTG 9th"
-                      )
-                    ),
-                    _react2.default.createElement(
-                      _reactBootstrap.Col,
-                      { lg: 2 },
-                      _react2.default.createElement(
-                        "div",
-                        null,
-                        "DRTG 2nd"
-                      )
+                      { lg: 3 },
+                      this.sampleGLeague()
                     )
-                  )
-                ),
-                _react2.default.createElement(
-                  _reactBootstrap.Col,
-                  { lg: 2 },
+                  ),
                   _react2.default.createElement(
-                    "div",
-                    { style: { marginTop: "90px", fontSize: "15.5px" } },
+                    _reactBootstrap.Row,
+                    { style: { paddingBottom: "20px" } },
                     _react2.default.createElement(
-                      "div",
-                      { style: { textAlign: "right" } },
-                      "Overall: ",
-                      this.getOverallRating()
+                      _reactBootstrap.Col,
+                      { lg: 2 },
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        _react2.default.createElement(
+                          "span",
+                          { style: { color: "#404040" } },
+                          "PPG"
+                        ),
+                        " ",
+                        _react2.default.createElement(
+                          "span",
+                          { style: { fontSize: "18px" } },
+                          "1st"
+                        )
+                      )
                     ),
                     _react2.default.createElement(
-                      "div",
-                      { style: { textAlign: "right" } },
-                      "Offense: ",
-                      this.getOffenseRating()
+                      _reactBootstrap.Col,
+                      { lg: 2 },
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        _react2.default.createElement(
+                          "span",
+                          { style: { color: "#404040" } },
+                          "RPG"
+                        ),
+                        " ",
+                        _react2.default.createElement(
+                          "span",
+                          { style: { fontSize: "18px" } },
+                          "6th"
+                        )
+                      )
                     ),
                     _react2.default.createElement(
-                      "div",
-                      { style: { textAlign: "right" } },
-                      "Defense: ",
-                      this.getDefenseRating()
+                      _reactBootstrap.Col,
+                      { lg: 2 },
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        _react2.default.createElement(
+                          "span",
+                          { style: { color: "#404040" } },
+                          "APG"
+                        ),
+                        " ",
+                        _react2.default.createElement(
+                          "span",
+                          { style: { fontSize: "18px" } },
+                          "13th"
+                        )
+                      )
+                    ),
+                    _react2.default.createElement(
+                      _reactBootstrap.Col,
+                      { lg: 2 },
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        _react2.default.createElement(
+                          "span",
+                          { style: { color: "#404040" } },
+                          "ORTG"
+                        ),
+                        " ",
+                        _react2.default.createElement(
+                          "span",
+                          { style: { fontSize: "18px" } },
+                          "9th"
+                        )
+                      )
+                    ),
+                    _react2.default.createElement(
+                      _reactBootstrap.Col,
+                      { lg: 2 },
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        _react2.default.createElement(
+                          "span",
+                          { style: { color: "#404040" } },
+                          "DRTG"
+                        ),
+                        " ",
+                        _react2.default.createElement(
+                          "span",
+                          { style: { fontSize: "18px" } },
+                          "2nd"
+                        )
+                      )
                     )
                   )
-                ),
-                _react2.default.createElement(
-                  _reactBootstrap.Col,
-                  { lg: 2 },
-                  this.sampleGLeague()
                 )
               )
             )
@@ -69646,7 +69708,7 @@ var PlayerInfo = function (_React$Component) {
                   ),
                   _react2.default.createElement(
                     _reactBootstrap.Row,
-                    { id: "info-box-stats" },
+                    { style: { paddingBottom: "20px" } },
                     _react2.default.createElement(
                       _reactBootstrap.Col,
                       { lg: 2 },

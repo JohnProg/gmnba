@@ -93,6 +93,7 @@ class Info extends React.Component {
           <img
             id="gLeaguePic"
             src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b5/Iowa_Wolves_logo.svg/1200px-Iowa_Wolves_logo.svg.png"
+            style={{ maxHeight: "100px" }}
           />
           <div id="gleagueheader">G-League Affiliate</div>
         </div>
@@ -506,53 +507,76 @@ class Info extends React.Component {
               <div id="info">
                 <Col lg={3} id="pic-col">
                   <div id="info-pic">
-                    <img src={this.state.team.Logo} />
+                    <img
+                      src={this.state.team.Logo}
+                      style={{ maxHeight: "170px" }}
+                    />
                   </div>
                 </Col>
-                <Col lg={4}>
-                  <div id="name-text">
-                    <div id="team-name">{this.state.team.Name}</div>
-                    <div id="info-text">
-                      <div>
-                        Record: {this.state.team.W}-{this.state.team.L}
-                      </div>
-                      <div>#5 in the Western Conference</div>
-                      <div>#3 in the Southwest Division</div>
-                    </div>
-                  </div>
-                  <hr id="info-text-break" />
+                <Col lg={9}>
                   <Row>
+                    <Col lg={5}>
+                      <div id="name-text">
+                        <div id="team-name">{this.state.team.Name}</div>
+                        <div id="info-text">
+                          <div>
+                            Record: {this.state.team.W}-{this.state.team.L}
+                          </div>
+                          <div>#5 in the Western Conference</div>
+                          <div>#3 in the Southwest Division</div>
+                        </div>
+                      </div>
+                      <hr id="info-text-break" />
+                    </Col>
+
+                    <Col lg={3}>
+                      <div style={{ marginTop: "70px", fontSize: "15.5px" }}>
+                        <div style={{ textAlign: "right" }}>
+                          Overall: {this.getOverallRating()}
+                        </div>
+                        <div style={{ textAlign: "right" }}>
+                          Offense: {this.getOffenseRating()}
+                        </div>
+                        <div style={{ textAlign: "right" }}>
+                          Defense: {this.getDefenseRating()}
+                        </div>
+                      </div>
+                    </Col>
+                    <Col lg={3}>{this.sampleGLeague()}</Col>
+                  </Row>
+                  <Row style={{ paddingBottom: "20px" }}>
                     <Col lg={2}>
-                      <div>PPG 1st</div>
+                      <div>
+                        <span style={{ color: "#404040" }}>PPG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>1st</span>
+                      </div>
                     </Col>
                     <Col lg={2}>
-                      <div>RPG 6th</div>
+                      <div>
+                        <span style={{ color: "#404040" }}>RPG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>6th</span>
+                      </div>
                     </Col>
                     <Col lg={2}>
-                      <div>APG 13th</div>
+                      <div>
+                        <span style={{ color: "#404040" }}>APG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>13th</span>
+                      </div>
                     </Col>
                     <Col lg={2}>
-                      <div>ORTG 9th</div>
+                      <div>
+                        <span style={{ color: "#404040" }}>ORTG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>9th</span>
+                      </div>
                     </Col>
                     <Col lg={2}>
-                      <div>DRTG 2nd</div>
+                      <div>
+                        <span style={{ color: "#404040" }}>DRTG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>2nd</span>
+                      </div>
                     </Col>
                   </Row>
                 </Col>
-                <Col lg={2}>
-                  <div style={{ marginTop: "90px", fontSize: "15.5px" }}>
-                    <div style={{ textAlign: "right" }}>
-                      Overall: {this.getOverallRating()}
-                    </div>
-                    <div style={{ textAlign: "right" }}>
-                      Offense: {this.getOffenseRating()}
-                    </div>
-                    <div style={{ textAlign: "right" }}>
-                      Defense: {this.getDefenseRating()}
-                    </div>
-                  </div>
-                </Col>
-                <Col lg={2}>{this.sampleGLeague()}</Col>
               </div>
             </Row>
           </Grid>
