@@ -20969,7 +20969,8 @@ var TeamScatter = function (_React$Component) {
             data: [[parseFloat(data[j][this.state.statTwo]), parseFloat(data[j][this.state.statOne])]],
             name: data[j].Name,
             color: "#d00000",
-            _symbolIndex: 0
+            _symbolIndex: 0,
+            id: data[j].id
           });
         }
         this.setState({ data: scatterData }, function () {
@@ -21053,6 +21054,18 @@ var TeamScatter = function (_React$Component) {
                 }
               }
             },
+            cursor: "pointer",
+            point: {
+              events: {
+                click: function click(event) {
+                  console.log("Event: ", event.point.series.userOptions.id);
+                  window.location = "/team/" + event.point.series.userOptions.id;
+                  // this.setState({
+                  //   name: event.point.series.userOptions.name
+                  // });
+                }
+              }
+            },
             states: {
               hover: {
                 marker: {
@@ -21101,7 +21114,8 @@ var TeamScatter = function (_React$Component) {
           data: [[parseFloat(team[this.state.statTwo]), parseFloat(team[this.state.statOne])]],
           name: team.Name,
           color: "#d00000",
-          _symbolIndex: 0
+          _symbolIndex: 0,
+          id: team.id
         });
       }
       this.setState({ data: statArr }, function () {
@@ -75848,7 +75862,8 @@ var PlayerScatter = function (_React$Component) {
             data: [[parseFloat(playerData[j][this.state.statTwo]), parseFloat(playerData[j][this.state.statOne])]],
             name: playerData[j].name,
             color: "#d00000",
-            _symbolIndex: 0
+            _symbolIndex: 0,
+            id: playerData[j].id
           });
         }
         this.setState({ data: scatterData }, function () {
@@ -75876,7 +75891,8 @@ var PlayerScatter = function (_React$Component) {
             data: [[parseFloat(playerData[j][this.state.statTwo]), parseFloat(playerData[j][this.state.statOne])]],
             name: playerData[j].name,
             color: "#d00000",
-            _symbolIndex: 0
+            _symbolIndex: 0,
+            id: playerData[j].id
           });
         }
         this.setState({ data: scatterData }, function () {
@@ -75931,6 +75947,18 @@ var PlayerScatter = function (_React$Component) {
                 hover: {
                   enabled: true,
                   lineColor: "rgb(100,100,100)"
+                }
+              }
+            },
+            cursor: "pointer",
+            point: {
+              events: {
+                click: function click(event) {
+                  console.log("Event: ", event.point.series.userOptions.id);
+                  window.location = "/player/" + event.point.series.userOptions.id;
+                  // this.setState({
+                  //   name: event.point.series.userOptions.name
+                  // });
                 }
               }
             },

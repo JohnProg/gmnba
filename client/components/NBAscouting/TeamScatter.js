@@ -48,7 +48,8 @@ export default class TeamScatter extends React.Component {
           ],
           name: data[j].Name,
           color: "#d00000",
-          _symbolIndex: 0
+          _symbolIndex: 0,
+          id: data[j].id
         });
       }
       this.setState({ data: scatterData }, () => {
@@ -132,6 +133,18 @@ export default class TeamScatter extends React.Component {
               }
             }
           },
+          cursor: "pointer",
+          point: {
+            events: {
+              click: event => {
+                console.log("Event: ", event.point.series.userOptions.id);
+                window.location = "/team/" + event.point.series.userOptions.id;
+                // this.setState({
+                //   name: event.point.series.userOptions.name
+                // });
+              }
+            }
+          },
           states: {
             hover: {
               marker: {
@@ -180,7 +193,8 @@ export default class TeamScatter extends React.Component {
         ],
         name: team.Name,
         color: "#d00000",
-        _symbolIndex: 0
+        _symbolIndex: 0,
+        id: team.id
       });
     }
     this.setState({ data: statArr }, () => {

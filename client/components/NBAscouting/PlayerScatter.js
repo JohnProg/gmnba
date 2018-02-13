@@ -94,7 +94,8 @@ export default class PlayerScatter extends React.Component {
           ],
           name: playerData[j].name,
           color: "#d00000",
-          _symbolIndex: 0
+          _symbolIndex: 0,
+          id: playerData[j].id
         });
       }
       this.setState({ data: scatterData }, () => {
@@ -124,7 +125,8 @@ export default class PlayerScatter extends React.Component {
           ],
           name: playerData[j].name,
           color: "#d00000",
-          _symbolIndex: 0
+          _symbolIndex: 0,
+          id: playerData[j].id
         });
       }
       this.setState({ data: scatterData }, () => {
@@ -180,6 +182,19 @@ export default class PlayerScatter extends React.Component {
               hover: {
                 enabled: true,
                 lineColor: "rgb(100,100,100)"
+              }
+            }
+          },
+          cursor: "pointer",
+          point: {
+            events: {
+              click: event => {
+                console.log("Event: ", event.point.series.userOptions.id);
+                window.location =
+                  "/player/" + event.point.series.userOptions.id;
+                // this.setState({
+                //   name: event.point.series.userOptions.name
+                // });
               }
             }
           },
