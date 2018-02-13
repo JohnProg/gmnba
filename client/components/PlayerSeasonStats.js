@@ -92,6 +92,10 @@ export default class PlayerSeasonStats extends React.Component {
     var highFT = 0.93;
     var highThree = 0.45;
     var highTwo = 0.7;
+    var highEFg = 0.65;
+    var highOrb = 5.0;
+    var highDrb = 10.0;
+    var highTov = 0;
 
     var scoring = this.getGrade(
       highPoints,
@@ -124,6 +128,10 @@ export default class PlayerSeasonStats extends React.Component {
       this.props.player.threePtPct,
       0.2
     );
+    var fg = this.getGrade(highEFg, this.props.player.efgPct, 0.3);
+    var orb = this.getGrade(highOrb, this.props.player.orb, 0);
+    var drb = this.getGrade(highDrb, this.props.player.drb, 1.0);
+    var tov = this.getGrade(highTov, this.props.player.tov * -1, -5.0);
     var twoPoint = this.getGrade(highTwo, this.props.player.twoPtPct, 0.2);
     this.setState({
       scoring: scoring,
@@ -133,7 +141,11 @@ export default class PlayerSeasonStats extends React.Component {
       blk: blk,
       ft: ft,
       threePoint: threePoint,
-      twoPoint: twoPoint
+      twoPoint: twoPoint,
+      fg: fg,
+      orb: orb,
+      drb: drb,
+      tov: tov
     });
   }
 
@@ -220,13 +232,19 @@ export default class PlayerSeasonStats extends React.Component {
               <th>STL</th>
               <th>BLK</th>
               <th>TOV</th>
-              <th>PF</th>
               <th>PTS</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th>{stat["FGM"]}</th>
+              <th
+                style={{
+                  color: this.state.fg.Color,
+                  fontWeight: "bold"
+                }}
+              >
+                {this.state.fg.Grade}
+              </th>
               <th
                 style={{
                   color: this.state.threePoint.Color,
@@ -243,8 +261,22 @@ export default class PlayerSeasonStats extends React.Component {
               <th style={{ color: this.state.ft.Color, fontWeight: "bold" }}>
                 {this.state.ft.Grade}
               </th>
-              <th>{stat["ORB"]}</th>
-              <th>{stat["DRB"]}</th>
+              <th
+                style={{
+                  color: this.state.orb.Color,
+                  fontWeight: "bold"
+                }}
+              >
+                {this.state.orb.Grade}
+              </th>
+              <th
+                style={{
+                  color: this.state.drb.Color,
+                  fontWeight: "bold"
+                }}
+              >
+                {this.state.drb.Grade}
+              </th>
               <th style={{ color: this.state.reb.Color, fontWeight: "bold" }}>
                 {this.state.reb.Grade}
               </th>
@@ -257,8 +289,14 @@ export default class PlayerSeasonStats extends React.Component {
               <th style={{ color: this.state.blk.Color, fontWeight: "bold" }}>
                 {this.state.blk.Grade}
               </th>
-              <th>{stat["TOV"]}</th>
-              <th>{stat["PF"]}</th>
+              <th
+                style={{
+                  color: this.state.tov.Color,
+                  fontWeight: "bold"
+                }}
+              >
+                {this.state.tov.Grade}
+              </th>
               <th
                 style={{ color: this.state.scoring.Color, fontWeight: "bold" }}
               >

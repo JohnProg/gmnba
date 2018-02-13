@@ -75,8 +75,9 @@ export default class PlayerFinder extends React.Component {
                     <Nav bsStyle="pills" stacked style={{ border: "1px" }}>
                       <NavItem eventKey="first">Basic Info</NavItem>
                       <NavItem eventKey="second">Ratings</NavItem>
-                      <NavItem eventKey="third">Statistics</NavItem>
-                      <NavItem eventKey="fourth">Advanced Statistics</NavItem>
+                      <NavItem eventKey="third">Advanced Ratings</NavItem>
+                      <NavItem eventKey="fourth">Statistics</NavItem>
+                      <NavItem eventKey="fifth">Advanced Statistics</NavItem>
                     </Nav>
                   </Col>
                   <Col sm={8}>
@@ -282,10 +283,1728 @@ export default class PlayerFinder extends React.Component {
                           </Col>
                         </Row>
                       </Tab.Pane>
-                      <Tab.Pane eventKey="second">Ratings Content</Tab.Pane>
                       <Tab.Pane
                         style={{ height: "320px", overflowY: "scroll" }}
-                        eventKey="fourth"
+                        eventKey="second"
+                      >
+                        <Row>
+                          <Col lg={4}>
+                            <div style={{ textDecoration: "underline" }}>
+                              Overall
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>1 Star</option>
+                                <option>1.5 Stars</option>
+                                <option>2 Stars</option>
+                                <option>2.5 Stars</option>
+                                <option>3 Stars</option>
+                                <option>3.5 Stars</option>
+                                <option>4 Stars</option>
+                                <option>4.5 Stars</option>
+                                <option>5 Stars</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>1 Star</option>
+                                <option>1.5 Stars</option>
+                                <option>2 Stars</option>
+                                <option>2.5 Stars</option>
+                                <option>3 Stars</option>
+                                <option>3.5 Stars</option>
+                                <option>4 Stars</option>
+                                <option>4.5 Stars</option>
+                                <option>5 Stars</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={4}>
+                            <div style={{ textDecoration: "underline" }}>
+                              Offense
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>1 Star</option>
+                                <option>1.5 Stars</option>
+                                <option>2 Stars</option>
+                                <option>2.5 Stars</option>
+                                <option>3 Stars</option>
+                                <option>3.5 Stars</option>
+                                <option>4 Stars</option>
+                                <option>4.5 Stars</option>
+                                <option>5 Stars</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>1 Star</option>
+                                <option>1.5 Stars</option>
+                                <option>2 Stars</option>
+                                <option>2.5 Stars</option>
+                                <option>3 Stars</option>
+                                <option>3.5 Stars</option>
+                                <option>4 Stars</option>
+                                <option>4.5 Stars</option>
+                                <option>5 Stars</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={4}>
+                            <div style={{ textDecoration: "underline" }}>
+                              Defense
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>1 Star</option>
+                                <option>1.5 Stars</option>
+                                <option>2 Stars</option>
+                                <option>2.5 Stars</option>
+                                <option>3 Stars</option>
+                                <option>3.5 Stars</option>
+                                <option>4 Stars</option>
+                                <option>4.5 Stars</option>
+                                <option>5 Stars</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>1 Star</option>
+                                <option>1.5 Stars</option>
+                                <option>2 Stars</option>
+                                <option>2.5 Stars</option>
+                                <option>3 Stars</option>
+                                <option>3.5 Stars</option>
+                                <option>4 Stars</option>
+                                <option>4.5 Stars</option>
+                                <option>5 Stars</option>
+                              </select>
+                            </div>
+                          </Col>
+                        </Row>
+                        <Row style={{ paddingTop: "20px" }}>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              Scoring
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              Ast
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              Reb
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              Orb
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                        </Row>
+                        <Row style={{ paddingTop: "20px" }}>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              Drb
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              Stl
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              Blk
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              Ft
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                        </Row>
+                        <Row style={{ paddingTop: "20px" }}>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              FG
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              2P
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              3P
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              Tov
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                        </Row>
+                      </Tab.Pane>
+                      <Tab.Pane
+                        style={{ height: "320px", overflowY: "scroll" }}
+                        eventKey="third"
+                      >
+                        <Row>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              PER
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              WS
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              OWS
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              DWS
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                        </Row>
+                        <Row style={{ paddingTop: "20px" }}>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              WS/48
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              VORP
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              OBPM
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              DBPM
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                        </Row>
+                        <Row style={{ paddingTop: "20px" }}>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              USG%
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              TS%
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              3PAr
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              AST%
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                        </Row>
+                        <Row style={{ paddingTop: "20px" }}>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              BLK%
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              STL%
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              DRB%
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              ORB%
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                        </Row>
+                        <Row style={{ paddingTop: "20px" }}>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              TRB%
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              eFG%
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              TOV%
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div style={{ textDecoration: "underline" }}>
+                              FTr
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Min:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                            <div style={{ paddingTop: "5px" }}>
+                              <span htmlFor="sel1">Max:</span>
+                              <select
+                                id="sel1"
+                                onChange={this.firstInputChange}
+                                style={{ marginLeft: "10px" }}
+                              >
+                                <option>20</option>
+                                <option>25</option>
+                                <option>30</option>
+                                <option>35</option>
+                                <option>40</option>
+                                <option>45</option>
+                                <option>50</option>
+                                <option>55</option>
+                                <option>60</option>
+                                <option>65</option>
+                                <option>70</option>
+                                <option>75</option>
+                                <option>80</option>
+                              </select>
+                            </div>
+                          </Col>
+                        </Row>
+                      </Tab.Pane>
+                      <Tab.Pane
+                        style={{ height: "320px", overflowY: "scroll" }}
+                        eventKey="fifth"
                       >
                         <Row>
                           <Col lg={3}>
@@ -1032,7 +2751,7 @@ export default class PlayerFinder extends React.Component {
                       </Tab.Pane>
                       <Tab.Pane
                         style={{ height: "320px", overflowY: "scroll" }}
-                        eventKey="third"
+                        eventKey="fourth"
                       >
                         <Row>
                           <Col lg={3}>
