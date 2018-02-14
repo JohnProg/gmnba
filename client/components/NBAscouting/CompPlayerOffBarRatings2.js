@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class CompPlayerOvrBarRating extends React.Component {
+export default class CompPlayerOffBarRatings2 extends React.Component {
   constructor(props) {
     super(props);
     this.createChart = this.createChart.bind(this);
@@ -26,28 +26,43 @@ export default class CompPlayerOvrBarRating extends React.Component {
   // }
 
   calculateGrades() {
-    var highPER = 30.0;
-    var highBPM = 10.0;
-    var highVorp = 4.5;
-    var highWS = 8.0;
-    var highWs48 = 0.3;
+    var highEFG = 0.66;
+    var highTS = 0.67;
+    var highFTr = 0.5;
+    var highThreePar = 0.7;
+    var highAstPct = 46.0;
+    var highTovPct = -5.0;
+    var highOrbPct = 17.0;
+    var highUsgPct = 35.0;
+    var highObpm = 10.0;
+    var highOws = 6.5;
 
-    var per = this.getGrade(highPER, this.state.player.per, 4.0);
-    var bpm = this.getGrade(highBPM, this.state.player.bpm, -7.0);
-    var vorp = this.getGrade(highVorp, this.state.player.vorp, -1.0);
-    var ws = this.getGrade(highWS, this.state.player.ws, -1.0);
-    var wsFourtyEight = this.getGrade(
-      highWs48,
-      this.state.player.wsFourtyEight,
-      0
+    var efg = this.getGrade(highEFG, this.state.player.efgPct, 0.25);
+    var ts = this.getGrade(highTS, this.state.player.tsPct, 0.35);
+    var ftr = this.getGrade(highFTr, this.state.player.ftr, 0.03);
+    var threePar = this.getGrade(highThreePar, this.state.player.threePAr, 0);
+    var astPct = this.getGrade(highAstPct, this.state.player.astPct, 2.0);
+    var tovPct = this.getGrade(
+      highTovPct,
+      this.state.player.tovPct * -1,
+      -18.0
     );
+    var orbPct = this.getGrade(highOrbPct, this.state.player.orbPct, 2.2);
+    var usgPct = this.getGrade(highUsgPct, this.state.player.usgPct, 7.0);
+    var obpm = this.getGrade(highObpm, this.state.player.obpm, -6.0);
+    var ows = this.getGrade(highOws, this.state.player.ows, -1.5);
     this.setState(
       {
-        per: per,
-        bpm: bpm,
-        vorp: vorp,
-        ws: ws,
-        wsFourtyEight: wsFourtyEight
+        efg: efg,
+        ts: ts,
+        ftr: ftr,
+        threePar: threePar,
+        astPct: astPct,
+        tovPct: tovPct,
+        orbPct: orbPct,
+        usgPct: usgPct,
+        obpm: obpm,
+        ows: ows
       },
       () => {
         this.createChart();
@@ -118,7 +133,7 @@ export default class CompPlayerOvrBarRating extends React.Component {
   }
 
   createChart() {
-    var chart = Highcharts.chart("container-rating-ovr", {
+    var chart = Highcharts.chart("container-rating-off2", {
       chart: {
         type: "bar"
       },
@@ -129,7 +144,18 @@ export default class CompPlayerOvrBarRating extends React.Component {
         text: null
       },
       xAxis: {
-        categories: ["PER", "BPM", "VORP", "WS", "WS/48"],
+        categories: [
+          "eFG%",
+          "TS%",
+          "FTr",
+          "3PAr",
+          "AST%",
+          "TOV%",
+          "ORB%",
+          "USG%",
+          "OBPM",
+          "OWS"
+        ],
         title: {
           text: null
         }
@@ -178,6 +204,11 @@ export default class CompPlayerOvrBarRating extends React.Component {
             { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" }
           ]
         },
@@ -185,29 +216,54 @@ export default class CompPlayerOvrBarRating extends React.Component {
           name: "Grade",
           data: [
             {
-              y: this.state.per.Grade,
-              color: this.state.per.Color,
-              stat: this.props.player.per
+              y: this.state.efg.Grade,
+              color: this.state.efg.Color,
+              stat: this.props.player.efgPct
             },
             {
-              y: this.state.bpm.Grade,
-              color: this.state.bpm.Color,
-              stat: this.props.player.bpm
+              y: this.state.ts.Grade,
+              color: this.state.ts.Color,
+              stat: this.props.player.tsPct
             },
             {
-              y: this.state.vorp.Grade,
-              color: this.state.vorp.Color,
-              stat: this.props.player.vorp
+              y: this.state.ftr.Grade,
+              color: this.state.ftr.Color,
+              stat: this.props.player.ftr
             },
             {
-              y: this.state.ws.Grade,
-              color: this.state.ws.Color,
-              stat: this.props.player.ws
+              y: this.state.threePar.Grade,
+              color: this.state.threePar.Color,
+              stat: this.props.player.threePAr
             },
             {
-              y: this.state.wsFourtyEight.Grade,
-              color: this.state.wsFourtyEight.Color,
-              stat: this.props.player.wsFourtyEight
+              y: this.state.astPct.Grade,
+              color: this.state.astPct.Color,
+              stat: this.props.player.astPct
+            },
+            {
+              y: this.state.tovPct.Grade,
+              color: this.state.tovPct.Color,
+              stat: this.props.player.tovPct
+            },
+            {
+              y: this.state.orbPct.Grade,
+              color: this.state.orbPct.Color,
+              stat: this.props.player.orbPct
+            },
+            {
+              y: this.state.usgPct.Grade,
+              color: this.state.usgPct.Color,
+              stat: this.props.player.usgPct
+            },
+            {
+              y: this.state.obpm.Grade,
+              color: this.state.obpm.Color,
+              stat: this.props.player.obpm
+            },
+            {
+              y: this.state.ows.Grade,
+              color: this.state.ows.Color,
+              stat: this.props.player.ows
             }
           ]
         }
@@ -219,9 +275,9 @@ export default class CompPlayerOvrBarRating extends React.Component {
     return (
       <div>
         <div
-          id="container-rating-ovr"
+          id="container-rating-off2"
           style={{
-            height: "300px",
+            height: "500px",
             margin: "0 auto"
           }}
         />

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class CompPlayerOvrBarRating extends React.Component {
+export default class CompPlayerOvrBarRatings extends React.Component {
   constructor(props) {
     super(props);
     this.createChart = this.createChart.bind(this);

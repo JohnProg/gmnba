@@ -172,6 +172,11 @@ export default class PlayerPolarColumn2 extends React.Component {
         }
       },
 
+      tooltip: {
+        headerFormat: "<b>{point.key}</b><br/>",
+        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>`
+      },
+
       yAxis: {
         min: 0,
         max: 60,
@@ -217,42 +222,70 @@ export default class PlayerPolarColumn2 extends React.Component {
             {
               y: this.state.scoring.Grade,
               color: this.state.scoring.Color,
-              name: "Scoring"
+              name: "Scoring",
+              stat: this.state.player.pts,
+              per36: (this.state.player.pts /
+                this.state.player.mpg *
+                36
+              ).toFixed(1)
             },
             {
               y: this.state.ast.Grade,
               color: this.state.ast.Color,
-              name: "Ast"
+              name: "Ast",
+              stat: this.state.player.ast,
+              per36: (this.state.player.ast /
+                this.state.player.mpg *
+                36
+              ).toFixed(1)
             },
             {
               y: this.state.reb.Grade,
               color: this.state.reb.Color,
-              name: "Reb"
+              name: "Reb",
+              stat: this.state.player.trb,
+              per36: (this.state.player.trb /
+                this.state.player.mpg *
+                36
+              ).toFixed(1)
             },
             {
               y: this.state.stl.Grade,
               color: this.state.stl.Color,
-              name: "Stl"
+              name: "Stl",
+              stat: this.state.player.stl,
+              per36: (this.state.player.stl /
+                this.state.player.mpg *
+                36
+              ).toFixed(1)
             },
             {
               y: this.state.blk.Grade,
               color: this.state.blk.Color,
-              name: "Blk"
+              name: "Blk",
+              stat: this.state.player.blk,
+              per36: (this.state.player.blk /
+                this.state.player.mpg *
+                36
+              ).toFixed(1)
             },
             {
               y: this.state.ft.Grade,
               color: this.state.ft.Color,
-              name: "FT%"
+              name: "FT%",
+              stat: (this.state.player.freeThrowPct * 100).toFixed(1)
             },
             {
               y: this.state.threePoint.Grade,
               color: this.state.threePoint.Color,
-              name: "3P%"
+              name: "3P%",
+              stat: (this.state.player.threePtPct * 100).toFixed(1)
             },
             {
               y: this.state.twoPoint.Grade,
               color: this.state.twoPoint.Color,
-              name: "2P%"
+              name: "2P%",
+              stat: (this.state.player.twoPtPct * 100).toFixed(1)
             }
           ],
           pointPlacement: "on"

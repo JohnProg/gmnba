@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class CompPlayerOvrBarRating extends React.Component {
+export default class CompPlayerOvrBarRatings2 extends React.Component {
   constructor(props) {
     super(props);
     this.createChart = this.createChart.bind(this);
@@ -118,7 +118,7 @@ export default class CompPlayerOvrBarRating extends React.Component {
   }
 
   createChart() {
-    var chart = Highcharts.chart("container-rating-ovr", {
+    var chart = Highcharts.chart("container-rating-ovr2", {
       chart: {
         type: "bar"
       },
@@ -219,7 +219,7 @@ export default class CompPlayerOvrBarRating extends React.Component {
     return (
       <div>
         <div
-          id="container-rating-ovr"
+          id="container-rating-ovr2"
           style={{
             height: "300px",
             margin: "0 auto"

@@ -11,9 +11,14 @@ import {
   Nav,
   NavItem,
   Image,
-  Thumbnail
+  Thumbnail,
+  DropdownButton,
+  MenuItem
 } from "react-bootstrap";
 import PlayerPolarColumn2 from "./PlayerPolarColumn2";
+import CompPlayerOffBarRatings from "./CompPlayerOffBarRatings";
+import CompPlayerDefBarRatings from "./CompPlayerDefBarRatings";
+import CompPlayerOvrBarRatings from "./CompPlayerOvrBarRatings";
 
 export default class AddPlayerSearch extends React.Component {
   constructor(props) {
@@ -23,7 +28,9 @@ export default class AddPlayerSearch extends React.Component {
       suggestions: [],
       players: [],
       player: {},
-      renderPlayer: false
+      renderPlayer: false,
+      renderAdvanced: false,
+      advancedCat: "Advanced Offense"
     };
     this.escapeRegexCharacters = this.escapeRegexCharacters.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
@@ -39,6 +46,10 @@ export default class AddPlayerSearch extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.renderPlayer = this.renderPlayer.bind(this);
     //this.handleChange = this.handleChange.bind(this);
+    this.handleAdvancedClick = this.handleAdvancedClick.bind(this);
+    this.renderAdvanced = this.renderAdvanced.bind(this);
+    this.selectAdvancedCat = this.selectAdvancedCat.bind(this);
+    this.renderBarRatings = this.renderBarRatings.bind(this);
   }
 
   componentDidMount() {}
@@ -167,18 +178,24 @@ export default class AddPlayerSearch extends React.Component {
           </Col>
           <Col lg={6} style={{ paddingTop: "30px" }}>
             <div>
-              <span style={{ fontSize: "22px" }}>{this.state.player.name}</span>
+              <a href={`/player/${this.state.player.id}`}>
+                <span style={{ fontSize: "22px" }}>
+                  {this.state.player.name}
+                </span>
+              </a>
               <span style={{ paddingLeft: "3px" }}>
                 {" "}
                 {this.state.player.position}
               </span>
             </div>
-            <hr style={{ marginTop: "0px" }} />
-            <div>Height: {this.state.player.height}</div>
-            <div>Weight: {this.state.player.weight}</div>
-            <div>Age: {this.state.player.age}</div>
-            <div>Experience: {this.state.player.experience}</div>
-            <div>Team: {this.state.player.team}</div>
+            <div style={{ fontSize: "16px" }}>
+              <hr style={{ marginTop: "0px" }} />
+              <div>Height: {this.state.player.height}</div>
+              <div>Weight: {this.state.player.weight}</div>
+              <div>Age: {this.state.player.age}</div>
+              <div>Experience: {this.state.player.experience}</div>
+              <div>Team: {this.state.player.team}</div>
+            </div>
           </Col>
           <Col lg={12}>
             <hr style={{ marginTop: "0px" }} />
@@ -192,20 +209,67 @@ export default class AddPlayerSearch extends React.Component {
                 textDecoration: "underline",
                 color: "#d00000",
                 textAlign: "center",
-                cursor: "pointer"
+                cursor: "pointer",
+                paddingBottom: "10px"
               }}
+              onClick={this.handleAdvancedClick}
             >
-              Advanced Stats
+              Advanced Stats &#9660;
             </div>
           </Col>
+          {this.renderAdvanced()}
         </div>
       );
     }
   }
 
-  // handleChange(event) {
-  //   this.setState({ player: event.target.value });
-  // }
+  renderBarRatings() {
+    if (this.state.advancedCat === "Advanced Overall") {
+      var category = "Advanced Overall";
+      return <CompPlayerOvrBarRatings player={this.state.player} />;
+    }
+    if (this.state.advancedCat === "Advanced Offense") {
+      var category = "Advanced Offense";
+      return <CompPlayerOffBarRatings player={this.state.player} />;
+    }
+    if (this.state.advancedCat === "Advanced Defense") {
+      var category = "Advanced Defense";
+      return <CompPlayerDefBarRatings player={this.state.player} />;
+    }
+  }
+
+  handleAdvancedClick() {
+    this.setState({ renderAdvanced: !this.state.renderAdvanced });
+  }
+
+  selectAdvancedCat(evt, eventKey) {
+    this.setState({ advancedCat: eventKey.target.innerHTML });
+  }
+
+  renderAdvanced() {
+    if (this.state.renderAdvanced) {
+      return (
+        <div>
+          <Col lg={12}>
+            <hr />
+            <div>
+              <DropdownButton
+                title={this.state.advancedCat}
+                className="card"
+                style={{ border: "none", fontSize: "16px" }}
+                onSelect={this.selectAdvancedCat}
+              >
+                <MenuItem eventKey="1">Advanced Offense</MenuItem>
+                <MenuItem eventKey="2">Advanced Defense</MenuItem>
+                <MenuItem eventKey="3">Advanced Overall</MenuItem>
+              </DropdownButton>
+            </div>
+          </Col>
+          <Col lg={12}>{this.renderBarRatings()}</Col>
+        </div>
+      );
+    }
+  }
 
   render() {
     const { value, suggestions } = this.state;
@@ -214,6 +278,12 @@ export default class AddPlayerSearch extends React.Component {
       value,
       onChange: this.onChange,
       type: "search"
+    };
+    var buttonStyle = {
+      width: "100%",
+      height: "40px",
+      backgroundColor: "#d00000",
+      color: "#fff"
     };
 
     return (
@@ -232,15 +302,7 @@ export default class AddPlayerSearch extends React.Component {
         </Col>
         <Col lg={2} style={{ paddingLeft: "0px" }}>
           <div>
-            <button
-              onClick={this.handleClick}
-              style={{
-                width: "100%",
-                height: "40px",
-                backgroundColor: "#d00000",
-                color: "white"
-              }}
-            >
+            <button onClick={this.handleClick} style={buttonStyle}>
               Add
             </button>
           </div>

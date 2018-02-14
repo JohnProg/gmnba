@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class CompPlayerOvrBarRating extends React.Component {
+export default class CompPlayerDefBarRatings extends React.Component {
   constructor(props) {
     super(props);
     this.createChart = this.createChart.bind(this);
@@ -26,28 +26,27 @@ export default class CompPlayerOvrBarRating extends React.Component {
   // }
 
   calculateGrades() {
-    var highPER = 30.0;
-    var highBPM = 10.0;
-    var highVorp = 4.5;
-    var highWS = 8.0;
-    var highWs48 = 0.3;
+    var highBlkPct = 6.1;
+    var highStlPct = 3.33;
+    var highDrbPct = 34.0;
+    var highTrbPct = 25.0;
+    var highDbpm = 4.5;
+    var highDws = 2.5;
 
-    var per = this.getGrade(highPER, this.state.player.per, 4.0);
-    var bpm = this.getGrade(highBPM, this.state.player.bpm, -7.0);
-    var vorp = this.getGrade(highVorp, this.state.player.vorp, -1.0);
-    var ws = this.getGrade(highWS, this.state.player.ws, -1.0);
-    var wsFourtyEight = this.getGrade(
-      highWs48,
-      this.state.player.wsFourtyEight,
-      0
-    );
+    var blkPct = this.getGrade(highBlkPct, this.state.player.blkPct, 0);
+    var stlPct = this.getGrade(highStlPct, this.state.player.stlPct, 0);
+    var drbPct = this.getGrade(highDrbPct, this.state.player.drbPct, 7.0);
+    var trbPct = this.getGrade(highTrbPct, this.state.player.trbPct, 2);
+    var dbpm = this.getGrade(highDbpm, this.state.player.dbpm, -4.5);
+    var dws = this.getGrade(highDws, this.state.player.dws, 0);
     this.setState(
       {
-        per: per,
-        bpm: bpm,
-        vorp: vorp,
-        ws: ws,
-        wsFourtyEight: wsFourtyEight
+        blkPct: blkPct,
+        stlPct: stlPct,
+        drbPct: drbPct,
+        trbPct: trbPct,
+        dbpm: dbpm,
+        dws: dws
       },
       () => {
         this.createChart();
@@ -118,7 +117,7 @@ export default class CompPlayerOvrBarRating extends React.Component {
   }
 
   createChart() {
-    var chart = Highcharts.chart("container-rating-ovr", {
+    var chart = Highcharts.chart("container-rating-def", {
       chart: {
         type: "bar"
       },
@@ -129,7 +128,7 @@ export default class CompPlayerOvrBarRating extends React.Component {
         text: null
       },
       xAxis: {
-        categories: ["PER", "BPM", "VORP", "WS", "WS/48"],
+        categories: ["BLK%", "STL%", "DRB%", "TRB%", "DBPM", "DWS"],
         title: {
           text: null
         }
@@ -178,6 +177,7 @@ export default class CompPlayerOvrBarRating extends React.Component {
             { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" }
           ]
         },
@@ -185,29 +185,34 @@ export default class CompPlayerOvrBarRating extends React.Component {
           name: "Grade",
           data: [
             {
-              y: this.state.per.Grade,
-              color: this.state.per.Color,
-              stat: this.props.player.per
+              y: this.state.blkPct.Grade,
+              color: this.state.blkPct.Color,
+              stat: this.props.player.blkPct
             },
             {
-              y: this.state.bpm.Grade,
-              color: this.state.bpm.Color,
-              stat: this.props.player.bpm
+              y: this.state.stlPct.Grade,
+              color: this.state.stlPct.Color,
+              stat: this.props.player.stlPct
             },
             {
-              y: this.state.vorp.Grade,
-              color: this.state.vorp.Color,
-              stat: this.props.player.vorp
+              y: this.state.drbPct.Grade,
+              color: this.state.drbPct.Color,
+              stat: this.props.player.drbPct
             },
             {
-              y: this.state.ws.Grade,
-              color: this.state.ws.Color,
-              stat: this.props.player.ws
+              y: this.state.trbPct.Grade,
+              color: this.state.trbPct.Color,
+              stat: this.props.player.trbPct
             },
             {
-              y: this.state.wsFourtyEight.Grade,
-              color: this.state.wsFourtyEight.Color,
-              stat: this.props.player.wsFourtyEight
+              y: this.state.dbpm.Grade,
+              color: this.state.dbpm.Color,
+              stat: this.props.player.dbpm
+            },
+            {
+              y: this.state.dws.Grade,
+              color: this.state.dws.Color,
+              stat: this.props.player.dws
             }
           ]
         }
@@ -219,7 +224,7 @@ export default class CompPlayerOvrBarRating extends React.Component {
     return (
       <div>
         <div
-          id="container-rating-ovr"
+          id="container-rating-def"
           style={{
             height: "300px",
             margin: "0 auto"

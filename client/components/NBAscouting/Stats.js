@@ -17,7 +17,8 @@ export default class Stats extends React.Component {
     super(props);
     this.state = {
       renderStats: true,
-      renderRatings: false
+      renderRatings: false,
+      sortStat: "pts"
     };
     this.renderPlayers = this.renderPlayers.bind(this);
     this.handleStatButton = this.handleStatButton.bind(this);
@@ -25,6 +26,28 @@ export default class Stats extends React.Component {
     this.renderTableHeaders = this.renderTableHeaders.bind(this);
     this.getGrade = this.getGrade.bind(this);
     this.calculateGrades = this.calculateGrades.bind(this);
+    this.sortGP = this.sortGP.bind(this);
+    this.sortFG = this.sortFG.bind(this);
+    this.sortFGA = this.sortFGA.bind(this);
+    this.sortFGPCT = this.sortFGPCT.bind(this);
+    this.sort3P = this.sort3P.bind(this);
+    this.sort3PA = this.sort3PA.bind(this);
+    this.sort3PPCT = this.sort3PPCT.bind(this);
+    this.sort2P = this.sort2P.bind(this);
+    this.sort2PA = this.sort2PA.bind(this);
+    this.sort2PPCT = this.sort2PPCT.bind(this);
+    this.sortFT = this.sortFT.bind(this);
+    this.sortFTA = this.sortFTA.bind(this);
+    this.sortFTPCT = this.sortFTPCT.bind(this);
+    this.sortORB = this.sortORB.bind(this);
+    this.sortDRB = this.sortDRB.bind(this);
+    this.sortTRB = this.sortTRB.bind(this);
+    this.sortAST = this.sortAST.bind(this);
+    this.sortSTL = this.sortSTL.bind(this);
+    this.sortBLK = this.sortBLK.bind(this);
+    this.sortTOV = this.sortTOV.bind(this);
+    this.sortPF = this.sortPF.bind(this);
+    this.sortPTS = this.sortPTS.bind(this);
   }
 
   getGrade(high, actual, min) {
@@ -135,10 +158,11 @@ export default class Stats extends React.Component {
 
   renderPlayers() {
     var sorted = [];
+    var stat = this.state.sortStat;
     if (this.props.players && this.state.renderStats === true) {
       var players = this.props.players;
       sorted = players.sort(function(a, b) {
-        return parseFloat(b.pts) - parseFloat(a.pts);
+        return parseFloat(b[stat]) - parseFloat(a[stat]);
       });
       return sorted.map((player, i) => (
         <StatsPlayerEntry player={player} key={i} />
@@ -160,34 +184,145 @@ export default class Stats extends React.Component {
     }
   }
 
+  sortGP() {
+    this.setState({ sortStat: "gamesPlayed" });
+  }
+  sortFG() {
+    this.setState({ sortStat: "fgm" });
+  }
+  sortFGA() {
+    this.setState({ sortStat: "fga" });
+  }
+  sortFGPCT() {
+    this.setState({ sortStat: "fgPct" });
+  }
+  sort3P() {
+    this.setState({ sortStat: "threePt" });
+  }
+  sort3PA() {
+    this.setState({ sortStat: "threePtAtt" });
+  }
+  sort3PPCT() {
+    this.setState({ sortStat: "threePtPct" });
+  }
+  sort2P() {
+    this.setState({ sortStat: "twoPt" });
+  }
+  sort2PA() {
+    this.setState({ sortStat: "twoPtAtt" });
+  }
+  sort2PPCT() {
+    this.setState({ sortStat: "twoPtPct" });
+  }
+  sortFT() {
+    this.setState({ sortStat: "ft" });
+  }
+  sortFTA() {
+    this.setState({ sortStat: "fta" });
+  }
+  sortFTPCT() {
+    this.setState({ sortStat: "freeThrowPct" });
+  }
+  sortORB() {
+    this.setState({ sortStat: "orb" });
+  }
+  sortDRB() {
+    this.setState({ sortStat: "drb" });
+  }
+  sortTRB() {
+    this.setState({ sortStat: "trb" });
+  }
+  sortAST() {
+    this.setState({ sortStat: "ast" });
+  }
+  sortSTL() {
+    this.setState({ sortStat: "stl" });
+  }
+  sortBLK() {
+    this.setState({ sortStat: "blk" });
+  }
+  sortTOV() {
+    this.setState({ sortStat: "tov" });
+  }
+  sortPF() {
+    this.setState({ sortStat: "pf" });
+  }
+  sortPTS() {
+    this.setState({ sortStat: "pts" });
+  }
+
   renderTableHeaders() {
     if (this.state.renderStats) {
       return (
         <tr>
           <th>Name</th>
           <th>Position</th>
-          <th>GP</th>
-          <th>FG</th>
-          <th>FGA</th>
-          <th>FG%</th>
-          <th>3P</th>
-          <th>3PA</th>
-          <th>3P%</th>
-          <th>2P</th>
-          <th>2PA</th>
-          <th>2P%</th>
-          <th>FT</th>
-          <th>FTA</th>
-          <th>FT%</th>
-          <th>ORB</th>
-          <th>DRB</th>
-          <th>TRB</th>
-          <th>AST</th>
-          <th>STL</th>
-          <th>BLK</th>
-          <th>TOV</th>
-          <th>PF</th>
-          <th>PTS</th>
+          <th onClick={this.sortGP} style={{ cursor: "pointer" }}>
+            GP
+          </th>
+          <th onClick={this.sortFG} style={{ cursor: "pointer" }}>
+            FG
+          </th>
+          <th onClick={this.sortFGA} style={{ cursor: "pointer" }}>
+            FGA
+          </th>
+          <th onClick={this.sortFGPCT} style={{ cursor: "pointer" }}>
+            FG%
+          </th>
+          <th onClick={this.sort3P} style={{ cursor: "pointer" }}>
+            3P
+          </th>
+          <th onClick={this.sort3PA} style={{ cursor: "pointer" }}>
+            3PA
+          </th>
+          <th onClick={this.sort3PPCT} style={{ cursor: "pointer" }}>
+            3P%
+          </th>
+          <th onClick={this.sort2P} style={{ cursor: "pointer" }}>
+            2P
+          </th>
+          <th onClick={this.sort2PA} style={{ cursor: "pointer" }}>
+            2PA
+          </th>
+          <th onClick={this.sort2PPCT} style={{ cursor: "pointer" }}>
+            2P%
+          </th>
+          <th onClick={this.sortFT} style={{ cursor: "pointer" }}>
+            FT
+          </th>
+          <th onClick={this.sortFTA} style={{ cursor: "pointer" }}>
+            FTA
+          </th>
+          <th onClick={this.sortFTPCT} style={{ cursor: "pointer" }}>
+            FT%
+          </th>
+          <th onClick={this.sortORB} style={{ cursor: "pointer" }}>
+            ORB
+          </th>
+          <th onClick={this.sortDRB} style={{ cursor: "pointer" }}>
+            DRB
+          </th>
+          <th onClick={this.sortTRB} style={{ cursor: "pointer" }}>
+            TRB
+          </th>
+          <th onClick={this.sortAST} style={{ cursor: "pointer" }}>
+            AST
+          </th>
+          <th onClick={this.sortSTL} style={{ cursor: "pointer" }}>
+            STL
+          </th>
+          <th onClick={this.sortBLK} style={{ cursor: "pointer" }}>
+            BLK
+          </th>
+          <th onClick={this.sortTOV} style={{ cursor: "pointer" }}>
+            TOV
+          </th>
+          <th onClick={this.sortPF} style={{ cursor: "pointer" }}>
+            PF
+          </th>
+          <th onClick={this.sortPTS} style={{ cursor: "pointer" }}>
+            PTS
+          </th>
         </tr>
       );
     } else {

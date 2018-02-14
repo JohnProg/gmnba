@@ -18,7 +18,7 @@ import {
 import PlayerPolarColumn2 from "./PlayerPolarColumn2";
 import CompPlayerOffBarRatings from "./CompPlayerOffBarRatings";
 import CompPlayerDefBarRatings from "./CompPlayerDefBarRatings";
-import CompPlayerOvrBarRatings from "./CompPlayerOvrBarRating";
+import CompPlayerOvrBarRating from "./CompPlayerOvrBarRating";
 
 export default class AddPlayerSearch extends React.Component {
   constructor(props) {
@@ -251,7 +251,7 @@ export default class AddPlayerSearch extends React.Component {
   renderBarRatings() {
     if (this.state.advancedCat === "Advanced Overall") {
       var category = "Advanced Overall";
-      return <CompPlayerOvrBarRatings player={this.props.list} />;
+      return <CompPlayerOvrBarRating player={this.props.list} />;
     }
     if (this.state.advancedCat === "Advanced Offense") {
       var category = "Advanced Offense";
