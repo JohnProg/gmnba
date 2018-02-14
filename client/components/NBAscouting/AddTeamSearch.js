@@ -11,9 +11,14 @@ import {
   Nav,
   NavItem,
   Image,
-  Thumbnail
+  Thumbnail,
+  MenuItem,
+  DropdownButton
 } from "react-bootstrap";
 import TeamBarRatings from "./TeamBarRatings";
+import CompTeamOvrBarRatings from "./CompTeamOvrBarRatings";
+import CompTeamOffBarRatings from "./CompTeamOffBarRatings";
+import CompTeamDefBarRatings from "./CompTeamDefBarRatings";
 
 export default class AddTeamSearch extends React.Component {
   constructor(props) {
@@ -23,7 +28,9 @@ export default class AddTeamSearch extends React.Component {
       suggestions: [],
       players: [],
       player: {},
-      renderPlayer: false
+      renderPlayer: false,
+      renderAdvanced: false,
+      advancedCat: "Advanced Overall"
     };
     this.escapeRegexCharacters = this.escapeRegexCharacters.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
@@ -43,6 +50,9 @@ export default class AddTeamSearch extends React.Component {
     this.getOffenseRating = this.getOffenseRating.bind(this);
     this.getDefenseRating = this.getDefenseRating.bind(this);
     this.calculateStars = this.calculateStars.bind(this);
+    this.handleAdvancedClick = this.handleAdvancedClick.bind(this);
+    this.renderBarRatings = this.renderBarRatings.bind(this);
+    this.selectAdvancedCat = this.selectAdvancedCat.bind(this);
   }
 
   componentDidMount() {}
@@ -148,6 +158,10 @@ export default class AddTeamSearch extends React.Component {
       console.log(this.state.player);
       this.setState({ renderPlayer: true });
     });
+  }
+
+  selectAdvancedCat(evt, eventKey) {
+    this.setState({ advancedCat: eventKey.target.innerHTML });
   }
 
   getOverallRating() {
@@ -544,18 +558,70 @@ export default class AddTeamSearch extends React.Component {
     return starRating;
   }
 
+  handleAdvancedClick() {
+    this.setState({ renderAdvanced: !this.state.renderAdvanced });
+  }
+
+  renderAdvanced() {
+    if (this.state.renderAdvanced) {
+      return (
+        <div>
+          <Col lg={12}>
+            <hr />
+            <div>
+              <DropdownButton
+                title={this.state.advancedCat}
+                className="card"
+                style={{ border: "none", fontSize: "16px" }}
+                onSelect={this.selectAdvancedCat}
+              >
+                <MenuItem eventKey="1">Advanced Overall</MenuItem>
+                <MenuItem eventKey="2">Advanced Defense</MenuItem>
+                <MenuItem eventKey="3">Advanced Offense</MenuItem>
+              </DropdownButton>
+            </div>
+          </Col>
+          <Col lg={12}>{this.renderBarRatings()}</Col>
+        </div>
+      );
+    }
+  }
+
+  renderBarRatings() {
+    if (this.state.advancedCat === "Advanced Overall") {
+      var category = "Advanced Overall";
+      return <CompTeamOvrBarRatings player={this.state.player} />;
+    }
+    if (this.state.advancedCat === "Advanced Offense") {
+      var category = "Advanced Offense";
+      return <CompTeamOffBarRatings player={this.state.player} />;
+    }
+    if (this.state.advancedCat === "Advanced Defense") {
+      var category = "Advanced Defense";
+      return <CompTeamDefBarRatings player={this.state.player} />;
+    }
+  }
+
   renderPlayer() {
+    var windowSize;
+    if (this.state.renderAdvanced) {
+      windowSize = {
+        backgroundColor: "white",
+        height: "620px",
+        overflow: "scroll"
+      };
+    } else {
+      windowSize = {
+        backgroundColor: "white",
+        height: "500px",
+        overflow: "scroll"
+      };
+    }
+
     if (this.state.renderPlayer) {
       console.log("Render!!");
       return (
-        <div
-          className="card"
-          style={{
-            backgroundColor: "white",
-            height: "620px",
-            overflow: "scroll"
-          }}
-        >
+        <div className="card" style={windowSize}>
           <Col lg={6} style={{ paddingTop: "20px" }}>
             <Thumbnail
               style={{ border: "none", maxHeight: "150px" }}
@@ -592,10 +658,12 @@ export default class AddTeamSearch extends React.Component {
                 textAlign: "center",
                 cursor: "pointer"
               }}
+              onClick={this.handleAdvancedClick}
             >
-              Advanced Stats
+              Advanced Stats &#9660;
             </div>
           </Col>
+          {this.renderAdvanced()}
         </div>
       );
     }

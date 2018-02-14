@@ -78445,6 +78445,18 @@ var _TeamBarRatings = __webpack_require__(207);
 
 var _TeamBarRatings2 = _interopRequireDefault(_TeamBarRatings);
 
+var _CompTeamOvrBarRatings = __webpack_require__(513);
+
+var _CompTeamOvrBarRatings2 = _interopRequireDefault(_CompTeamOvrBarRatings);
+
+var _CompTeamOffBarRatings = __webpack_require__(514);
+
+var _CompTeamOffBarRatings2 = _interopRequireDefault(_CompTeamOffBarRatings);
+
+var _CompTeamDefBarRatings = __webpack_require__(515);
+
+var _CompTeamDefBarRatings2 = _interopRequireDefault(_CompTeamDefBarRatings);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -78469,7 +78481,9 @@ var AddTeamSearch = function (_React$Component) {
       suggestions: [],
       players: [],
       player: {},
-      renderPlayer: false
+      renderPlayer: false,
+      renderAdvanced: false,
+      advancedCat: "Advanced Overall"
     };
     _this.escapeRegexCharacters = _this.escapeRegexCharacters.bind(_this);
     _this.getSuggestions = _this.getSuggestions.bind(_this);
@@ -78485,6 +78499,9 @@ var AddTeamSearch = function (_React$Component) {
     _this.getOffenseRating = _this.getOffenseRating.bind(_this);
     _this.getDefenseRating = _this.getDefenseRating.bind(_this);
     _this.calculateStars = _this.calculateStars.bind(_this);
+    _this.handleAdvancedClick = _this.handleAdvancedClick.bind(_this);
+    _this.renderBarRatings = _this.renderBarRatings.bind(_this);
+    _this.selectAdvancedCat = _this.selectAdvancedCat.bind(_this);
     return _this;
   }
 
@@ -78618,6 +78635,11 @@ var AddTeamSearch = function (_React$Component) {
       });
     }
   }, {
+    key: "selectAdvancedCat",
+    value: function selectAdvancedCat(evt, eventKey) {
+      this.setState({ advancedCat: eventKey.target.innerHTML });
+    }
+  }, {
     key: "getOverallRating",
     value: function getOverallRating() {
       if (this.state.player) {
@@ -79018,20 +79040,97 @@ var AddTeamSearch = function (_React$Component) {
       return starRating;
     }
   }, {
+    key: "handleAdvancedClick",
+    value: function handleAdvancedClick() {
+      this.setState({ renderAdvanced: !this.state.renderAdvanced });
+    }
+  }, {
+    key: "renderAdvanced",
+    value: function renderAdvanced() {
+      if (this.state.renderAdvanced) {
+        return _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement("hr", null),
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                _reactBootstrap.DropdownButton,
+                {
+                  title: this.state.advancedCat,
+                  className: "card",
+                  style: { border: "none", fontSize: "16px" },
+                  onSelect: this.selectAdvancedCat
+                },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "1" },
+                  "Advanced Overall"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "2" },
+                  "Advanced Defense"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "3" },
+                  "Advanced Offense"
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            this.renderBarRatings()
+          )
+        );
+      }
+    }
+  }, {
+    key: "renderBarRatings",
+    value: function renderBarRatings() {
+      if (this.state.advancedCat === "Advanced Overall") {
+        var category = "Advanced Overall";
+        return _react2.default.createElement(_CompTeamOvrBarRatings2.default, { player: this.state.player });
+      }
+      if (this.state.advancedCat === "Advanced Offense") {
+        var category = "Advanced Offense";
+        return _react2.default.createElement(_CompTeamOffBarRatings2.default, { player: this.state.player });
+      }
+      if (this.state.advancedCat === "Advanced Defense") {
+        var category = "Advanced Defense";
+        return _react2.default.createElement(_CompTeamDefBarRatings2.default, { player: this.state.player });
+      }
+    }
+  }, {
     key: "renderPlayer",
     value: function renderPlayer() {
+      var windowSize;
+      if (this.state.renderAdvanced) {
+        windowSize = {
+          backgroundColor: "white",
+          height: "620px",
+          overflow: "scroll"
+        };
+      } else {
+        windowSize = {
+          backgroundColor: "white",
+          height: "500px",
+          overflow: "scroll"
+        };
+      }
+
       if (this.state.renderPlayer) {
         console.log("Render!!");
         return _react2.default.createElement(
           "div",
-          {
-            className: "card",
-            style: {
-              backgroundColor: "white",
-              height: "620px",
-              overflow: "scroll"
-            }
-          },
+          { className: "card", style: windowSize },
           _react2.default.createElement(
             _reactBootstrap.Col,
             { lg: 6, style: { paddingTop: "20px" } },
@@ -79106,11 +79205,13 @@ var AddTeamSearch = function (_React$Component) {
                   color: "#d00000",
                   textAlign: "center",
                   cursor: "pointer"
-                }
+                },
+                onClick: this.handleAdvancedClick
               },
-              "Advanced Stats"
+              "Advanced Stats \u25BC"
             )
-          )
+          ),
+          this.renderAdvanced()
         );
       }
     }
@@ -79214,6 +79315,18 @@ var _TeamBarRatings = __webpack_require__(208);
 
 var _TeamBarRatings2 = _interopRequireDefault(_TeamBarRatings);
 
+var _CompTeamOvrBarRatings = __webpack_require__(516);
+
+var _CompTeamOvrBarRatings2 = _interopRequireDefault(_CompTeamOvrBarRatings);
+
+var _CompTeamOffBarRatings = __webpack_require__(517);
+
+var _CompTeamOffBarRatings2 = _interopRequireDefault(_CompTeamOffBarRatings);
+
+var _CompTeamDefBarRatings = __webpack_require__(518);
+
+var _CompTeamDefBarRatings2 = _interopRequireDefault(_CompTeamDefBarRatings);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -79238,7 +79351,9 @@ var AddTeamSearch2 = function (_React$Component) {
       suggestions: [],
       players: [],
       player: {},
-      renderPlayer: false
+      renderPlayer: false,
+      renderAdvanced: false,
+      advancedCat: "Advanced Overall"
     };
     _this.escapeRegexCharacters = _this.escapeRegexCharacters.bind(_this);
     _this.getSuggestions = _this.getSuggestions.bind(_this);
@@ -79254,6 +79369,9 @@ var AddTeamSearch2 = function (_React$Component) {
     _this.getOffenseRating = _this.getOffenseRating.bind(_this);
     _this.getDefenseRating = _this.getDefenseRating.bind(_this);
     _this.calculateStars = _this.calculateStars.bind(_this);
+    _this.handleAdvancedClick = _this.handleAdvancedClick.bind(_this);
+    _this.renderBarRatings = _this.renderBarRatings.bind(_this);
+    _this.selectAdvancedCat = _this.selectAdvancedCat.bind(_this);
     return _this;
   }
 
@@ -79387,6 +79505,11 @@ var AddTeamSearch2 = function (_React$Component) {
       });
     }
   }, {
+    key: "selectAdvancedCat",
+    value: function selectAdvancedCat(evt, eventKey) {
+      this.setState({ advancedCat: eventKey.target.innerHTML });
+    }
+  }, {
     key: "getOverallRating",
     value: function getOverallRating() {
       if (this.state.player) {
@@ -79787,20 +79910,97 @@ var AddTeamSearch2 = function (_React$Component) {
       return starRating;
     }
   }, {
+    key: "handleAdvancedClick",
+    value: function handleAdvancedClick() {
+      this.setState({ renderAdvanced: !this.state.renderAdvanced });
+    }
+  }, {
+    key: "renderAdvanced",
+    value: function renderAdvanced() {
+      if (this.state.renderAdvanced) {
+        return _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            _react2.default.createElement("hr", null),
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                _reactBootstrap.DropdownButton,
+                {
+                  title: this.state.advancedCat,
+                  className: "card",
+                  style: { border: "none", fontSize: "16px" },
+                  onSelect: this.selectAdvancedCat
+                },
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "1" },
+                  "Advanced Overall"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "2" },
+                  "Advanced Defense"
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.MenuItem,
+                  { eventKey: "3" },
+                  "Advanced Offense"
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 12 },
+            this.renderBarRatings()
+          )
+        );
+      }
+    }
+  }, {
+    key: "renderBarRatings",
+    value: function renderBarRatings() {
+      if (this.state.advancedCat === "Advanced Overall") {
+        var category = "Advanced Overall";
+        return _react2.default.createElement(_CompTeamOvrBarRatings2.default, { player: this.state.player });
+      }
+      if (this.state.advancedCat === "Advanced Offense") {
+        var category = "Advanced Offense";
+        return _react2.default.createElement(_CompTeamOffBarRatings2.default, { player: this.state.player });
+      }
+      if (this.state.advancedCat === "Advanced Defense") {
+        var category = "Advanced Defense";
+        return _react2.default.createElement(_CompTeamDefBarRatings2.default, { player: this.state.player });
+      }
+    }
+  }, {
     key: "renderPlayer",
     value: function renderPlayer() {
+      var windowSize;
+      if (this.state.renderAdvanced) {
+        windowSize = {
+          backgroundColor: "white",
+          height: "620px",
+          overflow: "scroll"
+        };
+      } else {
+        windowSize = {
+          backgroundColor: "white",
+          height: "500px",
+          overflow: "scroll"
+        };
+      }
+
       if (this.state.renderPlayer) {
         console.log("Render!!");
         return _react2.default.createElement(
           "div",
-          {
-            className: "card",
-            style: {
-              backgroundColor: "white",
-              height: "620px",
-              overflow: "scroll"
-            }
-          },
+          { className: "card", style: windowSize },
           _react2.default.createElement(
             _reactBootstrap.Col,
             { lg: 6, style: { paddingTop: "20px" } },
@@ -79875,11 +80075,13 @@ var AddTeamSearch2 = function (_React$Component) {
                   color: "#d00000",
                   textAlign: "center",
                   cursor: "pointer"
-                }
+                },
+                onClick: this.handleAdvancedClick
               },
-              "Advanced Stats"
+              "Advanced Stats \u25BC"
             )
-          )
+          ),
+          this.renderAdvanced()
         );
       }
     }
@@ -90196,6 +90398,1584 @@ var LeagueStandings = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = LeagueStandings;
+
+/***/ }),
+/* 513 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CompTeamOvrBarRatings = function (_React$Component) {
+  _inherits(CompTeamOvrBarRatings, _React$Component);
+
+  function CompTeamOvrBarRatings(props) {
+    _classCallCheck(this, CompTeamOvrBarRatings);
+
+    var _this = _possibleConstructorReturn(this, (CompTeamOvrBarRatings.__proto__ || Object.getPrototypeOf(CompTeamOvrBarRatings)).call(this, props));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CompTeamOvrBarRatings, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.setState({ player: this.props.player }, function () {
+        console.log("TSPCT: ", _this2.state.player.tsPct);
+        _this2.calculateGrades();
+      });
+    }
+
+    // componentWillReceiveProps(nextProps) {
+    //   if (nextProps.player) {
+    //     this.setState({ player: nextProps.player }, () => {
+    //       console.log("TSPCT: ", this.state.player.tsPct);
+    //       this.calculateGrades();
+    //       //this.createChart();
+    //     });
+    //   }
+    // }
+
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highMov = 8.0;
+      var highOrtg = 115.0;
+      var highDrtg = -103.0;
+      var highSos = 1.1;
+      var highSrs = 9.0;
+
+      var mov = this.getGrade(highMov, this.props.player.MOV, -8.0);
+      var sos = this.getGrade(highSos, this.props.player.SOS, -1.1);
+      var srs = this.getGrade(highSrs, this.props.player.SRS, -8.0);
+      var drtg = this.getGrade(highDrtg, this.props.player.DRtg * -1, -113.0);
+      var ortg = this.getGrade(highOrtg, this.props.player.ORtg, 104.0);
+
+      this.setState({
+        mov: mov,
+        sos: sos,
+        srs: srs,
+        drtg: drtg,
+        ortg: ortg
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating-ovr", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: null
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["MOV", "SOS", "SRS", "DRtg", "ORtg"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>"
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{
+            y: this.state.mov.Grade,
+            color: this.state.mov.Color,
+            stat: this.props.player.MOV
+          }, {
+            y: this.state.sos.Grade,
+            color: this.state.sos.Color,
+            stat: this.props.player.SOS
+          }, {
+            y: this.state.srs.Grade,
+            color: this.state.srs.Color,
+            stat: this.props.player.SRS
+          }, {
+            y: this.state.drtg.Grade,
+            color: this.state.drtg.Color,
+            stat: this.props.player.DRtg
+          }, {
+            y: this.state.ortg.Grade,
+            color: this.state.ortg.Color,
+            stat: this.props.player.ORtg
+          }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          id: "container-rating-ovr",
+          style: {
+            height: "300px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return CompTeamOvrBarRatings;
+}(_react2.default.Component);
+
+exports.default = CompTeamOvrBarRatings;
+
+/***/ }),
+/* 514 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CompTeamOffBarRatings = function (_React$Component) {
+  _inherits(CompTeamOffBarRatings, _React$Component);
+
+  function CompTeamOffBarRatings(props) {
+    _classCallCheck(this, CompTeamOffBarRatings);
+
+    var _this = _possibleConstructorReturn(this, (CompTeamOffBarRatings.__proto__ || Object.getPrototypeOf(CompTeamOffBarRatings)).call(this, props));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CompTeamOffBarRatings, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.setState({ player: this.props.player }, function () {
+        console.log("TSPCT: ", _this2.state.player.tsPct);
+        _this2.calculateGrades();
+      });
+    }
+
+    // componentWillReceiveProps(nextProps) {
+    //   if (nextProps.player) {
+    //     this.setState({ player: nextProps.player }, () => {
+    //       console.log("TSPCT: ", this.state.player.tsPct);
+    //       this.calculateGrades();
+    //       //this.createChart();
+    //     });
+    //   }
+    // }
+
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highOrtg = 115.0;
+      var highPace = 102.0;
+      var highftr = 0.32;
+      var highthreepar = 0.5;
+      var highEfg = 0.55;
+      var highTovPct = 15.0;
+      var highOrbPct = 27.0;
+      var highFtFga = 0.25;
+
+      var ortg = this.getGrade(highOrtg, this.props.player.ORtg, 104.0);
+      var pace = this.getGrade(highPace, this.props.player.PACE, 96.0);
+      var ftr = this.getGrade(highftr, this.props.player.FTr, 0.2);
+      var threepar = this.getGrade(highthreepar, this.props.player.Three_PAr, 0.25);
+      var efg = this.getGrade(highEfg, this.props.player.OFF_eFG_PCT, 0.48);
+      var tovPct = this.getGrade(highTovPct, this.props.player.OFF_TOV_PCT, 12.0);
+      var orbPct = this.getGrade(highOrbPct, this.props.player.ORB_PCT, 17.5);
+      var ftfga = this.getGrade(highFtFga, this.props.player.OFF_FT_FGA, 0.15);
+
+      this.setState({
+        ortg: ortg,
+        pace: pace,
+        ftr: ftr,
+        threepar: threepar,
+        efg: efg,
+        tovPct: tovPct,
+        orbPct: orbPct,
+        ftfga: ftfga
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating-off", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: null
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["ORtg", "PACE", "FTr", "3PAr", "OFF eFG", "TOV%", "ORB%", "FT/FGA"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>"
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{
+            y: this.state.ortg.Grade,
+            color: this.state.ortg.Color,
+            stat: this.props.player.ORtg
+          }, {
+            y: this.state.pace.Grade,
+            color: this.state.pace.Color,
+            stat: this.props.player.PACE
+          }, {
+            y: this.state.ftr.Grade,
+            color: this.state.ftr.Color,
+            stat: this.props.player.FTr
+          }, {
+            y: this.state.threepar.Grade,
+            color: this.state.threepar.Color,
+            stat: this.props.player.Three_PAr
+          }, {
+            y: this.state.efg.Grade,
+            color: this.state.efg.Color,
+            stat: this.props.player.OFF_eFG_PCT
+          }, {
+            y: this.state.tovPct.Grade,
+            color: this.state.tovPct.Color,
+            stat: this.props.player.OFF_TOV_PCT
+          }, {
+            y: this.state.orbPct.Grade,
+            color: this.state.orbPct.Color,
+            stat: this.props.player.ORB_PCT
+          }, {
+            y: this.state.ftfga.Grade,
+            color: this.state.ftfga.Color,
+            stat: this.props.player.OFF_FT_FGA
+          }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          id: "container-rating-off",
+          style: {
+            height: "300px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return CompTeamOffBarRatings;
+}(_react2.default.Component);
+
+exports.default = CompTeamOffBarRatings;
+
+/***/ }),
+/* 515 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CompTeamDefBarRatings = function (_React$Component) {
+  _inherits(CompTeamDefBarRatings, _React$Component);
+
+  function CompTeamDefBarRatings(props) {
+    _classCallCheck(this, CompTeamDefBarRatings);
+
+    var _this = _possibleConstructorReturn(this, (CompTeamDefBarRatings.__proto__ || Object.getPrototypeOf(CompTeamDefBarRatings)).call(this, props));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CompTeamDefBarRatings, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.setState({ player: this.props.player }, function () {
+        console.log("TSPCT: ", _this2.state.player.tsPct);
+        _this2.calculateGrades();
+      });
+    }
+
+    // componentWillReceiveProps(nextProps) {
+    //   if (nextProps.player) {
+    //     this.setState({ player: nextProps.player }, () => {
+    //       console.log("TSPCT: ", this.state.player.tsPct);
+    //       this.calculateGrades();
+    //       //this.createChart();
+    //     });
+    //   }
+    // }
+
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highDrtg = -103.0;
+      var highEfg = -0.48;
+      var highTovPct = 15.5;
+      var highFtFga = -0.15;
+      var highDrbPct = 81.0;
+
+      var drtg = this.getGrade(highDrtg, this.props.player.DRtg * -1, -113.0);
+      var efg = this.getGrade(highEfg, this.props.player.DEF_eFG_PCT, -0.54);
+      var tovPct = this.getGrade(highTovPct, this.props.player.DEF_TOV_PCT, 11.5);
+      var ftfga = this.getGrade(highFtFga, this.props.player.DEF_FT_FGA * -1, -0.25);
+      var drbPct = this.getGrade(highDrbPct, this.props.player.DRB_PCT, 73.0);
+
+      this.setState({
+        drtg: drtg,
+        efg: efg,
+        tovPct: tovPct,
+        drbPct: drbPct,
+        ftfga: ftfga
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating-def", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: null
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["DRtg", "DEF eFG", "TOV%", "FT/FGA", "DRB%"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>"
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{
+            y: this.state.drtg.Grade,
+            color: this.state.drtg.Color,
+            stat: this.props.player.DRtg
+          }, {
+            y: this.state.efg.Grade,
+            color: this.state.efg.Color,
+            stat: this.props.player.DEF_eFG_PCT
+          }, {
+            y: this.state.tovPct.Grade,
+            color: this.state.tovPct.Color,
+            stat: this.props.player.DEF_TOV_PCT
+          }, {
+            y: this.state.ftfga.Grade,
+            color: this.state.ftfga.Color,
+            stat: this.props.player.DEF_FT_FGA
+          }, {
+            y: this.state.drbPct.Grade,
+            color: this.state.drbPct.Color,
+            stat: this.props.player.DRB_PCT
+          }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          id: "container-rating-def",
+          style: {
+            height: "300px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return CompTeamDefBarRatings;
+}(_react2.default.Component);
+
+exports.default = CompTeamDefBarRatings;
+
+/***/ }),
+/* 516 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CompTeamOvrBarRatings2 = function (_React$Component) {
+  _inherits(CompTeamOvrBarRatings2, _React$Component);
+
+  function CompTeamOvrBarRatings2(props) {
+    _classCallCheck(this, CompTeamOvrBarRatings2);
+
+    var _this = _possibleConstructorReturn(this, (CompTeamOvrBarRatings2.__proto__ || Object.getPrototypeOf(CompTeamOvrBarRatings2)).call(this, props));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CompTeamOvrBarRatings2, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.setState({ player: this.props.player }, function () {
+        console.log("TSPCT: ", _this2.state.player.tsPct);
+        _this2.calculateGrades();
+      });
+    }
+
+    // componentWillReceiveProps(nextProps) {
+    //   if (nextProps.player) {
+    //     this.setState({ player: nextProps.player }, () => {
+    //       console.log("TSPCT: ", this.state.player.tsPct);
+    //       this.calculateGrades();
+    //       //this.createChart();
+    //     });
+    //   }
+    // }
+
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highMov = 8.0;
+      var highOrtg = 115.0;
+      var highDrtg = -103.0;
+      var highSos = 1.1;
+      var highSrs = 9.0;
+
+      var mov = this.getGrade(highMov, this.props.player.MOV, -8.0);
+      var sos = this.getGrade(highSos, this.props.player.SOS, -1.1);
+      var srs = this.getGrade(highSrs, this.props.player.SRS, -8.0);
+      var drtg = this.getGrade(highDrtg, this.props.player.DRtg * -1, -113.0);
+      var ortg = this.getGrade(highOrtg, this.props.player.ORtg, 104.0);
+
+      this.setState({
+        mov: mov,
+        sos: sos,
+        srs: srs,
+        drtg: drtg,
+        ortg: ortg
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating-ovr2", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: null
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["MOV", "SOS", "SRS", "DRtg", "ORtg"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>"
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{
+            y: this.state.mov.Grade,
+            color: this.state.mov.Color,
+            stat: this.props.player.MOV
+          }, {
+            y: this.state.sos.Grade,
+            color: this.state.sos.Color,
+            stat: this.props.player.SOS
+          }, {
+            y: this.state.srs.Grade,
+            color: this.state.srs.Color,
+            stat: this.props.player.SRS
+          }, {
+            y: this.state.drtg.Grade,
+            color: this.state.drtg.Color,
+            stat: this.props.player.DRtg
+          }, {
+            y: this.state.ortg.Grade,
+            color: this.state.ortg.Color,
+            stat: this.props.player.ORtg
+          }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          id: "container-rating-ovr2",
+          style: {
+            height: "300px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return CompTeamOvrBarRatings2;
+}(_react2.default.Component);
+
+exports.default = CompTeamOvrBarRatings2;
+
+/***/ }),
+/* 517 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CompTeamOffBarRatings2 = function (_React$Component) {
+  _inherits(CompTeamOffBarRatings2, _React$Component);
+
+  function CompTeamOffBarRatings2(props) {
+    _classCallCheck(this, CompTeamOffBarRatings2);
+
+    var _this = _possibleConstructorReturn(this, (CompTeamOffBarRatings2.__proto__ || Object.getPrototypeOf(CompTeamOffBarRatings2)).call(this, props));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CompTeamOffBarRatings2, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.setState({ player: this.props.player }, function () {
+        console.log("TSPCT: ", _this2.state.player.tsPct);
+        _this2.calculateGrades();
+      });
+    }
+
+    // componentWillReceiveProps(nextProps) {
+    //   if (nextProps.player) {
+    //     this.setState({ player: nextProps.player }, () => {
+    //       console.log("TSPCT: ", this.state.player.tsPct);
+    //       this.calculateGrades();
+    //       //this.createChart();
+    //     });
+    //   }
+    // }
+
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highOrtg = 115.0;
+      var highPace = 102.0;
+      var highftr = 0.32;
+      var highthreepar = 0.5;
+      var highEfg = 0.55;
+      var highTovPct = 15.0;
+      var highOrbPct = 27.0;
+      var highFtFga = 0.25;
+
+      var ortg = this.getGrade(highOrtg, this.props.player.ORtg, 104.0);
+      var pace = this.getGrade(highPace, this.props.player.PACE, 96.0);
+      var ftr = this.getGrade(highftr, this.props.player.FTr, 0.2);
+      var threepar = this.getGrade(highthreepar, this.props.player.Three_PAr, 0.25);
+      var efg = this.getGrade(highEfg, this.props.player.OFF_eFG_PCT, 0.48);
+      var tovPct = this.getGrade(highTovPct, this.props.player.OFF_TOV_PCT, 12.0);
+      var orbPct = this.getGrade(highOrbPct, this.props.player.ORB_PCT, 17.5);
+      var ftfga = this.getGrade(highFtFga, this.props.player.OFF_FT_FGA, 0.15);
+
+      this.setState({
+        ortg: ortg,
+        pace: pace,
+        ftr: ftr,
+        threepar: threepar,
+        efg: efg,
+        tovPct: tovPct,
+        orbPct: orbPct,
+        ftfga: ftfga
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating-off2", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: null
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["ORtg", "PACE", "FTr", "3PAr", "OFF eFG", "TOV%", "ORB%", "FT/FGA"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>"
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{
+            y: this.state.ortg.Grade,
+            color: this.state.ortg.Color,
+            stat: this.props.player.ORtg
+          }, {
+            y: this.state.pace.Grade,
+            color: this.state.pace.Color,
+            stat: this.props.player.PACE
+          }, {
+            y: this.state.ftr.Grade,
+            color: this.state.ftr.Color,
+            stat: this.props.player.FTr
+          }, {
+            y: this.state.threepar.Grade,
+            color: this.state.threepar.Color,
+            stat: this.props.player.Three_PAr
+          }, {
+            y: this.state.efg.Grade,
+            color: this.state.efg.Color,
+            stat: this.props.player.OFF_eFG_PCT
+          }, {
+            y: this.state.tovPct.Grade,
+            color: this.state.tovPct.Color,
+            stat: this.props.player.OFF_TOV_PCT
+          }, {
+            y: this.state.orbPct.Grade,
+            color: this.state.orbPct.Color,
+            stat: this.props.player.ORB_PCT
+          }, {
+            y: this.state.ftfga.Grade,
+            color: this.state.ftfga.Color,
+            stat: this.props.player.OFF_FT_FGA
+          }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          id: "container-rating-off2",
+          style: {
+            height: "300px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return CompTeamOffBarRatings2;
+}(_react2.default.Component);
+
+exports.default = CompTeamOffBarRatings2;
+
+/***/ }),
+/* 518 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CompTeamDefBarRatings2 = function (_React$Component) {
+  _inherits(CompTeamDefBarRatings2, _React$Component);
+
+  function CompTeamDefBarRatings2(props) {
+    _classCallCheck(this, CompTeamDefBarRatings2);
+
+    var _this = _possibleConstructorReturn(this, (CompTeamDefBarRatings2.__proto__ || Object.getPrototypeOf(CompTeamDefBarRatings2)).call(this, props));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CompTeamDefBarRatings2, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.setState({ player: this.props.player }, function () {
+        console.log("TSPCT: ", _this2.state.player.tsPct);
+        _this2.calculateGrades();
+      });
+    }
+
+    // componentWillReceiveProps(nextProps) {
+    //   if (nextProps.player) {
+    //     this.setState({ player: nextProps.player }, () => {
+    //       console.log("TSPCT: ", this.state.player.tsPct);
+    //       this.calculateGrades();
+    //       //this.createChart();
+    //     });
+    //   }
+    // }
+
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highDrtg = -103.0;
+      var highEfg = -0.48;
+      var highTovPct = 15.5;
+      var highFtFga = -0.15;
+      var highDrbPct = 81.0;
+
+      var drtg = this.getGrade(highDrtg, this.props.player.DRtg * -1, -113.0);
+      var efg = this.getGrade(highEfg, this.props.player.DEF_eFG_PCT, -0.54);
+      var tovPct = this.getGrade(highTovPct, this.props.player.DEF_TOV_PCT, 11.5);
+      var ftfga = this.getGrade(highFtFga, this.props.player.DEF_FT_FGA * -1, -0.25);
+      var drbPct = this.getGrade(highDrbPct, this.props.player.DRB_PCT, 73.0);
+
+      this.setState({
+        drtg: drtg,
+        efg: efg,
+        tovPct: tovPct,
+        drbPct: drbPct,
+        ftfga: ftfga
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating-def2", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: null
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["DRtg", "DEF eFG", "TOV%", "FT/FGA", "DRB%"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>"
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{
+            y: this.state.drtg.Grade,
+            color: this.state.drtg.Color,
+            stat: this.props.player.DRtg
+          }, {
+            y: this.state.efg.Grade,
+            color: this.state.efg.Color,
+            stat: this.props.player.DEF_eFG_PCT
+          }, {
+            y: this.state.tovPct.Grade,
+            color: this.state.tovPct.Color,
+            stat: this.props.player.DEF_TOV_PCT
+          }, {
+            y: this.state.ftfga.Grade,
+            color: this.state.ftfga.Color,
+            stat: this.props.player.DEF_FT_FGA
+          }, {
+            y: this.state.drbPct.Grade,
+            color: this.state.drbPct.Color,
+            stat: this.props.player.DRB_PCT
+          }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          id: "container-rating-def2",
+          style: {
+            height: "300px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return CompTeamDefBarRatings2;
+}(_react2.default.Component);
+
+exports.default = CompTeamDefBarRatings2;
 
 /***/ })
 /******/ ]);
