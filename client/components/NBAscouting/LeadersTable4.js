@@ -11,7 +11,7 @@ export default class LeadersTable4 extends React.Component {
   renderPlayers(stat) {
     if (this.props.players) {
       this.props.players.sort(function(a, b) {
-        return parseFloat(b.pts) - parseFloat(a.pts);
+        return parseFloat(b[stat]) - parseFloat(a[stat]);
       });
       return this.props.players.map((player, i) => (
         <PlayerLeaderEntry player={player} key={i} rank={i + 1} stat={stat} />
@@ -27,10 +27,10 @@ export default class LeadersTable4 extends React.Component {
             <tr>
               <th>Rank</th>
               <th>Name</th>
-              <th>Pts</th>
+              <th>{this.props.stat}</th>
             </tr>
           </thead>
-          <tbody>{this.renderPlayers("pts")}</tbody>
+          <tbody>{this.renderPlayers(this.props.stat.toLowerCase())}</tbody>
         </Table>
       </div>
     );

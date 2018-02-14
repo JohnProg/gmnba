@@ -28,10 +28,10 @@ export default class LeadersTable8 extends React.Component {
             <tr>
               <th>Rank</th>
               <th>Name</th>
-              <th>Reb</th>
+              <th>{this.props.stat}</th>
             </tr>
           </thead>
-          <tbody>{this.renderPlayers("trb")}</tbody>
+          <tbody>{this.renderPlayers(this.props.stat.toLowerCase())}</tbody>
         </Table>
       </div>
     );

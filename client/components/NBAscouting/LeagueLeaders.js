@@ -8,7 +8,9 @@ import {
   Nav,
   NavItem,
   FormGroup,
-  Checkbox
+  Checkbox,
+  DropdownButton,
+  MenuItem
 } from "react-bootstrap";
 import axios from "axios";
 import LeadersTable4 from "./LeadersTable4";
@@ -46,7 +48,13 @@ export default class LeagueLeaders extends React.Component {
       age2: true,
       age3: true,
       age4: true,
-      age5: true
+      age5: true,
+      table4stat: "PTS",
+      table5stat: "TRB",
+      table6stat: "AST",
+      table7stat: "PTS",
+      table8stat: "TRB",
+      table9stat: "AST"
     };
     this.rankOverall = this.rankOverall.bind(this);
     this.rankOffense = this.rankOffense.bind(this);
@@ -78,6 +86,12 @@ export default class LeagueLeaders extends React.Component {
     this.handleAGE5 = this.handleAGE5.bind(this);
     this.filterPlayers = this.filterPlayers.bind(this);
     this.handleFilterSubmit = this.handleFilterSubmit.bind(this);
+    this.selectStat4 = this.selectStat4.bind(this);
+    this.selectStat5 = this.selectStat5.bind(this);
+    this.selectStat6 = this.selectStat6.bind(this);
+    this.selectStat7 = this.selectStat7.bind(this);
+    this.selectStat8 = this.selectStat8.bind(this);
+    this.selectStat9 = this.selectStat9.bind(this);
   }
 
   componentDidMount() {
@@ -474,6 +488,30 @@ export default class LeagueLeaders extends React.Component {
     }
   }
 
+  selectStat4(evt, eventKey) {
+    this.setState({ table4stat: eventKey.target.innerHTML });
+  }
+
+  selectStat5(evt, eventKey) {
+    this.setState({ table5stat: eventKey.target.innerHTML });
+  }
+
+  selectStat6(evt, eventKey) {
+    this.setState({ table6stat: eventKey.target.innerHTML });
+  }
+
+  selectStat7(evt, eventKey) {
+    this.setState({ table7stat: eventKey.target.innerHTML });
+  }
+
+  selectStat8(evt, eventKey) {
+    this.setState({ table8stat: eventKey.target.innerHTML });
+  }
+
+  selectStat9(evt, eventKey) {
+    this.setState({ table9stat: eventKey.target.innerHTML });
+  }
+
   render() {
     var headerStyle = {
       backgroundColor: "#d00000",
@@ -482,6 +520,17 @@ export default class LeagueLeaders extends React.Component {
       fontSize: "20px",
       paddingLeft: "20px",
       color: "#fff"
+    };
+    var statLabels = {
+      backgroundColor: "#d00000",
+      color: "#fff",
+      textAlign: "center",
+      fontSize: "20px",
+      borderRadius: "0px",
+      width: "80px",
+      marginBottom: "3px",
+      border: "none",
+      paddingLeft: "0px"
     };
     return (
       <div>
@@ -567,17 +616,164 @@ export default class LeagueLeaders extends React.Component {
         <Row style={{ paddingTop: "60px", paddingLeft: "10px" }}>
           <Col lg={3}>
             <div className="card" style={headerStyle}>
-              Points
+              <DropdownButton
+                title={this.state.table4stat.toUpperCase()}
+                style={statLabels}
+                className="card"
+                onSelect={this.selectStat4}
+              >
+                <MenuItem eventKey="1">pts</MenuItem>
+                <MenuItem eventKey="2">ast</MenuItem>
+                <MenuItem eventKey="3">trb</MenuItem>
+                <MenuItem eventKey="4">mpg</MenuItem>
+                <MenuItem eventKey="5">stl</MenuItem>
+                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="7">fgm</MenuItem>
+                <MenuItem eventKey="8">fga</MenuItem>
+                <MenuItem eventKey="9">fgPct</MenuItem>
+                <MenuItem eventKey="10">threePt</MenuItem>
+                <MenuItem eventKey="11">threePtAtt</MenuItem>
+                <MenuItem eventKey="12">twoPt</MenuItem>
+                <MenuItem eventKey="13">twoPtAtt</MenuItem>
+                <MenuItem eventKey="14">twoPtPct</MenuItem>
+                <MenuItem eventKey="15">threePtPct</MenuItem>
+                <MenuItem eventKey="16">ft</MenuItem>
+                <MenuItem eventKey="17">fta</MenuItem>
+                <MenuItem eventKey="18">freeThrowPct</MenuItem>
+                <MenuItem eventKey="19">efgPct</MenuItem>
+                <MenuItem eventKey="20">tov</MenuItem>
+                <MenuItem eventKey="21">orb</MenuItem>
+                <MenuItem eventKey="22">drb</MenuItem>
+                <MenuItem eventKey="23">pf</MenuItem>
+                <MenuItem eventKey="24">orbPct</MenuItem>
+                <MenuItem eventKey="25">astPct</MenuItem>
+                <MenuItem eventKey="26">tovPct</MenuItem>
+                <MenuItem eventKey="27">drbPct</MenuItem>
+                <MenuItem eventKey="28">stlPct</MenuItem>
+                <MenuItem eventKey="29">blkPct</MenuItem>
+                <MenuItem eventKey="30">usgPct</MenuItem>
+                <MenuItem eventKey="31">trbPct</MenuItem>
+                <MenuItem eventKey="32">tsPct</MenuItem>
+                <MenuItem eventKey="33">threePAr</MenuItem>
+                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem eventKey="35">per</MenuItem>
+                <MenuItem eventKey="36">ows</MenuItem>
+                <MenuItem eventKey="37">dws</MenuItem>
+                <MenuItem eventKey="38">bpm</MenuItem>
+                <MenuItem eventKey="39">ws</MenuItem>
+                <MenuItem eventKey="40">obpm</MenuItem>
+                <MenuItem eventKey="41">dbpm</MenuItem>
+                <MenuItem eventKey="42">wsFortyEight</MenuItem>
+                <MenuItem eventKey="43">vorp</MenuItem>
+              </DropdownButton>
             </div>
           </Col>
           <Col lg={3} lgOffset={1}>
             <div className="card" style={headerStyle}>
-              Rebounds
+              <DropdownButton
+                title={this.state.table5stat.toUpperCase()}
+                style={statLabels}
+                className="card"
+                onSelect={this.selectStat5}
+              >
+                <MenuItem eventKey="1">pts</MenuItem>
+                <MenuItem eventKey="2">ast</MenuItem>
+                <MenuItem eventKey="3">trb</MenuItem>
+                <MenuItem eventKey="4">mpg</MenuItem>
+                <MenuItem eventKey="5">stl</MenuItem>
+                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="7">fgm</MenuItem>
+                <MenuItem eventKey="8">fga</MenuItem>
+                <MenuItem eventKey="9">fgPct</MenuItem>
+                <MenuItem eventKey="10">threePt</MenuItem>
+                <MenuItem eventKey="11">threePtAtt</MenuItem>
+                <MenuItem eventKey="12">twoPt</MenuItem>
+                <MenuItem eventKey="13">twoPtAtt</MenuItem>
+                <MenuItem eventKey="14">twoPtPct</MenuItem>
+                <MenuItem eventKey="15">threePtPct</MenuItem>
+                <MenuItem eventKey="16">ft</MenuItem>
+                <MenuItem eventKey="17">fta</MenuItem>
+                <MenuItem eventKey="18">freeThrowPct</MenuItem>
+                <MenuItem eventKey="19">efgPct</MenuItem>
+                <MenuItem eventKey="20">tov</MenuItem>
+                <MenuItem eventKey="21">orb</MenuItem>
+                <MenuItem eventKey="22">drb</MenuItem>
+                <MenuItem eventKey="23">pf</MenuItem>
+                <MenuItem eventKey="24">orbPct</MenuItem>
+                <MenuItem eventKey="25">astPct</MenuItem>
+                <MenuItem eventKey="26">tovPct</MenuItem>
+                <MenuItem eventKey="27">drbPct</MenuItem>
+                <MenuItem eventKey="28">stlPct</MenuItem>
+                <MenuItem eventKey="29">blkPct</MenuItem>
+                <MenuItem eventKey="30">usgPct</MenuItem>
+                <MenuItem eventKey="31">trbPct</MenuItem>
+                <MenuItem eventKey="32">tsPct</MenuItem>
+                <MenuItem eventKey="33">threePAr</MenuItem>
+                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem eventKey="35">per</MenuItem>
+                <MenuItem eventKey="36">ows</MenuItem>
+                <MenuItem eventKey="37">dws</MenuItem>
+                <MenuItem eventKey="38">bpm</MenuItem>
+                <MenuItem eventKey="39">ws</MenuItem>
+                <MenuItem eventKey="40">obpm</MenuItem>
+                <MenuItem eventKey="41">dbpm</MenuItem>
+                <MenuItem eventKey="42">wsFortyEight</MenuItem>
+                <MenuItem eventKey="43">vorp</MenuItem>
+              </DropdownButton>
             </div>
           </Col>
           <Col lg={3} lgOffset={1}>
             <div className="card" style={headerStyle}>
-              Assists
+              <DropdownButton
+                title={this.state.table6stat.toUpperCase()}
+                style={statLabels}
+                className="card"
+                onSelect={this.selectStat6}
+              >
+                <MenuItem eventKey="1">pts</MenuItem>
+                <MenuItem eventKey="2">ast</MenuItem>
+                <MenuItem eventKey="3">trb</MenuItem>
+                <MenuItem eventKey="4">mpg</MenuItem>
+                <MenuItem eventKey="5">stl</MenuItem>
+                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="7">fgm</MenuItem>
+                <MenuItem eventKey="8">fga</MenuItem>
+                <MenuItem eventKey="9">fgPct</MenuItem>
+                <MenuItem eventKey="10">threePt</MenuItem>
+                <MenuItem eventKey="11">threePtAtt</MenuItem>
+                <MenuItem eventKey="12">twoPt</MenuItem>
+                <MenuItem eventKey="13">twoPtAtt</MenuItem>
+                <MenuItem eventKey="14">twoPtPct</MenuItem>
+                <MenuItem eventKey="15">threePtPct</MenuItem>
+                <MenuItem eventKey="16">ft</MenuItem>
+                <MenuItem eventKey="17">fta</MenuItem>
+                <MenuItem eventKey="18">freeThrowPct</MenuItem>
+                <MenuItem eventKey="19">efgPct</MenuItem>
+                <MenuItem eventKey="20">tov</MenuItem>
+                <MenuItem eventKey="21">orb</MenuItem>
+                <MenuItem eventKey="22">drb</MenuItem>
+                <MenuItem eventKey="23">pf</MenuItem>
+                <MenuItem eventKey="24">orbPct</MenuItem>
+                <MenuItem eventKey="25">astPct</MenuItem>
+                <MenuItem eventKey="26">tovPct</MenuItem>
+                <MenuItem eventKey="27">drbPct</MenuItem>
+                <MenuItem eventKey="28">stlPct</MenuItem>
+                <MenuItem eventKey="29">blkPct</MenuItem>
+                <MenuItem eventKey="30">usgPct</MenuItem>
+                <MenuItem eventKey="31">trbPct</MenuItem>
+                <MenuItem eventKey="32">tsPct</MenuItem>
+                <MenuItem eventKey="33">threePAr</MenuItem>
+                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem eventKey="35">per</MenuItem>
+                <MenuItem eventKey="36">ows</MenuItem>
+                <MenuItem eventKey="37">dws</MenuItem>
+                <MenuItem eventKey="38">bpm</MenuItem>
+                <MenuItem eventKey="39">ws</MenuItem>
+                <MenuItem eventKey="40">obpm</MenuItem>
+                <MenuItem eventKey="41">dbpm</MenuItem>
+                <MenuItem eventKey="42">wsFortyEight</MenuItem>
+                <MenuItem eventKey="43">vorp</MenuItem>
+              </DropdownButton>
             </div>
           </Col>
         </Row>
@@ -597,7 +793,10 @@ export default class LeagueLeaders extends React.Component {
                 overflow: "scroll"
               }}
             >
-              <LeadersTable4 players={this.state.players} />
+              <LeadersTable4
+                players={this.state.players}
+                stat={this.state.table4stat}
+              />
             </div>
           </Col>
           <Col lg={4}>
@@ -609,7 +808,10 @@ export default class LeagueLeaders extends React.Component {
                 overflow: "scroll"
               }}
             >
-              <LeadersTable5 players={this.state.players} />
+              <LeadersTable5
+                players={this.state.players}
+                stat={this.state.table5stat}
+              />
             </div>
           </Col>
           <Col lg={4}>
@@ -621,7 +823,10 @@ export default class LeagueLeaders extends React.Component {
                 overflow: "scroll"
               }}
             >
-              <LeadersTable6 players={this.state.players} />
+              <LeadersTable6
+                players={this.state.players}
+                stat={this.state.table6stat}
+              />
             </div>
           </Col>
         </Row>
@@ -642,17 +847,164 @@ export default class LeagueLeaders extends React.Component {
         <Row style={{ paddingTop: "40px", paddingLeft: "10px" }}>
           <Col lg={3}>
             <div className="card" style={headerStyle}>
-              Points
+              <DropdownButton
+                title={this.state.table7stat.toUpperCase()}
+                style={statLabels}
+                className="card"
+                onSelect={this.selectStat7}
+              >
+                <MenuItem eventKey="1">pts</MenuItem>
+                <MenuItem eventKey="2">ast</MenuItem>
+                <MenuItem eventKey="3">trb</MenuItem>
+                <MenuItem eventKey="4">mpg</MenuItem>
+                <MenuItem eventKey="5">stl</MenuItem>
+                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="7">fgm</MenuItem>
+                <MenuItem eventKey="8">fga</MenuItem>
+                <MenuItem eventKey="9">fgPct</MenuItem>
+                <MenuItem eventKey="10">threePt</MenuItem>
+                <MenuItem eventKey="11">threePtAtt</MenuItem>
+                <MenuItem eventKey="12">twoPt</MenuItem>
+                <MenuItem eventKey="13">twoPtAtt</MenuItem>
+                <MenuItem eventKey="14">twoPtPct</MenuItem>
+                <MenuItem eventKey="15">threePtPct</MenuItem>
+                <MenuItem eventKey="16">ft</MenuItem>
+                <MenuItem eventKey="17">fta</MenuItem>
+                <MenuItem eventKey="18">freeThrowPct</MenuItem>
+                <MenuItem eventKey="19">efgPct</MenuItem>
+                <MenuItem eventKey="20">tov</MenuItem>
+                <MenuItem eventKey="21">orb</MenuItem>
+                <MenuItem eventKey="22">drb</MenuItem>
+                <MenuItem eventKey="23">pf</MenuItem>
+                <MenuItem eventKey="24">orbPct</MenuItem>
+                <MenuItem eventKey="25">astPct</MenuItem>
+                <MenuItem eventKey="26">tovPct</MenuItem>
+                <MenuItem eventKey="27">drbPct</MenuItem>
+                <MenuItem eventKey="28">stlPct</MenuItem>
+                <MenuItem eventKey="29">blkPct</MenuItem>
+                <MenuItem eventKey="30">usgPct</MenuItem>
+                <MenuItem eventKey="31">trbPct</MenuItem>
+                <MenuItem eventKey="32">tsPct</MenuItem>
+                <MenuItem eventKey="33">threePAr</MenuItem>
+                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem eventKey="35">per</MenuItem>
+                <MenuItem eventKey="36">ows</MenuItem>
+                <MenuItem eventKey="37">dws</MenuItem>
+                <MenuItem eventKey="38">bpm</MenuItem>
+                <MenuItem eventKey="39">ws</MenuItem>
+                <MenuItem eventKey="40">obpm</MenuItem>
+                <MenuItem eventKey="41">dbpm</MenuItem>
+                <MenuItem eventKey="42">wsFortyEight</MenuItem>
+                <MenuItem eventKey="43">vorp</MenuItem>
+              </DropdownButton>
             </div>
           </Col>
           <Col lg={3} lgOffset={1}>
             <div className="card" style={headerStyle}>
-              Rebounds
+              <DropdownButton
+                title={this.state.table8stat.toUpperCase()}
+                style={statLabels}
+                className="card"
+                onSelect={this.selectStat8}
+              >
+                <MenuItem eventKey="1">pts</MenuItem>
+                <MenuItem eventKey="2">ast</MenuItem>
+                <MenuItem eventKey="3">trb</MenuItem>
+                <MenuItem eventKey="4">mpg</MenuItem>
+                <MenuItem eventKey="5">stl</MenuItem>
+                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="7">fgm</MenuItem>
+                <MenuItem eventKey="8">fga</MenuItem>
+                <MenuItem eventKey="9">fgPct</MenuItem>
+                <MenuItem eventKey="10">threePt</MenuItem>
+                <MenuItem eventKey="11">threePtAtt</MenuItem>
+                <MenuItem eventKey="12">twoPt</MenuItem>
+                <MenuItem eventKey="13">twoPtAtt</MenuItem>
+                <MenuItem eventKey="14">twoPtPct</MenuItem>
+                <MenuItem eventKey="15">threePtPct</MenuItem>
+                <MenuItem eventKey="16">ft</MenuItem>
+                <MenuItem eventKey="17">fta</MenuItem>
+                <MenuItem eventKey="18">freeThrowPct</MenuItem>
+                <MenuItem eventKey="19">efgPct</MenuItem>
+                <MenuItem eventKey="20">tov</MenuItem>
+                <MenuItem eventKey="21">orb</MenuItem>
+                <MenuItem eventKey="22">drb</MenuItem>
+                <MenuItem eventKey="23">pf</MenuItem>
+                <MenuItem eventKey="24">orbPct</MenuItem>
+                <MenuItem eventKey="25">astPct</MenuItem>
+                <MenuItem eventKey="26">tovPct</MenuItem>
+                <MenuItem eventKey="27">drbPct</MenuItem>
+                <MenuItem eventKey="28">stlPct</MenuItem>
+                <MenuItem eventKey="29">blkPct</MenuItem>
+                <MenuItem eventKey="30">usgPct</MenuItem>
+                <MenuItem eventKey="31">trbPct</MenuItem>
+                <MenuItem eventKey="32">tsPct</MenuItem>
+                <MenuItem eventKey="33">threePAr</MenuItem>
+                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem eventKey="35">per</MenuItem>
+                <MenuItem eventKey="36">ows</MenuItem>
+                <MenuItem eventKey="37">dws</MenuItem>
+                <MenuItem eventKey="38">bpm</MenuItem>
+                <MenuItem eventKey="39">ws</MenuItem>
+                <MenuItem eventKey="40">obpm</MenuItem>
+                <MenuItem eventKey="41">dbpm</MenuItem>
+                <MenuItem eventKey="42">wsFortyEight</MenuItem>
+                <MenuItem eventKey="43">vorp</MenuItem>
+              </DropdownButton>
             </div>
           </Col>
           <Col lg={3} lgOffset={1}>
             <div className="card" style={headerStyle}>
-              Assists
+              <DropdownButton
+                title={this.state.table9stat.toUpperCase()}
+                style={statLabels}
+                className="card"
+                onSelect={this.selectStat9}
+              >
+                <MenuItem eventKey="1">pts</MenuItem>
+                <MenuItem eventKey="2">ast</MenuItem>
+                <MenuItem eventKey="3">trb</MenuItem>
+                <MenuItem eventKey="4">mpg</MenuItem>
+                <MenuItem eventKey="5">stl</MenuItem>
+                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="7">fgm</MenuItem>
+                <MenuItem eventKey="8">fga</MenuItem>
+                <MenuItem eventKey="9">fgPct</MenuItem>
+                <MenuItem eventKey="10">threePt</MenuItem>
+                <MenuItem eventKey="11">threePtAtt</MenuItem>
+                <MenuItem eventKey="12">twoPt</MenuItem>
+                <MenuItem eventKey="13">twoPtAtt</MenuItem>
+                <MenuItem eventKey="14">twoPtPct</MenuItem>
+                <MenuItem eventKey="15">threePtPct</MenuItem>
+                <MenuItem eventKey="16">ft</MenuItem>
+                <MenuItem eventKey="17">fta</MenuItem>
+                <MenuItem eventKey="18">freeThrowPct</MenuItem>
+                <MenuItem eventKey="19">efgPct</MenuItem>
+                <MenuItem eventKey="20">tov</MenuItem>
+                <MenuItem eventKey="21">orb</MenuItem>
+                <MenuItem eventKey="22">drb</MenuItem>
+                <MenuItem eventKey="23">pf</MenuItem>
+                <MenuItem eventKey="24">orbPct</MenuItem>
+                <MenuItem eventKey="25">astPct</MenuItem>
+                <MenuItem eventKey="26">tovPct</MenuItem>
+                <MenuItem eventKey="27">drbPct</MenuItem>
+                <MenuItem eventKey="28">stlPct</MenuItem>
+                <MenuItem eventKey="29">blkPct</MenuItem>
+                <MenuItem eventKey="30">usgPct</MenuItem>
+                <MenuItem eventKey="31">trbPct</MenuItem>
+                <MenuItem eventKey="32">tsPct</MenuItem>
+                <MenuItem eventKey="33">threePAr</MenuItem>
+                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem eventKey="35">per</MenuItem>
+                <MenuItem eventKey="36">ows</MenuItem>
+                <MenuItem eventKey="37">dws</MenuItem>
+                <MenuItem eventKey="38">bpm</MenuItem>
+                <MenuItem eventKey="39">ws</MenuItem>
+                <MenuItem eventKey="40">obpm</MenuItem>
+                <MenuItem eventKey="41">dbpm</MenuItem>
+                <MenuItem eventKey="42">wsFortyEight</MenuItem>
+                <MenuItem eventKey="43">vorp</MenuItem>
+              </DropdownButton>
             </div>
           </Col>
         </Row>
@@ -673,7 +1025,10 @@ export default class LeagueLeaders extends React.Component {
                 overflow: "scroll"
               }}
             >
-              <LeadersTable7 players={this.state.players} />
+              <LeadersTable7
+                players={this.state.players}
+                stat={this.state.table7stat}
+              />
             </div>
           </Col>
           <Col lg={4}>
@@ -685,7 +1040,10 @@ export default class LeagueLeaders extends React.Component {
                 overflow: "scroll"
               }}
             >
-              <LeadersTable8 players={this.state.players} />
+              <LeadersTable8
+                players={this.state.players}
+                stat={this.state.table8stat}
+              />
             </div>
           </Col>
           <Col lg={4}>
@@ -697,7 +1055,10 @@ export default class LeagueLeaders extends React.Component {
                 overflow: "scroll"
               }}
             >
-              <LeadersTable9 players={this.state.players} />
+              <LeadersTable9
+                players={this.state.players}
+                stat={this.state.table9stat}
+              />
             </div>
           </Col>
         </Row>
