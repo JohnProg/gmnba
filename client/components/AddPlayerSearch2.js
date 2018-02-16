@@ -159,6 +159,13 @@ export default class AddPlayerSearch2 extends React.Component {
   }
 
   renderPlayer() {
+    var picture;
+    if (this.state.player.picture) {
+      picture = this.state.player.picture;
+    } else {
+      picture =
+        "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443";
+    }
     if (this.state.renderPlayer) {
       console.log("Render!!");
       return (
@@ -171,10 +178,7 @@ export default class AddPlayerSearch2 extends React.Component {
           }}
         >
           <Col lg={6} style={{ paddingTop: "20px" }}>
-            <Thumbnail
-              style={{ border: "none" }}
-              src="https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443"
-            />
+            <Thumbnail style={{ border: "none" }} src={picture} />
           </Col>
           <Col lg={6} style={{ paddingTop: "30px" }}>
             <div>

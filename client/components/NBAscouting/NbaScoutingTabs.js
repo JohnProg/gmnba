@@ -54,7 +54,7 @@ export default class NbaScoutingTabs extends React.Component {
             <NavItem eventKey={3} href="/">
               <span className="tab-text">Team Comparison</span>
             </NavItem>
-            <NavItem eventKey={4} href="/">
+            <NavItem eventKey={4} href="/" disabled>
               <span className="tab-text">Player Finder</span>
             </NavItem>
             <NavItem eventKey={5} title="Item">

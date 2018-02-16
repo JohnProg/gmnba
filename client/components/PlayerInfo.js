@@ -491,6 +491,13 @@ class PlayerInfo extends React.Component {
   }
 
   render() {
+    var picture;
+    if (this.state.player.picture) {
+      picture = this.state.player.picture;
+    } else {
+      picture =
+        "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443";
+    }
     return (
       <div>
         <div id="info-container-max">
@@ -499,10 +506,7 @@ class PlayerInfo extends React.Component {
               <div id="info">
                 <Col lg={3} id="pic-col">
                   <div id="info-pic-team">
-                    <img
-                      style={{ maxHeight: "200px" }}
-                      src="https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443"
-                    />
+                    <img style={{ maxHeight: "200px" }} src={picture} />
                   </div>
                 </Col>
                 <Col lg={9}>

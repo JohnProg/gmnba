@@ -339,6 +339,13 @@ export default class AddPlayerSearch extends React.Component {
       backgroundColor: this.props.colors.Color_Main,
       color: this.props.colors.Color_Sec
     };
+    var picture;
+    if (this.props.list.picture) {
+      picture = this.props.list.picture;
+    } else {
+      picture =
+        "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443";
+    }
 
     return (
       <div>
@@ -365,10 +372,7 @@ export default class AddPlayerSearch extends React.Component {
             }}
           >
             <Col lg={6} style={{ paddingTop: "20px" }}>
-              <Thumbnail
-                style={{ border: "none" }}
-                src="https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443"
-              />
+              <Thumbnail style={{ border: "none" }} src={picture} />
             </Col>
             <Col lg={6} style={{ paddingTop: "30px" }}>
               <div>
