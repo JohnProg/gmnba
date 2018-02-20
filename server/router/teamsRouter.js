@@ -11,6 +11,10 @@ router.post("/createTeams", controller.createTeams);
 router.get("/getTeamStats", controller.getTeamStats);
 router.put("/updatePlayerStats", controller.updatePlayerStats);
 router.put("/updatePlayerAdvancedStats", controller.updatePlayerAdvancedStats);
+router.put(
+  "/updateCPlayerAdvancedStats",
+  controller.updateCPlayerAdvancedStats
+);
 router.get("/getPlayerStats", controller.getPlayerStats);
 router.get("/getLeagueStats", controller.getLeagueStats);
 router.post("/postCollegePlayers", controller.postCollegePlayers);

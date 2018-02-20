@@ -15,10 +15,12 @@ export default class CollegePlayersListEntry extends React.Component {
           </a>
         </td>
         <td>{this.props.player.position}</td>
-        <td>{this.props.player.experience}</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
         <td>{this.props.player.height}</td>
         <td>{this.props.player.weight}</td>
-        <td>{this.props.player.college}</td>
+        <td>{this.props.player.highschool}</td>
       </tr>
     );
   }

@@ -38,7 +38,9 @@ export default class CollegePlayersList extends React.Component {
                     <tr>
                       <th>Name</th>
                       <th>Position</th>
-                      <th>Class</th>
+                      <th>Overall</th>
+                      <th>Offense</th>
+                      <th>Defense</th>
                       <th>Height</th>
                       <th>Weight</th>
                       <th>High School</th>

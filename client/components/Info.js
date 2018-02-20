@@ -104,7 +104,7 @@ class Info extends React.Component {
   getOffenseRating() {
     if (this.state.team) {
       var offRating = parseFloat(this.state.team.ORtg);
-      var stars = this.calculateStars(115.0, 100.0, offRating);
+      var stars = this.calculateStars(115.0, 102.0, offRating);
       if (stars === 5) {
         return (
           <span className="rating overall">
@@ -219,7 +219,8 @@ class Info extends React.Component {
   getDefenseRating() {
     if (this.state.team) {
       var defRating = parseFloat(this.state.team.DRtg);
-      var stars = this.calculateStars(112.0, 103.0, defRating);
+      var stars = this.calculateStars(113.0, 103.0, defRating);
+      console.log(stars);
       if (stars === 0.5) {
         return (
           <span className="rating overall">
@@ -349,7 +350,8 @@ class Info extends React.Component {
       var sos = parseFloat(this.state.team.SOS) * 0.1;
       var srs = parseFloat(this.state.team.SRS) * 0.3;
       var weightedOvr = wins + mov + sos + srs;
-      var stars = this.calculateStars(10.0, -3.0, weightedOvr);
+      //console.log("OVR: ", weightedOvr);
+      var stars = this.calculateStars(18.0, 0, weightedOvr);
       if (stars === 5) {
         return (
           <span className="rating overall">

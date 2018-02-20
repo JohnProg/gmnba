@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
 import CollegePlayersList from "./CollegePlayersList";
-import TeamStats from "../TeamStats";
+import CollegeTeamStats from "./CollegeTeamStats";
 import CollegeTeamPlayerStats from "./CollegeTeamPlayerStats";
 import CollegeTeamLeagueRanks from "./CollegeTeamLeagueRanks";
 
@@ -28,7 +28,8 @@ export default class CollegeTeamTabs extends React.Component {
           team={this.props.team}
         />
       );
-    if (this.state.key === 2) component = <TeamStats team={this.props.team} />;
+    if (this.state.key === 2)
+      component = <CollegeTeamStats team={this.props.team} />;
     if (this.state.key === 3)
       component = <CollegeTeamPlayerStats team={this.props.team} />;
     if (this.state.key === 4)
@@ -76,12 +77,12 @@ export default class CollegeTeamTabs extends React.Component {
                 RANKINGS
               </span>
             </NavItem>
-            <NavItem eventKey={5} title="Item">
+            <NavItem eventKey={5} title="Item" disabled>
               <span style={tabColor} className="tab-text">
                 LINEUP
               </span>
             </NavItem>
-            <NavItem eventKey={6} title="Item">
+            <NavItem eventKey={6} title="Item" disabled>
               <span style={tabColor} className="tab-text">
                 SCHEDULE
               </span>

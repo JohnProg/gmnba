@@ -405,6 +405,47 @@ module.exports = {
         });
     }
   },
+  updateCPlayerAdvancedStats: (req, res) => {
+    console.log("REQ\n", req.body.data);
+    var players = req.body.data;
+    for (var i = 0; i < players.length; i++) {
+      var player = players[i];
+      db.cPlayers
+        .update(
+          {
+            per: player["PER"],
+            tsPct: player["TS%"],
+            threePAr: player["3PAr"] || "0.0",
+            ftr: player["FTr"] || "0.0",
+            trbPct: player["TRB%"] || "0.0",
+            blkPct: player["BLK%"] || "0.0",
+            ows: player["OWS"],
+            wsFourtyEight: player["WS/48"],
+            bpm: player["BPM"],
+            drbPct: player["DRB%"] || "0.0",
+            stlPct: player["STL%"] || "0.0",
+            usgPct: player["USG%"] || "0.0",
+            ws: player["WS"],
+            dbpm: player["DBPM"],
+            orbPct: player["ORB%"] || "0.0",
+            astPct: player["AST%"] || "0.0",
+            tovPct: player["TOV%"] || "0.0",
+            dws: player["DWS"],
+            obpm: player["OBPM"]
+          },
+          {
+            where: { name: player["Name"] },
+            returning: true
+          }
+        )
+        .then(data => {
+          console.log("Player updated successfully!");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
   getPlayerStats: (req, res) => {
     console.log(req.query.team);
     console.log(req.query.statOne);
@@ -437,7 +478,7 @@ module.exports = {
     console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
     //console.log("Players Array: \n", playersArr);
-    for (var i = 0; i < playersArr.length; i++) {
+    for (var i = 800; i < playersArr.length; i++) {
       var player = playersArr[i];
       db.cPlayers
         .findOrCreate({
@@ -470,7 +511,7 @@ module.exports = {
         .update(
           {
             mpg: player["MPG"] || "0.0",
-            gamesPlayed: player["Games"] || "0.0",
+            gamesPlayed: player["Games"] || "0",
             twoPtPct: player["2P%"] || "0.0",
             twoPt: player["2P"] || "0.0",
             twoPtAtt: player["2PA"] || "0.0",

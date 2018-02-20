@@ -115,7 +115,10 @@ class CollegeTeamInfo extends React.Component {
               <div id="info">
                 <Col lg={3} id="pic-col">
                   <div id="info-pic">
-                    <img src={this.state.team.Logo} />
+                    <img
+                      src={this.state.team.Logo}
+                      style={{ maxHeight: "170px" }}
+                    />
                   </div>
                 </Col>
                 <Col lg={6}>
@@ -130,21 +133,36 @@ class CollegeTeamInfo extends React.Component {
                     </div>
                   </div>
                   <hr id="info-text-break" />
-                  <Row>
+                  <Row style={{ paddingBottom: "20px" }}>
                     <Col lg={2}>
-                      <div>PPG 1st</div>
+                      <div>
+                        <span style={{ color: "#404040" }}>PPG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>1st</span>
+                      </div>
                     </Col>
                     <Col lg={2}>
-                      <div>RPG 6th</div>
+                      <div>
+                        <span style={{ color: "#404040" }}>RPG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>6th</span>
+                      </div>
                     </Col>
                     <Col lg={2}>
-                      <div>APG 13th</div>
+                      <div>
+                        <span style={{ color: "#404040" }}>APG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>13th</span>
+                      </div>
                     </Col>
                     <Col lg={2}>
-                      <div>ORTG 9th</div>
+                      <div>
+                        <span style={{ color: "#404040" }}>ORTG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>9th</span>
+                      </div>
                     </Col>
                     <Col lg={2}>
-                      <div>DRTG 2nd</div>
+                      <div>
+                        <span style={{ color: "#404040" }}>DRTG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>2nd</span>
+                      </div>
                     </Col>
                   </Row>
                 </Col>

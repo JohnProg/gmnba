@@ -402,11 +402,11 @@ export default class TeamPlayerStats extends React.Component {
                           <option>ft</option>
                           <option>fta</option>
                           <option>freeThrowPct</option>
-                          <option>efgPct</option>
                           <option>tov</option>
                           <option>orb</option>
                           <option>drb</option>
                           <option>pf</option>
+                          <option>efgPct</option>
                           <option>orbPct</option>
                           <option>astPct</option>
                           <option>tovPct</option>
