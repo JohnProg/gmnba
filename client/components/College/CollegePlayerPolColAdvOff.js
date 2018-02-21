@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class PlayerPolarColumn extends React.Component {
+export default class CollegePlayerPolColAdvOff extends React.Component {
   constructor() {
     super();
     this.createChart = this.createChart.bind(this);
@@ -8,69 +8,62 @@ export default class PlayerPolarColumn extends React.Component {
     this.getGrade = this.getGrade.bind(this);
   }
 
-  componentDidMount() {}
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.player.name) {
-      this.setState({ player: nextProps.player }, () => {
+  componentDidMount() {
+    if (this.props.player.name) {
+      this.setState({ player: this.props.player }, () => {
         this.calculateGrades();
         //this.createChart();
       });
     }
   }
 
-  calculateGrades() {
-    var highPoints = 30;
-    var highAst = 10;
-    var highReb = 15;
-    var highStl = 2.25;
-    var highBlk = 2.2;
-    var highFT = 0.93;
-    var highThree = 0.45;
-    var highTwo = 0.7;
+  componentWillReceiveProps(nextProps) {
+    // if (nextProps.player.name) {
+    //   this.setState({ player: nextProps.player }, () => {
+    //     this.calculateGrades();
+    //     //this.createChart();
+    //   });
+    // }
+  }
 
-    var scoring = this.getGrade(
-      highPoints,
-      this.state.player.pts / this.state.player.mpg * 32,
-      0
+  calculateGrades() {
+    var highAstPct = 45;
+    var highOrbPct = 16;
+    var highFg = 0.68;
+    var highTovPct = -5.0;
+    var highFtr = 0.61;
+    var highThreePar = 0.8;
+    var highTsPct = 0.68;
+    var highUsgPct = 35;
+    var highObpm = 9;
+    var highOws = 6;
+
+    var astPct = this.getGrade(highAstPct, this.state.player.astPct, 3);
+    var orbPct = this.getGrade(highOrbPct, this.state.player.orbPct, 0.5);
+    var fg = this.getGrade(highFg, this.state.player.efgPct, 0.28);
+    var tovPct = this.getGrade(
+      highTovPct,
+      this.state.player.tovPct * -1,
+      -27.0
     );
-    var ast = this.getGrade(
-      highAst,
-      this.state.player.ast / this.state.player.mpg * 32,
-      0
-    );
-    var reb = this.getGrade(
-      highReb,
-      this.state.player.trb / this.state.player.mpg * 32,
-      0
-    );
-    var stl = this.getGrade(
-      highStl,
-      this.state.player.stl / this.state.player.mpg * 32,
-      0
-    );
-    var blk = this.getGrade(
-      highBlk,
-      this.state.player.blk / this.state.player.mpg * 32,
-      0
-    );
-    var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
-    var threePoint = this.getGrade(
-      highThree,
-      this.state.player.threePtPct,
-      0.2
-    );
-    var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.2);
+    var ftr = this.getGrade(highFtr, this.state.player.ftr, 0);
+    var threePAr = this.getGrade(highThreePar, this.state.player.threePAr, 0);
+    var tsPct = this.getGrade(highTsPct, this.state.player.tsPct, 0.4);
+    var usgPct = this.getGrade(highUsgPct, this.state.player.usgPct, 10);
+    var obpm = this.getGrade(highObpm, this.state.player.obpm, -5);
+    var ows = this.getGrade(highOws, this.state.player.ows, -1);
     this.setState(
       {
-        scoring: scoring,
-        ast: ast,
-        reb: reb,
-        stl: stl,
-        blk: blk,
-        ft: ft,
-        threePoint: threePoint,
-        twoPoint: twoPoint
+        astPct: astPct,
+        orbPct: orbPct,
+        tovPct: tovPct,
+        fg: fg,
+        ftr: ftr,
+        threePAr: threePAr,
+        tsPct: tsPct,
+        usgPct: usgPct,
+        obpm: obpm,
+        ows: ows
       },
       () => {
         this.createChart();
@@ -141,7 +134,7 @@ export default class PlayerPolarColumn extends React.Component {
   }
 
   createChart() {
-    var chart = Highcharts.chart("container-column", {
+    var chart = Highcharts.chart("container-column-adv-off", {
       chart: {
         polar: true,
         type: "column"
@@ -167,7 +160,7 @@ export default class PlayerPolarColumn extends React.Component {
 
       tooltip: {
         headerFormat: "<b>{point.key}</b><br/>",
-        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 32: {point.per32}</span>`
+        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>`
       },
 
       yAxis: {
@@ -181,7 +174,7 @@ export default class PlayerPolarColumn extends React.Component {
       plotOptions: {
         series: {
           pointStart: 0,
-          pointInterval: 45,
+          pointInterval: 36,
           dataLabels: {
             useHTML: true,
             enabled: true,
@@ -213,84 +206,64 @@ export default class PlayerPolarColumn extends React.Component {
           name: "Rating",
           data: [
             {
-              y: this.state.scoring.Grade,
-              color: this.state.scoring.Color,
-              name: "Scoring",
-              stat: this.state.player.pts,
-              per32: (this.state.player.pts /
-                this.state.player.mpg *
-                32
-              ).toFixed(1)
+              y: this.state.astPct.Grade,
+              color: this.state.astPct.Color,
+              name: "Ast%",
+              stat: this.state.player.astPct
             },
             {
-              y: this.state.ast.Grade,
-              color: this.state.ast.Color,
-              name: "Ast",
-              stat: this.state.player.ast,
-              per32: (this.state.player.ast /
-                this.state.player.mpg *
-                32
-              ).toFixed(1)
+              y: this.state.tovPct.Grade,
+              color: this.state.tovPct.Color,
+              name: "Tov%",
+              stat: this.state.player.tovPct
             },
             {
-              y: this.state.reb.Grade,
-              color: this.state.reb.Color,
-              name: "Reb",
-              stat: this.state.player.trb,
-              per32: (this.state.player.trb /
-                this.state.player.mpg *
-                32
-              ).toFixed(1)
+              y: this.state.orbPct.Grade,
+              color: this.state.orbPct.Color,
+              name: "Orb%",
+              stat: this.state.player.orbPct
             },
             {
-              y: this.state.stl.Grade,
-              color: this.state.stl.Color,
-              name: "Stl",
-              stat: this.state.player.stl,
-              per32: (this.state.player.stl /
-                this.state.player.mpg *
-                32
-              ).toFixed(1)
+              y: this.state.fg.Grade,
+              color: this.state.fg.Color,
+              name: "eFG%",
+              stat: this.state.player.efgPct
             },
             {
-              y: this.state.blk.Grade,
-              color: this.state.blk.Color,
-              name: "Blk",
-              stat: this.state.player.blk,
-              per32: (this.state.player.blk /
-                this.state.player.mpg *
-                32
-              ).toFixed(1)
+              y: this.state.tsPct.Grade,
+              color: this.state.tsPct.Color,
+              name: "TS%",
+              stat: this.state.player.tsPct
             },
             {
-              y: this.state.ft.Grade,
-              color: this.state.ft.Color,
-              name: "FT%",
-              stat: (this.state.player.freeThrowPct * 100).toFixed(1)
-              // per32: (this.state.player.freeThrowPct /
-              //   this.state.player.mpg *
-              //   32
-              // ).toFixed(1)
+              y: this.state.ftr.Grade,
+              color: this.state.ftr.Color,
+              name: "FTr",
+              stat: this.state.player.ftr
             },
             {
-              y: this.state.threePoint.Grade,
-              color: this.state.threePoint.Color,
-              name: "3P%",
-              stat: (this.state.player.threePtPct * 100).toFixed(1)
-              // per32: (this.state.player.pts /
-              //   this.state.player.mpg *
-              //   32
-              // ).toFixed(1)
+              y: this.state.threePAr.Grade,
+              color: this.state.threePAr.Color,
+              name: "3PAr",
+              stat: this.state.player.threePAr
             },
             {
-              y: this.state.twoPoint.Grade,
-              color: this.state.twoPoint.Color,
-              name: "2P%",
-              stat: (this.state.player.twoPtPct * 100).toFixed(1)
-              // per32: (this.state.player.pts /
-              //   this.state.player.mpg *
-              //   32
-              // ).toFixed(1)
+              y: this.state.obpm.Grade,
+              color: this.state.obpm.Color,
+              name: "OBPM",
+              stat: this.state.player.obpm
+            },
+            {
+              y: this.state.ows.Grade,
+              color: this.state.ows.Color,
+              name: "OWS",
+              stat: this.state.player.ows
+            },
+            {
+              y: this.state.usgPct.Grade,
+              color: this.state.usgPct.Color,
+              name: "USG%",
+              stat: this.state.player.usgPct
             }
           ],
           pointPlacement: "on"
@@ -304,7 +277,7 @@ export default class PlayerPolarColumn extends React.Component {
     return (
       <div className="card">
         <div
-          id="container-column"
+          id="container-column-adv-off"
           style={{ height: "400px", margin: "0 auto" }}
         />
       </div>

@@ -431,7 +431,8 @@ module.exports = {
             astPct: player["AST%"] || "0.0",
             tovPct: player["TOV%"] || "0.0",
             dws: player["DWS"],
-            obpm: player["OBPM"]
+            obpm: player["OBPM"],
+            efgPct: player["eFG%"]
           },
           {
             where: { name: player["Name"] },
@@ -718,7 +719,7 @@ module.exports = {
     db.cTeams
       .findOne({
         where: { Name: req.params.team },
-        attributes: ["Color_Main", "Color_Sec", "Color_Third", "Logo"]
+        attributes: ["Color_Main", "Color_Sec", "Color_Third", "Logo", "id"]
       })
       .then(data => {
         res.send(data);

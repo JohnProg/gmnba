@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class CollegePlayerBarRatings extends React.Component {
+export default class CollegePlayerDefBarRatings extends React.Component {
   constructor(props) {
     super(props);
     this.createChart = this.createChart.bind(this);
@@ -8,41 +8,43 @@ export default class CollegePlayerBarRatings extends React.Component {
     this.getGrade = this.getGrade.bind(this);
   }
 
-  componentDidMount() {}
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.player.name) {
-      this.setState({ player: nextProps.player }, () => {
+  componentDidMount() {
+    if (this.props.player.name) {
+      this.setState({ player: this.props.player }, () => {
         this.calculateGrades();
         //this.createChart();
       });
     }
   }
 
-  calculateGrades() {
-    var highPoints = 29;
-    var highAst = 11;
-    var highReb = 15;
-    var highStl = 2.5;
-    var highBlk = 2.5;
-    var highFT = 0.93;
-    var highThree = 0.45;
-    var highTwo = 0.7;
+  componentWillReceiveProps(nextProps) {
+    // if (nextProps.player.name) {
+    //   this.setState({ player: nextProps.player }, () => {
+    //     this.calculateGrades();
+    //     //this.createChart();
+    //   });
+    // }
+  }
 
-    var scoring = this.getGrade(
-      highPoints,
-      this.state.player.pts / this.state.player.mpg * 32,
-      0
-    );
-    var ast = this.getGrade(
-      highAst,
-      this.state.player.ast / this.state.player.mpg * 32,
-      0
-    );
-    var reb = this.getGrade(
-      highReb,
-      this.state.player.trb / this.state.player.mpg * 32,
-      0
+  calculateGrades() {
+    var highBlkPct = 8.0;
+    var highStlPct = 3.5;
+    var highDrbPct = 36;
+    var highDbpm = 5.5;
+    var highDws = 2.5;
+    var highDrb = 10;
+    var highStl = 2.25;
+    var highBlk = 2.2;
+    var highPf = 3.6;
+
+    var blkPct = this.getGrade(highBlkPct, this.state.player.blkPct, 0);
+    var stlPct = this.getGrade(highStlPct, this.state.player.stlPct, 0);
+    var drbPct = this.getGrade(highDrbPct, this.state.player.drbPct, 5);
+    var dws = this.getGrade(highDws, this.state.player.dws, 0);
+    var drb = this.getGrade(
+      highDrb,
+      this.state.player.drb / this.state.player.mpg * 32,
+      1
     );
     var stl = this.getGrade(
       highStl,
@@ -54,23 +56,20 @@ export default class CollegePlayerBarRatings extends React.Component {
       this.state.player.blk / this.state.player.mpg * 32,
       0
     );
-    var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
-    var threePoint = this.getGrade(
-      highThree,
-      this.state.player.threePtPct,
-      0.1
+    var dbpm = this.getGrade(highDbpm, this.state.player.dbpm, -4);
+    var pf = this.getGrade(
+      highPf,
+      this.state.player.pf / this.state.player.mpg * 32,
+      1
     );
-    var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.15);
     this.setState(
       {
-        scoring: scoring,
-        ast: ast,
-        reb: reb,
-        stl: stl,
-        blk: blk,
-        ft: ft,
-        threePoint: threePoint,
-        twoPoint: twoPoint
+        blkPct: blkPct,
+        stlPct: stlPct,
+        drbPct: drbPct,
+        drb: drb,
+        dbpm: dbpm,
+        dws: dws
       },
       () => {
         this.createChart();
@@ -141,7 +140,7 @@ export default class CollegePlayerBarRatings extends React.Component {
   }
 
   createChart() {
-    var chart = Highcharts.chart("container-rating", {
+    var chart = Highcharts.chart("container-rating-def", {
       chart: {
         type: "bar"
       },
@@ -152,7 +151,7 @@ export default class CollegePlayerBarRatings extends React.Component {
         text: null
       },
       xAxis: {
-        categories: ["PTS", "REB", "AST", "STL", "BLK"],
+        categories: ["BLK%", "STL%", "DRB%", "DRB", "DBPM", "DWS"],
         title: {
           text: null
         }
@@ -201,6 +200,7 @@ export default class CollegePlayerBarRatings extends React.Component {
             { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" }
           ]
         },
@@ -208,49 +208,44 @@ export default class CollegePlayerBarRatings extends React.Component {
           name: "Grade",
           data: [
             {
-              y: this.state.scoring.Grade,
-              color: this.state.scoring.Color,
-              stat: this.state.player.pts,
-              per32: (this.state.player.pts /
+              y: this.state.blkPct.Grade,
+              color: this.state.blkPct.Color,
+              name: "Blk%",
+              stat: this.state.player.blkPct
+            },
+            {
+              y: this.state.stlPct.Grade,
+              color: this.state.stlPct.Color,
+              name: "Stl%",
+              stat: this.state.player.stlPct
+            },
+            {
+              y: this.state.drbPct.Grade,
+              color: this.state.drbPct.Color,
+              name: "Drb%",
+              stat: this.state.player.drbPct
+            },
+            {
+              y: this.state.drb.Grade,
+              color: this.state.drb.Color,
+              name: "Drb",
+              stat: this.state.player.drb,
+              per32: (this.state.player.drb /
                 this.state.player.mpg *
                 32
               ).toFixed(1)
             },
             {
-              y: this.state.reb.Grade,
-              color: this.state.reb.Color,
-              stat: this.state.player.trb,
-              per32: (this.state.player.trb /
-                this.state.player.mpg *
-                32
-              ).toFixed(1)
+              y: this.state.dbpm.Grade,
+              color: this.state.dbpm.Color,
+              name: "DBPM",
+              stat: this.state.player.dbpm
             },
             {
-              y: this.state.ast.Grade,
-              color: this.state.ast.Color,
-              stat: this.state.player.ast,
-              per32: (this.state.player.ast /
-                this.state.player.mpg *
-                32
-              ).toFixed(1)
-            },
-            {
-              y: this.state.stl.Grade,
-              color: this.state.stl.Color,
-              stat: this.state.player.stl,
-              per32: (this.state.player.stl /
-                this.state.player.mpg *
-                32
-              ).toFixed(1)
-            },
-            {
-              y: this.state.blk.Grade,
-              color: this.state.blk.Color,
-              stat: this.state.player.blk,
-              per32: (this.state.player.blk /
-                this.state.player.mpg *
-                32
-              ).toFixed(1)
+              y: this.state.dws.Grade,
+              color: this.state.dws.Color,
+              name: "DWS",
+              stat: this.state.player.dws
             }
           ]
         }
@@ -263,7 +258,7 @@ export default class CollegePlayerBarRatings extends React.Component {
       <div>
         <div
           className="card"
-          id="container-rating"
+          id="container-rating-def"
           style={{
             height: "250px",
             minWidth: "600px",

@@ -88719,6 +88719,10 @@ var CollegePlayerInfo = function (_React$Component) {
     _this.getLeagueStats = _this.getLeagueStats.bind(_this);
     _this.getPlayer = _this.getPlayer.bind(_this);
     _this.getTeamColors = _this.getTeamColors.bind(_this);
+    _this.getOverallRating = _this.getOverallRating.bind(_this);
+    _this.getOffenseRating = _this.getOffenseRating.bind(_this);
+    _this.getDefenseRating = _this.getDefenseRating.bind(_this);
+    _this.calculateStars = _this.calculateStars.bind(_this);
     return _this;
   }
 
@@ -88764,8 +88768,410 @@ var CollegePlayerInfo = function (_React$Component) {
       });
     }
   }, {
+    key: "getOffenseRating",
+    value: function getOffenseRating() {
+      if (this.state.player) {
+        var obpm = parseFloat(this.state.player.obpm);
+        var ows = parseFloat(this.state.player.ows);
+        var offRating = obpm + ows;
+        console.log("OR: ", offRating);
+        var stars = this.calculateStars(14.0, -5.0, offRating);
+        if (stars === 5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" })
+          );
+        }
+        if (stars === 4.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" })
+          );
+        }
+        if (stars === 4) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        return _react2.default.createElement(
+          "span",
+          { className: "rating overall" },
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+        );
+      }
+    }
+  }, {
+    key: "getDefenseRating",
+    value: function getDefenseRating() {
+      if (this.state.player) {
+        var dbpm = parseFloat(this.state.player.dbpm);
+        var dws = parseFloat(this.state.player.dws);
+        var defRating = dbpm + dws;
+        console.log("DR: ", defRating);
+        var stars = this.calculateStars(11.0, -3.0, defRating);
+        if (stars === 5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" })
+          );
+        }
+        if (stars === 4.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" })
+          );
+        }
+        if (stars === 4) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        return _react2.default.createElement(
+          "span",
+          { className: "rating overall" },
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+        );
+      }
+    }
+  }, {
+    key: "getOverallRating",
+    value: function getOverallRating() {
+      if (this.state.player) {
+        var per = parseFloat(this.state.player.per) * 0.5;
+        var bpm = parseFloat(this.state.player.bpm) * 0.2;
+        var ws48 = parseFloat(this.state.player.wsFourtyEight) * 0.15;
+        var ws = parseFloat(this.state.player.ws) * 0.15;
+        var weightedOvr = per + bpm + ws48 + ws;
+        console.log("OVR: ", weightedOvr);
+        var stars = this.calculateStars(18.0, 0, weightedOvr);
+        if (stars === 5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" })
+          );
+        }
+        if (stars === 4.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" })
+          );
+        }
+        if (stars === 4) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 3) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 2) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1.5) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        if (stars === 1) {
+          return _react2.default.createElement(
+            "span",
+            { className: "rating overall" },
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+            _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+          );
+        }
+        return _react2.default.createElement(
+          "span",
+          { className: "rating overall" },
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star half" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" }),
+          _react2.default.createElement("i", { className: "glyphicon glyphicon-star empty" })
+        );
+      }
+    }
+  }, {
+    key: "calculateStars",
+    value: function calculateStars(high, low, actual) {
+      var gradeScale = (high - low) / 8;
+      var fiveStars = high - gradeScale;
+      var fourHalfStars = fiveStars - gradeScale;
+      var fourStars = fourHalfStars - gradeScale;
+      var threeHalfStars = fourStars - gradeScale;
+      var threeStars = threeHalfStars - gradeScale;
+      var twoHalfStars = threeStars - gradeScale;
+      var twoStars = twoHalfStars - gradeScale;
+      var oneHalfStars = twoStars - gradeScale;
+      var oneStars = oneHalfStars - gradeScale;
+      var starRating;
+      if (actual >= fiveStars) {
+        starRating = 5;
+      } else if (actual >= fourHalfStars) {
+        starRating = 4.5;
+      } else if (actual >= fourStars) {
+        starRating = 4;
+      } else if (actual >= threeHalfStars) {
+        starRating = 3.5;
+      } else if (actual >= threeStars) {
+        starRating = 3;
+      } else if (actual >= twoHalfStars) {
+        starRating = 2.5;
+      } else if (actual >= twoStars) {
+        starRating = 2;
+      } else if (actual >= oneHalfStars) {
+        starRating = 1.5;
+      } else if (actual >= oneStars) {
+        starRating = 1;
+      } else {
+        starRating = 0.5;
+      }
+      return starRating;
+    }
+  }, {
     key: "render",
     value: function render() {
+      var picture;
+      if (this.state.player.picture) {
+        picture = this.state.player.picture;
+      } else {
+        picture = "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443";
+      }
       return _react2.default.createElement(
         "div",
         null,
@@ -88787,72 +89193,145 @@ var CollegePlayerInfo = function (_React$Component) {
                   _react2.default.createElement(
                     "div",
                     { id: "info-pic-team" },
-                    _react2.default.createElement("img", { src: "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443" })
+                    _react2.default.createElement("img", { style: { maxHeight: "200px" }, src: picture })
                   )
                 ),
                 _react2.default.createElement(
                   _reactBootstrap.Col,
-                  { lg: 6 },
+                  { lg: 9 },
                   _react2.default.createElement(
-                    "div",
-                    { id: "name-text" },
+                    _reactBootstrap.Row,
+                    null,
                     _react2.default.createElement(
-                      "div",
-                      { id: "team-name" },
-                      this.state.player.name
-                    ),
-                    _react2.default.createElement(
-                      "div",
-                      { id: "info-text" },
+                      _reactBootstrap.Col,
+                      { lg: 5 },
                       _react2.default.createElement(
                         "div",
-                        null,
-                        "Position: ",
-                        this.state.player.position
-                      ),
-                      _react2.default.createElement(
-                        "div",
-                        null,
+                        { id: "name-text" },
                         _react2.default.createElement(
-                          "span",
-                          null,
-                          "Height: ",
-                          this.state.player.height
+                          "div",
+                          { id: "team-name" },
+                          this.state.player.name,
+                          _react2.default.createElement(
+                            "span",
+                            {
+                              style: { paddingLeft: "3px", fontSize: "14px" }
+                            },
+                            " ",
+                            this.state.player.position
+                          )
                         ),
                         _react2.default.createElement(
-                          "span",
-                          { style: { paddingLeft: "3px" } },
-                          " ",
-                          "Weight: ",
-                          this.state.player.weight
+                          "div",
+                          { id: "info-text" },
+                          _react2.default.createElement(
+                            "div",
+                            null,
+                            _react2.default.createElement(
+                              "span",
+                              null,
+                              "Height: ",
+                              this.state.player.height
+                            ),
+                            _react2.default.createElement(
+                              "span",
+                              { style: { paddingLeft: "3px" } },
+                              " ",
+                              "Weight: ",
+                              this.state.player.weight
+                            )
+                          ),
+                          _react2.default.createElement(
+                            "div",
+                            null,
+                            "Age: ",
+                            this.state.player.age
+                          ),
+                          _react2.default.createElement(
+                            "div",
+                            null,
+                            "Team: ",
+                            this.state.player.team
+                          ),
+                          _react2.default.createElement(
+                            "div",
+                            null,
+                            "High School: ",
+                            this.state.player.highschool || ""
+                          )
                         )
                       ),
+                      _react2.default.createElement("hr", { id: "info-text-break" })
+                    ),
+                    _react2.default.createElement(
+                      _reactBootstrap.Col,
+                      { lg: 3 },
                       _react2.default.createElement(
                         "div",
-                        null,
-                        "Team: ",
-                        this.state.player.team
-                      ),
+                        { style: { marginTop: "70px", fontSize: "15.5px" } },
+                        _react2.default.createElement(
+                          "div",
+                          { style: { textAlign: "right" } },
+                          "Overall: ",
+                          this.getOverallRating()
+                        ),
+                        _react2.default.createElement(
+                          "div",
+                          { style: { textAlign: "right" } },
+                          "Offense: ",
+                          this.getOffenseRating()
+                        ),
+                        _react2.default.createElement(
+                          "div",
+                          { style: { textAlign: "right" } },
+                          "Defense: ",
+                          this.getDefenseRating()
+                        )
+                      )
+                    ),
+                    _react2.default.createElement(
+                      _reactBootstrap.Col,
+                      { lg: 3 },
                       _react2.default.createElement(
-                        "div",
-                        null,
-                        "High School: ",
-                        this.state.player.highschool || ""
+                        "a",
+                        { href: "/college-team/" + this.state.colors.id },
+                        _react2.default.createElement(
+                          "div",
+                          { id: "logo-pic" },
+                          _react2.default.createElement("img", {
+                            id: "teamLogoPic",
+                            src: this.state.colors.Logo,
+                            style: { maxHeight: "100px" }
+                          }),
+                          _react2.default.createElement(
+                            "div",
+                            { id: "teamLogoHeader" },
+                            this.state.player.team
+                          )
+                        )
                       )
                     )
                   ),
-                  _react2.default.createElement("hr", { id: "info-text-break" }),
                   _react2.default.createElement(
                     _reactBootstrap.Row,
-                    { id: "info-box-stats" },
+                    { style: { paddingBottom: "20px" } },
                     _react2.default.createElement(
                       _reactBootstrap.Col,
                       { lg: 2 },
                       _react2.default.createElement(
                         "div",
                         null,
-                        "PPG ",
-                        this.state.player.pts
+                        _react2.default.createElement(
+                          "span",
+                          { style: { color: "#404040" } },
+                          "PPG"
+                        ),
+                        " ",
+                        _react2.default.createElement(
+                          "span",
+                          { style: { fontSize: "18px" } },
+                          this.state.player.pts
+                        )
                       )
                     ),
                     _react2.default.createElement(
@@ -88861,8 +89340,17 @@ var CollegePlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "RPG ",
-                        this.state.player.trb
+                        _react2.default.createElement(
+                          "span",
+                          { style: { color: "#404040" } },
+                          "RPG"
+                        ),
+                        " ",
+                        _react2.default.createElement(
+                          "span",
+                          { style: { fontSize: "18px" } },
+                          this.state.player.trb
+                        )
                       )
                     ),
                     _react2.default.createElement(
@@ -88871,8 +89359,17 @@ var CollegePlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "APG ",
-                        this.state.player.ast
+                        _react2.default.createElement(
+                          "span",
+                          { style: { color: "#404040" } },
+                          "APG"
+                        ),
+                        " ",
+                        _react2.default.createElement(
+                          "span",
+                          { style: { fontSize: "18px" } },
+                          this.state.player.ast
+                        )
                       )
                     ),
                     _react2.default.createElement(
@@ -88881,8 +89378,17 @@ var CollegePlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "PER ",
-                        this.state.player.per || "N/A"
+                        _react2.default.createElement(
+                          "span",
+                          { style: { color: "#404040" } },
+                          "GP"
+                        ),
+                        " ",
+                        _react2.default.createElement(
+                          "span",
+                          { style: { fontSize: "18px" } },
+                          this.state.player.gamesPlayed || 0
+                        )
                       )
                     ),
                     _react2.default.createElement(
@@ -88891,23 +89397,18 @@ var CollegePlayerInfo = function (_React$Component) {
                       _react2.default.createElement(
                         "div",
                         null,
-                        "MPG ",
-                        this.state.player.mpg
+                        _react2.default.createElement(
+                          "span",
+                          { style: { color: "#404040" } },
+                          "MPG"
+                        ),
+                        " ",
+                        _react2.default.createElement(
+                          "span",
+                          { style: { fontSize: "18px" } },
+                          this.state.player.mpg
+                        )
                       )
-                    )
-                  )
-                ),
-                _react2.default.createElement(
-                  _reactBootstrap.Col,
-                  { lg: 2 },
-                  _react2.default.createElement(
-                    "div",
-                    { id: "logo-pic" },
-                    _react2.default.createElement("img", { id: "teamLogoPic", src: this.state.colors.Logo }),
-                    _react2.default.createElement(
-                      "div",
-                      { id: "teamLogoHeader" },
-                      this.state.player.team
                     )
                   )
                 )
@@ -89138,6 +89639,38 @@ var _CollegePlayerBarRatings = __webpack_require__(499);
 
 var _CollegePlayerBarRatings2 = _interopRequireDefault(_CollegePlayerBarRatings);
 
+var _CollegePlayerPolColOff = __webpack_require__(536);
+
+var _CollegePlayerPolColOff2 = _interopRequireDefault(_CollegePlayerPolColOff);
+
+var _CollegePlayerPolColDef = __webpack_require__(538);
+
+var _CollegePlayerPolColDef2 = _interopRequireDefault(_CollegePlayerPolColDef);
+
+var _CollegePlayerPolColOvr = __webpack_require__(539);
+
+var _CollegePlayerPolColOvr2 = _interopRequireDefault(_CollegePlayerPolColOvr);
+
+var _CollegePlayerPolColAdvOff = __webpack_require__(537);
+
+var _CollegePlayerPolColAdvOff2 = _interopRequireDefault(_CollegePlayerPolColAdvOff);
+
+var _CollegePlayerOffBarRatings = __webpack_require__(540);
+
+var _CollegePlayerOffBarRatings2 = _interopRequireDefault(_CollegePlayerOffBarRatings);
+
+var _CollegePlayerAdvOffBarRatings = __webpack_require__(541);
+
+var _CollegePlayerAdvOffBarRatings2 = _interopRequireDefault(_CollegePlayerAdvOffBarRatings);
+
+var _CollegePlayerDefBarRatings = __webpack_require__(542);
+
+var _CollegePlayerDefBarRatings2 = _interopRequireDefault(_CollegePlayerDefBarRatings);
+
+var _CollegePlayerOvrBarRatings = __webpack_require__(543);
+
+var _CollegePlayerOvrBarRatings2 = _interopRequireDefault(_CollegePlayerOvrBarRatings);
+
 var _axios = __webpack_require__(14);
 
 var _axios2 = _interopRequireDefault(_axios);
@@ -89159,9 +89692,13 @@ var CollegePlayerRatings = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (CollegePlayerRatings.__proto__ || Object.getPrototypeOf(CollegePlayerRatings)).call(this, props));
 
     _this.state = {
-      positionStats: []
+      positionStats: [],
+      statCat: "Basic"
     };
     _this.getPositionStats = _this.getPositionStats.bind(_this);
+    _this.renderPolarCol = _this.renderPolarCol.bind(_this);
+    _this.renderBarChart = _this.renderBarChart.bind(_this);
+    _this.selectStatCat = _this.selectStatCat.bind(_this);
     return _this;
   }
 
@@ -89205,6 +89742,41 @@ var CollegePlayerRatings = function (_React$Component) {
       });
     }
   }, {
+    key: "selectStatCat",
+    value: function selectStatCat(evt, eventKey) {
+      this.setState({ statCat: eventKey.target.innerHTML });
+    }
+  }, {
+    key: "renderPolarCol",
+    value: function renderPolarCol() {
+      if (this.state.statCat === "Basic") {
+        return _react2.default.createElement(_CollegePlayerPolarColumn2.default, { player: this.props.player });
+      } else if (this.state.statCat === "Offense") {
+        return _react2.default.createElement(_CollegePlayerPolColOff2.default, { player: this.props.player });
+      } else if (this.state.statCat === "Advanced Offense") {
+        return _react2.default.createElement(_CollegePlayerPolColAdvOff2.default, { player: this.props.player });
+      } else if (this.state.statCat === "Defense") {
+        return _react2.default.createElement(_CollegePlayerPolColDef2.default, { player: this.props.player });
+      } else if (this.state.statCat === "Overall") {
+        return _react2.default.createElement(_CollegePlayerPolColOvr2.default, { player: this.props.player });
+      }
+    }
+  }, {
+    key: "renderBarChart",
+    value: function renderBarChart() {
+      if (this.state.statCat === "Basic") {
+        return _react2.default.createElement(_CollegePlayerBarRatings2.default, { player: this.props.player });
+      } else if (this.state.statCat === "Offense") {
+        return _react2.default.createElement(_CollegePlayerOffBarRatings2.default, { player: this.props.player });
+      } else if (this.state.statCat === "Advanced Offense") {
+        return _react2.default.createElement(_CollegePlayerAdvOffBarRatings2.default, { player: this.props.player });
+      } else if (this.state.statCat === "Defense") {
+        return _react2.default.createElement(_CollegePlayerDefBarRatings2.default, { player: this.props.player });
+      } else if (this.state.statCat === "Overall") {
+        return _react2.default.createElement(_CollegePlayerOvrBarRatings2.default, { player: this.props.player });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var headerStyle = {
@@ -89232,6 +89804,53 @@ var CollegePlayerRatings = function (_React$Component) {
                 { className: "card", style: headerStyle },
                 "PLAYER RATINGS"
               )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.Col,
+              { lg: 2, lgOffset: 6 },
+              _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                  _reactBootstrap.DropdownButton,
+                  {
+                    title: this.state.statCat,
+                    className: "card",
+                    style: {
+                      border: "none",
+                      fontSize: "16px",
+                      backgroundColor: "#eee",
+                      marginTop: "20px"
+                    },
+                    onSelect: this.selectStatCat
+                  },
+                  _react2.default.createElement(
+                    _reactBootstrap.MenuItem,
+                    { eventKey: "1" },
+                    "Basic"
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.MenuItem,
+                    { eventKey: "2" },
+                    "Offense"
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.MenuItem,
+                    { eventKey: "3" },
+                    "Advanced Offense"
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.MenuItem,
+                    { eventKey: "3" },
+                    "Defense"
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.MenuItem,
+                    { eventKey: "3" },
+                    "Overall"
+                  )
+                )
+              )
             )
           ),
           _react2.default.createElement(
@@ -89240,7 +89859,7 @@ var CollegePlayerRatings = function (_React$Component) {
             _react2.default.createElement(
               _reactBootstrap.Col,
               { lg: 5, lgOffset: 1 },
-              _react2.default.createElement(_CollegePlayerPolarColumn2.default, { player: this.props.player })
+              this.renderPolarCol()
             ),
             _react2.default.createElement(
               _reactBootstrap.Col,
@@ -89257,7 +89876,7 @@ var CollegePlayerRatings = function (_React$Component) {
             _react2.default.createElement(
               _reactBootstrap.Col,
               { lg: 8, lgOffset: 2 },
-              _react2.default.createElement(_CollegePlayerBarRatings2.default, { player: this.props.player })
+              this.renderBarChart()
             )
           ),
           _react2.default.createElement(
@@ -89567,13 +90186,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var CollegePlayerPolarColumn = function (_React$Component) {
-  _inherits(CollegePlayerPolarColumn, _React$Component);
+var PlayerPolarColumn = function (_React$Component) {
+  _inherits(PlayerPolarColumn, _React$Component);
 
-  function CollegePlayerPolarColumn() {
-    _classCallCheck(this, CollegePlayerPolarColumn);
+  function PlayerPolarColumn() {
+    _classCallCheck(this, PlayerPolarColumn);
 
-    var _this = _possibleConstructorReturn(this, (CollegePlayerPolarColumn.__proto__ || Object.getPrototypeOf(CollegePlayerPolarColumn)).call(this));
+    var _this = _possibleConstructorReturn(this, (PlayerPolarColumn.__proto__ || Object.getPrototypeOf(PlayerPolarColumn)).call(this));
 
     _this.createChart = _this.createChart.bind(_this);
     _this.calculateGrades = _this.calculateGrades.bind(_this);
@@ -89581,7 +90200,7 @@ var CollegePlayerPolarColumn = function (_React$Component) {
     return _this;
   }
 
-  _createClass(CollegePlayerPolarColumn, [{
+  _createClass(PlayerPolarColumn, [{
     key: "componentDidMount",
     value: function componentDidMount() {}
   }, {
@@ -89603,18 +90222,18 @@ var CollegePlayerPolarColumn = function (_React$Component) {
 
       var highPoints = 30;
       var highAst = 10;
-      var highReb = 13;
-      var highStl = 3.5;
-      var highBlk = 4;
+      var highReb = 15;
+      var highStl = 2.25;
+      var highBlk = 2.2;
       var highFT = 0.93;
-      var highThree = 0.6;
-      var highTwo = 0.78;
+      var highThree = 0.45;
+      var highTwo = 0.7;
 
-      var scoring = this.getGrade(highPoints, this.state.player.pts / this.state.player.mpg * 36, 0);
-      var ast = this.getGrade(highAst, this.state.player.ast / this.state.player.mpg * 36, 0);
-      var reb = this.getGrade(highReb, this.state.player.trb / this.state.player.mpg * 36, 0);
-      var stl = this.getGrade(highStl, this.state.player.stl / this.state.player.mpg * 36, 0);
-      var blk = this.getGrade(highBlk, this.state.player.blk / this.state.player.mpg * 36, 0);
+      var scoring = this.getGrade(highPoints, this.state.player.pts / this.state.player.mpg * 32, 0);
+      var ast = this.getGrade(highAst, this.state.player.ast / this.state.player.mpg * 32, 0);
+      var reb = this.getGrade(highReb, this.state.player.trb / this.state.player.mpg * 32, 0);
+      var stl = this.getGrade(highStl, this.state.player.stl / this.state.player.mpg * 32, 0);
+      var blk = this.getGrade(highBlk, this.state.player.blk / this.state.player.mpg * 32, 0);
       var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
       var threePoint = this.getGrade(highThree, this.state.player.threePtPct, 0.2);
       var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.2);
@@ -89634,7 +90253,6 @@ var CollegePlayerPolarColumn = function (_React$Component) {
   }, {
     key: "getGrade",
     value: function getGrade(high, actual, min) {
-      console.log("Per 36: ", actual);
       var playerGrade = {};
       var gradeSlots = 13;
       var adjusted = high - min;
@@ -89722,6 +90340,11 @@ var CollegePlayerPolarColumn = function (_React$Component) {
           }
         },
 
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 32: {point.per32}</span>"
+        },
+
         yAxis: {
           min: 0,
           max: 60,
@@ -89764,35 +90387,60 @@ var CollegePlayerPolarColumn = function (_React$Component) {
           data: [{
             y: this.state.scoring.Grade,
             color: this.state.scoring.Color,
-            name: "Scoring"
+            name: "Scoring",
+            stat: this.state.player.pts,
+            per32: (this.state.player.pts / this.state.player.mpg * 32).toFixed(1)
           }, {
             y: this.state.ast.Grade,
             color: this.state.ast.Color,
-            name: "Ast"
+            name: "Ast",
+            stat: this.state.player.ast,
+            per32: (this.state.player.ast / this.state.player.mpg * 32).toFixed(1)
           }, {
             y: this.state.reb.Grade,
             color: this.state.reb.Color,
-            name: "Reb"
+            name: "Reb",
+            stat: this.state.player.trb,
+            per32: (this.state.player.trb / this.state.player.mpg * 32).toFixed(1)
           }, {
             y: this.state.stl.Grade,
             color: this.state.stl.Color,
-            name: "Stl"
+            name: "Stl",
+            stat: this.state.player.stl,
+            per32: (this.state.player.stl / this.state.player.mpg * 32).toFixed(1)
           }, {
             y: this.state.blk.Grade,
             color: this.state.blk.Color,
-            name: "Blk"
+            name: "Blk",
+            stat: this.state.player.blk,
+            per32: (this.state.player.blk / this.state.player.mpg * 32).toFixed(1)
           }, {
             y: this.state.ft.Grade,
             color: this.state.ft.Color,
-            name: "FT%"
+            name: "FT%",
+            stat: (this.state.player.freeThrowPct * 100).toFixed(1)
+            // per32: (this.state.player.freeThrowPct /
+            //   this.state.player.mpg *
+            //   32
+            // ).toFixed(1)
           }, {
             y: this.state.threePoint.Grade,
             color: this.state.threePoint.Color,
-            name: "3P%"
+            name: "3P%",
+            stat: (this.state.player.threePtPct * 100).toFixed(1)
+            // per32: (this.state.player.pts /
+            //   this.state.player.mpg *
+            //   32
+            // ).toFixed(1)
           }, {
             y: this.state.twoPoint.Grade,
             color: this.state.twoPoint.Color,
-            name: "2P%"
+            name: "2P%",
+            stat: (this.state.player.twoPtPct * 100).toFixed(1)
+            // per32: (this.state.player.pts /
+            //   this.state.player.mpg *
+            //   32
+            // ).toFixed(1)
           }],
           pointPlacement: "on"
         }]
@@ -89801,6 +90449,7 @@ var CollegePlayerPolarColumn = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log(this.props);
       return _react2.default.createElement(
         "div",
         { className: "card" },
@@ -89812,10 +90461,10 @@ var CollegePlayerPolarColumn = function (_React$Component) {
     }
   }]);
 
-  return CollegePlayerPolarColumn;
+  return PlayerPolarColumn;
 }(_react2.default.Component);
 
-exports.default = CollegePlayerPolarColumn;
+exports.default = PlayerPolarColumn;
 
 /***/ }),
 /* 499 */
@@ -89876,20 +90525,20 @@ var CollegePlayerBarRatings = function (_React$Component) {
     value: function calculateGrades() {
       var _this3 = this;
 
-      var highPoints = 30;
-      var highAst = 10;
-      var highReb = 13;
-      var highStl = 3.5;
-      var highBlk = 4;
+      var highPoints = 29;
+      var highAst = 11;
+      var highReb = 15;
+      var highStl = 2.5;
+      var highBlk = 2.5;
       var highFT = 0.93;
-      var highThree = 0.6;
-      var highTwo = 0.78;
+      var highThree = 0.45;
+      var highTwo = 0.7;
 
-      var scoring = this.getGrade(highPoints, this.state.player.pts / this.state.player.mpg * 36, 0);
-      var ast = this.getGrade(highAst, this.state.player.ast / this.state.player.mpg * 36, 0);
-      var reb = this.getGrade(highReb, this.state.player.trb / this.state.player.mpg * 36, 0);
-      var stl = this.getGrade(highStl, this.state.player.stl / this.state.player.mpg * 36, 0);
-      var blk = this.getGrade(highBlk, this.state.player.blk / this.state.player.mpg * 36, 0);
+      var scoring = this.getGrade(highPoints, this.state.player.pts / this.state.player.mpg * 32, 0);
+      var ast = this.getGrade(highAst, this.state.player.ast / this.state.player.mpg * 32, 0);
+      var reb = this.getGrade(highReb, this.state.player.trb / this.state.player.mpg * 32, 0);
+      var stl = this.getGrade(highStl, this.state.player.stl / this.state.player.mpg * 32, 0);
+      var blk = this.getGrade(highBlk, this.state.player.blk / this.state.player.mpg * 32, 0);
       var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
       var threePoint = this.getGrade(highThree, this.state.player.threePtPct, 0.1);
       var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.15);
@@ -90003,7 +90652,8 @@ var CollegePlayerBarRatings = function (_React$Component) {
           minorGridLineWidth: 0
         },
         tooltip: {
-          valueSuffix: null
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 32: {point.per32}</span>"
         },
         plotOptions: {
           bar: {
@@ -90028,7 +90678,32 @@ var CollegePlayerBarRatings = function (_React$Component) {
           data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
         }, {
           name: "Grade",
-          data: [{ y: this.state.scoring.Grade, color: this.state.scoring.Color }, { y: this.state.reb.Grade, color: this.state.reb.Color }, { y: this.state.ast.Grade, color: this.state.ast.Color }, { y: this.state.stl.Grade, color: this.state.stl.Color }, { y: this.state.blk.Grade, color: this.state.blk.Color }]
+          data: [{
+            y: this.state.scoring.Grade,
+            color: this.state.scoring.Color,
+            stat: this.state.player.pts,
+            per32: (this.state.player.pts / this.state.player.mpg * 32).toFixed(1)
+          }, {
+            y: this.state.reb.Grade,
+            color: this.state.reb.Color,
+            stat: this.state.player.trb,
+            per32: (this.state.player.trb / this.state.player.mpg * 32).toFixed(1)
+          }, {
+            y: this.state.ast.Grade,
+            color: this.state.ast.Color,
+            stat: this.state.player.ast,
+            per32: (this.state.player.ast / this.state.player.mpg * 32).toFixed(1)
+          }, {
+            y: this.state.stl.Grade,
+            color: this.state.stl.Color,
+            stat: this.state.player.stl,
+            per32: (this.state.player.stl / this.state.player.mpg * 32).toFixed(1)
+          }, {
+            y: this.state.blk.Grade,
+            color: this.state.blk.Color,
+            stat: this.state.player.blk,
+            per32: (this.state.player.blk / this.state.player.mpg * 32).toFixed(1)
+          }]
         }]
       });
     }
@@ -100279,6 +100954,2309 @@ var CollegeTeamPlayerEntry = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = CollegeTeamPlayerEntry;
+
+/***/ }),
+/* 536 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CollegePlayerPolColOff = function (_React$Component) {
+  _inherits(CollegePlayerPolColOff, _React$Component);
+
+  function CollegePlayerPolColOff() {
+    _classCallCheck(this, CollegePlayerPolColOff);
+
+    var _this = _possibleConstructorReturn(this, (CollegePlayerPolColOff.__proto__ || Object.getPrototypeOf(CollegePlayerPolColOff)).call(this));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CollegePlayerPolColOff, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
+          _this2.calculateGrades();
+          //this.createChart();
+        });
+      }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // if (nextProps.player.name) {
+      //   this.setState({ player: nextProps.player }, () => {
+      //     this.calculateGrades();
+      //     //this.createChart();
+      //   });
+      // }
+    }
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highPoints = 30;
+      var highAst = 10;
+      var highReb = 5;
+      var highTov = 0.5;
+      var highFg = 0.68;
+      var highFT = 0.93;
+      var highThree = 0.45;
+      var highTwo = 0.7;
+
+      var scoring = this.getGrade(highPoints, this.state.player.pts / this.state.player.mpg * 32, 0);
+      var ast = this.getGrade(highAst, this.state.player.ast / this.state.player.mpg * 32, 0);
+      var orb = this.getGrade(highReb, this.state.player.orb / this.state.player.mpg * 32, 0);
+      var tov = this.getGrade(highTov, this.state.player.tov * -1 / this.state.player.mpg * 32, -5.0);
+      var fg = this.getGrade(highFg, this.state.player.efgPct, 0.28);
+      var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
+      var threePoint = this.getGrade(highThree, this.state.player.threePtPct, 0.2);
+      var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.2);
+      this.setState({
+        scoring: scoring,
+        ast: ast,
+        orb: orb,
+        tov: tov,
+        fg: fg,
+        ft: ft,
+        threePoint: threePoint,
+        twoPoint: twoPoint
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-column-off", {
+        chart: {
+          polar: true,
+          type: "column"
+        },
+
+        title: {
+          text: null
+        },
+
+        pane: {
+          startAngle: 0,
+          endAngle: 360
+        },
+
+        xAxis: {
+          min: 0,
+          max: 360,
+          tickInterval: 45,
+          labels: {
+            enabled: false
+          }
+        },
+
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 32: {point.per32}</span>"
+        },
+
+        yAxis: {
+          min: 0,
+          max: 60,
+          labels: {
+            enabled: false
+          }
+        },
+
+        plotOptions: {
+          series: {
+            pointStart: 0,
+            pointInterval: 45,
+            dataLabels: {
+              useHTML: true,
+              enabled: true,
+              format: '<span class="wheel-label" style="color: grey">{point.name}</span>',
+              style: {
+                fontSize: "12px"
+              }
+            }
+          },
+          column: {
+            pointPadding: 0,
+            groupPadding: 0,
+            events: {
+              legendItemClick: function legendItemClick() {
+                return false;
+              }
+            },
+            borderWidth: 2
+          }
+        },
+
+        legend: {
+          enabled: false
+        },
+
+        series: [{
+          name: "Rating",
+          data: [{
+            y: this.state.ast.Grade,
+            color: this.state.ast.Color,
+            name: "Ast",
+            stat: this.state.player.ast,
+            per32: (this.state.player.ast / this.state.player.mpg * 32).toFixed(1)
+          }, {
+            y: this.state.tov.Grade,
+            color: this.state.tov.Color,
+            name: "Tov",
+            stat: this.state.player.tov,
+            per32: (this.state.player.tov / this.state.player.mpg * 32).toFixed(1)
+          }, {
+            y: this.state.scoring.Grade,
+            color: this.state.scoring.Color,
+            name: "Scoring",
+            stat: this.state.player.pts,
+            per32: (this.state.player.pts / this.state.player.mpg * 32).toFixed(1)
+          }, {
+            y: this.state.fg.Grade,
+            color: this.state.fg.Color,
+            name: "FG%",
+            stat: this.state.player.fgPct
+          }, {
+            y: this.state.twoPoint.Grade,
+            color: this.state.twoPoint.Color,
+            name: "2P%",
+            stat: (this.state.player.twoPtPct * 100).toFixed(1)
+            // per32: (this.state.player.pts /
+            //   this.state.player.mpg *
+            //   32
+            // ).toFixed(1)
+          }, {
+            y: this.state.threePoint.Grade,
+            color: this.state.threePoint.Color,
+            name: "3P%",
+            stat: (this.state.player.threePtPct * 100).toFixed(1)
+            // per32: (this.state.player.pts /
+            //   this.state.player.mpg *
+            //   32
+            // ).toFixed(1)
+          }, {
+            y: this.state.ft.Grade,
+            color: this.state.ft.Color,
+            name: "FT%",
+            stat: (this.state.player.freeThrowPct * 100).toFixed(1)
+            // per32: (this.state.player.freeThrowPct /
+            //   this.state.player.mpg *
+            //   32
+            // ).toFixed(1)
+          }, {
+            y: this.state.orb.Grade,
+            color: this.state.orb.Color,
+            name: "Orb",
+            stat: this.state.player.orb,
+            per32: (this.state.player.orb / this.state.player.mpg * 32).toFixed(1)
+          }],
+          pointPlacement: "on"
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.props);
+      return _react2.default.createElement(
+        "div",
+        { className: "card" },
+        _react2.default.createElement("div", {
+          id: "container-column-off",
+          style: { height: "400px", margin: "0 auto" }
+        })
+      );
+    }
+  }]);
+
+  return CollegePlayerPolColOff;
+}(_react2.default.Component);
+
+exports.default = CollegePlayerPolColOff;
+
+/***/ }),
+/* 537 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CollegePlayerPolColAdvOff = function (_React$Component) {
+  _inherits(CollegePlayerPolColAdvOff, _React$Component);
+
+  function CollegePlayerPolColAdvOff() {
+    _classCallCheck(this, CollegePlayerPolColAdvOff);
+
+    var _this = _possibleConstructorReturn(this, (CollegePlayerPolColAdvOff.__proto__ || Object.getPrototypeOf(CollegePlayerPolColAdvOff)).call(this));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CollegePlayerPolColAdvOff, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
+          _this2.calculateGrades();
+          //this.createChart();
+        });
+      }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // if (nextProps.player.name) {
+      //   this.setState({ player: nextProps.player }, () => {
+      //     this.calculateGrades();
+      //     //this.createChart();
+      //   });
+      // }
+    }
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highAstPct = 45;
+      var highOrbPct = 16;
+      var highFg = 0.68;
+      var highTovPct = -5.0;
+      var highFtr = 0.61;
+      var highThreePar = 0.8;
+      var highTsPct = 0.68;
+      var highUsgPct = 35;
+      var highObpm = 9;
+      var highOws = 6;
+
+      var astPct = this.getGrade(highAstPct, this.state.player.astPct, 3);
+      var orbPct = this.getGrade(highOrbPct, this.state.player.orbPct, 0.5);
+      var fg = this.getGrade(highFg, this.state.player.efgPct, 0.28);
+      var tovPct = this.getGrade(highTovPct, this.state.player.tovPct * -1, -27.0);
+      var ftr = this.getGrade(highFtr, this.state.player.ftr, 0);
+      var threePAr = this.getGrade(highThreePar, this.state.player.threePAr, 0);
+      var tsPct = this.getGrade(highTsPct, this.state.player.tsPct, 0.4);
+      var usgPct = this.getGrade(highUsgPct, this.state.player.usgPct, 10);
+      var obpm = this.getGrade(highObpm, this.state.player.obpm, -5);
+      var ows = this.getGrade(highOws, this.state.player.ows, -1);
+      this.setState({
+        astPct: astPct,
+        orbPct: orbPct,
+        tovPct: tovPct,
+        fg: fg,
+        ftr: ftr,
+        threePAr: threePAr,
+        tsPct: tsPct,
+        usgPct: usgPct,
+        obpm: obpm,
+        ows: ows
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-column-adv-off", {
+        chart: {
+          polar: true,
+          type: "column"
+        },
+
+        title: {
+          text: null
+        },
+
+        pane: {
+          startAngle: 0,
+          endAngle: 360
+        },
+
+        xAxis: {
+          min: 0,
+          max: 360,
+          tickInterval: 45,
+          labels: {
+            enabled: false
+          }
+        },
+
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>"
+        },
+
+        yAxis: {
+          min: 0,
+          max: 60,
+          labels: {
+            enabled: false
+          }
+        },
+
+        plotOptions: {
+          series: {
+            pointStart: 0,
+            pointInterval: 36,
+            dataLabels: {
+              useHTML: true,
+              enabled: true,
+              format: '<span class="wheel-label" style="color: grey">{point.name}</span>',
+              style: {
+                fontSize: "12px"
+              }
+            }
+          },
+          column: {
+            pointPadding: 0,
+            groupPadding: 0,
+            events: {
+              legendItemClick: function legendItemClick() {
+                return false;
+              }
+            },
+            borderWidth: 2
+          }
+        },
+
+        legend: {
+          enabled: false
+        },
+
+        series: [{
+          name: "Rating",
+          data: [{
+            y: this.state.astPct.Grade,
+            color: this.state.astPct.Color,
+            name: "Ast%",
+            stat: this.state.player.astPct
+          }, {
+            y: this.state.tovPct.Grade,
+            color: this.state.tovPct.Color,
+            name: "Tov%",
+            stat: this.state.player.tovPct
+          }, {
+            y: this.state.orbPct.Grade,
+            color: this.state.orbPct.Color,
+            name: "Orb%",
+            stat: this.state.player.orbPct
+          }, {
+            y: this.state.fg.Grade,
+            color: this.state.fg.Color,
+            name: "eFG%",
+            stat: this.state.player.efgPct
+          }, {
+            y: this.state.tsPct.Grade,
+            color: this.state.tsPct.Color,
+            name: "TS%",
+            stat: this.state.player.tsPct
+          }, {
+            y: this.state.ftr.Grade,
+            color: this.state.ftr.Color,
+            name: "FTr",
+            stat: this.state.player.ftr
+          }, {
+            y: this.state.threePAr.Grade,
+            color: this.state.threePAr.Color,
+            name: "3PAr",
+            stat: this.state.player.threePAr
+          }, {
+            y: this.state.obpm.Grade,
+            color: this.state.obpm.Color,
+            name: "OBPM",
+            stat: this.state.player.obpm
+          }, {
+            y: this.state.ows.Grade,
+            color: this.state.ows.Color,
+            name: "OWS",
+            stat: this.state.player.ows
+          }, {
+            y: this.state.usgPct.Grade,
+            color: this.state.usgPct.Color,
+            name: "USG%",
+            stat: this.state.player.usgPct
+          }],
+          pointPlacement: "on"
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.props);
+      return _react2.default.createElement(
+        "div",
+        { className: "card" },
+        _react2.default.createElement("div", {
+          id: "container-column-adv-off",
+          style: { height: "400px", margin: "0 auto" }
+        })
+      );
+    }
+  }]);
+
+  return CollegePlayerPolColAdvOff;
+}(_react2.default.Component);
+
+exports.default = CollegePlayerPolColAdvOff;
+
+/***/ }),
+/* 538 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CollegePlayerPolColDef = function (_React$Component) {
+  _inherits(CollegePlayerPolColDef, _React$Component);
+
+  function CollegePlayerPolColDef() {
+    _classCallCheck(this, CollegePlayerPolColDef);
+
+    var _this = _possibleConstructorReturn(this, (CollegePlayerPolColDef.__proto__ || Object.getPrototypeOf(CollegePlayerPolColDef)).call(this));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CollegePlayerPolColDef, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
+          _this2.calculateGrades();
+          //this.createChart();
+        });
+      }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // if (nextProps.player.name) {
+      //   this.setState({ player: nextProps.player }, () => {
+      //     this.calculateGrades();
+      //     //this.createChart();
+      //   });
+      // }
+    }
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highBlkPct = 8.0;
+      var highStlPct = 3.5;
+      var highDrbPct = 36;
+      var highDbpm = 5.5;
+      var highDws = 2.5;
+      var highDrb = 10;
+      var highStl = 2.25;
+      var highBlk = 2.2;
+      var highPf = 3.6;
+
+      var blkPct = this.getGrade(highBlkPct, this.state.player.blkPct, 0);
+      var stlPct = this.getGrade(highStlPct, this.state.player.stlPct, 0);
+      var drbPct = this.getGrade(highDrbPct, this.state.player.drbPct, 5);
+      var dws = this.getGrade(highDws, this.state.player.dws, 0);
+      var drb = this.getGrade(highDrb, this.state.player.drb / this.state.player.mpg * 36, 1);
+      var stl = this.getGrade(highStl, this.state.player.stl / this.state.player.mpg * 36, 0);
+      var blk = this.getGrade(highBlk, this.state.player.blk / this.state.player.mpg * 36, 0);
+      var dbpm = this.getGrade(highDbpm, this.state.player.dbpm, -4);
+      var pf = this.getGrade(highPf, this.state.player.pf / this.state.player.mpg * 36, 1);
+      this.setState({
+        blkPct: blkPct,
+        stlPct: stlPct,
+        drbPct: drbPct,
+        drb: drb,
+        stl: stl,
+        blk: blk,
+        dbpm: dbpm,
+        dws: dws,
+        pf: pf
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-column-def", {
+        chart: {
+          polar: true,
+          type: "column"
+        },
+
+        title: {
+          text: null
+        },
+
+        pane: {
+          startAngle: 0,
+          endAngle: 360
+        },
+
+        xAxis: {
+          min: 0,
+          max: 360,
+          tickInterval: 45,
+          labels: {
+            enabled: false
+          }
+        },
+
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 32: {point.per32}</span>"
+        },
+
+        yAxis: {
+          min: 0,
+          max: 60,
+          labels: {
+            enabled: false
+          }
+        },
+
+        plotOptions: {
+          series: {
+            pointStart: 0,
+            pointInterval: 40,
+            dataLabels: {
+              useHTML: true,
+              enabled: true,
+              format: '<span class="wheel-label" style="color: grey">{point.name}</span>',
+              style: {
+                fontSize: "12px"
+              }
+            }
+          },
+          column: {
+            pointPadding: 0,
+            groupPadding: 0,
+            events: {
+              legendItemClick: function legendItemClick() {
+                return false;
+              }
+            },
+            borderWidth: 2
+          }
+        },
+
+        legend: {
+          enabled: false
+        },
+
+        series: [{
+          name: "Rating",
+          data: [{
+            y: this.state.blkPct.Grade,
+            color: this.state.blkPct.Color,
+            name: "Blk%",
+            stat: this.state.player.blkPct
+          }, {
+            y: this.state.stlPct.Grade,
+            color: this.state.stlPct.Color,
+            name: "Stl%",
+            stat: this.state.player.stlPct
+          }, {
+            y: this.state.drbPct.Grade,
+            color: this.state.drbPct.Color,
+            name: "Drb%",
+            stat: this.state.player.drbPct
+          }, {
+            y: this.state.drb.Grade,
+            color: this.state.drb.Color,
+            name: "Drb",
+            stat: this.state.player.drb
+          }, {
+            y: this.state.stl.Grade,
+            color: this.state.stl.Color,
+            name: "Stl",
+            stat: this.state.player.stl
+          }, {
+            y: this.state.blk.Grade,
+            color: this.state.blk.Color,
+            name: "Blk",
+            stat: this.state.player.blk
+          }, {
+            y: this.state.pf.Grade,
+            color: this.state.pf.Color,
+            name: "Pf",
+            stat: this.state.player.pf
+          }, {
+            y: this.state.dbpm.Grade,
+            color: this.state.dbpm.Color,
+            name: "DBPM",
+            stat: this.state.player.dbpm
+          }, {
+            y: this.state.dws.Grade,
+            color: this.state.dws.Color,
+            name: "DWS",
+            stat: this.state.player.dws
+          }],
+          pointPlacement: "on"
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.props);
+      return _react2.default.createElement(
+        "div",
+        { className: "card" },
+        _react2.default.createElement("div", {
+          id: "container-column-def",
+          style: { height: "400px", margin: "0 auto" }
+        })
+      );
+    }
+  }]);
+
+  return CollegePlayerPolColDef;
+}(_react2.default.Component);
+
+exports.default = CollegePlayerPolColDef;
+
+/***/ }),
+/* 539 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CollegePlayerPolColOvr = function (_React$Component) {
+  _inherits(CollegePlayerPolColOvr, _React$Component);
+
+  function CollegePlayerPolColOvr() {
+    _classCallCheck(this, CollegePlayerPolColOvr);
+
+    var _this = _possibleConstructorReturn(this, (CollegePlayerPolColOvr.__proto__ || Object.getPrototypeOf(CollegePlayerPolColOvr)).call(this));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CollegePlayerPolColOvr, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
+          _this2.calculateGrades();
+          //this.createChart();
+        });
+      }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // if (nextProps.player.name) {
+      //   this.setState({ player: nextProps.player }, () => {
+      //     this.calculateGrades();
+      //     //this.createChart();
+      //   });
+      // }
+    }
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highPer = 30.0;
+      var highWs = 8.0;
+      var highWsFourtyEight = 0.3;
+      var highDbpm = 5.5;
+      var highDws = 2.5;
+      var highBpm = 10;
+      var highOws = 6;
+      var highObpm = 10;
+
+      var per = this.getGrade(highPer, this.state.player.per, 5);
+      var ws = this.getGrade(highWs, this.state.player.ws, -1.0);
+      var wsFourtyEight = this.getGrade(highWsFourtyEight, this.state.player.wsFourtyEight, 0);
+      var dbpm = this.getGrade(highDbpm, this.state.player.dbpm, -4);
+      var dws = this.getGrade(highDws, this.state.player.dws, 0);
+      var bpm = this.getGrade(highBpm, this.state.player.bpm, -7);
+      var ows = this.getGrade(highOws, this.state.player.ows, -1);
+      var obpm = this.getGrade(highObpm, this.state.player.obpm, -6);
+      this.setState({
+        per: per,
+        ws: ws,
+        wsFourtyEight: wsFourtyEight,
+        bpm: bpm,
+        ows: ows,
+        dws: dws,
+        obpm: obpm,
+        dbpm: dbpm
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-column-ovr", {
+        chart: {
+          polar: true,
+          type: "column"
+        },
+
+        title: {
+          text: null
+        },
+
+        pane: {
+          startAngle: 0,
+          endAngle: 360
+        },
+
+        xAxis: {
+          min: 0,
+          max: 360,
+          tickInterval: 45,
+          labels: {
+            enabled: false
+          }
+        },
+
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 32: {point.per32}</span>"
+        },
+
+        yAxis: {
+          min: 0,
+          max: 60,
+          labels: {
+            enabled: false
+          }
+        },
+
+        plotOptions: {
+          series: {
+            pointStart: 0,
+            pointInterval: 40,
+            dataLabels: {
+              useHTML: true,
+              enabled: true,
+              format: '<span class="wheel-label" style="color: grey">{point.name}</span>',
+              style: {
+                fontSize: "12px"
+              }
+            }
+          },
+          column: {
+            pointPadding: 0,
+            groupPadding: 0,
+            events: {
+              legendItemClick: function legendItemClick() {
+                return false;
+              }
+            },
+            borderWidth: 2
+          }
+        },
+
+        legend: {
+          enabled: false
+        },
+
+        series: [{
+          name: "Rating",
+          data: [{
+            y: this.state.per.Grade,
+            color: this.state.per.Color,
+            name: "PER",
+            stat: this.state.player.per
+          }, {
+            y: this.state.ws.Grade,
+            color: this.state.ws.Color,
+            name: "WS",
+            stat: this.state.player.ws
+          }, {
+            y: this.state.wsFourtyEight.Grade,
+            color: this.state.wsFourtyEight.Color,
+            name: "WS/48",
+            stat: this.state.player.wsFourtyEight
+          }, {
+            y: this.state.bpm.Grade,
+            color: this.state.bpm.Color,
+            name: "BPM",
+            stat: this.state.player.bpm
+          }, {
+            y: this.state.ows.Grade,
+            color: this.state.ows.Color,
+            name: "OWS",
+            stat: this.state.player.ows
+          }, {
+            y: this.state.dws.Grade,
+            color: this.state.dws.Color,
+            name: "DWS",
+            stat: this.state.player.dws
+          }, {
+            y: this.state.dbpm.Grade,
+            color: this.state.dbpm.Color,
+            name: "DBPM",
+            stat: this.state.player.dbpm
+          }, {
+            y: this.state.obpm.Grade,
+            color: this.state.obpm.Color,
+            name: "OBPM",
+            stat: this.state.player.obpm
+          }],
+          pointPlacement: "on"
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.props);
+      return _react2.default.createElement(
+        "div",
+        { className: "card" },
+        _react2.default.createElement("div", {
+          id: "container-column-ovr",
+          style: { height: "400px", margin: "0 auto" }
+        })
+      );
+    }
+  }]);
+
+  return CollegePlayerPolColOvr;
+}(_react2.default.Component);
+
+exports.default = CollegePlayerPolColOvr;
+
+/***/ }),
+/* 540 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CollegePlayerOffBarRatings = function (_React$Component) {
+  _inherits(CollegePlayerOffBarRatings, _React$Component);
+
+  function CollegePlayerOffBarRatings(props) {
+    _classCallCheck(this, CollegePlayerOffBarRatings);
+
+    var _this = _possibleConstructorReturn(this, (CollegePlayerOffBarRatings.__proto__ || Object.getPrototypeOf(CollegePlayerOffBarRatings)).call(this, props));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CollegePlayerOffBarRatings, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
+          _this2.calculateGrades();
+          //this.createChart();
+        });
+      }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // if (nextProps.player.name) {
+      //   this.setState({ player: nextProps.player }, () => {
+      //     this.calculateGrades();
+      //     //this.createChart();
+      //   });
+      // }
+    }
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highPoints = 29;
+      var highAst = 11;
+      var highReb = 5.5;
+      var highFT = 0.93;
+      var highThree = 0.45;
+      var highTwo = 0.68;
+
+      var scoring = this.getGrade(highPoints, this.state.player.pts / this.state.player.mpg * 32, 0);
+      var ast = this.getGrade(highAst, this.state.player.ast / this.state.player.mpg * 32, 0);
+      var reb = this.getGrade(highReb, this.state.player.orb / this.state.player.mpg * 32, 0);
+      var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
+      var threePoint = this.getGrade(highThree, this.state.player.threePtPct, 0.2);
+      var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.15);
+      this.setState({
+        scoring: scoring,
+        ast: ast,
+        reb: reb,
+        ft: ft,
+        threePoint: threePoint,
+        twoPoint: twoPoint
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating-off", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: null
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["PTS", "ORB", "AST", "3P%", "2P%", "FT%"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 32: {point.per32}</span>"
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{
+            y: this.state.scoring.Grade,
+            color: this.state.scoring.Color,
+            stat: this.state.player.pts,
+            per36: (this.state.player.pts / this.state.player.mpg * 32).toFixed(1)
+          }, {
+            y: this.state.reb.Grade,
+            color: this.state.reb.Color,
+            stat: this.state.player.orb,
+            per32: (this.state.player.orb / this.state.player.mpg * 32).toFixed(1)
+          }, {
+            y: this.state.ast.Grade,
+            color: this.state.ast.Color,
+            stat: this.state.player.ast,
+            per32: (this.state.player.ast / this.state.player.mpg * 32).toFixed(1)
+          }, {
+            y: this.state.threePoint.Grade,
+            color: this.state.threePoint.Color,
+            stat: this.state.player.threePtPct
+          }, {
+            y: this.state.twoPoint.Grade,
+            color: this.state.twoPoint.Color,
+            stat: this.state.player.twoPtPct
+          }, {
+            y: this.state.ft.Grade,
+            color: this.state.ft.Color,
+            stat: this.state.player.freeThrowPct
+          }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          className: "card",
+          id: "container-rating-off",
+          style: {
+            height: "275px",
+            minWidth: "600px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return CollegePlayerOffBarRatings;
+}(_react2.default.Component);
+
+exports.default = CollegePlayerOffBarRatings;
+
+/***/ }),
+/* 541 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CollegePlayerAdvOffBarRatings = function (_React$Component) {
+  _inherits(CollegePlayerAdvOffBarRatings, _React$Component);
+
+  function CollegePlayerAdvOffBarRatings(props) {
+    _classCallCheck(this, CollegePlayerAdvOffBarRatings);
+
+    var _this = _possibleConstructorReturn(this, (CollegePlayerAdvOffBarRatings.__proto__ || Object.getPrototypeOf(CollegePlayerAdvOffBarRatings)).call(this, props));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CollegePlayerAdvOffBarRatings, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
+          _this2.calculateGrades();
+          //this.createChart();
+        });
+      }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // if (nextProps.player.name) {
+      //   this.setState({ player: nextProps.player }, () => {
+      //     this.calculateGrades();
+      //     //this.createChart();
+      //   });
+      // }
+    }
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highAstPct = 45;
+      var highOrbPct = 16;
+      var highFg = 0.68;
+      var highTovPct = -5.0;
+      var highUsgPct = 35;
+      var highObpm = 9;
+      var highOws = 6;
+
+      var astPct = this.getGrade(highAstPct, this.state.player.astPct, 3);
+      var orbPct = this.getGrade(highOrbPct, this.state.player.orbPct, 0.5);
+      var fg = this.getGrade(highFg, this.state.player.efgPct, 0.28);
+      var tovPct = this.getGrade(highTovPct, this.state.player.tovPct * -1, -27.0);
+      var usgPct = this.getGrade(highUsgPct, this.state.player.usgPct, 10);
+      var obpm = this.getGrade(highObpm, this.state.player.obpm, -5);
+      var ows = this.getGrade(highOws, this.state.player.ows, -1);
+      this.setState({
+        astPct: astPct,
+        orbPct: orbPct,
+        tovPct: tovPct,
+        fg: fg,
+        usgPct: usgPct,
+        obpm: obpm,
+        ows: ows
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating-advoff", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: null
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["AST%", "ORB%", "eFG%", "TOV%", "USG%", "OBPM", "OWS"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 32: {point.per32}</span>"
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{
+            y: this.state.astPct.Grade,
+            color: this.state.astPct.Color,
+            name: "Ast%",
+            stat: this.state.player.astPct
+          }, {
+            y: this.state.orbPct.Grade,
+            color: this.state.orbPct.Color,
+            name: "Orb%",
+            stat: this.state.player.orbPct
+          }, {
+            y: this.state.fg.Grade,
+            color: this.state.fg.Color,
+            name: "eFG%",
+            stat: this.state.player.efgPct
+          }, {
+            y: this.state.tovPct.Grade,
+            color: this.state.tovPct.Color,
+            name: "Tov%",
+            stat: this.state.player.tovPct
+          }, {
+            y: this.state.usgPct.Grade,
+            color: this.state.usgPct.Color,
+            name: "USG%",
+            stat: this.state.player.usgPct
+          }, {
+            y: this.state.obpm.Grade,
+            color: this.state.obpm.Color,
+            name: "OBPM",
+            stat: this.state.player.obpm
+          }, {
+            y: this.state.ows.Grade,
+            color: this.state.ows.Color,
+            name: "OWS",
+            stat: this.state.player.ows
+          }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          className: "card",
+          id: "container-rating-advoff",
+          style: {
+            height: "300px",
+            minWidth: "600px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return CollegePlayerAdvOffBarRatings;
+}(_react2.default.Component);
+
+exports.default = CollegePlayerAdvOffBarRatings;
+
+/***/ }),
+/* 542 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CollegePlayerDefBarRatings = function (_React$Component) {
+  _inherits(CollegePlayerDefBarRatings, _React$Component);
+
+  function CollegePlayerDefBarRatings(props) {
+    _classCallCheck(this, CollegePlayerDefBarRatings);
+
+    var _this = _possibleConstructorReturn(this, (CollegePlayerDefBarRatings.__proto__ || Object.getPrototypeOf(CollegePlayerDefBarRatings)).call(this, props));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CollegePlayerDefBarRatings, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
+          _this2.calculateGrades();
+          //this.createChart();
+        });
+      }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // if (nextProps.player.name) {
+      //   this.setState({ player: nextProps.player }, () => {
+      //     this.calculateGrades();
+      //     //this.createChart();
+      //   });
+      // }
+    }
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highBlkPct = 8.0;
+      var highStlPct = 3.5;
+      var highDrbPct = 36;
+      var highDbpm = 5.5;
+      var highDws = 2.5;
+      var highDrb = 10;
+      var highStl = 2.25;
+      var highBlk = 2.2;
+      var highPf = 3.6;
+
+      var blkPct = this.getGrade(highBlkPct, this.state.player.blkPct, 0);
+      var stlPct = this.getGrade(highStlPct, this.state.player.stlPct, 0);
+      var drbPct = this.getGrade(highDrbPct, this.state.player.drbPct, 5);
+      var dws = this.getGrade(highDws, this.state.player.dws, 0);
+      var drb = this.getGrade(highDrb, this.state.player.drb / this.state.player.mpg * 32, 1);
+      var stl = this.getGrade(highStl, this.state.player.stl / this.state.player.mpg * 32, 0);
+      var blk = this.getGrade(highBlk, this.state.player.blk / this.state.player.mpg * 32, 0);
+      var dbpm = this.getGrade(highDbpm, this.state.player.dbpm, -4);
+      var pf = this.getGrade(highPf, this.state.player.pf / this.state.player.mpg * 32, 1);
+      this.setState({
+        blkPct: blkPct,
+        stlPct: stlPct,
+        drbPct: drbPct,
+        drb: drb,
+        dbpm: dbpm,
+        dws: dws
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating-def", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: null
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["BLK%", "STL%", "DRB%", "DRB", "DBPM", "DWS"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 32: {point.per32}</span>"
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{
+            y: this.state.blkPct.Grade,
+            color: this.state.blkPct.Color,
+            name: "Blk%",
+            stat: this.state.player.blkPct
+          }, {
+            y: this.state.stlPct.Grade,
+            color: this.state.stlPct.Color,
+            name: "Stl%",
+            stat: this.state.player.stlPct
+          }, {
+            y: this.state.drbPct.Grade,
+            color: this.state.drbPct.Color,
+            name: "Drb%",
+            stat: this.state.player.drbPct
+          }, {
+            y: this.state.drb.Grade,
+            color: this.state.drb.Color,
+            name: "Drb",
+            stat: this.state.player.drb,
+            per32: (this.state.player.drb / this.state.player.mpg * 32).toFixed(1)
+          }, {
+            y: this.state.dbpm.Grade,
+            color: this.state.dbpm.Color,
+            name: "DBPM",
+            stat: this.state.player.dbpm
+          }, {
+            y: this.state.dws.Grade,
+            color: this.state.dws.Color,
+            name: "DWS",
+            stat: this.state.player.dws
+          }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          className: "card",
+          id: "container-rating-def",
+          style: {
+            height: "250px",
+            minWidth: "600px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return CollegePlayerDefBarRatings;
+}(_react2.default.Component);
+
+exports.default = CollegePlayerDefBarRatings;
+
+/***/ }),
+/* 543 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CollegePlayerOvrBarRatings = function (_React$Component) {
+  _inherits(CollegePlayerOvrBarRatings, _React$Component);
+
+  function CollegePlayerOvrBarRatings(props) {
+    _classCallCheck(this, CollegePlayerOvrBarRatings);
+
+    var _this = _possibleConstructorReturn(this, (CollegePlayerOvrBarRatings.__proto__ || Object.getPrototypeOf(CollegePlayerOvrBarRatings)).call(this, props));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(CollegePlayerOvrBarRatings, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
+          _this2.calculateGrades();
+          //this.createChart();
+        });
+      }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // if (nextProps.player.name) {
+      //   this.setState({ player: nextProps.player }, () => {
+      //     this.calculateGrades();
+      //     //this.createChart();
+      //   });
+      // }
+    }
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highPer = 30.0;
+      var highWs = 8.0;
+      var highWsFourtyEight = 0.3;
+      var highVorp = 4;
+      var highBpm = 10;
+
+      var per = this.getGrade(highPer, this.state.player.per, 5);
+      var ws = this.getGrade(highWs, this.state.player.ws, -1.0);
+      var wsFourtyEight = this.getGrade(highWsFourtyEight, this.state.player.wsFourtyEight, 0);
+      var vorp = this.getGrade(highVorp, this.state.player.vorp, -1);
+      var bpm = this.getGrade(highBpm, this.state.player.bpm, -7);
+      this.setState({
+        per: per,
+        ws: ws,
+        wsFourtyEight: wsFourtyEight,
+        vorp: vorp,
+        bpm: bpm
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating-ovr", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: null
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["PER", "WS", "WS/40", "BPM"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 32: {point.per32}</span>"
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{
+            y: this.state.per.Grade,
+            color: this.state.per.Color,
+            name: "PER",
+            stat: this.state.player.per
+          }, {
+            y: this.state.ws.Grade,
+            color: this.state.ws.Color,
+            name: "WS",
+            stat: this.state.player.ws
+          }, {
+            y: this.state.wsFourtyEight.Grade,
+            color: this.state.wsFourtyEight.Color,
+            name: "WS/48",
+            stat: this.state.player.wsFourtyEight
+          }, {
+            y: this.state.bpm.Grade,
+            color: this.state.bpm.Color,
+            name: "BPM",
+            stat: this.state.player.bpm
+          }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          className: "card",
+          id: "container-rating-ovr",
+          style: {
+            height: "230px",
+            minWidth: "600px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return CollegePlayerOvrBarRatings;
+}(_react2.default.Component);
+
+exports.default = CollegePlayerOvrBarRatings;
 
 /***/ })
 /******/ ]);
