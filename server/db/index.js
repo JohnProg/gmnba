@@ -2,6 +2,7 @@ const Sequelize = require("sequelize");
 const db = require("./config").db;
 const cdb = require("./config").cdb;
 const ligaacbdb = require("./config").ligaacbdb;
+const tracking1db = require("./config").tracking1db;
 
 // ************************************************
 // NBA MODELS
@@ -67,6 +68,28 @@ const Players = db.define("player", {
   wsFourtyEight: { type: Sequelize.STRING, allowNull: true },
   bpm: { type: Sequelize.STRING, allowNull: true },
   salary: { type: Sequelize.STRING, allowNull: true }
+});
+
+const PostUp = tracking1db.define("postUp", {
+  name: { type: Sequelize.STRING, allowNull: false },
+  touches: { type: Sequelize.FLOAT, allowNull: true },
+  postUps: { type: Sequelize.FLOAT, allowNull: true },
+  fgm: { type: Sequelize.FLOAT, allowNull: true },
+  fga: { type: Sequelize.FLOAT, allowNull: true },
+  fgPct: { type: Sequelize.FLOAT, allowNull: true },
+  ftm: { type: Sequelize.FLOAT, allowNull: true },
+  fta: { type: Sequelize.FLOAT, allowNull: true },
+  ftPct: { type: Sequelize.FLOAT, allowNull: true },
+  pts: { type: Sequelize.FLOAT, allowNull: true },
+  ptsPct: { type: Sequelize.FLOAT, allowNull: true },
+  pass: { type: Sequelize.FLOAT, allowNull: true },
+  passPct: { type: Sequelize.FLOAT, allowNull: true },
+  ast: { type: Sequelize.FLOAT, allowNull: true },
+  astPct: { type: Sequelize.FLOAT, allowNull: true },
+  tov: { type: Sequelize.FLOAT, allowNull: true },
+  tovPct: { type: Sequelize.FLOAT, allowNull: true },
+  pf: { type: Sequelize.FLOAT, allowNull: true },
+  pfPct: { type: Sequelize.FLOAT, allowNull: true }
 });
 
 const Teams = db.define("team", {
@@ -430,11 +453,17 @@ cTeams.sync();
 ligaacbPlayers.sync();
 ligaacbTeams.sync();
 
+PostUp.sync();
+// PostUp.sync({ force: true }).then(() => {
+//   return PostUp.bulkCreate([{ name: "Michael Griffin" }]);
+// });
+
 module.exports = {
   Players,
   Teams,
   cPlayers,
   cTeams,
   ligaacbPlayers,
-  ligaacbTeams
+  ligaacbTeams,
+  PostUp
 };

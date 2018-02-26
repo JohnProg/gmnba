@@ -22,6 +22,7 @@ router.put("/updateCollegePlayers", controller.updateCollegePlayers);
 router.get("/renderPlayerProfile", controller.renderPlayerProfile);
 router.get("/renderTeamProfile", controller.renderTeamProfile);
 router.get("/getPlayerProfile/:id", controller.getPlayerProfile);
+router.get("/getPostStats/:name", controller.getPostStats);
 router.get("/getTeamProfile/:id", controller.getTeamProfile);
 router.put("/loadTeamLogoColor", controller.loadTeamLogoColor);
 router.get("/getTeamColors/:team", controller.getTeamColors);
@@ -36,6 +37,7 @@ router.get("/getcPlayerStats", controller.getcPlayerStats);
 router.get("/getcPositionStats", controller.getcPositionStats);
 router.get("/getAllNbaPlayers", controller.getAllNbaPlayers);
 router.get("/getAllCollegePlayers", controller.getAllCollegePlayers);
+router.post("/createPostStats", controller.createPostStats);
 
 router.get("/nbaPlayersList", controller.nbaPlayersList);
 router.get("/collegePlayersList", controller.collegePlayersList);

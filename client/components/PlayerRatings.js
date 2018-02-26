@@ -24,6 +24,7 @@ import PlayerOffBarRatings from "./PlayerOffBarRatings";
 import PlayerAdvOffBarRatings from "./PlayerAdvOffBarRatings";
 import PlayerDefBarRatings from "./PlayerDefBarRatings";
 import PlayerOvrBarRatings from "./PlayerOvrBarRatings";
+import PlayerPolColPostUp from "./PlayerPolColPostUp";
 import axios from "axios";
 
 export default class PlayerRatings extends React.Component {
@@ -76,6 +77,8 @@ export default class PlayerRatings extends React.Component {
       return <PlayerPolColOff player={this.props.player} />;
     } else if (this.state.statCat === "Advanced Offense") {
       return <PlayerPolColAdvOff player={this.props.player} />;
+    } else if (this.state.statCat === "Tracking - Post Ups") {
+      return <PlayerPolColPostUp player={this.props.postStats} />;
     } else if (this.state.statCat === "Defense") {
       return <PlayerPolColDef player={this.props.player} />;
     } else if (this.state.statCat === "Overall") {
@@ -131,8 +134,9 @@ export default class PlayerRatings extends React.Component {
                   <MenuItem eventKey="1">Basic</MenuItem>
                   <MenuItem eventKey="2">Offense</MenuItem>
                   <MenuItem eventKey="3">Advanced Offense</MenuItem>
-                  <MenuItem eventKey="3">Defense</MenuItem>
-                  <MenuItem eventKey="3">Overall</MenuItem>
+                  <MenuItem eventKey="4">Tracking - Post Ups</MenuItem>
+                  <MenuItem eventKey="5">Defense</MenuItem>
+                  <MenuItem eventKey="6">Overall</MenuItem>
                 </DropdownButton>
               </div>
             </Col>

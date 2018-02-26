@@ -54,6 +54,7 @@ export default class PlayerTabs extends React.Component {
           leagueStats={this.props.leagueStats}
           player={this.props.player}
           colors={this.props.colors}
+          postStats={this.props.postStats}
         />
       );
     if (this.state.key === 5)

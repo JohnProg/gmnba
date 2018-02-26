@@ -503,6 +503,44 @@ module.exports = {
         });
     }
   },
+  createPostStats: (req, res) => {
+    console.log("SAVING PLAYERS");
+    var playersArr = req.body.data;
+    //console.log("##########Players Array: \n", playersArr.length);
+    for (var i = 429; i < playersArr.length; i++) {
+      var player = playersArr[i];
+      db.PostUp
+        .findOrCreate({
+          where: {
+            name: player["Name"],
+            touches: player["touches"],
+            postUps: player["postUps"],
+            fgm: player["fgm"],
+            fga: player["fga"],
+            fgPct: player["fgPct"],
+            ftm: player["ftm"],
+            fta: player["fta"],
+            ftPct: player["ftPct"],
+            pts: player["pts"],
+            ptsPct: player["ptsPct"],
+            pass: player["pass"],
+            passPct: player["passPct"],
+            ast: player["ast"],
+            astPct: player["astPct"],
+            tov: player["tov"],
+            tovPct: player["tovPct"],
+            pf: player["pf"],
+            pfPct: player["pfPct"]
+          }
+        })
+        .then(data => {
+          console.log("Player added successfully");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
   updateCollegePlayers: (req, res) => {
     console.log("REQ\n", req.body.data);
     var players = req.body.data;
@@ -601,6 +639,18 @@ module.exports = {
       .findOne({
         where: { Name: req.params.team },
         attributes: ["Color_Main", "Color_Sec", "Color_Third", "Logo", "id"]
+      })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getPostStats: (req, res) => {
+    db.PostUp
+      .findOne({
+        where: { name: req.params.name }
       })
       .then(data => {
         res.send(data);
