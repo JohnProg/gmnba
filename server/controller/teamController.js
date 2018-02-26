@@ -541,6 +541,34 @@ module.exports = {
         });
     }
   },
+  createCatchShootStats: (req, res) => {
+    console.log("SAVING PLAYERS");
+    var playersArr = req.body.data;
+    //console.log("##########Players Array: \n", playersArr.length);
+    for (var i = 500; i < playersArr.length; i++) {
+      var player = playersArr[i];
+      db.CatchShoot
+        .findOrCreate({
+          where: {
+            name: player["Name"],
+            pts: player["pts"],
+            efgPct: player["efg"],
+            fgm: player["fgm"],
+            fga: player["fga"],
+            fgPct: player["fgPct"],
+            threePt: player["3pm"],
+            threePtAtt: player["3pa"],
+            threePtPct: player["threePct"]
+          }
+        })
+        .then(data => {
+          console.log("Player added successfully");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
   updateCollegePlayers: (req, res) => {
     console.log("REQ\n", req.body.data);
     var players = req.body.data;
@@ -649,6 +677,18 @@ module.exports = {
   },
   getPostStats: (req, res) => {
     db.PostUp
+      .findOne({
+        where: { name: req.params.name }
+      })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getCatchShootStats: (req, res) => {
+    db.CatchShoot
       .findOne({
         where: { name: req.params.name }
       })

@@ -41,6 +41,7 @@ class PlayerInfo extends React.Component {
     this.getDefenseRating = this.getDefenseRating.bind(this);
     this.calculateStars = this.calculateStars.bind(this);
     this.getPostStats = this.getPostStats.bind(this);
+    this.getCatchShootStats = this.getCatchShootStats.bind(this);
   }
 
   componentDidMount() {
@@ -72,6 +73,14 @@ class PlayerInfo extends React.Component {
     });
   }
 
+  getCatchShootStats(name) {
+    axios.get(`/api/teams/getCatchShootStats/${name}`).then(data => {
+      this.setState({ catchShootStats: data.data }, () => {
+        console.log("Catch shoot STATS: ", this.state.catchShootStats);
+      });
+    });
+  }
+
   getLeagueStats() {
     axios
       .get("/api/teams/getLeagueStats")
@@ -89,6 +98,7 @@ class PlayerInfo extends React.Component {
       .then(data => {
         this.getTeamColors(data.data.team);
         this.getPostStats(data.data.name);
+        this.getCatchShootStats(data.data.name);
         this.setState({ player: data.data }, () => {});
       })
       .catch(err => {
@@ -630,6 +640,7 @@ class PlayerInfo extends React.Component {
             player={this.state.player}
             colors={this.state.colors}
             postStats={this.state.postStats}
+            catchShootStats={this.state.catchShootStats}
           />
         </div>
       </div>

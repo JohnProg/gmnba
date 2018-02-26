@@ -24,7 +24,9 @@ import PlayerOffBarRatings from "./PlayerOffBarRatings";
 import PlayerAdvOffBarRatings from "./PlayerAdvOffBarRatings";
 import PlayerDefBarRatings from "./PlayerDefBarRatings";
 import PlayerOvrBarRatings from "./PlayerOvrBarRatings";
+import PlayerPostUpBarRatings from "./PlayerPostUpBarRatings";
 import PlayerPolColPostUp from "./PlayerPolColPostUp";
+import PlayerPolColCatchShoot from "./PlayerPolColCatchShoot";
 import axios from "axios";
 
 export default class PlayerRatings extends React.Component {
@@ -83,6 +85,8 @@ export default class PlayerRatings extends React.Component {
       return <PlayerPolColDef player={this.props.player} />;
     } else if (this.state.statCat === "Overall") {
       return <PlayerPolColOvr player={this.props.player} />;
+    } else if (this.state.statCat === "Tracking - Catch/Shoot") {
+      return <PlayerPolColCatchShoot player={this.props.catchShootStats} />;
     }
   }
 
@@ -93,6 +97,8 @@ export default class PlayerRatings extends React.Component {
       return <PlayerOffBarRatings player={this.props.player} />;
     } else if (this.state.statCat === "Advanced Offense") {
       return <PlayerAdvOffBarRatings player={this.props.player} />;
+    } else if (this.state.statCat === "Tracking - Post Ups") {
+      return <PlayerPostUpBarRatings player={this.props.postStats} />;
     } else if (this.state.statCat === "Defense") {
       return <PlayerDefBarRatings player={this.props.player} />;
     } else if (this.state.statCat === "Overall") {
@@ -134,9 +140,10 @@ export default class PlayerRatings extends React.Component {
                   <MenuItem eventKey="1">Basic</MenuItem>
                   <MenuItem eventKey="2">Offense</MenuItem>
                   <MenuItem eventKey="3">Advanced Offense</MenuItem>
-                  <MenuItem eventKey="4">Tracking - Post Ups</MenuItem>
-                  <MenuItem eventKey="5">Defense</MenuItem>
-                  <MenuItem eventKey="6">Overall</MenuItem>
+                  <MenuItem eventKey="4">Tracking - Catch/Shoot</MenuItem>
+                  <MenuItem eventKey="5">Tracking - Post Ups</MenuItem>
+                  <MenuItem eventKey="6">Defense</MenuItem>
+                  <MenuItem eventKey="7">Overall</MenuItem>
                 </DropdownButton>
               </div>
             </Col>

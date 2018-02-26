@@ -1,8 +1,8 @@
 import React from "react";
 
-export default class PlayerPolColPostUp extends React.Component {
-  constructor() {
-    super();
+export default class PlayerPostUpBarRatings extends React.Component {
+  constructor(props) {
+    super(props);
     this.createChart = this.createChart.bind(this);
     this.calculateGrades = this.calculateGrades.bind(this);
     this.getGrade = this.getGrade.bind(this);
@@ -29,9 +29,7 @@ export default class PlayerPolColPostUp extends React.Component {
   calculateGrades() {
     var highAst = 30;
     var highFg = 10;
-    var highFt = 5;
     var highPass = 0.5;
-    var highPf = 0.68;
     var highPostUps = 15;
     var highPts = 0.45;
     var highPtsPct = 0.7;
@@ -39,9 +37,7 @@ export default class PlayerPolColPostUp extends React.Component {
 
     var ast = this.getGrade(highAst, this.state.player.astPct, 0);
     var fg = this.getGrade(highFg, this.state.player.fgPct, 0);
-    var ft = this.getGrade(highFt, this.state.player.ftPct, 0);
     var pass = this.getGrade(highPass, this.state.player.passPct, 0);
-    var pf = this.getGrade(highPf, this.state.player.pfPct, 0);
     var postUps = this.getGrade(highPostUps, this.state.player.postUps, 0);
     var pts = this.getGrade(highPts, this.state.player.pts, 0);
     var ptsPct = this.getGrade(highPtsPct, this.state.player.ptsPct, 0);
@@ -50,9 +46,7 @@ export default class PlayerPolColPostUp extends React.Component {
       {
         ast: ast,
         fg: fg,
-        ft: ft,
         pass: pass,
-        pf: pf,
         postUps: postUps,
         pts: pts,
         ptsPct: ptsPct,
@@ -127,76 +121,73 @@ export default class PlayerPolColPostUp extends React.Component {
   }
 
   createChart() {
-    var chart = Highcharts.chart("container-column-post", {
+    var chart = Highcharts.chart("container-rating-post", {
       chart: {
-        polar: true,
-        type: "column"
+        type: "bar"
       },
-
       title: {
         text: null
       },
-
-      pane: {
-        startAngle: 0,
-        endAngle: 360
+      subtitle: {
+        text: null
       },
-
       xAxis: {
-        min: 0,
-        max: 360,
-        tickInterval: 45,
-        labels: {
-          enabled: false
+        categories: ["AST%", "FG", "PASS", "Post Ups", "PTS%", "PTS", "TOV%"],
+        title: {
+          text: null
         }
       },
-
+      yAxis: {
+        min: 18,
+        max: 80,
+        title: {
+          text: null,
+          align: "high"
+        },
+        labels: {
+          overflow: "justify",
+          enabled: false
+        },
+        gridLineWidth: 0,
+        minorGridLineWidth: 0
+      },
       tooltip: {
         headerFormat: "<b>{point.key}</b><br/>",
-        pointFormat: `<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>`
+        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>`
       },
-
-      yAxis: {
-        min: 0,
-        max: 60,
-        labels: {
-          enabled: false
-        }
-      },
-
       plotOptions: {
-        series: {
-          pointStart: 0,
-          pointInterval: 45,
+        bar: {
           dataLabels: {
-            useHTML: true,
-            enabled: true,
-            format:
-              '<span class="wheel-label" style="color: grey">{point.name}</span>',
-            style: {
-              fontSize: "12px"
-            }
-          }
-        },
-        column: {
-          pointPadding: 0,
-          groupPadding: 0,
-          events: {
-            legendItemClick: function() {
-              return false;
-            }
+            enabled: true
           },
-          borderWidth: 2
+          grouping: false
+        },
+        series: {
+          borderRadius: 10
         }
       },
-
+      credits: {
+        enabled: false
+      },
       legend: {
         enabled: false
       },
-
       series: [
         {
-          name: "Rating",
+          name: "Possible",
+          dataLabels: false,
+          data: [
+            { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" },
+            { y: 80, color: "#d8d8d8" }
+          ]
+        },
+        {
+          name: "Grade",
           data: [
             {
               y: this.state.ast.Grade,
@@ -211,22 +202,10 @@ export default class PlayerPolColPostUp extends React.Component {
               stat: this.state.player.fgPct
             },
             {
-              y: this.state.ft.Grade,
-              color: this.state.ft.Color,
-              name: "FT",
-              stat: this.state.player.ftPct
-            },
-            {
               y: this.state.pass.Grade,
               color: this.state.pass.Color,
               name: "Pass",
               stat: this.state.player.passPct
-            },
-            {
-              y: this.state.pf.Grade,
-              color: this.state.pf.Color,
-              name: "PF",
-              stat: (this.state.player.pfPct * 100).toFixed(1)
             },
             {
               y: this.state.postUps.Grade,
@@ -252,20 +231,23 @@ export default class PlayerPolColPostUp extends React.Component {
               name: "Tov%",
               stat: (this.state.player.tovPct * 100).toFixed(1)
             }
-          ],
-          pointPlacement: "on"
+          ]
         }
       ]
     });
   }
 
   render() {
-    console.log(this.props);
     return (
-      <div className="card">
+      <div>
         <div
-          id="container-column-post"
-          style={{ height: "400px", margin: "0 auto" }}
+          className="card"
+          id="container-rating-post"
+          style={{
+            height: "300px",
+            minWidth: "600px",
+            margin: "0 auto"
+          }}
         />
       </div>
     );

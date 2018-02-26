@@ -3,6 +3,7 @@ const db = require("./config").db;
 const cdb = require("./config").cdb;
 const ligaacbdb = require("./config").ligaacbdb;
 const tracking1db = require("./config").tracking1db;
+const tracking2db = require("./config").tracking2db;
 
 // ************************************************
 // NBA MODELS
@@ -90,6 +91,18 @@ const PostUp = tracking1db.define("postUp", {
   tovPct: { type: Sequelize.FLOAT, allowNull: true },
   pf: { type: Sequelize.FLOAT, allowNull: true },
   pfPct: { type: Sequelize.FLOAT, allowNull: true }
+});
+
+const CatchShoot = tracking2db.define("catchShoot", {
+  name: { type: Sequelize.STRING, allowNull: false },
+  pts: { type: Sequelize.FLOAT, allowNull: true },
+  fgm: { type: Sequelize.FLOAT, allowNull: true },
+  fga: { type: Sequelize.FLOAT, allowNull: true },
+  fgPct: { type: Sequelize.FLOAT, allowNull: true },
+  threePt: { type: Sequelize.FLOAT, allowNull: true },
+  threePtAtt: { type: Sequelize.FLOAT, allowNull: true },
+  threePtPct: { type: Sequelize.FLOAT, allowNull: true },
+  efgPct: { type: Sequelize.FLOAT, allowNull: true }
 });
 
 const Teams = db.define("team", {
@@ -458,6 +471,11 @@ PostUp.sync();
 //   return PostUp.bulkCreate([{ name: "Michael Griffin" }]);
 // });
 
+CatchShoot.sync();
+// CatchShoot.sync({ force: true }).then(() => {
+//   return CatchShoot.bulkCreate([{ name: "Michael Griffin" }]);
+// });
+
 module.exports = {
   Players,
   Teams,
@@ -465,5 +483,6 @@ module.exports = {
   cTeams,
   ligaacbPlayers,
   ligaacbTeams,
-  PostUp
+  PostUp,
+  CatchShoot
 };

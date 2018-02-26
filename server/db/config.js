@@ -42,6 +42,20 @@ const tracking1db = new Sequelize(
   }
 );
 
+const tracking2db = new Sequelize(
+  "postgres://egqmdmfe:Eu1ZB7Gu8rYvUHaDq7cIy9rRukJF_d1j@baasu.db.elephantsql.com:5432/egqmdmfe",
+  {
+    dialect: "postgres",
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 20000,
+      acquire: 20000,
+      evict: 20000
+    }
+  }
+);
+
 const ligaacbdb = new Sequelize(
   "postgres://duxdpgwx:fsdbfMAx6UIMhQJhlMHs-mqql6WCrX2o@baasu.db.elephantsql.com:5432/duxdpgwx",
   {
@@ -61,4 +75,4 @@ console.log("connected to remote db - College");
 console.log("connected to remote db - Tracking");
 console.log("connected to remote db - Liga-ACB");
 
-module.exports = { db, cdb, ligaacbdb, tracking1db };
+module.exports = { db, cdb, ligaacbdb, tracking1db, tracking2db };
