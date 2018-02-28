@@ -90834,7 +90834,6 @@ var CollegePlayerInfo = function (_React$Component) {
       var _this3 = this;
 
       _axios2.default.get("/api/teams/getCollegePlayerProfile/" + this.state.id).then(function (data) {
-        console.log(data.data);
         _this3.getTeamColors(data.data.team);
         _this3.setState({ player: data.data }, function () {});
       }).catch(function (err) {
@@ -90859,7 +90858,6 @@ var CollegePlayerInfo = function (_React$Component) {
         var obpm = parseFloat(this.state.player.obpm);
         var ows = parseFloat(this.state.player.ows);
         var offRating = obpm + ows;
-        console.log("OR: ", offRating);
         var stars = this.calculateStars(14.0, -5.0, offRating);
         if (stars === 5) {
           return _react2.default.createElement(
@@ -90978,7 +90976,6 @@ var CollegePlayerInfo = function (_React$Component) {
         var dbpm = parseFloat(this.state.player.dbpm);
         var dws = parseFloat(this.state.player.dws);
         var defRating = dbpm + dws;
-        console.log("DR: ", defRating);
         var stars = this.calculateStars(11.0, -3.0, defRating);
         if (stars === 5) {
           return _react2.default.createElement(
@@ -91099,7 +91096,6 @@ var CollegePlayerInfo = function (_React$Component) {
         var ws48 = parseFloat(this.state.player.wsFourtyEight) * 0.15;
         var ws = parseFloat(this.state.player.ws) * 0.15;
         var weightedOvr = per + bpm + ws48 + ws;
-        console.log("OVR: ", weightedOvr);
         var stars = this.calculateStars(18.0, 0, weightedOvr);
         if (stars === 5) {
           return _react2.default.createElement(
@@ -91790,26 +91786,24 @@ var CollegePlayerRatings = function (_React$Component) {
   _createClass(CollegePlayerRatings, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      // axios
-      //   .put("/api/teams/loadTeamLogoColor")
-      //   .then(data => {
-      //     console.log("Team updated successfully");
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
-    }
-  }, {
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
       var _this2 = this;
 
-      if (nextProps.player.name) {
-        this.setState({ player: nextProps.player }, function () {
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
           _this2.getPositionStats(_this2.state.player.position);
           //this.createChart();
         });
       }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // if (nextProps.player.name) {
+      //   this.setState({ player: nextProps.player }, () => {
+      //     this.getPositionStats(this.state.player.position);
+      //     //this.createChart();
+      //   });
+      // }
     }
   }, {
     key: "getPositionStats",
@@ -92287,15 +92281,24 @@ var PlayerPolarColumn = function (_React$Component) {
 
   _createClass(PlayerPolarColumn, [{
     key: "componentDidMount",
-    value: function componentDidMount() {}
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
+          _this2.calculateGrades();
+          //this.createChart();
+        });
+      }
+    }
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      var _this2 = this;
+      var _this3 = this;
 
       if (nextProps.player.name) {
         this.setState({ player: nextProps.player }, function () {
-          _this2.calculateGrades();
+          _this3.calculateGrades();
           //this.createChart();
         });
       }
@@ -92303,7 +92306,7 @@ var PlayerPolarColumn = function (_React$Component) {
   }, {
     key: "calculateGrades",
     value: function calculateGrades() {
-      var _this3 = this;
+      var _this4 = this;
 
       var highPoints = 30;
       var highAst = 10;
@@ -92332,7 +92335,7 @@ var PlayerPolarColumn = function (_React$Component) {
         threePoint: threePoint,
         twoPoint: twoPoint
       }, function () {
-        _this3.createChart();
+        _this4.createChart();
       });
     }
   }, {
@@ -92534,7 +92537,6 @@ var PlayerPolarColumn = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props);
       return _react2.default.createElement(
         "div",
         { className: "card" },

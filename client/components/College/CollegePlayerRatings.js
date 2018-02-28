@@ -40,23 +40,21 @@ export default class CollegePlayerRatings extends React.Component {
   }
 
   componentDidMount() {
-    // axios
-    //   .put("/api/teams/loadTeamLogoColor")
-    //   .then(data => {
-    //     console.log("Team updated successfully");
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.player.name) {
-      this.setState({ player: nextProps.player }, () => {
+    if (this.props.player.name) {
+      this.setState({ player: this.props.player }, () => {
         this.getPositionStats(this.state.player.position);
         //this.createChart();
       });
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // if (nextProps.player.name) {
+    //   this.setState({ player: nextProps.player }, () => {
+    //     this.getPositionStats(this.state.player.position);
+    //     //this.createChart();
+    //   });
+    // }
   }
 
   getPositionStats(position) {
