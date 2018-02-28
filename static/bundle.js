@@ -17299,7 +17299,6 @@ var PlayerRankGuages = function (_React$Component) {
           gauge2Rank: gauge2Rank,
           gauge3Rank: gauge3Rank
         }, function () {
-          console.log(_this2.state);
           _this2.createChart();
         });
       }
@@ -69188,6 +69187,7 @@ var PlayerInfo = function (_React$Component) {
     _this.calculateStars = _this.calculateStars.bind(_this);
     _this.getPostStats = _this.getPostStats.bind(_this);
     _this.getCatchShootStats = _this.getCatchShootStats.bind(_this);
+    _this.getShootingStats = _this.getShootingStats.bind(_this);
     return _this;
   }
 
@@ -69219,9 +69219,7 @@ var PlayerInfo = function (_React$Component) {
       var _this3 = this;
 
       _axios2.default.get("/api/teams/getPostStats/" + name).then(function (data) {
-        _this3.setState({ postStats: data.data }, function () {
-          console.log("POST STATS: ", _this3.state.postStats);
-        });
+        _this3.setState({ postStats: data.data });
       });
     }
   }, {
@@ -69230,18 +69228,25 @@ var PlayerInfo = function (_React$Component) {
       var _this4 = this;
 
       _axios2.default.get("/api/teams/getCatchShootStats/" + name).then(function (data) {
-        _this4.setState({ catchShootStats: data.data }, function () {
-          console.log("Catch shoot STATS: ", _this4.state.catchShootStats);
-        });
+        _this4.setState({ catchShootStats: data.data });
+      });
+    }
+  }, {
+    key: "getShootingStats",
+    value: function getShootingStats(name) {
+      var _this5 = this;
+
+      _axios2.default.get("/api/teams/getShootingStats/" + name).then(function (data) {
+        _this5.setState({ shootingStats: data.data });
       });
     }
   }, {
     key: "getLeagueStats",
     value: function getLeagueStats() {
-      var _this5 = this;
+      var _this6 = this;
 
       _axios2.default.get("/api/teams/getLeagueStats").then(function (data) {
-        _this5.setState({ leagueStats: data.data });
+        _this6.setState({ leagueStats: data.data });
       }).catch(function (err) {
         console.log(err);
       });
@@ -69249,13 +69254,14 @@ var PlayerInfo = function (_React$Component) {
   }, {
     key: "getPlayer",
     value: function getPlayer() {
-      var _this6 = this;
+      var _this7 = this;
 
       _axios2.default.get("/api/teams/getPlayerProfile/" + this.state.id).then(function (data) {
-        _this6.getTeamColors(data.data.team);
-        _this6.getPostStats(data.data.name);
-        _this6.getCatchShootStats(data.data.name);
-        _this6.setState({ player: data.data }, function () {});
+        _this7.getTeamColors(data.data.team);
+        _this7.getPostStats(data.data.name);
+        _this7.getCatchShootStats(data.data.name);
+        _this7.getShootingStats(data.data.name);
+        _this7.setState({ player: data.data }, function () {});
       }).catch(function (err) {
         console.log(err);
       });
@@ -69263,12 +69269,10 @@ var PlayerInfo = function (_React$Component) {
   }, {
     key: "getTeamColors",
     value: function getTeamColors(team) {
-      var _this7 = this;
+      var _this8 = this;
 
       _axios2.default.get("api/teams/getTeamColors/" + team).then(function (data) {
-        _this7.setState({ colors: data.data }, function () {
-          console.log(_this7.state.colors);
-        });
+        _this8.setState({ colors: data.data });
       }).catch(function (err) {
         console.log(err);
       });
@@ -69398,7 +69402,6 @@ var PlayerInfo = function (_React$Component) {
         var dbpm = parseFloat(this.state.player.dbpm);
         var dws = parseFloat(this.state.player.dws);
         var defRating = dbpm + dws;
-        console.log(defRating);
         var stars = this.calculateStars(5.0, -4.0, defRating);
         if (stars === 5) {
           return _react2.default.createElement(
@@ -69927,7 +69930,8 @@ var PlayerInfo = function (_React$Component) {
             player: this.state.player,
             colors: this.state.colors,
             postStats: this.state.postStats,
-            catchShootStats: this.state.catchShootStats
+            catchShootStats: this.state.catchShootStats,
+            shootingStats: this.state.shootingStats
           })
         )
       );
@@ -70046,7 +70050,8 @@ var PlayerTabs = function (_React$Component) {
         player: this.props.player,
         colors: this.props.colors,
         postStats: this.props.postStats,
-        catchShootStats: this.props.catchShootStats
+        catchShootStats: this.props.catchShootStats,
+        shootingStats: this.props.shootingStats
       });
       if (this.state.key === 5) component = _react2.default.createElement(_PlayerComparison2.default, {
         player: this.props.player,
@@ -70223,6 +70228,14 @@ var _PlayerPolColCatchShoot = __webpack_require__(559);
 
 var _PlayerPolColCatchShoot2 = _interopRequireDefault(_PlayerPolColCatchShoot);
 
+var _PlayerCatchShootBarRatings = __webpack_require__(560);
+
+var _PlayerCatchShootBarRatings2 = _interopRequireDefault(_PlayerCatchShootBarRatings);
+
+var _PlayerPolColShooting = __webpack_require__(561);
+
+var _PlayerPolColShooting2 = _interopRequireDefault(_PlayerPolColShooting);
+
 var _axios = __webpack_require__(14);
 
 var _axios2 = _interopRequireDefault(_axios);
@@ -70256,18 +70269,25 @@ var PlayerRatings = function (_React$Component) {
 
   _createClass(PlayerRatings, [{
     key: "componentDidMount",
-    value: function componentDidMount() {}
-  }, {
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
+    value: function componentDidMount() {
       var _this2 = this;
 
-      if (nextProps.player.name) {
-        this.setState({ player: nextProps.player }, function () {
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
           _this2.getPositionStats(_this2.state.player.position);
           //this.createChart();
         });
       }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // if (nextProps.player.name) {
+      //   this.setState({ player: nextProps.player }, () => {
+      //     this.getPositionStats(this.state.player.position);
+      //     //this.createChart();
+      //   });
+      // }
     }
   }, {
     key: "getPositionStats",
@@ -70306,6 +70326,8 @@ var PlayerRatings = function (_React$Component) {
         return _react2.default.createElement(_PlayerPolColOvr2.default, { player: this.props.player });
       } else if (this.state.statCat === "Tracking - Catch/Shoot") {
         return _react2.default.createElement(_PlayerPolColCatchShoot2.default, { player: this.props.catchShootStats });
+      } else if (this.state.statCat === "Tracking - Shooting Efficiency") {
+        return _react2.default.createElement(_PlayerPolColShooting2.default, { player: this.props.shootingStats });
       }
     }
   }, {
@@ -70323,6 +70345,8 @@ var PlayerRatings = function (_React$Component) {
         return _react2.default.createElement(_PlayerDefBarRatings2.default, { player: this.props.player });
       } else if (this.state.statCat === "Overall") {
         return _react2.default.createElement(_PlayerOvrBarRatings2.default, { player: this.props.player });
+      } else if (this.state.statCat === "Tracking - Catch/Shoot") {
+        return _react2.default.createElement(_PlayerCatchShootBarRatings2.default, { player: this.props.catchShootStats });
       }
     }
   }, {
@@ -70391,21 +70415,26 @@ var PlayerRatings = function (_React$Component) {
                   _react2.default.createElement(
                     _reactBootstrap.MenuItem,
                     { eventKey: "4" },
-                    "Tracking - Catch/Shoot"
+                    "Tracking - Shooting Efficiency"
                   ),
                   _react2.default.createElement(
                     _reactBootstrap.MenuItem,
                     { eventKey: "5" },
-                    "Tracking - Post Ups"
+                    "Tracking - Catch/Shoot"
                   ),
                   _react2.default.createElement(
                     _reactBootstrap.MenuItem,
                     { eventKey: "6" },
-                    "Defense"
+                    "Tracking - Post Ups"
                   ),
                   _react2.default.createElement(
                     _reactBootstrap.MenuItem,
                     { eventKey: "7" },
+                    "Defense"
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.MenuItem,
+                    { eventKey: "8" },
                     "Overall"
                   )
                 )
@@ -70761,15 +70790,24 @@ var PlayerPolarColumn = function (_React$Component) {
 
   _createClass(PlayerPolarColumn, [{
     key: "componentDidMount",
-    value: function componentDidMount() {}
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
+          _this2.calculateGrades();
+          //this.createChart();
+        });
+      }
+    }
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      var _this2 = this;
+      var _this3 = this;
 
       if (nextProps.player.name) {
         this.setState({ player: nextProps.player }, function () {
-          _this2.calculateGrades();
+          _this3.calculateGrades();
           //this.createChart();
         });
       }
@@ -70777,7 +70815,7 @@ var PlayerPolarColumn = function (_React$Component) {
   }, {
     key: "calculateGrades",
     value: function calculateGrades() {
-      var _this3 = this;
+      var _this4 = this;
 
       var highPoints = 30;
       var highAst = 10;
@@ -70806,7 +70844,7 @@ var PlayerPolarColumn = function (_React$Component) {
         threePoint: threePoint,
         twoPoint: twoPoint
       }, function () {
-        _this3.createChart();
+        _this4.createChart();
       });
     }
   }, {
@@ -71008,7 +71046,6 @@ var PlayerPolarColumn = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props);
       return _react2.default.createElement(
         "div",
         { className: "card" },
@@ -107795,6 +107832,588 @@ var PlayerPolColCatchShoot = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = PlayerPolColCatchShoot;
+
+/***/ }),
+/* 560 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlayerCatchShootBarRatings = function (_React$Component) {
+  _inherits(PlayerCatchShootBarRatings, _React$Component);
+
+  function PlayerCatchShootBarRatings(props) {
+    _classCallCheck(this, PlayerCatchShootBarRatings);
+
+    var _this = _possibleConstructorReturn(this, (PlayerCatchShootBarRatings.__proto__ || Object.getPrototypeOf(PlayerCatchShootBarRatings)).call(this, props));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(PlayerCatchShootBarRatings, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
+          _this2.calculateGrades();
+          //this.createChart();
+        });
+      }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // if (nextProps.player.name) {
+      //   this.setState({ player: nextProps.player }, () => {
+      //     this.calculateGrades();
+      //     //this.createChart();
+      //   });
+      // }
+    }
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highFgPct = 30;
+      var highFgAtt = 10;
+      var highPts = 5;
+      var highThreeAtt = 0.5;
+      var highThreePct = 0.68;
+      var highEfg = 15;
+
+      var fgPct = this.getGrade(highFgPct, this.state.player.fgPct, 0);
+      var fga = this.getGrade(highFgAtt, this.state.player.fga, 0);
+      var pts = this.getGrade(highPts, this.state.player.pts, 0);
+      var threeAtt = this.getGrade(highThreeAtt, this.state.player.threePtAtt, 0);
+      var threePct = this.getGrade(highThreePct, this.state.player.threePtPct, 0);
+      var efg = this.getGrade(highEfg, this.state.player.efgPct, 0);
+      this.setState({
+        fgPct: fgPct,
+        fga: fga,
+        pts: pts,
+        threeAtt: threeAtt,
+        threePct: threePct,
+        efg: efg
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-rating-catch", {
+        chart: {
+          type: "bar"
+        },
+        title: {
+          text: null
+        },
+        subtitle: {
+          text: null
+        },
+        xAxis: {
+          categories: ["FG%", "FGA", "PTS", "3P%", "3PA", "eFG%"],
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 18,
+          max: 80,
+          title: {
+            text: null,
+            align: "high"
+          },
+          labels: {
+            overflow: "justify",
+            enabled: false
+          },
+          gridLineWidth: 0,
+          minorGridLineWidth: 0
+        },
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>"
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            },
+            grouping: false
+          },
+          series: {
+            borderRadius: 10
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: "Possible",
+          dataLabels: false,
+          data: [{ y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }, { y: 80, color: "#d8d8d8" }]
+        }, {
+          name: "Grade",
+          data: [{
+            y: this.state.fgPct.Grade,
+            color: this.state.fgPct.Color,
+            name: "FG%",
+            stat: (this.state.player.fgPct * 100).toFixed(1)
+          }, {
+            y: this.state.fga.Grade,
+            color: this.state.fga.Color,
+            name: "FGA",
+            stat: this.state.player.fga
+          }, {
+            y: this.state.pts.Grade,
+            color: this.state.pts.Color,
+            name: "PTS",
+            stat: this.state.player.pts
+          }, {
+            y: this.state.threePct.Grade,
+            color: this.state.threePct.Color,
+            name: "3P%",
+            stat: (this.state.player.threePtPct * 100).toFixed(1)
+          }, {
+            y: this.state.threeAtt.Grade,
+            color: this.state.threeAtt.Color,
+            name: "3PA",
+            stat: this.state.player.threePtAtt
+          }, {
+            y: this.state.efg.Grade,
+            color: this.state.efg.Color,
+            name: "eFG%",
+            stat: (this.state.player.efgPct * 100).toFixed(1)
+          }]
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", {
+          className: "card",
+          id: "container-rating-catch",
+          style: {
+            height: "275px",
+            minWidth: "600px",
+            margin: "0 auto"
+          }
+        })
+      );
+    }
+  }]);
+
+  return PlayerCatchShootBarRatings;
+}(_react2.default.Component);
+
+exports.default = PlayerCatchShootBarRatings;
+
+/***/ }),
+/* 561 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlayerPolColShooting = function (_React$Component) {
+  _inherits(PlayerPolColShooting, _React$Component);
+
+  function PlayerPolColShooting() {
+    _classCallCheck(this, PlayerPolColShooting);
+
+    var _this = _possibleConstructorReturn(this, (PlayerPolColShooting.__proto__ || Object.getPrototypeOf(PlayerPolColShooting)).call(this));
+
+    _this.createChart = _this.createChart.bind(_this);
+    _this.calculateGrades = _this.calculateGrades.bind(_this);
+    _this.getGrade = _this.getGrade.bind(_this);
+    return _this;
+  }
+
+  _createClass(PlayerPolColShooting, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.player.name) {
+        this.setState({ player: this.props.player }, function () {
+          _this2.calculateGrades();
+          //this.createChart();
+        });
+      }
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      // if (nextProps.player.name) {
+      //   this.setState({ player: nextProps.player }, () => {
+      //     this.calculateGrades();
+      //     //this.createChart();
+      //   });
+      // }
+    }
+  }, {
+    key: "calculateGrades",
+    value: function calculateGrades() {
+      var _this3 = this;
+
+      var highDrPts = 30;
+      var highDrPct = 10;
+      var highCatchPts = 5;
+      var highCatchPct = 0.5;
+      var highPullPts = 0.68;
+      var highPullPct = 15;
+      var highPaintPct = 0.45;
+      var highPostPct = 0.7;
+      var highElbowPct = 12.0;
+      var highEfgPct = 12.0;
+
+      var drPts = this.getGrade(highDrPts, this.state.player.drPts, 0);
+      var drPct = this.getGrade(highDrPct, this.state.player.drPct, 0);
+      var catchPts = this.getGrade(highCatchPts, this.state.player.catchPtsPct, 0);
+      var catchPct = this.getGrade(highCatchPct, this.state.player.catchPct, 0);
+      var pullPts = this.getGrade(highPullPts, this.state.player.pullPts, 0);
+      var pullPct = this.getGrade(highPullPct, this.state.player.pullPct, 0);
+      var paintPct = this.getGrade(highPaintPct, this.state.player.paintPct, 0);
+      var postPct = this.getGrade(highPostPct, this.state.player.postPct, 0);
+      var elbowPct = this.getGrade(highElbowPct, this.state.player.elbowPct, 0);
+      var efgPct = this.getGrade(highEfgPct, this.state.player.efgPct, 0);
+      this.setState({
+        drPts: drPts,
+        drPct: drPct,
+        catchPts: catchPts,
+        catchPct: catchPct,
+        pullPts: pullPts,
+        pullPct: pullPct,
+        paintPct: paintPct,
+        postPct: postPct,
+        elbowPct: elbowPct,
+        efgPct: efgPct
+      }, function () {
+        _this3.createChart();
+      });
+    }
+  }, {
+    key: "getGrade",
+    value: function getGrade(high, actual, min) {
+      var playerGrade = {};
+      var gradeSlots = 13;
+      var adjusted = high - min;
+      var gradeScale = adjusted / gradeSlots;
+
+      var eighty = high - gradeScale;
+      var sevenFive = eighty - gradeScale;
+      var seventy = sevenFive - gradeScale;
+      var sixFive = seventy - gradeScale;
+      var sixty = sixFive - gradeScale;
+      var fiveFive = sixty - gradeScale;
+      var fifty = fiveFive - gradeScale;
+      var fourFive = fifty - gradeScale;
+      var fourty = fourFive - gradeScale;
+      var threeFive = fourty - gradeScale;
+      var thirty = threeFive - gradeScale;
+      var twoFive = thirty - gradeScale;
+
+      if (actual >= eighty) {
+        playerGrade["Grade"] = 80;
+        playerGrade["Color"] = "#1abded";
+      } else if (actual >= sevenFive) {
+        playerGrade["Grade"] = 75;
+        playerGrade["Color"] = "#00a3c4";
+      } else if (actual >= seventy) {
+        playerGrade["Grade"] = 70;
+        playerGrade["Color"] = "#00c7a2";
+      } else if (actual >= sixFive) {
+        playerGrade["Grade"] = 65;
+        playerGrade["Color"] = "#56ce00";
+      } else if (actual >= sixty) {
+        playerGrade["Grade"] = 60;
+        playerGrade["Color"] = "#b4d800";
+      } else if (actual >= fiveFive) {
+        playerGrade["Grade"] = 55;
+        playerGrade["Color"] = "#b3d800";
+      } else if (actual >= fifty) {
+        playerGrade["Grade"] = 50;
+        playerGrade["Color"] = "#ffdc00";
+      } else if (actual >= fourFive) {
+        playerGrade["Grade"] = 45;
+        playerGrade["Color"] = "#fac600";
+      } else if (actual >= fourty) {
+        playerGrade["Grade"] = 40;
+        playerGrade["Color"] = "#f0780d";
+      } else if (actual >= threeFive) {
+        playerGrade["Grade"] = 35;
+        playerGrade["Color"] = "#f53300";
+      } else if (actual >= thirty) {
+        playerGrade["Grade"] = 30;
+        playerGrade["Color"] = "#da000b";
+      } else if (actual >= twoFive) {
+        playerGrade["Grade"] = 25;
+        playerGrade["Color"] = "#da000c";
+      } else {
+        playerGrade["Grade"] = 20;
+        playerGrade["Color"] = "#b8000b";
+      }
+      return playerGrade;
+    }
+  }, {
+    key: "createChart",
+    value: function createChart() {
+      var chart = Highcharts.chart("container-column-shooting", {
+        chart: {
+          polar: true,
+          type: "column"
+        },
+
+        title: {
+          text: null
+        },
+
+        pane: {
+          startAngle: 0,
+          endAngle: 360
+        },
+
+        xAxis: {
+          min: 0,
+          max: 360,
+          tickInterval: 36,
+          labels: {
+            enabled: false
+          }
+        },
+
+        tooltip: {
+          headerFormat: "<b>{point.key}</b><br/>",
+          pointFormat: "<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>"
+        },
+
+        yAxis: {
+          min: 0,
+          max: 60,
+          labels: {
+            enabled: false
+          }
+        },
+
+        plotOptions: {
+          series: {
+            pointStart: 0,
+            pointInterval: 36,
+            dataLabels: {
+              useHTML: true,
+              enabled: true,
+              format: '<span class="wheel-label" style="color: grey">{point.name}</span>',
+              style: {
+                fontSize: "12px"
+              }
+            }
+          },
+          column: {
+            pointPadding: 0,
+            groupPadding: 0,
+            events: {
+              legendItemClick: function legendItemClick() {
+                return false;
+              }
+            },
+            borderWidth: 2
+          }
+        },
+
+        legend: {
+          enabled: false
+        },
+
+        series: [{
+          name: "Rating",
+          data: [{
+            y: this.state.drPts.Grade,
+            color: this.state.drPts.Color,
+            name: "Drive Pts",
+            stat: this.state.player.drPts
+          }, {
+            y: this.state.drPct.Grade,
+            color: this.state.drPct.Color,
+            name: "Drive FG%",
+            stat: (this.state.player.drPct * 100).toFixed(1)
+          }, {
+            y: this.state.catchPts.Grade,
+            color: this.state.catchPts.Color,
+            name: "Catch/Shoot Pts",
+            stat: this.state.player.catchPts
+          }, {
+            y: this.state.catchPct.Grade,
+            color: this.state.catchPct.Color,
+            name: "Catch/Shoot FG%",
+            stat: (this.state.player.catchPct * 100).toFixed(1)
+          }, {
+            y: this.state.pullPts.Grade,
+            color: this.state.pullPts.Color,
+            name: "Pull Up Pts",
+            stat: this.state.player.pullPts
+          }, {
+            y: this.state.pullPct.Grade,
+            color: this.state.pullPct.Color,
+            name: "Pull Up FG%",
+            stat: (this.state.player.pullPct * 100).toFixed(1)
+          }, {
+            y: this.state.paintPct.Grade,
+            color: this.state.paintPct.Color,
+            name: "Paint FG%",
+            stat: (this.state.player.paintPct * 100).toFixed(1)
+          }, {
+            y: this.state.postPct.Grade,
+            color: this.state.postPct.Color,
+            name: "Post FG%",
+            stat: (this.state.player.postPct * 100).toFixed(1)
+          }, {
+            y: this.state.elbowPct.Grade,
+            color: this.state.elbowPct.Color,
+            name: "Elbow FG%",
+            stat: (this.state.player.elbowPct * 100).toFixed(1)
+          }, {
+            y: this.state.efgPct.Grade,
+            color: this.state.efgPct.Color,
+            name: "eFG%",
+            stat: (this.state.player.efgPct * 100).toFixed(1)
+          }],
+          pointPlacement: "on"
+        }]
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log(this.props);
+      return _react2.default.createElement(
+        "div",
+        { className: "card" },
+        _react2.default.createElement("div", {
+          id: "container-column-shooting",
+          style: { height: "400px", margin: "0 auto" }
+        })
+      );
+    }
+  }]);
+
+  return PlayerPolColShooting;
+}(_react2.default.Component);
+
+exports.default = PlayerPolColShooting;
 
 /***/ })
 /******/ ]);

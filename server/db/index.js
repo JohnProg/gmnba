@@ -4,6 +4,7 @@ const cdb = require("./config").cdb;
 const ligaacbdb = require("./config").ligaacbdb;
 const tracking1db = require("./config").tracking1db;
 const tracking2db = require("./config").tracking2db;
+const tracking3db = require("./config").tracking3db;
 
 // ************************************************
 // NBA MODELS
@@ -91,6 +92,23 @@ const PostUp = tracking1db.define("postUp", {
   tovPct: { type: Sequelize.FLOAT, allowNull: true },
   pf: { type: Sequelize.FLOAT, allowNull: true },
   pfPct: { type: Sequelize.FLOAT, allowNull: true }
+});
+
+const Shooting = tracking3db.define("shooting", {
+  name: { type: Sequelize.STRING, allowNull: false },
+  drPts: { type: Sequelize.FLOAT, allowNull: true },
+  drPct: { type: Sequelize.FLOAT, allowNull: true },
+  catchPts: { type: Sequelize.FLOAT, allowNull: true },
+  catchPct: { type: Sequelize.FLOAT, allowNull: true },
+  pullPts: { type: Sequelize.FLOAT, allowNull: true },
+  pullPct: { type: Sequelize.FLOAT, allowNull: true },
+  paintPts: { type: Sequelize.FLOAT, allowNull: true },
+  paintPct: { type: Sequelize.FLOAT, allowNull: true },
+  postPts: { type: Sequelize.FLOAT, allowNull: true },
+  postPct: { type: Sequelize.FLOAT, allowNull: true },
+  elbowPts: { type: Sequelize.FLOAT, allowNull: true },
+  elbowPct: { type: Sequelize.FLOAT, allowNull: true },
+  efgPct: { type: Sequelize.FLOAT, allowNull: true }
 });
 
 const CatchShoot = tracking2db.define("catchShoot", {
@@ -476,6 +494,11 @@ CatchShoot.sync();
 //   return CatchShoot.bulkCreate([{ name: "Michael Griffin" }]);
 // });
 
+Shooting.sync();
+// Shooting.sync({ force: true }).then(() => {
+//   return Shooting.bulkCreate([{ name: "Michael Griffin" }]);
+// });
+
 module.exports = {
   Players,
   Teams,
@@ -484,5 +507,6 @@ module.exports = {
   ligaacbPlayers,
   ligaacbTeams,
   PostUp,
-  CatchShoot
+  CatchShoot,
+  Shooting
 };

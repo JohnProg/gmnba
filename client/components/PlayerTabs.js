@@ -56,6 +56,7 @@ export default class PlayerTabs extends React.Component {
           colors={this.props.colors}
           postStats={this.props.postStats}
           catchShootStats={this.props.catchShootStats}
+          shootingStats={this.props.shootingStats}
         />
       );
     if (this.state.key === 5)

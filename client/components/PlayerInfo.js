@@ -42,6 +42,7 @@ class PlayerInfo extends React.Component {
     this.calculateStars = this.calculateStars.bind(this);
     this.getPostStats = this.getPostStats.bind(this);
     this.getCatchShootStats = this.getCatchShootStats.bind(this);
+    this.getShootingStats = this.getShootingStats.bind(this);
   }
 
   componentDidMount() {
@@ -67,17 +68,19 @@ class PlayerInfo extends React.Component {
 
   getPostStats(name) {
     axios.get(`/api/teams/getPostStats/${name}`).then(data => {
-      this.setState({ postStats: data.data }, () => {
-        console.log("POST STATS: ", this.state.postStats);
-      });
+      this.setState({ postStats: data.data });
     });
   }
 
   getCatchShootStats(name) {
     axios.get(`/api/teams/getCatchShootStats/${name}`).then(data => {
-      this.setState({ catchShootStats: data.data }, () => {
-        console.log("Catch shoot STATS: ", this.state.catchShootStats);
-      });
+      this.setState({ catchShootStats: data.data });
+    });
+  }
+
+  getShootingStats(name) {
+    axios.get(`/api/teams/getShootingStats/${name}`).then(data => {
+      this.setState({ shootingStats: data.data });
     });
   }
 
@@ -99,6 +102,7 @@ class PlayerInfo extends React.Component {
         this.getTeamColors(data.data.team);
         this.getPostStats(data.data.name);
         this.getCatchShootStats(data.data.name);
+        this.getShootingStats(data.data.name);
         this.setState({ player: data.data }, () => {});
       })
       .catch(err => {
@@ -110,9 +114,7 @@ class PlayerInfo extends React.Component {
     axios
       .get(`api/teams/getTeamColors/${team}`)
       .then(data => {
-        this.setState({ colors: data.data }, () => {
-          console.log(this.state.colors);
-        });
+        this.setState({ colors: data.data });
       })
       .catch(err => {
         console.log(err);
@@ -241,7 +243,6 @@ class PlayerInfo extends React.Component {
       var dbpm = parseFloat(this.state.player.dbpm);
       var dws = parseFloat(this.state.player.dws);
       var defRating = dbpm + dws;
-      console.log(defRating);
       var stars = this.calculateStars(5.0, -4.0, defRating);
       if (stars === 5) {
         return (
@@ -641,6 +642,7 @@ class PlayerInfo extends React.Component {
             colors={this.state.colors}
             postStats={this.state.postStats}
             catchShootStats={this.state.catchShootStats}
+            shootingStats={this.state.shootingStats}
           />
         </div>
       </div>

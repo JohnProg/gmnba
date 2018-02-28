@@ -408,7 +408,7 @@ module.exports = {
   updateCPlayerAdvancedStats: (req, res) => {
     console.log("REQ\n", req.body.data);
     var players = req.body.data;
-    for (var i = 0; i < players.length; i++) {
+    for (var i = 400; i < players.length; i++) {
       var player = players[i];
       db.cPlayers
         .update(
@@ -531,6 +531,39 @@ module.exports = {
             tovPct: player["tovPct"],
             pf: player["pf"],
             pfPct: player["pfPct"]
+          }
+        })
+        .then(data => {
+          console.log("Player added successfully");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+  createShootingStats: (req, res) => {
+    console.log("SAVING PLAYERS");
+    var playersArr = req.body.data;
+    //console.log("##########Players Array: \n", playersArr.length);
+    for (var i = 0; i < playersArr.length; i++) {
+      var player = playersArr[i];
+      db.Shooting
+        .findOrCreate({
+          where: {
+            name: player["Name"],
+            drPts: player["drPts"],
+            drPct: player["drPct"],
+            catchPts: player["catchPts"],
+            catchPct: player["catchPct"],
+            pullPts: player["pullPts"],
+            pullPct: player["pullPct"],
+            paintPts: player["paintPts"],
+            paintPct: player["paintPct"],
+            postPts: player["postPts"],
+            postPct: player["postPct"],
+            elbowPts: player["elbowPts"],
+            elbowPct: player["elbowPct"],
+            efgPct: player["efgPct"]
           }
         })
         .then(data => {
@@ -677,6 +710,18 @@ module.exports = {
   },
   getPostStats: (req, res) => {
     db.PostUp
+      .findOne({
+        where: { name: req.params.name }
+      })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getShootingStats: (req, res) => {
+    db.Shooting
       .findOne({
         where: { name: req.params.name }
       })

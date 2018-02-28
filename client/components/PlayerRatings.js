@@ -27,6 +27,8 @@ import PlayerOvrBarRatings from "./PlayerOvrBarRatings";
 import PlayerPostUpBarRatings from "./PlayerPostUpBarRatings";
 import PlayerPolColPostUp from "./PlayerPolColPostUp";
 import PlayerPolColCatchShoot from "./PlayerPolColCatchShoot";
+import PlayerCatchShootBarRatings from "./PlayerCatchShootBarRatings";
+import PlayerPolColShooting from "./PlayerPolColShooting";
 import axios from "axios";
 
 export default class PlayerRatings extends React.Component {
@@ -42,15 +44,22 @@ export default class PlayerRatings extends React.Component {
     this.renderBarChart = this.renderBarChart.bind(this);
   }
 
-  componentDidMount() {}
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.player.name) {
-      this.setState({ player: nextProps.player }, () => {
+  componentDidMount() {
+    if (this.props.player.name) {
+      this.setState({ player: this.props.player }, () => {
         this.getPositionStats(this.state.player.position);
         //this.createChart();
       });
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // if (nextProps.player.name) {
+    //   this.setState({ player: nextProps.player }, () => {
+    //     this.getPositionStats(this.state.player.position);
+    //     //this.createChart();
+    //   });
+    // }
   }
 
   getPositionStats(position) {
@@ -87,6 +96,8 @@ export default class PlayerRatings extends React.Component {
       return <PlayerPolColOvr player={this.props.player} />;
     } else if (this.state.statCat === "Tracking - Catch/Shoot") {
       return <PlayerPolColCatchShoot player={this.props.catchShootStats} />;
+    } else if (this.state.statCat === "Tracking - Shooting Efficiency") {
+      return <PlayerPolColShooting player={this.props.shootingStats} />;
     }
   }
 
@@ -103,6 +114,8 @@ export default class PlayerRatings extends React.Component {
       return <PlayerDefBarRatings player={this.props.player} />;
     } else if (this.state.statCat === "Overall") {
       return <PlayerOvrBarRatings player={this.props.player} />;
+    } else if (this.state.statCat === "Tracking - Catch/Shoot") {
+      return <PlayerCatchShootBarRatings player={this.props.catchShootStats} />;
     }
   }
 
@@ -140,10 +153,13 @@ export default class PlayerRatings extends React.Component {
                   <MenuItem eventKey="1">Basic</MenuItem>
                   <MenuItem eventKey="2">Offense</MenuItem>
                   <MenuItem eventKey="3">Advanced Offense</MenuItem>
-                  <MenuItem eventKey="4">Tracking - Catch/Shoot</MenuItem>
-                  <MenuItem eventKey="5">Tracking - Post Ups</MenuItem>
-                  <MenuItem eventKey="6">Defense</MenuItem>
-                  <MenuItem eventKey="7">Overall</MenuItem>
+                  <MenuItem eventKey="4">
+                    Tracking - Shooting Efficiency
+                  </MenuItem>
+                  <MenuItem eventKey="5">Tracking - Catch/Shoot</MenuItem>
+                  <MenuItem eventKey="6">Tracking - Post Ups</MenuItem>
+                  <MenuItem eventKey="7">Defense</MenuItem>
+                  <MenuItem eventKey="8">Overall</MenuItem>
                 </DropdownButton>
               </div>
             </Col>

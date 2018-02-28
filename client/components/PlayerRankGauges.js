@@ -46,7 +46,6 @@ export default class PlayerRankGuages extends React.Component {
           gauge3Rank: gauge3Rank
         },
         () => {
-          console.log(this.state);
           this.createChart();
         }
       );
