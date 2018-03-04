@@ -26,13 +26,13 @@ export default class CompPlayerOvrBarRating extends React.Component {
   // }
 
   calculateGrades() {
-    var highPER = 30.0;
-    var highBPM = 10.0;
-    var highVorp = 4.5;
-    var highWS = 8.0;
+    var highPER = 27.0;
+    var highBPM = 8.0;
+    var highVorp = 5.0;
+    var highWS = 9.0;
     var highWs48 = 0.3;
 
-    var per = this.getGrade(highPER, this.state.player.per, 4.0);
+    var per = this.getGrade(highPER, this.state.player.per, 5.0);
     var bpm = this.getGrade(highBPM, this.state.player.bpm, -7.0);
     var vorp = this.getGrade(highVorp, this.state.player.vorp, -1.0);
     var ws = this.getGrade(highWS, this.state.player.ws, -1.0);

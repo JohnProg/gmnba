@@ -27,15 +27,15 @@ export default class PlayerDefBarRatings extends React.Component {
   }
 
   calculateGrades() {
-    var highBlkPct = 8.0;
-    var highStlPct = 3.5;
-    var highDrbPct = 36;
-    var highDbpm = 5.5;
-    var highDws = 2.5;
-    var highDrb = 10;
-    var highStl = 2.25;
-    var highBlk = 2.2;
-    var highPf = 3.6;
+    var highBlkPct = 6.5;
+    var highStlPct = 3.0;
+    var highDrbPct = 36.0;
+    var highDbpm = 4.0;
+    var highDws = 3.3;
+    var highDrb = 11.0;
+    var highStl = 2.4;
+    var highBlk = 2.4;
+    var highPf = 0;
 
     var blkPct = this.getGrade(highBlkPct, this.state.player.blkPct, 0);
     var stlPct = this.getGrade(highStlPct, this.state.player.stlPct, 0);
@@ -59,8 +59,8 @@ export default class PlayerDefBarRatings extends React.Component {
     var dbpm = this.getGrade(highDbpm, this.state.player.dbpm, -4);
     var pf = this.getGrade(
       highPf,
-      this.state.player.pf / this.state.player.mpg * 36,
-      1
+      this.state.player.pf / this.state.player.mpg * 36 * -1,
+      -6.0
     );
     this.setState(
       {
@@ -68,8 +68,11 @@ export default class PlayerDefBarRatings extends React.Component {
         stlPct: stlPct,
         drbPct: drbPct,
         drb: drb,
+        stl: stl,
+        blk: blk,
         dbpm: dbpm,
-        dws: dws
+        dws: dws,
+        pf: pf
       },
       () => {
         this.createChart();

@@ -26,18 +26,18 @@ export default class CompPlayerDefBarRatings extends React.Component {
   // }
 
   calculateGrades() {
-    var highBlkPct = 6.1;
-    var highStlPct = 3.33;
-    var highDrbPct = 34.0;
+    var highBlkPct = 6.5;
+    var highStlPct = 3.0;
+    var highDrbPct = 36.0;
     var highTrbPct = 25.0;
-    var highDbpm = 4.5;
-    var highDws = 2.5;
+    var highDbpm = 4.0;
+    var highDws = 3.3;
 
     var blkPct = this.getGrade(highBlkPct, this.state.player.blkPct, 0);
     var stlPct = this.getGrade(highStlPct, this.state.player.stlPct, 0);
-    var drbPct = this.getGrade(highDrbPct, this.state.player.drbPct, 7.0);
+    var drbPct = this.getGrade(highDrbPct, this.state.player.drbPct, 5.0);
     var trbPct = this.getGrade(highTrbPct, this.state.player.trbPct, 2);
-    var dbpm = this.getGrade(highDbpm, this.state.player.dbpm, -4.5);
+    var dbpm = this.getGrade(highDbpm, this.state.player.dbpm, -4.0);
     var dws = this.getGrade(highDws, this.state.player.dws, 0);
     this.setState(
       {

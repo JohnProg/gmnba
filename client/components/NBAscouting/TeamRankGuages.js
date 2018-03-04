@@ -47,6 +47,8 @@ export default class TeamRankGuages extends React.Component {
           suffix = "st";
         } else if (rank === 2 || rank === 22) {
           suffix = "nd";
+        } else if (rank === 3 || rank === 23) {
+          suffix = "rd";
         } else {
           suffix = "th";
         }
@@ -121,7 +123,7 @@ export default class TeamRankGuages extends React.Component {
       Highcharts.merge(gaugeOptions, {
         yAxis: {
           min: 0,
-          max: 30,
+          max: this.state.league.length,
           title: {
             text: null
           }
@@ -157,7 +159,7 @@ export default class TeamRankGuages extends React.Component {
       Highcharts.merge(gaugeOptions, {
         yAxis: {
           min: 0,
-          max: 30,
+          max: this.state.league.length,
           title: {
             text: null
           }
@@ -193,7 +195,7 @@ export default class TeamRankGuages extends React.Component {
       Highcharts.merge(gaugeOptions, {
         yAxis: {
           min: 0,
-          max: 30,
+          max: this.state.league.length,
           title: {
             text: null
           }

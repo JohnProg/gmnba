@@ -126,10 +126,33 @@ export default class TeamRankGuages extends React.Component {
       for (var i = 0; i < ranked.length; i++) {
         if (ranked[i].Name === this.state.team.Name) {
           rank = i + 1;
-          if (rank === 1 || rank === 21) {
+          if (
+            rank === 1 ||
+            rank === 21 ||
+            rank === 31 ||
+            rank === 41 ||
+            rank === 51 ||
+            rank === 61
+          ) {
             suffix = "st";
-          } else if (rank === 2 || rank === 22) {
+          } else if (
+            rank === 2 ||
+            rank === 22 ||
+            rank === 32 ||
+            rank === 42 ||
+            rank === 52 ||
+            rank === 62
+          ) {
             suffix = "nd";
+          } else if (
+            rank === 3 ||
+            rank === 23 ||
+            rank === 33 ||
+            rank === 43 ||
+            rank === 53 ||
+            rank === 63
+          ) {
+            suffix = "rd";
           } else {
             suffix = "th";
           }

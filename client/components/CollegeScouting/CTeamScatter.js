@@ -234,7 +234,6 @@ export default class CTeamScatter extends React.Component {
                       >
                         <option>AST</option>
                         <option>PTS</option>
-                        <option>W</option>
                         <option>TRB</option>
                         <option>BLK</option>
                         <option>DRB</option>
@@ -244,8 +243,6 @@ export default class CTeamScatter extends React.Component {
                         <option>FTA</option>
                         <option>FTM</option>
                         <option>FT_PCT</option>
-                        <option>GP</option>
-                        <option>L</option>
                         <option>ORB</option>
                         <option>PF</option>
                         <option>STL</option>
@@ -271,7 +268,6 @@ export default class CTeamScatter extends React.Component {
                       >
                         <option>AST</option>
                         <option>PTS</option>
-                        <option>W</option>
                         <option>TRB</option>
                         <option>BLK</option>
                         <option>DRB</option>
@@ -281,8 +277,6 @@ export default class CTeamScatter extends React.Component {
                         <option>FTA</option>
                         <option>FTM</option>
                         <option>FT_PCT</option>
-                        <option>GP</option>
-                        <option>L</option>
                         <option>ORB</option>
                         <option>PF</option>
                         <option>STL</option>

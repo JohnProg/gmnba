@@ -27,40 +27,40 @@ export default class CollegePlayerPolColDef extends React.Component {
   }
 
   calculateGrades() {
-    var highBlkPct = 8.0;
-    var highStlPct = 3.5;
-    var highDrbPct = 36;
-    var highDbpm = 5.5;
+    var highBlkPct = 14.5;
+    var highStlPct = 4.0;
+    var highDrbPct = 27.0;
+    var highDbpm = 9.5;
     var highDws = 2.5;
-    var highDrb = 10;
-    var highStl = 2.25;
-    var highBlk = 2.2;
-    var highPf = 3.6;
+    var highDrb = 9.0;
+    var highStl = 2.6;
+    var highBlk = 4.0;
+    var highPf = -1.5;
 
     var blkPct = this.getGrade(highBlkPct, this.state.player.blkPct, 0);
-    var stlPct = this.getGrade(highStlPct, this.state.player.stlPct, 0);
-    var drbPct = this.getGrade(highDrbPct, this.state.player.drbPct, 5);
+    var stlPct = this.getGrade(highStlPct, this.state.player.stlPct, 0.5);
+    var drbPct = this.getGrade(highDrbPct, this.state.player.drbPct, 5.0);
     var dws = this.getGrade(highDws, this.state.player.dws, 0);
     var drb = this.getGrade(
       highDrb,
       this.state.player.drb / this.state.player.mpg * 36,
-      1
+      1.8
     );
     var stl = this.getGrade(
       highStl,
       this.state.player.stl / this.state.player.mpg * 36,
-      0
+      0.3
     );
     var blk = this.getGrade(
       highBlk,
       this.state.player.blk / this.state.player.mpg * 36,
       0
     );
-    var dbpm = this.getGrade(highDbpm, this.state.player.dbpm, -4);
+    var dbpm = this.getGrade(highDbpm, this.state.player.dbpm, -1);
     var pf = this.getGrade(
       highPf,
-      this.state.player.pf / this.state.player.mpg * 36,
-      1
+      this.state.player.pf / this.state.player.mpg * 36 * -1,
+      -6
     );
     this.setState(
       {
@@ -236,25 +236,41 @@ export default class CollegePlayerPolColDef extends React.Component {
               y: this.state.drb.Grade,
               color: this.state.drb.Color,
               name: "Drb",
-              stat: this.state.player.drb
+              stat: this.state.player.drb,
+              per32: (this.state.player.drb /
+                this.state.player.mpg *
+                32
+              ).toFixed(1)
             },
             {
               y: this.state.stl.Grade,
               color: this.state.stl.Color,
               name: "Stl",
-              stat: this.state.player.stl
+              stat: this.state.player.stl,
+              per32: (this.state.player.stl /
+                this.state.player.mpg *
+                32
+              ).toFixed(1)
             },
             {
               y: this.state.blk.Grade,
               color: this.state.blk.Color,
               name: "Blk",
-              stat: this.state.player.blk
+              stat: this.state.player.blk,
+              per32: (this.state.player.blk /
+                this.state.player.mpg *
+                32
+              ).toFixed(1)
             },
             {
               y: this.state.pf.Grade,
               color: this.state.pf.Color,
               name: "Pf",
-              stat: this.state.player.pf
+              stat: this.state.player.pf,
+              per32: (this.state.player.pf /
+                this.state.player.mpg *
+                32
+              ).toFixed(1)
             },
             {
               y: this.state.dbpm.Grade,

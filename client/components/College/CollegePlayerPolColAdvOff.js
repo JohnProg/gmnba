@@ -27,31 +27,31 @@ export default class CollegePlayerPolColAdvOff extends React.Component {
   }
 
   calculateGrades() {
-    var highAstPct = 45;
-    var highOrbPct = 16;
-    var highFg = 0.68;
-    var highTovPct = -5.0;
-    var highFtr = 0.61;
+    var highAstPct = 40.0;
+    var highOrbPct = 14.5;
+    var highFg = 0.62;
+    var highTovPct = -7.0;
+    var highFtr = 0.7;
     var highThreePar = 0.8;
     var highTsPct = 0.68;
-    var highUsgPct = 35;
-    var highObpm = 9;
-    var highOws = 6;
+    var highUsgPct = 32.0;
+    var highObpm = 9.0;
+    var highOws = 4.0;
 
-    var astPct = this.getGrade(highAstPct, this.state.player.astPct, 3);
+    var astPct = this.getGrade(highAstPct, this.state.player.astPct, 2.0);
     var orbPct = this.getGrade(highOrbPct, this.state.player.orbPct, 0.5);
-    var fg = this.getGrade(highFg, this.state.player.efgPct, 0.28);
+    var fg = this.getGrade(highFg, this.state.player.efgPct, 0.35);
     var tovPct = this.getGrade(
       highTovPct,
       this.state.player.tovPct * -1,
       -27.0
     );
-    var ftr = this.getGrade(highFtr, this.state.player.ftr, 0);
+    var ftr = this.getGrade(highFtr, this.state.player.ftr, 0.1);
     var threePAr = this.getGrade(highThreePar, this.state.player.threePAr, 0);
-    var tsPct = this.getGrade(highTsPct, this.state.player.tsPct, 0.4);
-    var usgPct = this.getGrade(highUsgPct, this.state.player.usgPct, 10);
-    var obpm = this.getGrade(highObpm, this.state.player.obpm, -5);
-    var ows = this.getGrade(highOws, this.state.player.ows, -1);
+    var tsPct = this.getGrade(highTsPct, this.state.player.tsPct, 0.44);
+    var usgPct = this.getGrade(highUsgPct, this.state.player.usgPct, 10.0);
+    var obpm = this.getGrade(highObpm, this.state.player.obpm, -3.0);
+    var ows = this.getGrade(highOws, this.state.player.ows, 0);
     this.setState(
       {
         astPct: astPct,

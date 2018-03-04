@@ -39,6 +39,7 @@ class Info extends React.Component {
     this.getOffenseRating = this.getOffenseRating.bind(this);
     this.getDefenseRating = this.getDefenseRating.bind(this);
     this.calculateStars = this.calculateStars.bind(this);
+    this.calculateDStars = this.calculateDStars.bind(this);
   }
 
   componentDidMount() {
@@ -104,7 +105,7 @@ class Info extends React.Component {
   getOffenseRating() {
     if (this.state.team) {
       var offRating = parseFloat(this.state.team.ORtg);
-      var stars = this.calculateStars(115.0, 102.0, offRating);
+      var stars = this.calculateStars(114.0, 103.0, offRating);
       if (stars === 5) {
         return (
           <span className="rating overall">
@@ -219,9 +220,9 @@ class Info extends React.Component {
   getDefenseRating() {
     if (this.state.team) {
       var defRating = parseFloat(this.state.team.DRtg);
-      var stars = this.calculateStars(113.0, 103.0, defRating);
-      console.log(stars);
-      if (stars === 0.5) {
+      var stars = this.calculateDStars(104.0, 113.0, defRating);
+      console.log(defRating);
+      if (stars === 5) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -232,18 +233,7 @@ class Info extends React.Component {
           </span>
         );
       }
-      if (stars === 1) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-          </span>
-        );
-      }
-      if (stars === 1.5) {
+      if (stars === 4.5) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -254,7 +244,7 @@ class Info extends React.Component {
           </span>
         );
       }
-      if (stars === 2) {
+      if (stars === 4) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -265,7 +255,7 @@ class Info extends React.Component {
           </span>
         );
       }
-      if (stars === 2.5) {
+      if (stars === 3.5) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -287,7 +277,7 @@ class Info extends React.Component {
           </span>
         );
       }
-      if (stars === 3.5) {
+      if (stars === 2.5) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -298,7 +288,7 @@ class Info extends React.Component {
           </span>
         );
       }
-      if (stars === 4) {
+      if (stars === 2) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -309,7 +299,7 @@ class Info extends React.Component {
           </span>
         );
       }
-      if (stars === 4.5) {
+      if (stars === 1.5) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -320,7 +310,7 @@ class Info extends React.Component {
           </span>
         );
       }
-      if (stars === 5) {
+      if (stars === 1) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -350,8 +340,8 @@ class Info extends React.Component {
       var sos = parseFloat(this.state.team.SOS) * 0.1;
       var srs = parseFloat(this.state.team.SRS) * 0.3;
       var weightedOvr = wins + mov + sos + srs;
-      //console.log("OVR: ", weightedOvr);
-      var stars = this.calculateStars(18.0, 0, weightedOvr);
+      console.log("OVR: ", weightedOvr);
+      var stars = this.calculateStars(16.0, 0, weightedOvr);
       if (stars === 5) {
         return (
           <span className="rating overall">
@@ -463,8 +453,44 @@ class Info extends React.Component {
     }
   }
 
+  calculateDStars(high, low, actual) {
+    var gradeScale = (low - high) / 9;
+    var fiveStars = high + gradeScale;
+    var fourHalfStars = fiveStars + gradeScale;
+    var fourStars = fourHalfStars + gradeScale;
+    var threeHalfStars = fourStars + gradeScale;
+    var threeStars = threeHalfStars + gradeScale;
+    var twoHalfStars = threeStars + gradeScale;
+    var twoStars = twoHalfStars + gradeScale;
+    var oneHalfStars = twoStars + gradeScale;
+    var oneStars = oneHalfStars + gradeScale;
+    var starRating;
+    if (actual <= fiveStars) {
+      starRating = 5;
+    } else if (actual <= fourHalfStars) {
+      starRating = 4.5;
+    } else if (actual <= fourStars) {
+      starRating = 4;
+    } else if (actual <= threeHalfStars) {
+      starRating = 3.5;
+    } else if (actual <= threeStars) {
+      starRating = 3;
+    } else if (actual <= twoHalfStars) {
+      starRating = 2.5;
+    } else if (actual <= twoStars) {
+      starRating = 2;
+    } else if (actual <= oneHalfStars) {
+      starRating = 1.5;
+    } else if (actual <= oneStars) {
+      starRating = 1;
+    } else {
+      starRating = 0.5;
+    }
+    return starRating;
+  }
+
   calculateStars(high, low, actual) {
-    var gradeScale = (high - low) / 8;
+    var gradeScale = (high - low) / 9;
     var fiveStars = high - gradeScale;
     var fourHalfStars = fiveStars - gradeScale;
     var fourStars = fourHalfStars - gradeScale;

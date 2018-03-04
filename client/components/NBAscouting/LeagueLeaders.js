@@ -679,7 +679,7 @@ export default class LeagueLeaders extends React.Component {
                 <MenuItem eventKey="39">ws</MenuItem>
                 <MenuItem eventKey="40">obpm</MenuItem>
                 <MenuItem eventKey="41">dbpm</MenuItem>
-                <MenuItem eventKey="42">wsFortyEight</MenuItem>
+                <MenuItem eventKey="42">wsFourtyEight</MenuItem>
                 <MenuItem eventKey="43">vorp</MenuItem>
               </DropdownButton>
             </div>
@@ -742,7 +742,7 @@ export default class LeagueLeaders extends React.Component {
                 <MenuItem eventKey="39">ws</MenuItem>
                 <MenuItem eventKey="40">obpm</MenuItem>
                 <MenuItem eventKey="41">dbpm</MenuItem>
-                <MenuItem eventKey="42">wsFortyEight</MenuItem>
+                <MenuItem eventKey="42">wsFourtyEight</MenuItem>
                 <MenuItem eventKey="43">vorp</MenuItem>
               </DropdownButton>
             </div>
@@ -805,7 +805,7 @@ export default class LeagueLeaders extends React.Component {
                 <MenuItem eventKey="39">ws</MenuItem>
                 <MenuItem eventKey="40">obpm</MenuItem>
                 <MenuItem eventKey="41">dbpm</MenuItem>
-                <MenuItem eventKey="42">wsFortyEight</MenuItem>
+                <MenuItem eventKey="42">wsFourtyEight</MenuItem>
                 <MenuItem eventKey="43">vorp</MenuItem>
               </DropdownButton>
             </div>

@@ -115,7 +115,7 @@ class PlayerInfo extends React.Component {
       var obpm = parseFloat(this.state.player.obpm);
       var ows = parseFloat(this.state.player.ows);
       var offRating = obpm + ows;
-      var stars = this.calculateStars(10.0, -5.0, offRating);
+      var stars = this.calculateStars(13.0, -5.0, offRating);
       if (stars === 5) {
         return (
           <span className="rating overall" style={{ zIndex: -5 }}>
@@ -232,7 +232,7 @@ class PlayerInfo extends React.Component {
       var dbpm = parseFloat(this.state.player.dbpm);
       var dws = parseFloat(this.state.player.dws);
       var defRating = dbpm + dws;
-      var stars = this.calculateStars(5.0, -4.0, defRating);
+      var stars = this.calculateStars(6.5, -3.0, defRating);
       if (stars === 5) {
         return (
           <span className="rating overall" style={{ zIndex: -5 }}>
@@ -352,7 +352,7 @@ class PlayerInfo extends React.Component {
       var ws = parseFloat(this.state.player.ws) * 0.1;
       var vorp = parseFloat(this.state.player.vorp) * 0.25;
       var weightedOvr = per + bpm + ws48 + ws + vorp;
-      var stars = this.calculateStars(13.0, 1.8, weightedOvr);
+      var stars = this.calculateStars(14.0, 0, weightedOvr);
       if (stars === 5) {
         return (
           <span className="rating overall">

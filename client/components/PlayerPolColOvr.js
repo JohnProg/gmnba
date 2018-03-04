@@ -27,29 +27,29 @@ export default class PlayerPolColOvr extends React.Component {
   }
 
   calculateGrades() {
-    var highPer = 30.0;
-    var highWs = 8.0;
+    var highPer = 27.0;
+    var highWs = 9.0;
     var highWsFourtyEight = 0.3;
     var highDbpm = 5.5;
     var highDws = 2.5;
-    var highVorp = 4;
-    var highBpm = 10;
-    var highOws = 6;
-    var highObpm = 10;
+    var highVorp = 5.0;
+    var highBpm = 8.0;
+    var highOws = 7.0;
+    var highObpm = 7.0;
 
-    var per = this.getGrade(highPer, this.state.player.per, 5);
+    var per = this.getGrade(highPer, this.state.player.per, 5.0);
     var ws = this.getGrade(highWs, this.state.player.ws, -1.0);
     var wsFourtyEight = this.getGrade(
       highWsFourtyEight,
       this.state.player.wsFourtyEight,
-      0
+      -0.03
     );
     var dbpm = this.getGrade(highDbpm, this.state.player.dbpm, -4);
     var dws = this.getGrade(highDws, this.state.player.dws, 0);
-    var vorp = this.getGrade(highVorp, this.state.player.vorp, -1);
-    var bpm = this.getGrade(highBpm, this.state.player.bpm, -7);
-    var ows = this.getGrade(highOws, this.state.player.ows, -1);
-    var obpm = this.getGrade(highObpm, this.state.player.obpm, -6);
+    var vorp = this.getGrade(highVorp, this.state.player.vorp, -1.0);
+    var bpm = this.getGrade(highBpm, this.state.player.bpm, -7.0);
+    var ows = this.getGrade(highOws, this.state.player.ows, -2.0);
+    var obpm = this.getGrade(highObpm, this.state.player.obpm, -6.0);
     this.setState(
       {
         per: per,
@@ -157,7 +157,7 @@ export default class PlayerPolColOvr extends React.Component {
 
       tooltip: {
         headerFormat: "<b>{point.key}</b><br/>",
-        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>`
+        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span>`
       },
 
       yAxis: {
@@ -233,12 +233,6 @@ export default class PlayerPolColOvr extends React.Component {
               stat: this.state.player.bpm
             },
             {
-              y: this.state.ows.Grade,
-              color: this.state.ows.Color,
-              name: "OWS",
-              stat: this.state.player.ows
-            },
-            {
               y: this.state.dws.Grade,
               color: this.state.dws.Color,
               name: "DWS",
@@ -255,6 +249,12 @@ export default class PlayerPolColOvr extends React.Component {
               color: this.state.obpm.Color,
               name: "OBPM",
               stat: this.state.player.obpm
+            },
+            {
+              y: this.state.ows.Grade,
+              color: this.state.ows.Color,
+              name: "OWS",
+              stat: this.state.player.ows
             }
           ],
           pointPlacement: "on"

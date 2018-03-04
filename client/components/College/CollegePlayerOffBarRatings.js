@@ -27,17 +27,17 @@ export default class CollegePlayerOffBarRatings extends React.Component {
   }
 
   calculateGrades() {
-    var highPoints = 29;
-    var highAst = 11;
-    var highReb = 5.5;
+    var highPoints = 24.0;
+    var highAst = 9.0;
+    var highReb = 4.5;
     var highFT = 0.93;
-    var highThree = 0.45;
+    var highThree = 0.46;
     var highTwo = 0.68;
 
     var scoring = this.getGrade(
       highPoints,
       this.state.player.pts / this.state.player.mpg * 32,
-      0
+      4.0
     );
     var ast = this.getGrade(
       highAst,
@@ -49,13 +49,13 @@ export default class CollegePlayerOffBarRatings extends React.Component {
       this.state.player.orb / this.state.player.mpg * 32,
       0
     );
-    var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
+    var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.42);
     var threePoint = this.getGrade(
       highThree,
       this.state.player.threePtPct,
-      0.2
+      0.24
     );
-    var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.15);
+    var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.32);
     this.setState(
       {
         scoring: scoring,

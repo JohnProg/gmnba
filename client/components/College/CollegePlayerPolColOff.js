@@ -27,19 +27,19 @@ export default class CollegePlayerPolColOff extends React.Component {
   }
 
   calculateGrades() {
-    var highPoints = 30;
-    var highAst = 10;
-    var highReb = 5;
-    var highTov = 0.5;
+    var highPoints = 24.0;
+    var highAst = 9.0;
+    var highReb = 4.5;
+    var highTov = -1.0;
     var highFg = 0.68;
     var highFT = 0.93;
-    var highThree = 0.45;
-    var highTwo = 0.7;
+    var highThree = 0.46;
+    var highTwo = 0.68;
 
     var scoring = this.getGrade(
       highPoints,
       this.state.player.pts / this.state.player.mpg * 32,
-      0
+      4.0
     );
     var ast = this.getGrade(
       highAst,
@@ -54,16 +54,16 @@ export default class CollegePlayerPolColOff extends React.Component {
     var tov = this.getGrade(
       highTov,
       this.state.player.tov * -1 / this.state.player.mpg * 32,
-      -5.0
+      -4.5
     );
-    var fg = this.getGrade(highFg, this.state.player.efgPct, 0.28);
-    var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
+    var fg = this.getGrade(highFg, this.state.player.fgPct, 0.32);
+    var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.42);
     var threePoint = this.getGrade(
       highThree,
       this.state.player.threePtPct,
-      0.2
+      0.24
     );
-    var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.2);
+    var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.32);
     this.setState(
       {
         scoring: scoring,

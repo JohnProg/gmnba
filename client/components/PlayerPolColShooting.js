@@ -32,31 +32,33 @@ export default class PlayerPolColShooting extends React.Component {
   }
 
   calculateGrades() {
-    var highDrPts = 30;
-    var highDrPct = 10;
-    var highCatchPts = 5;
-    var highCatchPct = 0.5;
-    var highPullPts = 0.68;
-    var highPullPct = 15;
-    var highPaintPct = 0.45;
-    var highPostPct = 0.7;
-    var highElbowPct = 12.0;
-    var highEfgPct = 12.0;
+    var highDrPts = 9.5;
+    var highDrPct = 0.6;
+    var highCatchPts = 8.5;
+    var highCatchPct = 0.6;
+    var highPullPts = 9.5;
+    var highPullPct = 0.5;
+    var highPaintPct = 0.8;
+    var highPostPct = 0.6;
+    var highElbowPct = 0.65;
 
     var drPts = this.getGrade(highDrPts, this.state.player.drPts, 0);
-    var drPct = this.getGrade(highDrPct, this.state.player.drPct, 0);
-    var catchPts = this.getGrade(
-      highCatchPts,
-      this.state.player.catchPtsPct,
-      0
+    var drPct = this.getGrade(highDrPct, this.state.player.drPct, 0.33);
+    var catchPts = this.getGrade(highCatchPts, this.state.player.catchPts, 0);
+    var catchPct = this.getGrade(
+      highCatchPct,
+      this.state.player.catchPct,
+      0.22
     );
-    var catchPct = this.getGrade(highCatchPct, this.state.player.catchPct, 0);
     var pullPts = this.getGrade(highPullPts, this.state.player.pullPts, 0);
-    var pullPct = this.getGrade(highPullPct, this.state.player.pullPct, 0);
-    var paintPct = this.getGrade(highPaintPct, this.state.player.paintPct, 0);
-    var postPct = this.getGrade(highPostPct, this.state.player.postPct, 0);
-    var elbowPct = this.getGrade(highElbowPct, this.state.player.elbowPct, 0);
-    var efgPct = this.getGrade(highEfgPct, this.state.player.efgPct, 0);
+    var pullPct = this.getGrade(highPullPct, this.state.player.pullPct, 0.22);
+    var paintPct = this.getGrade(
+      highPaintPct,
+      this.state.player.paintPct,
+      0.33
+    );
+    var postPct = this.getGrade(highPostPct, this.state.player.postPct, 0.37);
+    var elbowPct = this.getGrade(highElbowPct, this.state.player.elbowPct, 0.4);
     this.setState(
       {
         drPts: drPts,
@@ -67,8 +69,7 @@ export default class PlayerPolColShooting extends React.Component {
         pullPct: pullPct,
         paintPct: paintPct,
         postPct: postPct,
-        elbowPct: elbowPct,
-        efgPct: efgPct
+        elbowPct: elbowPct
       },
       () => {
         this.createChart();
@@ -179,7 +180,7 @@ export default class PlayerPolColShooting extends React.Component {
       plotOptions: {
         series: {
           pointStart: 0,
-          pointInterval: 36,
+          pointInterval: 40,
           dataLabels: {
             useHTML: true,
             enabled: true,
@@ -261,14 +262,8 @@ export default class PlayerPolColShooting extends React.Component {
             {
               y: this.state.elbowPct.Grade,
               color: this.state.elbowPct.Color,
-              name: "Elbow FG%",
+              name: "Elbow Touch FG%",
               stat: (this.state.player.elbowPct * 100).toFixed(1)
-            },
-            {
-              y: this.state.efgPct.Grade,
-              color: this.state.efgPct.Color,
-              name: "eFG%",
-              stat: (this.state.player.efgPct * 100).toFixed(1)
             }
           ],
           pointPlacement: "on"

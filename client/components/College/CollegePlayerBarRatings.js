@@ -20,19 +20,19 @@ export default class CollegePlayerBarRatings extends React.Component {
   }
 
   calculateGrades() {
-    var highPoints = 29;
-    var highAst = 11;
-    var highReb = 15;
-    var highStl = 2.5;
-    var highBlk = 2.5;
+    var highPoints = 24.0;
+    var highAst = 9.0;
+    var highReb = 12.5;
+    var highStl = 2.6;
+    var highBlk = 4.0;
     var highFT = 0.93;
-    var highThree = 0.45;
-    var highTwo = 0.7;
+    var highThree = 0.46;
+    var highTwo = 0.68;
 
     var scoring = this.getGrade(
       highPoints,
       this.state.player.pts / this.state.player.mpg * 32,
-      0
+      4.0
     );
     var ast = this.getGrade(
       highAst,
@@ -42,25 +42,25 @@ export default class CollegePlayerBarRatings extends React.Component {
     var reb = this.getGrade(
       highReb,
       this.state.player.trb / this.state.player.mpg * 32,
-      0
+      2.0
     );
     var stl = this.getGrade(
       highStl,
       this.state.player.stl / this.state.player.mpg * 32,
-      0
+      0.3
     );
     var blk = this.getGrade(
       highBlk,
       this.state.player.blk / this.state.player.mpg * 32,
       0
     );
-    var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
+    var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.42);
     var threePoint = this.getGrade(
       highThree,
       this.state.player.threePtPct,
-      0.1
+      0.2
     );
-    var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.15);
+    var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.32);
     this.setState(
       {
         scoring: scoring,

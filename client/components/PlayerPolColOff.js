@@ -27,24 +27,24 @@ export default class PlayerPolColOff extends React.Component {
   }
 
   calculateGrades() {
-    var highPoints = 30;
-    var highAst = 10;
-    var highReb = 5;
-    var highTov = 0.5;
-    var highFg = 0.68;
-    var highFT = 0.93;
-    var highThree = 0.45;
-    var highTwo = 0.7;
+    var highPoints = 27;
+    var highAst = 9.5;
+    var highReb = 4.6;
+    var highTov = -0.5;
+    var highFg = 0.62;
+    var highFT = 0.94;
+    var highThree = 0.46;
+    var highTwo = 0.63;
 
     var scoring = this.getGrade(
       highPoints,
       this.state.player.pts / this.state.player.mpg * 36,
-      0
+      7
     );
     var ast = this.getGrade(
       highAst,
       this.state.player.ast / this.state.player.mpg * 36,
-      0
+      1
     );
     var orb = this.getGrade(
       highReb,
@@ -56,14 +56,14 @@ export default class PlayerPolColOff extends React.Component {
       this.state.player.tov * -1 / this.state.player.mpg * 36,
       -5.0
     );
-    var fg = this.getGrade(highFg, this.state.player.efgPct, 0.28);
-    var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
+    var fg = this.getGrade(highFg, this.state.player.efgPct, 0.4);
+    var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.42);
     var threePoint = this.getGrade(
       highThree,
       this.state.player.threePtPct,
       0.2
     );
-    var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.2);
+    var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.25);
     this.setState(
       {
         scoring: scoring,

@@ -27,21 +27,21 @@ export default class CollegePlayerOvrBarRatings extends React.Component {
   }
 
   calculateGrades() {
-    var highPer = 30.0;
-    var highWs = 8.0;
-    var highWsFourtyEight = 0.3;
+    var highPer = 29.0;
+    var highWs = 5.5;
+    var highWsFourtyEight = 0.27;
     var highVorp = 4;
-    var highBpm = 10;
+    var highBpm = 13.0;
 
-    var per = this.getGrade(highPer, this.state.player.per, 5);
-    var ws = this.getGrade(highWs, this.state.player.ws, -1.0);
+    var per = this.getGrade(highPer, this.state.player.per, 5.0);
+    var ws = this.getGrade(highWs, this.state.player.ws, 0);
     var wsFourtyEight = this.getGrade(
       highWsFourtyEight,
       this.state.player.wsFourtyEight,
-      0
+      0.04
     );
     var vorp = this.getGrade(highVorp, this.state.player.vorp, -1);
-    var bpm = this.getGrade(highBpm, this.state.player.bpm, -7);
+    var bpm = this.getGrade(highBpm, this.state.player.bpm, -2.0);
     this.setState(
       {
         per: per,

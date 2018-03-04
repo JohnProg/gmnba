@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
-import TeamRankGuages from "../TeamRankGuages";
+import CollegeTeamRankGauges from "./CollegeTeamRankGauges";
 import TeamAverageComparison from "../TeamAverageComparison";
 import CollegeTeamRatings from "./CollegeTeamRatings";
 
@@ -34,7 +34,7 @@ export default class CollegeTeamLeagueRanks extends React.Component {
                 className="card"
                 style={{ paddingBottom: "20px", backgroundColor: "white" }}
               >
-                <TeamRankGuages
+                <CollegeTeamRankGauges
                   team={this.props.team}
                   league={this.props.leagueStats}
                 />

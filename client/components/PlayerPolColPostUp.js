@@ -32,25 +32,25 @@ export default class PlayerPolColPostUp extends React.Component {
   }
 
   calculateGrades() {
-    var highAst = 30;
-    var highFg = 10;
-    var highFt = 5;
+    var highAst = 0.2;
+    var highFg = 0.55;
+    var highFt = 0.9;
     var highPass = 0.5;
-    var highPf = 0.68;
-    var highPostUps = 15;
-    var highPts = 0.45;
+    var highPf = 0.1;
+    var highPostUps = 12.0;
+    var highPts = 8.0;
     var highPtsPct = 0.7;
-    var highTov = 12.0;
+    var highTov = -0.03;
 
-    var ast = this.getGrade(highAst, this.state.player.astPct, 0);
-    var fg = this.getGrade(highFg, this.state.player.fgPct, 0);
-    var ft = this.getGrade(highFt, this.state.player.ftPct, 0);
-    var pass = this.getGrade(highPass, this.state.player.passPct, 0);
+    var ast = this.getGrade(highAst, this.state.player.astPct, 0.02);
+    var fg = this.getGrade(highFg, this.state.player.fgPct, 0.26);
+    var ft = this.getGrade(highFt, this.state.player.ftPct, 0.5);
+    var pass = this.getGrade(highPass, this.state.player.passPct, 0.1);
     var pf = this.getGrade(highPf, this.state.player.pfPct, 0);
     var postUps = this.getGrade(highPostUps, this.state.player.postUps, 0);
     var pts = this.getGrade(highPts, this.state.player.pts, 0);
     var ptsPct = this.getGrade(highPtsPct, this.state.player.ptsPct, 0);
-    var tovPct = this.getGrade(highTov, this.state.player.tovPct, 0);
+    var tovPct = this.getGrade(highTov, this.state.player.tovPct * -1, -0.11);
     this.setState(
       {
         ast: ast,
@@ -172,7 +172,7 @@ export default class PlayerPolColPostUp extends React.Component {
       plotOptions: {
         series: {
           pointStart: 0,
-          pointInterval: 45,
+          pointInterval: 40,
           dataLabels: {
             useHTML: true,
             enabled: true,
@@ -212,25 +212,25 @@ export default class PlayerPolColPostUp extends React.Component {
             {
               y: this.state.fg.Grade,
               color: this.state.fg.Color,
-              name: "FG",
+              name: "FG%",
               stat: this.state.player.fgPct
             },
             {
               y: this.state.ft.Grade,
               color: this.state.ft.Color,
-              name: "FT",
+              name: "FT%",
               stat: this.state.player.ftPct
             },
             {
               y: this.state.pass.Grade,
               color: this.state.pass.Color,
-              name: "Pass",
+              name: "Pass%",
               stat: this.state.player.passPct
             },
             {
               y: this.state.pf.Grade,
               color: this.state.pf.Color,
-              name: "PF",
+              name: "PF%",
               stat: (this.state.player.pfPct * 100).toFixed(1)
             },
             {

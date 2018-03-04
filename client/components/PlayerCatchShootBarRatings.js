@@ -27,19 +27,23 @@ export default class PlayerCatchShootBarRatings extends React.Component {
   }
 
   calculateGrades() {
-    var highFgPct = 30;
-    var highFgAtt = 10;
-    var highPts = 5;
-    var highThreeAtt = 0.5;
-    var highThreePct = 0.68;
-    var highEfg = 15;
+    var highFgPct = 0.5;
+    var highFgAtt = 9;
+    var highPts = 9;
+    var highThreeAtt = 6;
+    var highThreePct = 0.46;
+    var highEfg = 0.67;
 
-    var fgPct = this.getGrade(highFgPct, this.state.player.fgPct, 0);
+    var fgPct = this.getGrade(highFgPct, this.state.player.fgPct, 0.2);
     var fga = this.getGrade(highFgAtt, this.state.player.fga, 0);
     var pts = this.getGrade(highPts, this.state.player.pts, 0);
     var threeAtt = this.getGrade(highThreeAtt, this.state.player.threePtAtt, 0);
-    var threePct = this.getGrade(highThreePct, this.state.player.threePtPct, 0);
-    var efg = this.getGrade(highEfg, this.state.player.efgPct, 0);
+    var threePct = this.getGrade(
+      highThreePct,
+      this.state.player.threePtPct,
+      0.25
+    );
+    var efg = this.getGrade(highEfg, this.state.player.efgPct, 0.41);
     this.setState(
       {
         fgPct: fgPct,

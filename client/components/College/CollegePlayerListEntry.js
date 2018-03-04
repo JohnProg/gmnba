@@ -16,7 +16,7 @@ export default class CollegePlayerListEntry extends React.Component {
       var ws48 = parseFloat(this.props.player.wsFourtyEight) * 0.15;
       var ws = parseFloat(this.props.player.ws) * 0.15;
       var weightedOvr = per + bpm + ws48 + ws;
-      var stars = this.calculateStars(18.0, 0, weightedOvr);
+      var stars = this.calculateStars(18.5, 2.0, weightedOvr);
       if (stars === 5) {
         return (
           <span className="rating overall">
@@ -133,7 +133,7 @@ export default class CollegePlayerListEntry extends React.Component {
       var obpm = parseFloat(this.props.player.obpm);
       var ows = parseFloat(this.props.player.ows);
       var offRating = obpm + ows;
-      var stars = this.calculateStars(14.0, -5.0, offRating);
+      var stars = this.calculateStars(13.0, -3.5, offRating);
       if (stars === 5) {
         return (
           <span className="rating overall">
@@ -251,7 +251,7 @@ export default class CollegePlayerListEntry extends React.Component {
       var dws = parseFloat(this.props.player.dws);
       var defRating = dbpm + dws;
       console.log(defRating);
-      var stars = this.calculateStars(11.0, -3.0, defRating);
+      var stars = this.calculateStars(12.0, -1.0, defRating);
       if (stars === 5) {
         return (
           <span className="rating overall">

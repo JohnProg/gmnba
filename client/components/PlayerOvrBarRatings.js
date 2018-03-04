@@ -27,21 +27,21 @@ export default class PlayerOvrBarRatings extends React.Component {
   }
 
   calculateGrades() {
-    var highPer = 30.0;
-    var highWs = 8.0;
+    var highPer = 27.0;
+    var highWs = 9.0;
     var highWsFourtyEight = 0.3;
-    var highVorp = 4;
-    var highBpm = 10;
+    var highVorp = 5.0;
+    var highBpm = 8.0;
 
-    var per = this.getGrade(highPer, this.state.player.per, 5);
+    var per = this.getGrade(highPer, this.state.player.per, 5.0);
     var ws = this.getGrade(highWs, this.state.player.ws, -1.0);
     var wsFourtyEight = this.getGrade(
       highWsFourtyEight,
       this.state.player.wsFourtyEight,
-      0
+      -0.03
     );
-    var vorp = this.getGrade(highVorp, this.state.player.vorp, -1);
-    var bpm = this.getGrade(highBpm, this.state.player.bpm, -7);
+    var vorp = this.getGrade(highVorp, this.state.player.vorp, -1.0);
+    var bpm = this.getGrade(highBpm, this.state.player.bpm, -7.0);
     this.setState(
       {
         per: per,
@@ -151,7 +151,7 @@ export default class PlayerOvrBarRatings extends React.Component {
       },
       tooltip: {
         headerFormat: "<b>{point.key}</b><br/>",
-        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>`
+        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span>`
       },
       plotOptions: {
         bar: {
