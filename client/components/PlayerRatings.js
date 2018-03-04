@@ -147,12 +147,12 @@ export default class PlayerRatings extends React.Component {
       <div>
         <Grid>
           <Row className="chart-row">
-            <Col lg={3} lgOffset={1}>
+            <Col lg={3} lgOffset={1} md={4}>
               <div className="card" style={headerStyle}>
                 PLAYER RATINGS
               </div>
             </Col>
-            <Col lg={2} lgOffset={5}>
+            <Col lg={2} lgOffset={5} md={3} mdOffset={5}>
               <div className="stat-selector">
                 <DropdownButton
                   pullRight

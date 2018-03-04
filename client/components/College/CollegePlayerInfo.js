@@ -502,14 +502,14 @@ class CollegePlayerInfo extends React.Component {
           <Grid id="info-container">
             <Row className="full-height-row">
               <div id="info">
-                <Col lg={3} sm={6} xs={12} id="pic-col">
+                <Col lg={3} sm={6} md={3} xs={12} id="pic-col">
                   <div id="info-pic-team">
                     <img style={{ maxHeight: "200px" }} src={picture} />
                   </div>
                 </Col>
-                <Col lg={9} xs={12}>
+                <Col lg={9} xs={12} md={9}>
                   <Row>
-                    <Col lg={5} xs={12}>
+                    <Col lg={5} xs={12} md={5}>
                       <div id="name-text">
                         <div id="team-name">
                           {this.state.player.name}
@@ -537,7 +537,7 @@ class CollegePlayerInfo extends React.Component {
                       </div>
                       <hr id="info-text-break" />
                     </Col>
-                    <Col lg={3} xs={6}>
+                    <Col lg={3} xs={6} md={3}>
                       <div style={{ marginTop: "70px", fontSize: "15.5px" }}>
                         <div style={{ textAlign: "right" }}>
                           Overall: {this.getOverallRating()}
@@ -550,7 +550,7 @@ class CollegePlayerInfo extends React.Component {
                         </div>
                       </div>
                     </Col>
-                    <Col lg={3} xs={6}>
+                    <Col lg={3} xs={6} md={3}>
                       <a href={`/college-team/${this.state.colors.id}`}>
                         <div id="logo-pic">
                           <img

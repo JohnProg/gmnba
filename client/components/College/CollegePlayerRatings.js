@@ -139,7 +139,7 @@ export default class CollegePlayerRatings extends React.Component {
       <div>
         <Grid>
           <Row className="chart-row">
-            <Col lg={3} lgOffset={1}>
+            <Col lg={3} lgOffset={1} md={4}>
               <div className="card" style={headerStyle}>
                 PLAYER RATINGS
               </div>
