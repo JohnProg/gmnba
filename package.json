@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server/index.js",
-    "build": "webpack -w"
+    "build": "webpack -w",
+    "heroku-postbuild":
+      "webpack -p --config ./webpack.prod.config.js --progress"
   },
   "repository": {
     "type": "git",
