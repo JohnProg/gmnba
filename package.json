@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server/index.js",
     "build": "webpack -w",
-    "heroku-postbuild":
-      "webpack -p --config ./webpack.prod.config.js --progress"
+    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
   },
   "repository": {
     "type": "git",
@@ -34,6 +33,7 @@
     "express": "^4.16.2",
     "highcharts": "^6.0.3",
     "history": "^4.7.2",
+    "nodemon": "^1.17.1",
     "path": "^0.12.7",
     "pg": "^7.4.0",
     "react": "^16.1.0",
