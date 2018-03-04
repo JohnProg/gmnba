@@ -14,16 +14,21 @@ export default class PlayerPolColCatchShoot extends React.Component {
         this.calculateGrades();
         //this.createChart();
       });
+    } else {
+      this.setState({ player: {} }, () => {
+        this.calculateGrades();
+        //this.createChart();
+      });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    // if (nextProps.player.name) {
-    //   this.setState({ player: nextProps.player }, () => {
-    //     this.calculateGrades();
-    //     //this.createChart();
-    //   });
-    // }
+    if (nextProps.player.name) {
+      this.setState({ player: nextProps.player }, () => {
+        this.calculateGrades();
+        //this.createChart();
+      });
+    }
   }
 
   calculateGrades() {

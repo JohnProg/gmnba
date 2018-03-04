@@ -235,7 +235,6 @@ export default class PlayerCatchShootBarRatings extends React.Component {
           id="container-rating-catch"
           style={{
             height: "275px",
-            minWidth: "600px",
             margin: "0 auto"
           }}
         />

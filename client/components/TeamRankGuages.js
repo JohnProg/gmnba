@@ -16,9 +16,10 @@ export default class TeamRankGuages extends React.Component {
     super(props);
     this.state = {
       team: {},
-      gauge1: "pts",
-      gauge2: "trb",
-      gauge3: "ast"
+      league: {},
+      gauge1: "PTS",
+      gauge2: "ORtg",
+      gauge3: "DRtg"
     };
     this.createChart = this.createChart.bind(this);
     this.getRanking = this.getRanking.bind(this);
@@ -27,14 +28,35 @@ export default class TeamRankGuages extends React.Component {
     this.selectG3 = this.selectG3.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    if (this.props.team && this.props.league) {
+      this.setState(
+        { team: this.props.team, league: this.props.league },
+        () => {
+          var gauge1Rank = this.getRanking(this.state.gauge1);
+          var gauge2Rank = this.getRanking(this.state.gauge2);
+          var gauge3Rank = this.getRanking(this.state.gauge3);
+          this.setState(
+            {
+              gauge1Rank: gauge1Rank,
+              gauge2Rank: gauge2Rank,
+              gauge3Rank: gauge3Rank
+            },
+            () => {
+              this.createChart();
+            }
+          );
+        }
+      );
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.team.Color_Main) {
       this.setState({ team: nextProps.team, league: nextProps.league }, () => {
-        var gauge1Rank = this.getRanking(this.state.gauge1.toUpperCase());
-        var gauge2Rank = this.getRanking(this.state.gauge2.toUpperCase());
-        var gauge3Rank = this.getRanking(this.state.gauge3.toUpperCase());
+        var gauge1Rank = this.getRanking(this.state.gauge1);
+        var gauge2Rank = this.getRanking(this.state.gauge2);
+        var gauge3Rank = this.getRanking(this.state.gauge3);
         this.setState(
           {
             gauge1Rank: gauge1Rank,
@@ -51,7 +73,7 @@ export default class TeamRankGuages extends React.Component {
 
   selectG1(evt, eventKey) {
     this.setState({ gauge1: eventKey.target.innerHTML }, () => {
-      var gauge1Rank = this.getRanking(this.state.gauge1.toUpperCase());
+      var gauge1Rank = this.getRanking(this.state.gauge1);
       this.setState({ gauge1Rank: gauge1Rank }, () => {
         this.createChart();
       });
@@ -59,7 +81,7 @@ export default class TeamRankGuages extends React.Component {
   }
   selectG2(evt, eventKey) {
     this.setState({ gauge2: eventKey.target.innerHTML }, () => {
-      var gauge2Rank = this.getRanking(this.state.gauge2.toUpperCase());
+      var gauge2Rank = this.getRanking(this.state.gauge2);
       this.setState({ gauge2Rank: gauge2Rank }, () => {
         this.createChart();
       });
@@ -67,7 +89,7 @@ export default class TeamRankGuages extends React.Component {
   }
   selectG3(evt, eventKey) {
     this.setState({ gauge3: eventKey.target.innerHTML }, () => {
-      var gauge3Rank = this.getRanking(this.state.gauge3.toUpperCase());
+      var gauge3Rank = this.getRanking(this.state.gauge3);
       this.setState({ gauge3Rank: gauge3Rank }, () => {
         this.createChart();
       });
@@ -78,24 +100,45 @@ export default class TeamRankGuages extends React.Component {
     var obj = {};
     var rank;
     var suffix;
-    var ranked = this.state.league.sort((a, b) => {
-      return parseFloat(b[stat]) - parseFloat(a[stat]);
-    });
-    for (var i = 0; i < ranked.length; i++) {
-      if (ranked[i].Name === this.state.team.Name) {
-        rank = i + 1;
-        if (rank === 1 || rank === 21) {
-          suffix = "st";
-        } else if (rank === 2 || rank === 22) {
-          suffix = "nd";
-        } else {
-          suffix = "th";
+    if (stat === "DRtg") {
+      var ranked = this.state.league.sort((a, b) => {
+        return parseFloat(a[stat]) - parseFloat(b[stat]);
+      });
+      for (var i = 0; i < ranked.length; i++) {
+        if (ranked[i].Name === this.state.team.Name) {
+          rank = i + 1;
+          if (rank === 1 || rank === 21) {
+            suffix = "st";
+          } else if (rank === 2 || rank === 22) {
+            suffix = "nd";
+          } else {
+            suffix = "th";
+          }
         }
       }
+      obj["rank"] = rank;
+      obj["suffix"] = suffix;
+      return obj;
+    } else {
+      var ranked = this.state.league.sort((a, b) => {
+        return parseFloat(b[stat]) - parseFloat(a[stat]);
+      });
+      for (var i = 0; i < ranked.length; i++) {
+        if (ranked[i].Name === this.state.team.Name) {
+          rank = i + 1;
+          if (rank === 1 || rank === 21) {
+            suffix = "st";
+          } else if (rank === 2 || rank === 22) {
+            suffix = "nd";
+          } else {
+            suffix = "th";
+          }
+        }
+      }
+      obj["rank"] = rank;
+      obj["suffix"] = suffix;
+      return obj;
     }
-    obj["rank"] = rank;
-    obj["suffix"] = suffix;
-    return obj;
   }
 
   createChart() {
@@ -278,7 +321,7 @@ export default class TeamRankGuages extends React.Component {
     return (
       <div>
         <Row className="chart-row">
-          <Col lg={4}>
+          <Col lg={4} xs={12} md={4} sm={4}>
             <div
               className="gauge-header-div"
               style={{ textAlign: "center", fontSize: "16px" }}
@@ -289,49 +332,63 @@ export default class TeamRankGuages extends React.Component {
                 className="card"
                 onSelect={this.selectG1}
               >
+                <MenuItem header>Offense</MenuItem>
                 <MenuItem eventKey="1">PTS</MenuItem>
                 <MenuItem eventKey="2">AST</MenuItem>
-                <MenuItem eventKey="3">TRB</MenuItem>
-                <MenuItem eventKey="4">MOV</MenuItem>
+                <MenuItem eventKey="7">ORtg</MenuItem>
+                <MenuItem eventKey="14">FTr</MenuItem>
+                <MenuItem eventKey="17">ORB</MenuItem>
+                <MenuItem eventKey="29">Three_PAr</MenuItem>
+                <MenuItem eventKey="30">TOV</MenuItem>
+                <MenuItem eventKey="35">PACE</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Defense</MenuItem>
                 <MenuItem eventKey="5">DRB</MenuItem>
                 <MenuItem eventKey="6">DRtg</MenuItem>
-                <MenuItem eventKey="7">ORtg</MenuItem>
-                <MenuItem eventKey="8">FG</MenuItem>
-                <MenuItem eventKey="9">FGA</MenuItem>
-                <MenuItem eventKey="10">FG_PCT</MenuItem>
-                <MenuItem eventKey="11">FTA</MenuItem>
-                <MenuItem eventKey="12">FTM</MenuItem>
-                <MenuItem eventKey="13">FT_PCT</MenuItem>
-                <MenuItem eventKey="14">FTr</MenuItem>
-                <MenuItem eventKey="15">W</MenuItem>
-                <MenuItem eventKey="16">L</MenuItem>
-                <MenuItem eventKey="17">ORB</MenuItem>
-                <MenuItem eventKey="18">oPTS</MenuItem>
-                <MenuItem eventKey="19">oFGPCT</MenuItem>
-                <MenuItem eventKey="20">oTOV</MenuItem>
-                <MenuItem eventKey="21">o2PCT</MenuItem>
-                <MenuItem eventKey="22">o3PCT</MenuItem>
+                <MenuItem eventKey="31">STL</MenuItem>
+                <MenuItem eventKey="50">BLK</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Shooting</MenuItem>
                 <MenuItem eventKey="23">Two_Pointers_Pct</MenuItem>
                 <MenuItem eventKey="24">Two_Pointers_Att</MenuItem>
                 <MenuItem eventKey="25">Two_Pointers</MenuItem>
                 <MenuItem eventKey="26">Three_Pointers_Pct</MenuItem>
                 <MenuItem eventKey="27">Three_Pointers_Att</MenuItem>
                 <MenuItem eventKey="28">Three_Pointers</MenuItem>
-                <MenuItem eventKey="29">Three_PAr</MenuItem>
-                <MenuItem eventKey="30">TOV</MenuItem>
-                <MenuItem eventKey="31">STL</MenuItem>
-                <MenuItem eventKey="32">SRS</MenuItem>
-                <MenuItem eventKey="33">SOS</MenuItem>
-                <MenuItem eventKey="34">PF</MenuItem>
-                <MenuItem eventKey="35">PACE</MenuItem>
-                <MenuItem eventKey="36">ORB_PCT</MenuItem>
+                <MenuItem eventKey="8">FG</MenuItem>
+                <MenuItem eventKey="9">FGA</MenuItem>
+                <MenuItem eventKey="10">FG_PCT</MenuItem>
+                <MenuItem eventKey="11">FTA</MenuItem>
+                <MenuItem eventKey="12">FTM</MenuItem>
+                <MenuItem eventKey="13">FT_PCT</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Offense Four Factors</MenuItem>
                 <MenuItem eventKey="37">OFF_eFG_PCT</MenuItem>
                 <MenuItem eventKey="38">OFF_TOV_PCT</MenuItem>
                 <MenuItem eventKey="39">OFF_FT_FGA</MenuItem>
-                <MenuItem eventKey="40">DRB_PCT</MenuItem>
+                <MenuItem eventKey="36">ORB_PCT</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Defense Four Factors</MenuItem>
                 <MenuItem eventKey="41">DEF_eFG_PCT</MenuItem>
                 <MenuItem eventKey="42">DEF_TOV_PCT</MenuItem>
                 <MenuItem eventKey="43">DEF_FT_FGA</MenuItem>
+                <MenuItem eventKey="40">DRB_PCT</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Misc.</MenuItem>
+                <MenuItem eventKey="15">W</MenuItem>
+                <MenuItem eventKey="16">L</MenuItem>
+                <MenuItem eventKey="32">SRS</MenuItem>
+                <MenuItem eventKey="33">SOS</MenuItem>
+                <MenuItem eventKey="34">PF</MenuItem>
+                <MenuItem eventKey="3">TRB</MenuItem>
+                <MenuItem eventKey="4">MOV</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Opponent</MenuItem>
+                <MenuItem eventKey="18">oPTS</MenuItem>
+                <MenuItem eventKey="19">oFGPCT</MenuItem>
+                <MenuItem eventKey="20">oTOV</MenuItem>
+                <MenuItem eventKey="21">o2PCT</MenuItem>
+                <MenuItem eventKey="22">o3PCT</MenuItem>
                 <MenuItem eventKey="44">o2P</MenuItem>
                 <MenuItem eventKey="45">o2PA</MenuItem>
                 <MenuItem eventKey="46">o3P</MenuItem>
@@ -354,7 +411,7 @@ export default class TeamRankGuages extends React.Component {
               }}
             />
           </Col>
-          <Col lg={4}>
+          <Col lg={4} xs={12} md={4} sm={4}>
             <div
               className="gauge-header-div"
               style={{ textAlign: "center", fontSize: "16px" }}
@@ -365,49 +422,63 @@ export default class TeamRankGuages extends React.Component {
                 className="card"
                 onSelect={this.selectG2}
               >
+                <MenuItem header>Offense</MenuItem>
                 <MenuItem eventKey="1">PTS</MenuItem>
                 <MenuItem eventKey="2">AST</MenuItem>
-                <MenuItem eventKey="3">TRB</MenuItem>
-                <MenuItem eventKey="4">MOV</MenuItem>
+                <MenuItem eventKey="7">ORtg</MenuItem>
+                <MenuItem eventKey="14">FTr</MenuItem>
+                <MenuItem eventKey="17">ORB</MenuItem>
+                <MenuItem eventKey="29">Three_PAr</MenuItem>
+                <MenuItem eventKey="30">TOV</MenuItem>
+                <MenuItem eventKey="35">PACE</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Defense</MenuItem>
                 <MenuItem eventKey="5">DRB</MenuItem>
                 <MenuItem eventKey="6">DRtg</MenuItem>
-                <MenuItem eventKey="7">ORtg</MenuItem>
-                <MenuItem eventKey="8">FG</MenuItem>
-                <MenuItem eventKey="9">FGA</MenuItem>
-                <MenuItem eventKey="10">FG_PCT</MenuItem>
-                <MenuItem eventKey="11">FTA</MenuItem>
-                <MenuItem eventKey="12">FTM</MenuItem>
-                <MenuItem eventKey="13">FT_PCT</MenuItem>
-                <MenuItem eventKey="14">FTr</MenuItem>
-                <MenuItem eventKey="15">W</MenuItem>
-                <MenuItem eventKey="16">L</MenuItem>
-                <MenuItem eventKey="17">ORB</MenuItem>
-                <MenuItem eventKey="18">oPTS</MenuItem>
-                <MenuItem eventKey="19">oFGPCT</MenuItem>
-                <MenuItem eventKey="20">oTOV</MenuItem>
-                <MenuItem eventKey="21">o2PCT</MenuItem>
-                <MenuItem eventKey="22">o3PCT</MenuItem>
+                <MenuItem eventKey="31">STL</MenuItem>
+                <MenuItem eventKey="50">BLK</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Shooting</MenuItem>
                 <MenuItem eventKey="23">Two_Pointers_Pct</MenuItem>
                 <MenuItem eventKey="24">Two_Pointers_Att</MenuItem>
                 <MenuItem eventKey="25">Two_Pointers</MenuItem>
                 <MenuItem eventKey="26">Three_Pointers_Pct</MenuItem>
                 <MenuItem eventKey="27">Three_Pointers_Att</MenuItem>
                 <MenuItem eventKey="28">Three_Pointers</MenuItem>
-                <MenuItem eventKey="29">Three_PAr</MenuItem>
-                <MenuItem eventKey="30">TOV</MenuItem>
-                <MenuItem eventKey="31">STL</MenuItem>
-                <MenuItem eventKey="32">SRS</MenuItem>
-                <MenuItem eventKey="33">SOS</MenuItem>
-                <MenuItem eventKey="34">PF</MenuItem>
-                <MenuItem eventKey="35">PACE</MenuItem>
-                <MenuItem eventKey="36">ORB_PCT</MenuItem>
+                <MenuItem eventKey="8">FG</MenuItem>
+                <MenuItem eventKey="9">FGA</MenuItem>
+                <MenuItem eventKey="10">FG_PCT</MenuItem>
+                <MenuItem eventKey="11">FTA</MenuItem>
+                <MenuItem eventKey="12">FTM</MenuItem>
+                <MenuItem eventKey="13">FT_PCT</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Offense Four Factors</MenuItem>
                 <MenuItem eventKey="37">OFF_eFG_PCT</MenuItem>
                 <MenuItem eventKey="38">OFF_TOV_PCT</MenuItem>
                 <MenuItem eventKey="39">OFF_FT_FGA</MenuItem>
-                <MenuItem eventKey="40">DRB_PCT</MenuItem>
+                <MenuItem eventKey="36">ORB_PCT</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Defense Four Factors</MenuItem>
                 <MenuItem eventKey="41">DEF_eFG_PCT</MenuItem>
                 <MenuItem eventKey="42">DEF_TOV_PCT</MenuItem>
                 <MenuItem eventKey="43">DEF_FT_FGA</MenuItem>
+                <MenuItem eventKey="40">DRB_PCT</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Misc.</MenuItem>
+                <MenuItem eventKey="15">W</MenuItem>
+                <MenuItem eventKey="16">L</MenuItem>
+                <MenuItem eventKey="32">SRS</MenuItem>
+                <MenuItem eventKey="33">SOS</MenuItem>
+                <MenuItem eventKey="34">PF</MenuItem>
+                <MenuItem eventKey="3">TRB</MenuItem>
+                <MenuItem eventKey="4">MOV</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Opponent</MenuItem>
+                <MenuItem eventKey="18">oPTS</MenuItem>
+                <MenuItem eventKey="19">oFGPCT</MenuItem>
+                <MenuItem eventKey="20">oTOV</MenuItem>
+                <MenuItem eventKey="21">o2PCT</MenuItem>
+                <MenuItem eventKey="22">o3PCT</MenuItem>
                 <MenuItem eventKey="44">o2P</MenuItem>
                 <MenuItem eventKey="45">o2PA</MenuItem>
                 <MenuItem eventKey="46">o3P</MenuItem>
@@ -430,7 +501,7 @@ export default class TeamRankGuages extends React.Component {
               }}
             />
           </Col>
-          <Col lg={4}>
+          <Col lg={4} xs={12} md={4} sm={4}>
             <div
               className="gauge-header-div"
               style={{ textAlign: "center", fontSize: "16px" }}
@@ -441,49 +512,63 @@ export default class TeamRankGuages extends React.Component {
                 className="card"
                 onSelect={this.selectG3}
               >
+                <MenuItem header>Offense</MenuItem>
                 <MenuItem eventKey="1">PTS</MenuItem>
                 <MenuItem eventKey="2">AST</MenuItem>
-                <MenuItem eventKey="3">TRB</MenuItem>
-                <MenuItem eventKey="4">MOV</MenuItem>
+                <MenuItem eventKey="7">ORtg</MenuItem>
+                <MenuItem eventKey="14">FTr</MenuItem>
+                <MenuItem eventKey="17">ORB</MenuItem>
+                <MenuItem eventKey="29">Three_PAr</MenuItem>
+                <MenuItem eventKey="30">TOV</MenuItem>
+                <MenuItem eventKey="35">PACE</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Defense</MenuItem>
                 <MenuItem eventKey="5">DRB</MenuItem>
                 <MenuItem eventKey="6">DRtg</MenuItem>
-                <MenuItem eventKey="7">ORtg</MenuItem>
-                <MenuItem eventKey="8">FG</MenuItem>
-                <MenuItem eventKey="9">FGA</MenuItem>
-                <MenuItem eventKey="10">FG_PCT</MenuItem>
-                <MenuItem eventKey="11">FTA</MenuItem>
-                <MenuItem eventKey="12">FTM</MenuItem>
-                <MenuItem eventKey="13">FT_PCT</MenuItem>
-                <MenuItem eventKey="14">FTr</MenuItem>
-                <MenuItem eventKey="15">W</MenuItem>
-                <MenuItem eventKey="16">L</MenuItem>
-                <MenuItem eventKey="17">ORB</MenuItem>
-                <MenuItem eventKey="18">oPTS</MenuItem>
-                <MenuItem eventKey="19">oFGPCT</MenuItem>
-                <MenuItem eventKey="20">oTOV</MenuItem>
-                <MenuItem eventKey="21">o2PCT</MenuItem>
-                <MenuItem eventKey="22">o3PCT</MenuItem>
+                <MenuItem eventKey="31">STL</MenuItem>
+                <MenuItem eventKey="50">BLK</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Shooting</MenuItem>
                 <MenuItem eventKey="23">Two_Pointers_Pct</MenuItem>
                 <MenuItem eventKey="24">Two_Pointers_Att</MenuItem>
                 <MenuItem eventKey="25">Two_Pointers</MenuItem>
                 <MenuItem eventKey="26">Three_Pointers_Pct</MenuItem>
                 <MenuItem eventKey="27">Three_Pointers_Att</MenuItem>
                 <MenuItem eventKey="28">Three_Pointers</MenuItem>
-                <MenuItem eventKey="29">Three_PAr</MenuItem>
-                <MenuItem eventKey="30">TOV</MenuItem>
-                <MenuItem eventKey="31">STL</MenuItem>
-                <MenuItem eventKey="32">SRS</MenuItem>
-                <MenuItem eventKey="33">SOS</MenuItem>
-                <MenuItem eventKey="34">PF</MenuItem>
-                <MenuItem eventKey="35">PACE</MenuItem>
-                <MenuItem eventKey="36">ORB_PCT</MenuItem>
+                <MenuItem eventKey="8">FG</MenuItem>
+                <MenuItem eventKey="9">FGA</MenuItem>
+                <MenuItem eventKey="10">FG_PCT</MenuItem>
+                <MenuItem eventKey="11">FTA</MenuItem>
+                <MenuItem eventKey="12">FTM</MenuItem>
+                <MenuItem eventKey="13">FT_PCT</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Offense Four Factors</MenuItem>
                 <MenuItem eventKey="37">OFF_eFG_PCT</MenuItem>
                 <MenuItem eventKey="38">OFF_TOV_PCT</MenuItem>
                 <MenuItem eventKey="39">OFF_FT_FGA</MenuItem>
-                <MenuItem eventKey="40">DRB_PCT</MenuItem>
+                <MenuItem eventKey="36">ORB_PCT</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Defense Four Factors</MenuItem>
                 <MenuItem eventKey="41">DEF_eFG_PCT</MenuItem>
                 <MenuItem eventKey="42">DEF_TOV_PCT</MenuItem>
                 <MenuItem eventKey="43">DEF_FT_FGA</MenuItem>
+                <MenuItem eventKey="40">DRB_PCT</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Misc.</MenuItem>
+                <MenuItem eventKey="15">W</MenuItem>
+                <MenuItem eventKey="16">L</MenuItem>
+                <MenuItem eventKey="32">SRS</MenuItem>
+                <MenuItem eventKey="33">SOS</MenuItem>
+                <MenuItem eventKey="34">PF</MenuItem>
+                <MenuItem eventKey="3">TRB</MenuItem>
+                <MenuItem eventKey="4">MOV</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Opponent</MenuItem>
+                <MenuItem eventKey="18">oPTS</MenuItem>
+                <MenuItem eventKey="19">oFGPCT</MenuItem>
+                <MenuItem eventKey="20">oTOV</MenuItem>
+                <MenuItem eventKey="21">o2PCT</MenuItem>
+                <MenuItem eventKey="22">o3PCT</MenuItem>
                 <MenuItem eventKey="44">o2P</MenuItem>
                 <MenuItem eventKey="45">o2PA</MenuItem>
                 <MenuItem eventKey="46">o3P</MenuItem>

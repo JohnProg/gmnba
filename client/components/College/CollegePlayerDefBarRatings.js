@@ -261,7 +261,6 @@ export default class CollegePlayerDefBarRatings extends React.Component {
           id="container-rating-def"
           style={{
             height: "250px",
-            minWidth: "600px",
             margin: "0 auto"
           }}
         />

@@ -630,9 +630,11 @@ export default class AddTeamSearch2 extends React.Component {
           </Col>
           <Col lg={6} style={{ paddingTop: "30px", marginBottom: "20px" }}>
             <div>
-              <span style={{ fontSize: "22px", textAlign: "right" }}>
-                {this.state.player.Name}
-              </span>
+              <a href={`/team/${this.state.player.id}`}>
+                <span style={{ fontSize: "22px", textAlign: "right" }}>
+                  {this.state.player.Name}
+                </span>
+              </a>
               <span style={{ paddingLeft: "5px" }}>
                 &#40;{this.state.player.W} - {this.state.player.L}&#41;
               </span>

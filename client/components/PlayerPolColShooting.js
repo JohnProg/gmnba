@@ -14,6 +14,11 @@ export default class PlayerPolColShooting extends React.Component {
         this.calculateGrades();
         //this.createChart();
       });
+    } else {
+      this.setState({ player: {} }, () => {
+        this.calculateGrades();
+        //this.createChart();
+      });
     }
   }
 

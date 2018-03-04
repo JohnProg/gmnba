@@ -249,7 +249,6 @@ export default class PlayerAdvOffBarRatings extends React.Component {
           id="container-rating-advoff"
           style={{
             height: "300px",
-            minWidth: "600px",
             margin: "0 auto"
           }}
         />

@@ -8,7 +8,14 @@ export default class PlayerBarRatings extends React.Component {
     this.getGrade = this.getGrade.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    if (this.props.player.name) {
+      this.setState({ player: this.props.player }, () => {
+        this.calculateGrades();
+        //this.createChart();
+      });
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.player.name) {
@@ -266,7 +273,6 @@ export default class PlayerBarRatings extends React.Component {
           id="container-rating"
           style={{
             height: "250px",
-            minWidth: "600px",
             margin: "0 auto"
           }}
         />

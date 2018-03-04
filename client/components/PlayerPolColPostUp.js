@@ -14,6 +14,11 @@ export default class PlayerPolColPostUp extends React.Component {
         this.calculateGrades();
         //this.createChart();
       });
+    } else {
+      this.setState({ player: {} }, () => {
+        this.calculateGrades();
+        //this.createChart();
+      });
     }
   }
 

@@ -9,8 +9,17 @@ export default class TeamRatings extends React.Component {
   }
 
   componentDidMount() {
-    //this.createChart();
-    //this.calculateGrades();
+    if (this.props.team.Name) {
+      this.setState({ team: this.props.team }, () => {
+        this.calculateGrades();
+        //this.createChart();
+      });
+    } else {
+      this.setState({ team: {} }, () => {
+        this.calculateGrades();
+        //this.createChart();
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -216,7 +225,6 @@ export default class TeamRatings extends React.Component {
           id="container-rating"
           style={{
             height: "225px",
-            minWidth: "600px",
             margin: "0 auto"
           }}
         />

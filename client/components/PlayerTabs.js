@@ -39,6 +39,7 @@ export default class PlayerTabs extends React.Component {
   }
 
   render() {
+    console.log(this.props.positionStats);
     let component;
     if (this.state.key === 2)
       component = (
@@ -51,9 +52,9 @@ export default class PlayerTabs extends React.Component {
     if (this.state.key === 4)
       component = (
         <PlayerRatings
-          leagueStats={this.props.leagueStats}
           player={this.props.player}
           colors={this.props.colors}
+          positionStats={this.props.positionStats}
           postStats={this.props.postStats}
           catchShootStats={this.props.catchShootStats}
           shootingStats={this.props.shootingStats}

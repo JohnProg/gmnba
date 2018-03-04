@@ -32,7 +32,7 @@ export default class CollegeTeamLeagueRanks extends React.Component {
             <Col lg={10} lgOffset={1}>
               <div
                 className="card"
-                style={{ height: "300px", backgroundColor: "white" }}
+                style={{ paddingBottom: "20px", backgroundColor: "white" }}
               >
                 <TeamRankGuages
                   team={this.props.team}
@@ -42,7 +42,7 @@ export default class CollegeTeamLeagueRanks extends React.Component {
             </Col>
           </Row>
           <Row className="chart-row">
-            <Col lg={3} lgOffset={1}>
+            <Col lg={3} lgOffset={1} md={3} sm={4}>
               <div className="card header" style={headerStyle}>
                 Team Ratings
               </div>

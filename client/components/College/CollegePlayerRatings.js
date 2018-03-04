@@ -10,7 +10,7 @@ import {
   DropdownButton,
   MenuItem
 } from "react-bootstrap";
-import PlayerRankGauges from "../PlayerRankGauges";
+import CollegePlayerRankGauges from "./CollegePlayerRankGauges";
 import PlayerPositionAverages from "../PlayerPositionAverages";
 import TeamRatings from "../TeamRatings";
 import CollegePlayerPolarArea from "./CollegePlayerPolarArea";
@@ -33,16 +33,17 @@ export default class CollegePlayerRatings extends React.Component {
       positionStats: [],
       statCat: "Basic"
     };
-    this.getPositionStats = this.getPositionStats.bind(this);
+    //this.getPositionStats = this.getPositionStats.bind(this);
     this.renderPolarCol = this.renderPolarCol.bind(this);
     this.renderBarChart = this.renderBarChart.bind(this);
     this.selectStatCat = this.selectStatCat.bind(this);
+    this.renderRankGauges = this.renderRankGauges.bind(this);
   }
 
   componentDidMount() {
     if (this.props.player.name) {
       this.setState({ player: this.props.player }, () => {
-        this.getPositionStats(this.state.player.position);
+        //this.getPositionStats(this.state.player.position);
         //this.createChart();
       });
     }
@@ -57,23 +58,37 @@ export default class CollegePlayerRatings extends React.Component {
     // }
   }
 
-  getPositionStats(position) {
-    axios
-      .get("/api/teams/getcPositionStats", {
-        params: {
-          position: position
-        }
-      })
-      .then(data => {
-        this.setState({ positionStats: data.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+  // getPositionStats(position) {
+  //   axios
+  //     .get("/api/teams/getcPositionStats", {
+  //       params: {
+  //         position: position
+  //       }
+  //     })
+  //     .then(data => {
+  //       this.setState({ positionStats: data.data });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }
 
   selectStatCat(evt, eventKey) {
     this.setState({ statCat: eventKey.target.innerHTML });
+  }
+
+  renderRankGauges() {
+    if (this.props.positionStats && this.props.player) {
+      return (
+        <CollegePlayerRankGauges
+          colors={this.props.colors}
+          player={this.props.player}
+          positionStats={this.props.positionStats}
+        />
+      );
+    } else {
+      return <div>Loading...</div>;
+    }
   }
 
   renderPolarCol() {
@@ -113,6 +128,13 @@ export default class CollegePlayerRatings extends React.Component {
       paddingLeft: "25px",
       color: this.props.colors.Color_Sec
     };
+    var headerStyle2 = {
+      backgroundColor: this.props.colors.Color_Main,
+      height: "50px",
+      lineHeight: "50px",
+      fontSize: "20px",
+      color: this.props.colors.Color_Sec
+    };
     return (
       <div>
         <Grid>
@@ -122,16 +144,18 @@ export default class CollegePlayerRatings extends React.Component {
                 PLAYER RATINGS
               </div>
             </Col>
-            <Col lg={2} lgOffset={6}>
-              <div>
+            <Col lg={2} lgOffset={5}>
+              <div className="stat-selector">
                 <DropdownButton
+                  pullRight
                   title={this.state.statCat}
                   className="card"
                   style={{
                     border: "none",
                     fontSize: "16px",
-                    backgroundColor: "#eee",
-                    marginTop: "20px"
+                    backgroundColor: this.props.colors.Color_Main,
+                    marginTop: "20px",
+                    color: this.props.colors.Color_Sec
                   }}
                   onSelect={this.selectStatCat}
                 >
@@ -171,13 +195,9 @@ export default class CollegePlayerRatings extends React.Component {
             <Col lg={10} lgOffset={1}>
               <div
                 className="card"
-                style={{ height: "300px", backgroundColor: "white" }}
+                style={{ paddingBottom: "20px", backgroundColor: "white" }}
               >
-                <PlayerRankGauges
-                  colors={this.props.colors}
-                  player={this.props.player}
-                  positionStats={this.state.positionStats}
-                />
+                {this.renderRankGauges()}
               </div>
             </Col>
           </Row>
@@ -193,7 +213,7 @@ export default class CollegePlayerRatings extends React.Component {
             <Col lg={10} lgOffset={1}>
               <PlayerPositionAverages
                 player={this.props.player}
-                positionStats={this.state.positionStats}
+                positionStats={this.props.positionStats}
                 colors={this.props.colors}
               />
             </Col>

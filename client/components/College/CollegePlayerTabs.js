@@ -5,18 +5,38 @@ import TeamStats from "../TeamStats";
 import TeamPlayerStats from "../TeamPlayerStats";
 import CollegePlayerRatings from "./CollegePlayerRatings";
 import PlayerSeasonStats from "../PlayerSeasonStats";
+import CollegePlayerComparison from "./CollegePlayerComparison";
+import axios from "axios";
 
 export default class CollegePlayerTabs extends React.Component {
   constructor() {
     super();
     this.state = {
-      key: 4
+      key: 4,
+      playerStats: []
     };
     this.handleSelect = this.handleSelect.bind(this);
+    this.getAllCollegePlayers = this.getAllCollegePlayers.bind(this);
+  }
+
+  componentDidMount() {
+    this.getAllCollegePlayers();
   }
 
   handleSelect(key) {
     this.setState({ key });
+  }
+
+  getAllCollegePlayers() {
+    axios
+      .get("/api/teams/getAllCollegePlayers")
+      .then(data => {
+        this.setState({ playerStats: data.data });
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -35,6 +55,15 @@ export default class CollegePlayerTabs extends React.Component {
           leagueStats={this.props.leagueStats}
           player={this.props.player}
           colors={this.props.colors}
+          positionStats={this.props.positionStats}
+        />
+      );
+    if (this.state.key === 5)
+      component = (
+        <CollegePlayerComparison
+          player={this.props.player}
+          colors={this.props.colors}
+          players={this.state.playerStats}
         />
       );
     var headerStyle = {
@@ -57,16 +86,16 @@ export default class CollegePlayerTabs extends React.Component {
             <NavItem eventKey={2} href="/">
               <span style={tabColor}>SEASON</span>
             </NavItem>
-            <NavItem eventKey={3} href="/">
+            <NavItem eventKey={3} href="/" disabled>
               <span style={tabColor}>CAREER</span>
             </NavItem>
             <NavItem eventKey={4} href="/">
               <span style={tabColor}>RATINGS</span>
             </NavItem>
             <NavItem eventKey={5} href="/">
-              <span style={tabColor}>PROJECTION</span>
+              <span style={tabColor}>COMPARISON</span>
             </NavItem>
-            <NavItem eventKey={6} title="Item">
+            <NavItem eventKey={6} title="Item" disabled>
               <span style={tabColor}>VIDEOS</span>
             </NavItem>
           </Nav>

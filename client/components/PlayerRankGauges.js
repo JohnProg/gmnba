@@ -28,14 +28,8 @@ export default class PlayerRankGuages extends React.Component {
   }
 
   componentDidMount() {
-    //this.createChart();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.colors.Color_Main) {
-      this.setState({ colors: nextProps.colors });
-    }
-    if (nextProps.positionStats) {
+    if (this.props.positionStats) {
+      this.setState({ playerCount: this.props.positionStats.length });
       var gauge1Rank = this.getPlayerRank(this.state.gauge1);
       var gauge2Rank = this.getPlayerRank(this.state.gauge2);
       var gauge3Rank = this.getPlayerRank(this.state.gauge3);
@@ -52,11 +46,29 @@ export default class PlayerRankGuages extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    // if (nextProps.positionStats) {
+    //   this.setState({ playerCount: nextProps.positionStats.length });
+    //   var gauge1Rank = this.getPlayerRank(this.state.gauge1);
+    //   var gauge2Rank = this.getPlayerRank(this.state.gauge2);
+    //   var gauge3Rank = this.getPlayerRank(this.state.gauge3);
+    //   this.setState(
+    //     {
+    //       gauge1Rank: gauge1Rank,
+    //       gauge2Rank: gauge2Rank,
+    //       gauge3Rank: gauge3Rank
+    //     },
+    //     () => {
+    //       this.createChart();
+    //     }
+    //   );
+    // }
+  }
+
   getPlayerRank(stat) {
     var obj = {};
     var rank;
     var suffix;
-    this.setState({ playerCount: this.props.positionStats.length });
     var sorted = this.props.positionStats.sort((a, b) => {
       return parseFloat(b[stat]) - parseFloat(a[stat]);
     });
@@ -259,7 +271,7 @@ export default class PlayerRankGuages extends React.Component {
     );
 
     var chartThree = Highcharts.chart(
-      "container3",
+      "container-rgauge",
       Highcharts.merge(gaugeOptions, {
         yAxis: {
           min: 0,
@@ -307,7 +319,7 @@ export default class PlayerRankGuages extends React.Component {
     return (
       <div>
         <Row className="chart-row">
-          <Col lg={4}>
+          <Col lg={4} xs={12}>
             <div
               className="gauge-header-div "
               style={{ textAlign: "center", fontSize: "16px" }}
@@ -318,12 +330,16 @@ export default class PlayerRankGuages extends React.Component {
                 className="card"
                 onSelect={this.selectG1}
               >
+                <MenuItem header>Offense</MenuItem>
                 <MenuItem eventKey="1">pts</MenuItem>
                 <MenuItem eventKey="2">ast</MenuItem>
-                <MenuItem eventKey="3">trb</MenuItem>
-                <MenuItem eventKey="4">mpg</MenuItem>
-                <MenuItem eventKey="5">stl</MenuItem>
-                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="20">tov</MenuItem>
+                <MenuItem eventKey="25">astPct</MenuItem>
+                <MenuItem eventKey="26">tovPct</MenuItem>
+                <MenuItem eventKey="30">usgPct</MenuItem>
+                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Shooting</MenuItem>
                 <MenuItem eventKey="7">fgm</MenuItem>
                 <MenuItem eventKey="8">fga</MenuItem>
                 <MenuItem eventKey="9">fgPct</MenuItem>
@@ -337,21 +353,26 @@ export default class PlayerRankGuages extends React.Component {
                 <MenuItem eventKey="17">fta</MenuItem>
                 <MenuItem eventKey="18">freeThrowPct</MenuItem>
                 <MenuItem eventKey="19">efgPct</MenuItem>
-                <MenuItem eventKey="20">tov</MenuItem>
-                <MenuItem eventKey="21">orb</MenuItem>
-                <MenuItem eventKey="22">drb</MenuItem>
-                <MenuItem eventKey="23">pf</MenuItem>
-                <MenuItem eventKey="24">orbPct</MenuItem>
-                <MenuItem eventKey="25">astPct</MenuItem>
-                <MenuItem eventKey="26">tovPct</MenuItem>
-                <MenuItem eventKey="27">drbPct</MenuItem>
-                <MenuItem eventKey="28">stlPct</MenuItem>
-                <MenuItem eventKey="29">blkPct</MenuItem>
-                <MenuItem eventKey="30">usgPct</MenuItem>
-                <MenuItem eventKey="31">trbPct</MenuItem>
                 <MenuItem eventKey="32">tsPct</MenuItem>
                 <MenuItem eventKey="33">threePAr</MenuItem>
-                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Rebounding</MenuItem>
+                <MenuItem eventKey="3">trb</MenuItem>
+                <MenuItem eventKey="21">orb</MenuItem>
+                <MenuItem eventKey="22">drb</MenuItem>
+                <MenuItem eventKey="24">orbPct</MenuItem>
+                <MenuItem eventKey="27">drbPct</MenuItem>
+                <MenuItem eventKey="31">trbPct</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Defense</MenuItem>
+                <MenuItem eventKey="5">stl</MenuItem>
+                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="28">stlPct</MenuItem>
+                <MenuItem eventKey="29">blkPct</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Misc.</MenuItem>
+                <MenuItem eventKey="4">mpg</MenuItem>
+                <MenuItem eventKey="23">pf</MenuItem>
                 <MenuItem eventKey="35">per</MenuItem>
                 <MenuItem eventKey="36">ows</MenuItem>
                 <MenuItem eventKey="37">dws</MenuItem>
@@ -371,7 +392,7 @@ export default class PlayerRankGuages extends React.Component {
               }}
             />
           </Col>
-          <Col lg={4}>
+          <Col lg={4} xs={12}>
             <div
               className="gauge-header-div"
               style={{ textAlign: "center", fontSize: "16px" }}
@@ -382,14 +403,16 @@ export default class PlayerRankGuages extends React.Component {
                 title={this.state.gauge2.toUpperCase()}
                 onSelect={this.selectG2}
               >
-                <MenuItem onSelect={this.selectG1} eventKey="1">
-                  pts
-                </MenuItem>
+                <MenuItem header>Offense</MenuItem>
+                <MenuItem eventKey="1">pts</MenuItem>
                 <MenuItem eventKey="2">ast</MenuItem>
-                <MenuItem eventKey="3">trb</MenuItem>
-                <MenuItem eventKey="4">mpg</MenuItem>
-                <MenuItem eventKey="5">stl</MenuItem>
-                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="20">tov</MenuItem>
+                <MenuItem eventKey="25">astPct</MenuItem>
+                <MenuItem eventKey="26">tovPct</MenuItem>
+                <MenuItem eventKey="30">usgPct</MenuItem>
+                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Shooting</MenuItem>
                 <MenuItem eventKey="7">fgm</MenuItem>
                 <MenuItem eventKey="8">fga</MenuItem>
                 <MenuItem eventKey="9">fgPct</MenuItem>
@@ -403,21 +426,26 @@ export default class PlayerRankGuages extends React.Component {
                 <MenuItem eventKey="17">fta</MenuItem>
                 <MenuItem eventKey="18">freeThrowPct</MenuItem>
                 <MenuItem eventKey="19">efgPct</MenuItem>
-                <MenuItem eventKey="20">tov</MenuItem>
-                <MenuItem eventKey="21">orb</MenuItem>
-                <MenuItem eventKey="22">drb</MenuItem>
-                <MenuItem eventKey="23">pf</MenuItem>
-                <MenuItem eventKey="24">orbPct</MenuItem>
-                <MenuItem eventKey="25">astPct</MenuItem>
-                <MenuItem eventKey="26">tovPct</MenuItem>
-                <MenuItem eventKey="27">drbPct</MenuItem>
-                <MenuItem eventKey="28">stlPct</MenuItem>
-                <MenuItem eventKey="29">blkPct</MenuItem>
-                <MenuItem eventKey="30">usgPct</MenuItem>
-                <MenuItem eventKey="31">trbPct</MenuItem>
                 <MenuItem eventKey="32">tsPct</MenuItem>
                 <MenuItem eventKey="33">threePAr</MenuItem>
-                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Rebounding</MenuItem>
+                <MenuItem eventKey="3">trb</MenuItem>
+                <MenuItem eventKey="21">orb</MenuItem>
+                <MenuItem eventKey="22">drb</MenuItem>
+                <MenuItem eventKey="24">orbPct</MenuItem>
+                <MenuItem eventKey="27">drbPct</MenuItem>
+                <MenuItem eventKey="31">trbPct</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Defense</MenuItem>
+                <MenuItem eventKey="5">stl</MenuItem>
+                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="28">stlPct</MenuItem>
+                <MenuItem eventKey="29">blkPct</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Misc.</MenuItem>
+                <MenuItem eventKey="4">mpg</MenuItem>
+                <MenuItem eventKey="23">pf</MenuItem>
                 <MenuItem eventKey="35">per</MenuItem>
                 <MenuItem eventKey="36">ows</MenuItem>
                 <MenuItem eventKey="37">dws</MenuItem>
@@ -437,7 +465,7 @@ export default class PlayerRankGuages extends React.Component {
               }}
             />
           </Col>
-          <Col lg={4}>
+          <Col lg={4} xs={12}>
             <div
               className="gauge-header-div"
               style={{ textAlign: "center", fontSize: "16px" }}
@@ -448,12 +476,16 @@ export default class PlayerRankGuages extends React.Component {
                 title={this.state.gauge3.toUpperCase()}
                 onSelect={this.selectG3}
               >
+                <MenuItem header>Offense</MenuItem>
                 <MenuItem eventKey="1">pts</MenuItem>
                 <MenuItem eventKey="2">ast</MenuItem>
-                <MenuItem eventKey="3">trb</MenuItem>
-                <MenuItem eventKey="4">mpg</MenuItem>
-                <MenuItem eventKey="5">stl</MenuItem>
-                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="20">tov</MenuItem>
+                <MenuItem eventKey="25">astPct</MenuItem>
+                <MenuItem eventKey="26">tovPct</MenuItem>
+                <MenuItem eventKey="30">usgPct</MenuItem>
+                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Shooting</MenuItem>
                 <MenuItem eventKey="7">fgm</MenuItem>
                 <MenuItem eventKey="8">fga</MenuItem>
                 <MenuItem eventKey="9">fgPct</MenuItem>
@@ -467,21 +499,26 @@ export default class PlayerRankGuages extends React.Component {
                 <MenuItem eventKey="17">fta</MenuItem>
                 <MenuItem eventKey="18">freeThrowPct</MenuItem>
                 <MenuItem eventKey="19">efgPct</MenuItem>
-                <MenuItem eventKey="20">tov</MenuItem>
-                <MenuItem eventKey="21">orb</MenuItem>
-                <MenuItem eventKey="22">drb</MenuItem>
-                <MenuItem eventKey="23">pf</MenuItem>
-                <MenuItem eventKey="24">orbPct</MenuItem>
-                <MenuItem eventKey="25">astPct</MenuItem>
-                <MenuItem eventKey="26">tovPct</MenuItem>
-                <MenuItem eventKey="27">drbPct</MenuItem>
-                <MenuItem eventKey="28">stlPct</MenuItem>
-                <MenuItem eventKey="29">blkPct</MenuItem>
-                <MenuItem eventKey="30">usgPct</MenuItem>
-                <MenuItem eventKey="31">trbPct</MenuItem>
                 <MenuItem eventKey="32">tsPct</MenuItem>
                 <MenuItem eventKey="33">threePAr</MenuItem>
-                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Rebounding</MenuItem>
+                <MenuItem eventKey="3">trb</MenuItem>
+                <MenuItem eventKey="21">orb</MenuItem>
+                <MenuItem eventKey="22">drb</MenuItem>
+                <MenuItem eventKey="24">orbPct</MenuItem>
+                <MenuItem eventKey="27">drbPct</MenuItem>
+                <MenuItem eventKey="31">trbPct</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Defense</MenuItem>
+                <MenuItem eventKey="5">stl</MenuItem>
+                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="28">stlPct</MenuItem>
+                <MenuItem eventKey="29">blkPct</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Misc.</MenuItem>
+                <MenuItem eventKey="4">mpg</MenuItem>
+                <MenuItem eventKey="23">pf</MenuItem>
                 <MenuItem eventKey="35">per</MenuItem>
                 <MenuItem eventKey="36">ows</MenuItem>
                 <MenuItem eventKey="37">dws</MenuItem>
@@ -494,7 +531,7 @@ export default class PlayerRankGuages extends React.Component {
               </DropdownButton>
             </div>
             <div
-              id="container3"
+              id="container-rgauge"
               style={{
                 height: "140px",
                 margin: "auto 0"

@@ -246,7 +246,8 @@ export default class PlayerScatter extends React.Component {
         ],
         name: player.name,
         color: "#d00000",
-        _symbolIndex: 0
+        _symbolIndex: 0,
+        id: player.id
       });
     }
     this.setState({ data: statArr }, () => {
@@ -485,7 +486,8 @@ export default class PlayerScatter extends React.Component {
           ],
           name: player.name,
           color: "#d00000",
-          _symbolIndex: 0
+          _symbolIndex: 0,
+          id: player.id
         });
       }
       this.setState({ data: statArr }, () => {
@@ -503,7 +505,7 @@ export default class PlayerScatter extends React.Component {
     if (this.state.showFilter === true) {
       return (
         <div style={{ height: "100px" }}>
-          <Col lg={1}>
+          <Col lg={1} lgOffset={1}>
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               Position
             </div>
@@ -571,48 +573,6 @@ export default class PlayerScatter extends React.Component {
               </Checkbox>
             </FormGroup>
           </Col>
-          <Col lg={3}>
-            <div style={{ color: "#d00000", textDecoration: "underline" }}>
-              Teams
-            </div>
-            <FormGroup
-              style={{
-                paddingLeft: "10px",
-                overflow: "scroll",
-                height: "135px"
-              }}
-            >
-              <Checkbox>Atlanta Hawks</Checkbox>{" "}
-              <Checkbox>Brooklyn Nets</Checkbox>{" "}
-              <Checkbox>Boston Celtics</Checkbox>{" "}
-              <Checkbox>Charlotte Hornets</Checkbox>{" "}
-              <Checkbox>Chicago Bulls</Checkbox>
-              <Checkbox>Cleveland Cavaliers</Checkbox>
-              <Checkbox>Dallas Mavericks</Checkbox>
-              <Checkbox>Denver Nuggets</Checkbox>
-              <Checkbox>Detroit Pistons</Checkbox>
-              <Checkbox>Golden State Warriors</Checkbox>
-              <Checkbox>Houston Rockets</Checkbox>
-              <Checkbox>Indiana Pacers</Checkbox>
-              <Checkbox>Los Angeles Clippers</Checkbox>
-              <Checkbox>Los Angeles Lakers</Checkbox>
-              <Checkbox>Memphis Grizzlies</Checkbox>
-              <Checkbox>Miami Heat</Checkbox>
-              <Checkbox>Milwaukee Bucks</Checkbox>
-              <Checkbox>Minnesota Timberwolves</Checkbox>
-              <Checkbox>New York Knicks</Checkbox>
-              <Checkbox>Oklahoma City Thunder</Checkbox>
-              <Checkbox>Orlando Magic</Checkbox>
-              <Checkbox>Philadelphia 76ers</Checkbox>
-              <Checkbox>Phoenix Suns</Checkbox>
-              <Checkbox>Portland Trail Blazers</Checkbox>
-              <Checkbox>Sacramento Kings</Checkbox>
-              <Checkbox>San Antonio Spurs</Checkbox>
-              <Checkbox>Toronto Raptors</Checkbox>
-              <Checkbox>Utah Jazz</Checkbox>
-              <Checkbox>Washington Wizardss</Checkbox>
-            </FormGroup>
-          </Col>
           <Col lg={2}>
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               Age
@@ -640,14 +600,21 @@ export default class PlayerScatter extends React.Component {
               Salary
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
-              <Checkbox>&#60; 5 mil.</Checkbox> <Checkbox>5-10 mil.</Checkbox>{" "}
-              <Checkbox>10-15 mil.</Checkbox> <Checkbox>15-20 mil.</Checkbox>{" "}
-              <Checkbox>> 20 mil.</Checkbox>
+              <Checkbox disabled>&#60; 5 mil.</Checkbox>{" "}
+              <Checkbox disabled>5-10 mil.</Checkbox>{" "}
+              <Checkbox disabled>10-15 mil.</Checkbox>{" "}
+              <Checkbox disabled>15-20 mil.</Checkbox>{" "}
+              <Checkbox disabled>> 20 mil.</Checkbox>
             </FormGroup>
           </Col>
-          <Col lg={4}>
+          <Col lg={2}>
             <div>
-              <Button onClick={this.handleFilterSubmit}>Submit</Button>
+              <Button
+                onClick={this.handleFilterSubmit}
+                style={{ backgroundColor: "#d00000", color: "white" }}
+              >
+                Filter
+              </Button>
             </div>
           </Col>
         </div>
@@ -670,7 +637,7 @@ export default class PlayerScatter extends React.Component {
             <div className="card" style={{ backgroundColor: "white" }}>
               <div>
                 <form>
-                  <Col lg={4} lgOffset={1}>
+                  <Col lg={4} lgOffset={1} sm={5} md={5}>
                     <div>
                       <label htmlFor="sel1">
                         Select Stat <sub>(y)</sub> :
@@ -730,7 +697,7 @@ export default class PlayerScatter extends React.Component {
                       </select>
                     </div>
                   </Col>
-                  <Col lg={4}>
+                  <Col lg={4} sm={5} md={5}>
                     <div>
                       <label htmlFor="sel2" className="select-stat-label">
                         Select Stat <sub>(x)</sub> :
@@ -790,7 +757,7 @@ export default class PlayerScatter extends React.Component {
                       </select>
                     </div>
                   </Col>
-                  <Col lg={1}>
+                  <Col lg={1} sm={2} md={2}>
                     <div>
                       <button
                         onClick={this.handleSubmit}

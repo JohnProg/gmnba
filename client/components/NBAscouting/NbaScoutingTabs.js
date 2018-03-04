@@ -11,7 +11,7 @@ export default class NbaScoutingTabs extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: 5
+      key: 2
     };
     this.handleSelect = this.handleSelect.bind(this);
   }

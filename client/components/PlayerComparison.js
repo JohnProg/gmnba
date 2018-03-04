@@ -32,13 +32,13 @@ export default class PlayerComparison extends React.Component {
             </Col>
           </Row>
           <Row style={{ paddingTop: "20px", paddingBottom: "40px" }}>
-            <Col lg={6}>
+            <Col lg={6} xs={12}>
               <AddPlayerSearch
                 list={this.props.player}
                 colors={this.props.colors}
               />
             </Col>
-            <Col lg={6}>
+            <Col lg={6} xs={12}>
               <AddPlayerSearch2
                 list={this.props.players}
                 colors={this.props.colors}

@@ -233,7 +233,7 @@ export default class TeamRankGuages extends React.Component {
     return (
       <div>
         <Row className="chart-row">
-          <Col lg={4}>
+          <Col lg={4} md={4} sm={4}>
             <div className="gauge-header-div">
               <div className="card guage-header" style={statLabels}>
                 PTS
@@ -247,7 +247,7 @@ export default class TeamRankGuages extends React.Component {
               }}
             />
           </Col>
-          <Col lg={4}>
+          <Col lg={4} md={4} sm={4}>
             <div className="gauge-header-div">
               <div className="card guage-header" style={statLabels}>
                 TRB
@@ -261,7 +261,7 @@ export default class TeamRankGuages extends React.Component {
               }}
             />
           </Col>
-          <Col lg={4}>
+          <Col lg={4} md={4} sm={4}>
             <div className="gauge-header-div">
               <div className="card guage-header" style={statLabels}>
                 AST

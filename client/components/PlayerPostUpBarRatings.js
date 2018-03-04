@@ -14,6 +14,11 @@ export default class PlayerPostUpBarRatings extends React.Component {
         this.calculateGrades();
         //this.createChart();
       });
+    } else {
+      this.setState({ player: {} }, () => {
+        this.calculateGrades();
+        //this.createChart();
+      });
     }
   }
 
@@ -245,7 +250,6 @@ export default class PlayerPostUpBarRatings extends React.Component {
           id="container-rating-post"
           style={{
             height: "300px",
-            minWidth: "600px",
             margin: "0 auto"
           }}
         />

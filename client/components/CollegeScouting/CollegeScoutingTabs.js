@@ -4,12 +4,13 @@ import CollegeLeaders from "./CollegeLeaders";
 import CPlayerComparison from "./CPlayerComparison";
 import CTeamComparison from "./CTeamComparison";
 import PlayerFinder from "../NBAscouting/PlayerFinder";
+import CollegeStats from "./CollegeStats";
 
 export default class CollegeScoutingTabs extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: 3
+      key: 2
     };
     this.handleSelect = this.handleSelect.bind(this);
   }
@@ -29,6 +30,8 @@ export default class CollegeScoutingTabs extends React.Component {
       component = <CTeamComparison teams={this.props.teams} />;
     if (this.state.key === 4)
       component = <PlayerFinder players={this.props.players} />;
+    if (this.state.key === 5)
+      component = <CollegeStats players={this.props.players} />;
     return (
       <div>
         <div className="card">
@@ -39,22 +42,22 @@ export default class CollegeScoutingTabs extends React.Component {
             justified
           >
             <NavItem eventKey={1} href="/">
-              <span className="tab-text">COLLEGE LEADERS</span>
+              <span className="tab-text">College Leaders</span>
             </NavItem>
             <NavItem eventKey={2} href="/">
-              <span className="tab-text">PLAYER COMPARISON</span>
+              <span className="tab-text">Player Comparison</span>
             </NavItem>
             <NavItem eventKey={3} href="/">
-              <span className="tab-text">TEAM COMPARISON</span>
+              <span className="tab-text">Team Comparison</span>
             </NavItem>
-            <NavItem eventKey={4} href="/">
-              <span className="tab-text">PLAYER FINDER</span>
+            <NavItem eventKey={4} href="/" disabled>
+              <span className="tab-text">Player Finder</span>
             </NavItem>
             <NavItem eventKey={5} title="Item">
-              <span className="tab-text">STATS</span>
+              <span className="tab-text">Stats</span>
             </NavItem>
-            <NavItem eventKey={6} title="Item">
-              <span className="tab-text">RANKINGS</span>
+            <NavItem eventKey={6} title="Item" disabled>
+              <span className="tab-text">Rankings</span>
             </NavItem>
           </Nav>
         </div>

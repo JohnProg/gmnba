@@ -30,7 +30,7 @@ export default class CollegeLeadersTable4 extends React.Component {
               <th>{this.props.stat}</th>
             </tr>
           </thead>
-          <tbody>{this.renderPlayers(this.props.stat.toLowerCase())}</tbody>
+          <tbody>{this.renderPlayers(this.props.stat)}</tbody>
         </Table>
       </div>
     );

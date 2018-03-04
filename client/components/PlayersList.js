@@ -33,7 +33,7 @@ export default class PlayersList extends React.Component {
                 <div id="roster-header">
                   <div style={headerStyle}>2017-18 TEAM ROSTER</div>
                 </div>
-                <Table striped hover>
+                <Table striped hover responsive>
                   <thead>
                     <tr>
                       <th>Name</th>

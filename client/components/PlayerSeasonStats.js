@@ -160,7 +160,7 @@ export default class PlayerSeasonStats extends React.Component {
   renderPlayer(stat) {
     if (this.state.renderStats === true) {
       return (
-        <Table striped hover>
+        <Table striped hover responsive>
           <thead>
             <tr>
               <th>GP</th>
@@ -218,7 +218,7 @@ export default class PlayerSeasonStats extends React.Component {
     } else if (this.state.renderRatings === true) {
       // this.calculateGrades();
       return (
-        <Table striped hover>
+        <Table striped hover responsive>
           <thead>
             <tr>
               <th>FG</th>
@@ -394,7 +394,7 @@ export default class PlayerSeasonStats extends React.Component {
                 >
                   <div style={headerStyle}>2017-18 PLAYER ADVANCED STATS</div>
                 </div>
-                <Table striped hover>
+                <Table striped hover responsive>
                   <thead>
                     <tr>
                       <th>AST%</th>

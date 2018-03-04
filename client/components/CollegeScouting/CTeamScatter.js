@@ -32,11 +32,11 @@ export default class CTeamScatter extends React.Component {
     this.secondInputChange = this.secondInputChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidMount() {
     var teamData = [];
     var scatterData = [];
-    if (nextProps.teams) {
-      var data = nextProps.teams;
+    if (this.props.teams) {
+      var data = this.props.teams;
       this.setState({ teamData: data });
       for (var j = 0; j < data.length; j++) {
         scatterData.push({
@@ -48,7 +48,8 @@ export default class CTeamScatter extends React.Component {
           ],
           name: data[j].Name,
           color: "#0055bf",
-          _symbolIndex: 0
+          _symbolIndex: 0,
+          id: data[j].id
         });
       }
       this.setState({ data: scatterData }, () => {
@@ -56,6 +57,31 @@ export default class CTeamScatter extends React.Component {
       });
     }
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   var teamData = [];
+  //   var scatterData = [];
+  //   if (nextProps.teams) {
+  //     var data = nextProps.teams;
+  //     this.setState({ teamData: data });
+  //     for (var j = 0; j < data.length; j++) {
+  //       scatterData.push({
+  //         data: [
+  //           [
+  //             parseFloat(data[j][this.state.statTwo]),
+  //             parseFloat(data[j][this.state.statOne])
+  //           ]
+  //         ],
+  //         name: data[j].Name,
+  //         color: "#0055bf",
+  //         _symbolIndex: 0
+  //       });
+  //     }
+  //     this.setState({ data: scatterData }, () => {
+  //       this.createChart();
+  //     });
+  //   }
+  // }
 
   createChart() {
     var chart = Highcharts.chart("containerScatter2", {
@@ -107,6 +133,19 @@ export default class CTeamScatter extends React.Component {
               }
             }
           },
+          cursor: "pointer",
+          point: {
+            events: {
+              click: event => {
+                console.log("Event: ", event.point.series.userOptions.id);
+                window.location =
+                  "/college-team/" + event.point.series.userOptions.id;
+                // this.setState({
+                //   name: event.point.series.userOptions.name
+                // });
+              }
+            }
+          },
           states: {
             hover: {
               marker: {
@@ -155,7 +194,8 @@ export default class CTeamScatter extends React.Component {
         ],
         name: team.Name,
         color: "#0055bf",
-        _symbolIndex: 0
+        _symbolIndex: 0,
+        id: team.id
       });
     }
     this.setState({ data: statArr }, () => {
@@ -192,68 +232,30 @@ export default class CTeamScatter extends React.Component {
                         onChange={this.firstInputChange}
                         style={{ marginLeft: "10px" }}
                       >
-                        <option>PTS</option>
                         <option>AST</option>
+                        <option>PTS</option>
+                        <option>W</option>
                         <option>TRB</option>
                         <option>BLK</option>
-                        <option>DEF_FT_FGA</option>
-                        <option>DEF_TOV_PCT</option>
-                        <option>DEF_eFG_PCT</option>
                         <option>DRB</option>
-                        <option>DRB_PCT</option>
-                        <option>ORtg</option>
-                        <option>DRtg</option>
                         <option>FG</option>
                         <option>FGA</option>
                         <option>FG_PCT</option>
                         <option>FTA</option>
                         <option>FTM</option>
                         <option>FT_PCT</option>
-                        <option>FTr</option>
                         <option>GP</option>
-                        <option>W</option>
                         <option>L</option>
-                        <option>MOV</option>
-                        <option>OFF_FT_FGA</option>
-                        <option>OFF_TOV_PCT</option>
-                        <option>OFF_eFG_PCT</option>
                         <option>ORB</option>
-                        <option>ORB_PCT</option>
-                        <option>PACE</option>
                         <option>PF</option>
-                        <option>PW</option>
-                        <option>PL</option>
-                        <option>SOS</option>
-                        <option>SRS</option>
                         <option>STL</option>
                         <option>TOV</option>
-                        <option>Three_PAr</option>
                         <option>Three_Pointers</option>
                         <option>Three_Pointers_Att</option>
                         <option>Three_Pointers_Pct</option>
                         <option>Two_Pointers</option>
                         <option>Two_Pointers_Att</option>
                         <option>Two_Pointers_Pct</option>
-                        <option>o2P</option>
-                        <option>o2PA</option>
-                        <option>o2PCT</option>
-                        <option>o3P</option>
-                        <option>o3PA</option>
-                        <option>o3PCT</option>
-                        <option>oAST</option>
-                        <option>oBLK</option>
-                        <option>oDRB</option>
-                        <option>oFG</option>
-                        <option>oFGPCT</option>
-                        <option>oFTA</option>
-                        <option>oFTM</option>
-                        <option>oFTPCT</option>
-                        <option>oORB</option>
-                        <option>oPF</option>
-                        <option>oPTS</option>
-                        <option>oSTL</option>
-                        <option>oTOV</option>
-                        <option>oTRB</option>
                       </select>
                     </div>
                   </Col>
@@ -272,63 +274,25 @@ export default class CTeamScatter extends React.Component {
                         <option>W</option>
                         <option>TRB</option>
                         <option>BLK</option>
-                        <option>DEF_FT_FGA</option>
-                        <option>DEF_TOV_PCT</option>
-                        <option>DEF_eFG_PCT</option>
                         <option>DRB</option>
-                        <option>DRB_PCT</option>
-                        <option>ORtg</option>
-                        <option>DRtg</option>
                         <option>FG</option>
                         <option>FGA</option>
                         <option>FG_PCT</option>
                         <option>FTA</option>
                         <option>FTM</option>
                         <option>FT_PCT</option>
-                        <option>FTr</option>
                         <option>GP</option>
                         <option>L</option>
-                        <option>MOV</option>
-                        <option>OFF_FT_FGA</option>
-                        <option>OFF_TOV_PCT</option>
-                        <option>OFF_eFG_PCT</option>
                         <option>ORB</option>
-                        <option>ORB_PCT</option>
-                        <option>PACE</option>
                         <option>PF</option>
-                        <option>PW</option>
-                        <option>PL</option>
-                        <option>SOS</option>
-                        <option>SRS</option>
                         <option>STL</option>
                         <option>TOV</option>
-                        <option>Three_PAr</option>
                         <option>Three_Pointers</option>
                         <option>Three_Pointers_Att</option>
                         <option>Three_Pointers_Pct</option>
                         <option>Two_Pointers</option>
                         <option>Two_Pointers_Att</option>
                         <option>Two_Pointers_Pct</option>
-                        <option>o2P</option>
-                        <option>o2PA</option>
-                        <option>o2PCT</option>
-                        <option>o3P</option>
-                        <option>o3PA</option>
-                        <option>o3PCT</option>
-                        <option>oAST</option>
-                        <option>oBLK</option>
-                        <option>oDRB</option>
-                        <option>oFG</option>
-                        <option>oFGPCT</option>
-                        <option>oFTA</option>
-                        <option>oFTM</option>
-                        <option>oFTPCT</option>
-                        <option>oORB</option>
-                        <option>oPF</option>
-                        <option>oPTS</option>
-                        <option>oSTL</option>
-                        <option>oTOV</option>
-                        <option>oTRB</option>
                       </select>
                     </div>
                   </Col>

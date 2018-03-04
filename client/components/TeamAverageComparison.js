@@ -3,11 +3,44 @@ import React from "react";
 export default class TeamAverageComparison extends React.Component {
   constructor() {
     super();
+    this.state = {
+      team: {},
+      league: {}
+    };
     this.createChart = this.createChart.bind(this);
     this.getLeagueAverage = this.getLeagueAverage.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    if (this.props.team) {
+      this.setState(
+        { team: this.props.team, league: this.props.league },
+        () => {
+          if (this.state.league) {
+            var pointAvg = this.getLeagueAverage("PTS");
+            var rebAvg = this.getLeagueAverage("TRB");
+            var astAvg = this.getLeagueAverage("AST");
+            var stlAvg = this.getLeagueAverage("STL");
+            var blkAvg = this.getLeagueAverage("BLK");
+            var shotAvg = this.getLeagueAverage("FG_PCT");
+            this.setState(
+              {
+                avgPTS: pointAvg,
+                avgREB: rebAvg,
+                avgAST: astAvg,
+                avgSTL: stlAvg,
+                avgBLK: blkAvg,
+                avgSHOT: shotAvg
+              },
+              () => {
+                this.createChart();
+              }
+            );
+          }
+        }
+      );
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.team) {

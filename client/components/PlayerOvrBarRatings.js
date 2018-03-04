@@ -229,7 +229,6 @@ export default class PlayerOvrBarRatings extends React.Component {
           id="container-rating-ovr"
           style={{
             height: "250px",
-            minWidth: "600px",
             margin: "0 auto"
           }}
         />

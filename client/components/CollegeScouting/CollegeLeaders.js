@@ -29,10 +29,8 @@ export default class CollegeLeaders extends React.Component {
     this.state = {
       table4: [],
       showFilter: false,
-      pg: true,
-      sg: true,
-      sf: true,
-      pf: true,
+      g: true,
+      f: true,
       c: true,
       mpg1: true,
       mpg2: true,
@@ -49,12 +47,12 @@ export default class CollegeLeaders extends React.Component {
       age3: true,
       age4: true,
       age5: true,
-      table4stat: "PTS",
-      table5stat: "TRB",
-      table6stat: "AST",
-      table7stat: "PTS",
-      table8stat: "TRB",
-      table9stat: "AST"
+      table4stat: "pts",
+      table5stat: "trb",
+      table6stat: "ast",
+      table7stat: "pts",
+      table8stat: "trb",
+      table9stat: "ast"
     };
     this.rankOverall = this.rankOverall.bind(this);
     this.rankOffense = this.rankOffense.bind(this);
@@ -65,9 +63,7 @@ export default class CollegeLeaders extends React.Component {
     this.toggleFilter = this.toggleFilter.bind(this);
     this.renderFilter = this.renderFilter.bind(this);
     this.handlePG = this.handlePG.bind(this);
-    this.handleSG = this.handleSG.bind(this);
     this.handleSF = this.handleSF.bind(this);
-    this.handlePF = this.handlePF.bind(this);
     this.handleC = this.handleC.bind(this);
     this.handleMPG1 = this.handleMPG1.bind(this);
     this.handleMPG2 = this.handleMPG2.bind(this);
@@ -157,26 +153,14 @@ export default class CollegeLeaders extends React.Component {
   }
 
   handlePG(evt) {
-    this.setState({ pg: evt.target.checked }, () => {
-      console.log(this.state.pg);
-    });
-  }
-
-  handleSG(evt) {
-    this.setState({ sg: evt.target.checked }, () => {
-      console.log(this.state.sg);
+    this.setState({ g: evt.target.checked }, () => {
+      console.log(this.state.g);
     });
   }
 
   handleSF(evt) {
-    this.setState({ sf: evt.target.checked }, () => {
-      console.log(this.state.sf);
-    });
-  }
-
-  handlePF(evt) {
-    this.setState({ pf: evt.target.checked }, () => {
-      console.log(this.state.pf);
+    this.setState({ f: evt.target.checked }, () => {
+      console.log(this.state.f);
     });
   }
 
@@ -236,24 +220,14 @@ export default class CollegeLeaders extends React.Component {
 
   filterPlayers() {
     var playersArr = this.props.players;
-    if (!this.state.pg) {
+    if (!this.state.g) {
       playersArr = playersArr.filter(function(player) {
-        return player.position !== "PG";
+        return player.position !== "G";
       });
     }
-    if (!this.state.sg) {
+    if (!this.state.f) {
       playersArr = playersArr.filter(function(player) {
-        return player.position !== "SG";
-      });
-    }
-    if (!this.state.sf) {
-      playersArr = playersArr.filter(function(player) {
-        return player.position !== "SF";
-      });
-    }
-    if (!this.state.pf) {
-      playersArr = playersArr.filter(function(player) {
-        return player.position !== "PF";
+        return player.position !== "F";
       });
     }
     if (!this.state.c) {
@@ -383,17 +357,11 @@ export default class CollegeLeaders extends React.Component {
               Position
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
-              <Checkbox checked={this.state.pg} onChange={this.handlePG}>
-                Point Guard
+              <Checkbox checked={this.state.g} onChange={this.handlePG}>
+                Guard
               </Checkbox>{" "}
-              <Checkbox checked={this.state.sg} onChange={this.handleSG}>
-                Shooting Guard
-              </Checkbox>{" "}
-              <Checkbox checked={this.state.sf} onChange={this.handleSF}>
-                Shooting Forward
-              </Checkbox>{" "}
-              <Checkbox checked={this.state.pf} onChange={this.handlePF}>
-                Power Forward
+              <Checkbox checked={this.state.f} onChange={this.handleSF}>
+                Forward
               </Checkbox>{" "}
               <Checkbox checked={this.state.c} onChange={this.handleC}>
                 Center
@@ -429,20 +397,33 @@ export default class CollegeLeaders extends React.Component {
               Experience
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
-              <Checkbox checked={this.state.exp1} onChange={this.handleEXP1}>
-                Rookie
+              <Checkbox
+                checked={this.state.exp1}
+                onChange={this.handleEXP1}
+                disabled
+              >
+                Freshman
               </Checkbox>{" "}
-              <Checkbox checked={this.state.exp2} onChange={this.handleEXP2}>
-                1-3
+              <Checkbox
+                checked={this.state.exp2}
+                onChange={this.handleEXP2}
+                disabled
+              >
+                Sophomore
               </Checkbox>{" "}
-              <Checkbox checked={this.state.exp3} onChange={this.handleEXP3}>
-                4-6
+              <Checkbox
+                checked={this.state.exp3}
+                onChange={this.handleEXP3}
+                disabled
+              >
+                Junior
               </Checkbox>{" "}
-              <Checkbox checked={this.state.exp4} onChange={this.handleEXP4}>
-                7-10
-              </Checkbox>{" "}
-              <Checkbox checked={this.state.exp5} onChange={this.handleEXP5}>
-                > 10
+              <Checkbox
+                checked={this.state.exp4}
+                onChange={this.handleEXP4}
+                disabled
+              >
+                Senior
               </Checkbox>
             </FormGroup>
           </Col>
@@ -451,36 +432,44 @@ export default class CollegeLeaders extends React.Component {
               Age
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
-              <Checkbox checked={this.state.age1} onChange={this.handleAGE1}>
-                &#60; 21
+              <Checkbox
+                checked={this.state.age1}
+                onChange={this.handleAGE1}
+                disabled
+              >
+                &#60; 19
               </Checkbox>{" "}
-              <Checkbox checked={this.state.age2} onChange={this.handleAGE2}>
-                21-25
+              <Checkbox
+                checked={this.state.age2}
+                onChange={this.handleAGE2}
+                disabled
+              >
+                19-20
               </Checkbox>{" "}
-              <Checkbox checked={this.state.age3} onChange={this.handleAGE3}>
-                26-30
+              <Checkbox
+                checked={this.state.age3}
+                onChange={this.handleAGE3}
+                disabled
+              >
+                21-22
               </Checkbox>{" "}
-              <Checkbox checked={this.state.age4} onChange={this.handleAGE4}>
-                31-35
-              </Checkbox>{" "}
-              <Checkbox checked={this.state.age5} onChange={this.handleAGE5}>
-                > 35
+              <Checkbox
+                checked={this.state.age4}
+                onChange={this.handleAGE4}
+                disabled
+              >
+                > 22
               </Checkbox>
             </FormGroup>
           </Col>
-          <Col lg={3}>
-            <div style={{ color: "#0055bf", textDecoration: "underline" }}>
-              Salary Per Year
-            </div>
-            <FormGroup style={{ paddingLeft: "10px" }}>
-              <Checkbox>&#60; 5 mil.</Checkbox> <Checkbox>5-10 mil.</Checkbox>{" "}
-              <Checkbox>10-15 mil.</Checkbox> <Checkbox>15-20 mil.</Checkbox>{" "}
-              <Checkbox>> 20 mil.</Checkbox>
-            </FormGroup>
-          </Col>
-          <Col lg={4}>
+          <Col lg={2}>
             <div>
-              <Button onClick={this.handleFilterSubmit}>Submit</Button>
+              <Button
+                onClick={this.handleFilterSubmit}
+                style={{ backgroundColor: "#0055bf", color: "white" }}
+              >
+                Filter
+              </Button>
             </div>
           </Col>
         </div>
@@ -622,12 +611,16 @@ export default class CollegeLeaders extends React.Component {
                 className="card"
                 onSelect={this.selectStat4}
               >
+                <MenuItem header>Offense</MenuItem>
                 <MenuItem eventKey="1">pts</MenuItem>
                 <MenuItem eventKey="2">ast</MenuItem>
-                <MenuItem eventKey="3">trb</MenuItem>
-                <MenuItem eventKey="4">mpg</MenuItem>
-                <MenuItem eventKey="5">stl</MenuItem>
-                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="20">tov</MenuItem>
+                <MenuItem eventKey="25">astPct</MenuItem>
+                <MenuItem eventKey="26">tovPct</MenuItem>
+                <MenuItem eventKey="30">usgPct</MenuItem>
+                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Shooting</MenuItem>
                 <MenuItem eventKey="7">fgm</MenuItem>
                 <MenuItem eventKey="8">fga</MenuItem>
                 <MenuItem eventKey="9">fgPct</MenuItem>
@@ -641,21 +634,26 @@ export default class CollegeLeaders extends React.Component {
                 <MenuItem eventKey="17">fta</MenuItem>
                 <MenuItem eventKey="18">freeThrowPct</MenuItem>
                 <MenuItem eventKey="19">efgPct</MenuItem>
-                <MenuItem eventKey="20">tov</MenuItem>
-                <MenuItem eventKey="21">orb</MenuItem>
-                <MenuItem eventKey="22">drb</MenuItem>
-                <MenuItem eventKey="23">pf</MenuItem>
-                <MenuItem eventKey="24">orbPct</MenuItem>
-                <MenuItem eventKey="25">astPct</MenuItem>
-                <MenuItem eventKey="26">tovPct</MenuItem>
-                <MenuItem eventKey="27">drbPct</MenuItem>
-                <MenuItem eventKey="28">stlPct</MenuItem>
-                <MenuItem eventKey="29">blkPct</MenuItem>
-                <MenuItem eventKey="30">usgPct</MenuItem>
-                <MenuItem eventKey="31">trbPct</MenuItem>
                 <MenuItem eventKey="32">tsPct</MenuItem>
                 <MenuItem eventKey="33">threePAr</MenuItem>
-                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Rebounding</MenuItem>
+                <MenuItem eventKey="3">trb</MenuItem>
+                <MenuItem eventKey="21">orb</MenuItem>
+                <MenuItem eventKey="22">drb</MenuItem>
+                <MenuItem eventKey="24">orbPct</MenuItem>
+                <MenuItem eventKey="27">drbPct</MenuItem>
+                <MenuItem eventKey="31">trbPct</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Defense</MenuItem>
+                <MenuItem eventKey="5">stl</MenuItem>
+                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="28">stlPct</MenuItem>
+                <MenuItem eventKey="29">blkPct</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Misc.</MenuItem>
+                <MenuItem eventKey="4">mpg</MenuItem>
+                <MenuItem eventKey="23">pf</MenuItem>
                 <MenuItem eventKey="35">per</MenuItem>
                 <MenuItem eventKey="36">ows</MenuItem>
                 <MenuItem eventKey="37">dws</MenuItem>
@@ -664,7 +662,6 @@ export default class CollegeLeaders extends React.Component {
                 <MenuItem eventKey="40">obpm</MenuItem>
                 <MenuItem eventKey="41">dbpm</MenuItem>
                 <MenuItem eventKey="42">wsFortyEight</MenuItem>
-                <MenuItem eventKey="43">vorp</MenuItem>
               </DropdownButton>
             </div>
           </Col>
@@ -676,12 +673,16 @@ export default class CollegeLeaders extends React.Component {
                 className="card"
                 onSelect={this.selectStat5}
               >
+                <MenuItem header>Offense</MenuItem>
                 <MenuItem eventKey="1">pts</MenuItem>
                 <MenuItem eventKey="2">ast</MenuItem>
-                <MenuItem eventKey="3">trb</MenuItem>
-                <MenuItem eventKey="4">mpg</MenuItem>
-                <MenuItem eventKey="5">stl</MenuItem>
-                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="20">tov</MenuItem>
+                <MenuItem eventKey="25">astPct</MenuItem>
+                <MenuItem eventKey="26">tovPct</MenuItem>
+                <MenuItem eventKey="30">usgPct</MenuItem>
+                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Shooting</MenuItem>
                 <MenuItem eventKey="7">fgm</MenuItem>
                 <MenuItem eventKey="8">fga</MenuItem>
                 <MenuItem eventKey="9">fgPct</MenuItem>
@@ -695,21 +696,26 @@ export default class CollegeLeaders extends React.Component {
                 <MenuItem eventKey="17">fta</MenuItem>
                 <MenuItem eventKey="18">freeThrowPct</MenuItem>
                 <MenuItem eventKey="19">efgPct</MenuItem>
-                <MenuItem eventKey="20">tov</MenuItem>
-                <MenuItem eventKey="21">orb</MenuItem>
-                <MenuItem eventKey="22">drb</MenuItem>
-                <MenuItem eventKey="23">pf</MenuItem>
-                <MenuItem eventKey="24">orbPct</MenuItem>
-                <MenuItem eventKey="25">astPct</MenuItem>
-                <MenuItem eventKey="26">tovPct</MenuItem>
-                <MenuItem eventKey="27">drbPct</MenuItem>
-                <MenuItem eventKey="28">stlPct</MenuItem>
-                <MenuItem eventKey="29">blkPct</MenuItem>
-                <MenuItem eventKey="30">usgPct</MenuItem>
-                <MenuItem eventKey="31">trbPct</MenuItem>
                 <MenuItem eventKey="32">tsPct</MenuItem>
                 <MenuItem eventKey="33">threePAr</MenuItem>
-                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Rebounding</MenuItem>
+                <MenuItem eventKey="3">trb</MenuItem>
+                <MenuItem eventKey="21">orb</MenuItem>
+                <MenuItem eventKey="22">drb</MenuItem>
+                <MenuItem eventKey="24">orbPct</MenuItem>
+                <MenuItem eventKey="27">drbPct</MenuItem>
+                <MenuItem eventKey="31">trbPct</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Defense</MenuItem>
+                <MenuItem eventKey="5">stl</MenuItem>
+                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="28">stlPct</MenuItem>
+                <MenuItem eventKey="29">blkPct</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Misc.</MenuItem>
+                <MenuItem eventKey="4">mpg</MenuItem>
+                <MenuItem eventKey="23">pf</MenuItem>
                 <MenuItem eventKey="35">per</MenuItem>
                 <MenuItem eventKey="36">ows</MenuItem>
                 <MenuItem eventKey="37">dws</MenuItem>
@@ -718,7 +724,6 @@ export default class CollegeLeaders extends React.Component {
                 <MenuItem eventKey="40">obpm</MenuItem>
                 <MenuItem eventKey="41">dbpm</MenuItem>
                 <MenuItem eventKey="42">wsFortyEight</MenuItem>
-                <MenuItem eventKey="43">vorp</MenuItem>
               </DropdownButton>
             </div>
           </Col>
@@ -730,12 +735,16 @@ export default class CollegeLeaders extends React.Component {
                 className="card"
                 onSelect={this.selectStat6}
               >
+                <MenuItem header>Offense</MenuItem>
                 <MenuItem eventKey="1">pts</MenuItem>
                 <MenuItem eventKey="2">ast</MenuItem>
-                <MenuItem eventKey="3">trb</MenuItem>
-                <MenuItem eventKey="4">mpg</MenuItem>
-                <MenuItem eventKey="5">stl</MenuItem>
-                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="20">tov</MenuItem>
+                <MenuItem eventKey="25">astPct</MenuItem>
+                <MenuItem eventKey="26">tovPct</MenuItem>
+                <MenuItem eventKey="30">usgPct</MenuItem>
+                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Shooting</MenuItem>
                 <MenuItem eventKey="7">fgm</MenuItem>
                 <MenuItem eventKey="8">fga</MenuItem>
                 <MenuItem eventKey="9">fgPct</MenuItem>
@@ -749,21 +758,26 @@ export default class CollegeLeaders extends React.Component {
                 <MenuItem eventKey="17">fta</MenuItem>
                 <MenuItem eventKey="18">freeThrowPct</MenuItem>
                 <MenuItem eventKey="19">efgPct</MenuItem>
-                <MenuItem eventKey="20">tov</MenuItem>
-                <MenuItem eventKey="21">orb</MenuItem>
-                <MenuItem eventKey="22">drb</MenuItem>
-                <MenuItem eventKey="23">pf</MenuItem>
-                <MenuItem eventKey="24">orbPct</MenuItem>
-                <MenuItem eventKey="25">astPct</MenuItem>
-                <MenuItem eventKey="26">tovPct</MenuItem>
-                <MenuItem eventKey="27">drbPct</MenuItem>
-                <MenuItem eventKey="28">stlPct</MenuItem>
-                <MenuItem eventKey="29">blkPct</MenuItem>
-                <MenuItem eventKey="30">usgPct</MenuItem>
-                <MenuItem eventKey="31">trbPct</MenuItem>
                 <MenuItem eventKey="32">tsPct</MenuItem>
                 <MenuItem eventKey="33">threePAr</MenuItem>
-                <MenuItem eventKey="34">ftr</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Rebounding</MenuItem>
+                <MenuItem eventKey="3">trb</MenuItem>
+                <MenuItem eventKey="21">orb</MenuItem>
+                <MenuItem eventKey="22">drb</MenuItem>
+                <MenuItem eventKey="24">orbPct</MenuItem>
+                <MenuItem eventKey="27">drbPct</MenuItem>
+                <MenuItem eventKey="31">trbPct</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Defense</MenuItem>
+                <MenuItem eventKey="5">stl</MenuItem>
+                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="28">stlPct</MenuItem>
+                <MenuItem eventKey="29">blkPct</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Misc.</MenuItem>
+                <MenuItem eventKey="4">mpg</MenuItem>
+                <MenuItem eventKey="23">pf</MenuItem>
                 <MenuItem eventKey="35">per</MenuItem>
                 <MenuItem eventKey="36">ows</MenuItem>
                 <MenuItem eventKey="37">dws</MenuItem>
@@ -840,7 +854,7 @@ export default class CollegeLeaders extends React.Component {
                 textDecoration: "underline"
               }}
             >
-              Per 36 Minutes
+              Per 32 Minutes
             </div>
           </Col>
         </Row>
@@ -853,49 +867,38 @@ export default class CollegeLeaders extends React.Component {
                 className="card"
                 onSelect={this.selectStat7}
               >
+                <MenuItem header>Offense</MenuItem>
                 <MenuItem eventKey="1">pts</MenuItem>
                 <MenuItem eventKey="2">ast</MenuItem>
-                <MenuItem eventKey="3">trb</MenuItem>
-                <MenuItem eventKey="4">mpg</MenuItem>
-                <MenuItem eventKey="5">stl</MenuItem>
-                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="20">tov</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Shooting</MenuItem>
                 <MenuItem eventKey="7">fgm</MenuItem>
                 <MenuItem eventKey="8">fga</MenuItem>
-                <MenuItem eventKey="9">fgPct</MenuItem>
+
                 <MenuItem eventKey="10">threePt</MenuItem>
                 <MenuItem eventKey="11">threePtAtt</MenuItem>
                 <MenuItem eventKey="12">twoPt</MenuItem>
                 <MenuItem eventKey="13">twoPtAtt</MenuItem>
-                <MenuItem eventKey="14">twoPtPct</MenuItem>
-                <MenuItem eventKey="15">threePtPct</MenuItem>
+
                 <MenuItem eventKey="16">ft</MenuItem>
                 <MenuItem eventKey="17">fta</MenuItem>
-                <MenuItem eventKey="18">freeThrowPct</MenuItem>
-                <MenuItem eventKey="19">efgPct</MenuItem>
-                <MenuItem eventKey="20">tov</MenuItem>
+
+                <MenuItem divider />
+                <MenuItem header>Rebounding</MenuItem>
+                <MenuItem eventKey="3">trb</MenuItem>
                 <MenuItem eventKey="21">orb</MenuItem>
                 <MenuItem eventKey="22">drb</MenuItem>
+
+                <MenuItem divider />
+                <MenuItem header>Defense</MenuItem>
+                <MenuItem eventKey="5">stl</MenuItem>
+                <MenuItem eventKey="6">blk</MenuItem>
+
+                <MenuItem divider />
+                <MenuItem header>Misc.</MenuItem>
+
                 <MenuItem eventKey="23">pf</MenuItem>
-                <MenuItem eventKey="24">orbPct</MenuItem>
-                <MenuItem eventKey="25">astPct</MenuItem>
-                <MenuItem eventKey="26">tovPct</MenuItem>
-                <MenuItem eventKey="27">drbPct</MenuItem>
-                <MenuItem eventKey="28">stlPct</MenuItem>
-                <MenuItem eventKey="29">blkPct</MenuItem>
-                <MenuItem eventKey="30">usgPct</MenuItem>
-                <MenuItem eventKey="31">trbPct</MenuItem>
-                <MenuItem eventKey="32">tsPct</MenuItem>
-                <MenuItem eventKey="33">threePAr</MenuItem>
-                <MenuItem eventKey="34">ftr</MenuItem>
-                <MenuItem eventKey="35">per</MenuItem>
-                <MenuItem eventKey="36">ows</MenuItem>
-                <MenuItem eventKey="37">dws</MenuItem>
-                <MenuItem eventKey="38">bpm</MenuItem>
-                <MenuItem eventKey="39">ws</MenuItem>
-                <MenuItem eventKey="40">obpm</MenuItem>
-                <MenuItem eventKey="41">dbpm</MenuItem>
-                <MenuItem eventKey="42">wsFortyEight</MenuItem>
-                <MenuItem eventKey="43">vorp</MenuItem>
               </DropdownButton>
             </div>
           </Col>
@@ -907,49 +910,38 @@ export default class CollegeLeaders extends React.Component {
                 className="card"
                 onSelect={this.selectStat8}
               >
+                <MenuItem header>Offense</MenuItem>
                 <MenuItem eventKey="1">pts</MenuItem>
                 <MenuItem eventKey="2">ast</MenuItem>
-                <MenuItem eventKey="3">trb</MenuItem>
-                <MenuItem eventKey="4">mpg</MenuItem>
-                <MenuItem eventKey="5">stl</MenuItem>
-                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="20">tov</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Shooting</MenuItem>
                 <MenuItem eventKey="7">fgm</MenuItem>
                 <MenuItem eventKey="8">fga</MenuItem>
-                <MenuItem eventKey="9">fgPct</MenuItem>
+
                 <MenuItem eventKey="10">threePt</MenuItem>
                 <MenuItem eventKey="11">threePtAtt</MenuItem>
                 <MenuItem eventKey="12">twoPt</MenuItem>
                 <MenuItem eventKey="13">twoPtAtt</MenuItem>
-                <MenuItem eventKey="14">twoPtPct</MenuItem>
-                <MenuItem eventKey="15">threePtPct</MenuItem>
+
                 <MenuItem eventKey="16">ft</MenuItem>
                 <MenuItem eventKey="17">fta</MenuItem>
-                <MenuItem eventKey="18">freeThrowPct</MenuItem>
-                <MenuItem eventKey="19">efgPct</MenuItem>
-                <MenuItem eventKey="20">tov</MenuItem>
+
+                <MenuItem divider />
+                <MenuItem header>Rebounding</MenuItem>
+                <MenuItem eventKey="3">trb</MenuItem>
                 <MenuItem eventKey="21">orb</MenuItem>
                 <MenuItem eventKey="22">drb</MenuItem>
+
+                <MenuItem divider />
+                <MenuItem header>Defense</MenuItem>
+                <MenuItem eventKey="5">stl</MenuItem>
+                <MenuItem eventKey="6">blk</MenuItem>
+
+                <MenuItem divider />
+                <MenuItem header>Misc.</MenuItem>
+
                 <MenuItem eventKey="23">pf</MenuItem>
-                <MenuItem eventKey="24">orbPct</MenuItem>
-                <MenuItem eventKey="25">astPct</MenuItem>
-                <MenuItem eventKey="26">tovPct</MenuItem>
-                <MenuItem eventKey="27">drbPct</MenuItem>
-                <MenuItem eventKey="28">stlPct</MenuItem>
-                <MenuItem eventKey="29">blkPct</MenuItem>
-                <MenuItem eventKey="30">usgPct</MenuItem>
-                <MenuItem eventKey="31">trbPct</MenuItem>
-                <MenuItem eventKey="32">tsPct</MenuItem>
-                <MenuItem eventKey="33">threePAr</MenuItem>
-                <MenuItem eventKey="34">ftr</MenuItem>
-                <MenuItem eventKey="35">per</MenuItem>
-                <MenuItem eventKey="36">ows</MenuItem>
-                <MenuItem eventKey="37">dws</MenuItem>
-                <MenuItem eventKey="38">bpm</MenuItem>
-                <MenuItem eventKey="39">ws</MenuItem>
-                <MenuItem eventKey="40">obpm</MenuItem>
-                <MenuItem eventKey="41">dbpm</MenuItem>
-                <MenuItem eventKey="42">wsFortyEight</MenuItem>
-                <MenuItem eventKey="43">vorp</MenuItem>
               </DropdownButton>
             </div>
           </Col>
@@ -961,49 +953,38 @@ export default class CollegeLeaders extends React.Component {
                 className="card"
                 onSelect={this.selectStat9}
               >
+                <MenuItem header>Offense</MenuItem>
                 <MenuItem eventKey="1">pts</MenuItem>
                 <MenuItem eventKey="2">ast</MenuItem>
-                <MenuItem eventKey="3">trb</MenuItem>
-                <MenuItem eventKey="4">mpg</MenuItem>
-                <MenuItem eventKey="5">stl</MenuItem>
-                <MenuItem eventKey="6">blk</MenuItem>
+                <MenuItem eventKey="20">tov</MenuItem>
+                <MenuItem divider />
+                <MenuItem header>Shooting</MenuItem>
                 <MenuItem eventKey="7">fgm</MenuItem>
                 <MenuItem eventKey="8">fga</MenuItem>
-                <MenuItem eventKey="9">fgPct</MenuItem>
+
                 <MenuItem eventKey="10">threePt</MenuItem>
                 <MenuItem eventKey="11">threePtAtt</MenuItem>
                 <MenuItem eventKey="12">twoPt</MenuItem>
                 <MenuItem eventKey="13">twoPtAtt</MenuItem>
-                <MenuItem eventKey="14">twoPtPct</MenuItem>
-                <MenuItem eventKey="15">threePtPct</MenuItem>
+
                 <MenuItem eventKey="16">ft</MenuItem>
                 <MenuItem eventKey="17">fta</MenuItem>
-                <MenuItem eventKey="18">freeThrowPct</MenuItem>
-                <MenuItem eventKey="19">efgPct</MenuItem>
-                <MenuItem eventKey="20">tov</MenuItem>
+
+                <MenuItem divider />
+                <MenuItem header>Rebounding</MenuItem>
+                <MenuItem eventKey="3">trb</MenuItem>
                 <MenuItem eventKey="21">orb</MenuItem>
                 <MenuItem eventKey="22">drb</MenuItem>
+
+                <MenuItem divider />
+                <MenuItem header>Defense</MenuItem>
+                <MenuItem eventKey="5">stl</MenuItem>
+                <MenuItem eventKey="6">blk</MenuItem>
+
+                <MenuItem divider />
+                <MenuItem header>Misc.</MenuItem>
+
                 <MenuItem eventKey="23">pf</MenuItem>
-                <MenuItem eventKey="24">orbPct</MenuItem>
-                <MenuItem eventKey="25">astPct</MenuItem>
-                <MenuItem eventKey="26">tovPct</MenuItem>
-                <MenuItem eventKey="27">drbPct</MenuItem>
-                <MenuItem eventKey="28">stlPct</MenuItem>
-                <MenuItem eventKey="29">blkPct</MenuItem>
-                <MenuItem eventKey="30">usgPct</MenuItem>
-                <MenuItem eventKey="31">trbPct</MenuItem>
-                <MenuItem eventKey="32">tsPct</MenuItem>
-                <MenuItem eventKey="33">threePAr</MenuItem>
-                <MenuItem eventKey="34">ftr</MenuItem>
-                <MenuItem eventKey="35">per</MenuItem>
-                <MenuItem eventKey="36">ows</MenuItem>
-                <MenuItem eventKey="37">dws</MenuItem>
-                <MenuItem eventKey="38">bpm</MenuItem>
-                <MenuItem eventKey="39">ws</MenuItem>
-                <MenuItem eventKey="40">obpm</MenuItem>
-                <MenuItem eventKey="41">dbpm</MenuItem>
-                <MenuItem eventKey="42">wsFortyEight</MenuItem>
-                <MenuItem eventKey="43">vorp</MenuItem>
               </DropdownButton>
             </div>
           </Col>

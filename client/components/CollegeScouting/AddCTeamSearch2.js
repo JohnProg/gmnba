@@ -552,7 +552,7 @@ export default class AddCTeamSearch2 extends React.Component {
           className="card"
           style={{
             backgroundColor: "white",
-            height: "620px",
+            height: "480px",
             overflow: "scroll"
           }}
         >
@@ -564,9 +564,11 @@ export default class AddCTeamSearch2 extends React.Component {
           </Col>
           <Col lg={6} style={{ paddingTop: "30px", marginBottom: "20px" }}>
             <div>
-              <span style={{ fontSize: "22px", textAlign: "right" }}>
-                {this.state.player.Name}
-              </span>
+              <a href={`/college-team/${this.state.player.id}`}>
+                <span style={{ fontSize: "22px", textAlign: "right" }}>
+                  {this.state.player.Name}
+                </span>
+              </a>
               <span style={{ paddingLeft: "5px" }}>
                 &#40;{this.state.player.W} - {this.state.player.L}&#41;
               </span>
@@ -583,18 +585,6 @@ export default class AddCTeamSearch2 extends React.Component {
           </Col>
           <Col lg={12}>
             <TeamBarRatings2 team={this.state.player} />
-          </Col>
-          <Col lg={12}>
-            <div
-              style={{
-                textDecoration: "underline",
-                color: "#0055bf",
-                textAlign: "center",
-                cursor: "pointer"
-              }}
-            >
-              Advanced Stats
-            </div>
           </Col>
         </div>
       );

@@ -38,16 +38,17 @@ export default class PlayerRatings extends React.Component {
       positionStats: [],
       statCat: "Basic"
     };
-    this.getPositionStats = this.getPositionStats.bind(this);
+    //this.getPositionStats = this.getPositionStats.bind(this);
     this.selectStatCat = this.selectStatCat.bind(this);
     this.renderPolarCol = this.renderPolarCol.bind(this);
     this.renderBarChart = this.renderBarChart.bind(this);
+    this.renderRankGauges = this.renderRankGauges.bind(this);
   }
 
   componentDidMount() {
     if (this.props.player.name) {
       this.setState({ player: this.props.player }, () => {
-        this.getPositionStats(this.state.player.position);
+        //this.getPositionStats(this.state.player.position);
         //this.createChart();
       });
     }
@@ -62,20 +63,20 @@ export default class PlayerRatings extends React.Component {
     // }
   }
 
-  getPositionStats(position) {
-    axios
-      .get("/api/teams/getPositionStats", {
-        params: {
-          position: position
-        }
-      })
-      .then(data => {
-        this.setState({ positionStats: data.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+  // getPositionStats(position) {
+  //   axios
+  //     .get("/api/teams/getPositionStats", {
+  //       params: {
+  //         position: position
+  //       }
+  //     })
+  //     .then(data => {
+  //       this.setState({ positionStats: data.data });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }
 
   selectStatCat(evt, eventKey) {
     this.setState({ statCat: eventKey.target.innerHTML });
@@ -88,15 +89,15 @@ export default class PlayerRatings extends React.Component {
       return <PlayerPolColOff player={this.props.player} />;
     } else if (this.state.statCat === "Advanced Offense") {
       return <PlayerPolColAdvOff player={this.props.player} />;
-    } else if (this.state.statCat === "Tracking - Post Ups") {
+    } else if (this.state.statCat === "Post Ups") {
       return <PlayerPolColPostUp player={this.props.postStats} />;
     } else if (this.state.statCat === "Defense") {
       return <PlayerPolColDef player={this.props.player} />;
     } else if (this.state.statCat === "Overall") {
       return <PlayerPolColOvr player={this.props.player} />;
-    } else if (this.state.statCat === "Tracking - Catch/Shoot") {
+    } else if (this.state.statCat === "Catch/Shoot") {
       return <PlayerPolColCatchShoot player={this.props.catchShootStats} />;
-    } else if (this.state.statCat === "Tracking - Shooting Efficiency") {
+    } else if (this.state.statCat === "Shooting Efficiency") {
       return <PlayerPolColShooting player={this.props.shootingStats} />;
     }
   }
@@ -108,14 +109,28 @@ export default class PlayerRatings extends React.Component {
       return <PlayerOffBarRatings player={this.props.player} />;
     } else if (this.state.statCat === "Advanced Offense") {
       return <PlayerAdvOffBarRatings player={this.props.player} />;
-    } else if (this.state.statCat === "Tracking - Post Ups") {
+    } else if (this.state.statCat === "Post Ups") {
       return <PlayerPostUpBarRatings player={this.props.postStats} />;
     } else if (this.state.statCat === "Defense") {
       return <PlayerDefBarRatings player={this.props.player} />;
     } else if (this.state.statCat === "Overall") {
       return <PlayerOvrBarRatings player={this.props.player} />;
-    } else if (this.state.statCat === "Tracking - Catch/Shoot") {
+    } else if (this.state.statCat === "Catch/Shoot") {
       return <PlayerCatchShootBarRatings player={this.props.catchShootStats} />;
+    }
+  }
+
+  renderRankGauges() {
+    if (this.props.positionStats && this.props.player) {
+      return (
+        <PlayerRankGauges
+          colors={this.props.colors}
+          player={this.props.player}
+          positionStats={this.props.positionStats}
+        />
+      );
+    } else {
+      return <div>Loading...</div>;
     }
   }
 
@@ -137,28 +152,33 @@ export default class PlayerRatings extends React.Component {
                 PLAYER RATINGS
               </div>
             </Col>
-            <Col lg={2} lgOffset={6}>
-              <div>
+            <Col lg={2} lgOffset={5}>
+              <div className="stat-selector">
                 <DropdownButton
+                  pullRight
                   title={this.state.statCat}
                   className="card"
                   style={{
                     border: "none",
                     fontSize: "16px",
-                    backgroundColor: "#eee",
-                    marginTop: "20px"
+                    backgroundColor: this.props.colors.Color_Main,
+                    marginTop: "20px",
+                    color: this.props.colors.Color_Sec
                   }}
                   onSelect={this.selectStatCat}
                 >
                   <MenuItem eventKey="1">Basic</MenuItem>
+                  <MenuItem divider />
                   <MenuItem eventKey="2">Offense</MenuItem>
                   <MenuItem eventKey="3">Advanced Offense</MenuItem>
-                  <MenuItem eventKey="4">
-                    Tracking - Shooting Efficiency
-                  </MenuItem>
-                  <MenuItem eventKey="5">Tracking - Catch/Shoot</MenuItem>
-                  <MenuItem eventKey="6">Tracking - Post Ups</MenuItem>
+                  <MenuItem divider />
+                  <MenuItem header>Player Tracking</MenuItem>
+                  <MenuItem eventKey="4">Shooting Efficiency</MenuItem>
+                  <MenuItem eventKey="5">Catch/Shoot</MenuItem>
+                  <MenuItem eventKey="6">Post Ups</MenuItem>
+                  <MenuItem divider />
                   <MenuItem eventKey="7">Defense</MenuItem>
+                  <MenuItem divider />
                   <MenuItem eventKey="8">Overall</MenuItem>
                 </DropdownButton>
               </div>
@@ -188,16 +208,12 @@ export default class PlayerRatings extends React.Component {
             </Col>
           </Row>
           <Row className="chart-row">
-            <Col lg={10} lgOffset={1}>
+            <Col lg={10} lgOffset={1} xs={12}>
               <div
                 className="card"
-                style={{ height: "300px", backgroundColor: "white" }}
+                style={{ backgroundColor: "white", paddingBottom: "20px" }}
               >
-                <PlayerRankGauges
-                  colors={this.props.colors}
-                  player={this.props.player}
-                  positionStats={this.state.positionStats}
-                />
+                {this.renderRankGauges()}
               </div>
             </Col>
           </Row>
@@ -213,7 +229,7 @@ export default class PlayerRatings extends React.Component {
             <Col lg={10} lgOffset={1}>
               <PlayerPositionAverages
                 player={this.props.player}
-                positionStats={this.state.positionStats}
+                positionStats={this.props.positionStats}
                 colors={this.props.colors}
               />
             </Col>

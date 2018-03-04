@@ -138,6 +138,15 @@ li.lakers > a {
   height: 50px;
 }
 
+.stat-selector {
+  float: right;
+}
+
+.nav-class {
+  position: fixed;
+  z-index: 1000000;
+}
+
 .chart-row {
   padding-top: 40px;
 }
@@ -265,7 +274,7 @@ div.card {
 }
 
 #myNavbar {
-  z-index: 3;
+  z-index: 10;
 }
 
 .react-autosuggest__container {
@@ -305,6 +314,8 @@ div.card {
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   z-index: 2;
+  max-height: 400px;
+  overflow-y: scroll;
 }
 
 .react-autosuggest__suggestions-list {
@@ -334,7 +345,7 @@ div.card {
 }
 
 .name {
-  margin-left: 68px;
+  margin-left: 30px;
   line-height: 45px;
 }
 
@@ -358,7 +369,7 @@ div.card {
 
 .glyphicon-star.half:before {
   position: relative;
-  z-index: 9;
+  z-index: 0;
   width: 47%;
   display: block;
   overflow: hidden;
@@ -366,7 +377,7 @@ div.card {
 .glyphicon-star.half:after {
   content: "\e006";
   position: absolute;
-  z-index: 8;
+  z-index: 0;
   color: #bdc3c7;
   top: 0;
   left: 0;

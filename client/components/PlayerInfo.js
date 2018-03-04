@@ -27,13 +27,10 @@ class PlayerInfo extends React.Component {
     super(props);
     this.state = {
       teamStats: [],
-      leagueStats: [],
       id: this.props.props.match.params.id,
       player: {},
       colors: {}
     };
-    this.getRoster = this.getRoster.bind(this);
-    this.getLeagueStats = this.getLeagueStats.bind(this);
     this.getPlayer = this.getPlayer.bind(this);
     this.getTeamColors = this.getTeamColors.bind(this);
     this.getOverallRating = this.getOverallRating.bind(this);
@@ -43,27 +40,29 @@ class PlayerInfo extends React.Component {
     this.getPostStats = this.getPostStats.bind(this);
     this.getCatchShootStats = this.getCatchShootStats.bind(this);
     this.getShootingStats = this.getShootingStats.bind(this);
+    this.getPositionStats = this.getPositionStats.bind(this);
+    this.renderPlayer = this.renderPlayer.bind(this);
   }
 
   componentDidMount() {
-    this.getRoster();
-    this.getLeagueStats();
     this.getPlayer();
   }
 
-  getRoster() {
-    var team = "San Antonio Spurs";
+  getPositionStats(position) {
     axios
-      .get("/api/teams/getTeamsPlayers", {
+      .get("/api/teams/getPositionStats", {
         params: {
-          team: team
+          position: position
         }
       })
       .then(data => {
-        var playersArray = data.data;
-        this.props.addPlayers(playersArray);
+        this.setState({ positionStats: data.data }, () => {
+          //console.log(this.state.positionStats);
+        });
       })
-      .catch("error retrieving players!!!");
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   getPostStats(name) {
@@ -84,26 +83,16 @@ class PlayerInfo extends React.Component {
     });
   }
 
-  getLeagueStats() {
-    axios
-      .get("/api/teams/getLeagueStats")
-      .then(data => {
-        this.setState({ leagueStats: data.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
   getPlayer() {
     axios
       .get(`/api/teams/getPlayerProfile/${this.state.id}`)
       .then(data => {
+        this.setState({ player: data.data }, () => {});
         this.getTeamColors(data.data.team);
+        this.getPositionStats(data.data.position);
         this.getPostStats(data.data.name);
         this.getCatchShootStats(data.data.name);
         this.getShootingStats(data.data.name);
-        this.setState({ player: data.data }, () => {});
       })
       .catch(err => {
         console.log(err);
@@ -129,7 +118,7 @@ class PlayerInfo extends React.Component {
       var stars = this.calculateStars(10.0, -5.0, offRating);
       if (stars === 5) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
@@ -140,7 +129,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 4.5) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
@@ -151,7 +140,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 4) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
@@ -162,7 +151,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 3.5) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
@@ -173,7 +162,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 3) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
@@ -184,7 +173,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 2.5) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star half" />
@@ -195,7 +184,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 2) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star empty" />
@@ -206,7 +195,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 1.5) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star half" />
             <i className="glyphicon glyphicon-star empty" />
@@ -217,7 +206,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 1) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star empty" />
             <i className="glyphicon glyphicon-star empty" />
@@ -227,7 +216,7 @@ class PlayerInfo extends React.Component {
         );
       }
       return (
-        <span className="rating overall">
+        <span className="rating overall" style={{ zIndex: -5 }}>
           <i className="glyphicon glyphicon-star half" />
           <i className="glyphicon glyphicon-star empty" />
           <i className="glyphicon glyphicon-star empty" />
@@ -246,7 +235,7 @@ class PlayerInfo extends React.Component {
       var stars = this.calculateStars(5.0, -4.0, defRating);
       if (stars === 5) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
@@ -257,7 +246,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 4.5) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
@@ -268,7 +257,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 4) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
@@ -279,7 +268,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 3.5) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
@@ -290,7 +279,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 3) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
@@ -301,7 +290,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 2.5) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star half" />
@@ -312,7 +301,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 2) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star empty" />
@@ -323,7 +312,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 1.5) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star half" />
             <i className="glyphicon glyphicon-star empty" />
@@ -334,7 +323,7 @@ class PlayerInfo extends React.Component {
       }
       if (stars === 1) {
         return (
-          <span className="rating overall">
+          <span className="rating overall" style={{ zIndex: -5 }}>
             <i className="glyphicon glyphicon-star" />
             <i className="glyphicon glyphicon-star empty" />
             <i className="glyphicon glyphicon-star empty" />
@@ -344,7 +333,7 @@ class PlayerInfo extends React.Component {
         );
       }
       return (
-        <span className="rating overall">
+        <span className="rating overall" style={{ zIndex: -5 }}>
           <i className="glyphicon glyphicon-star half" />
           <i className="glyphicon glyphicon-star empty" />
           <i className="glyphicon glyphicon-star empty" />
@@ -511,6 +500,30 @@ class PlayerInfo extends React.Component {
     return starRating;
   }
 
+  renderPlayer() {
+    if (
+      this.state.player //&&
+      // this.state.postStats &&
+      // this.state.catchShootStats &&
+      // this.state.positionStats
+    ) {
+      return (
+        <PlayerTabs
+          players={this.props.players[0]}
+          teamStats={this.state.teamStats}
+          player={this.state.player}
+          colors={this.state.colors}
+          postStats={this.state.postStats}
+          catchShootStats={this.state.catchShootStats}
+          shootingStats={this.state.shootingStats}
+          positionStats={this.state.positionStats}
+        />
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     var picture;
     if (this.state.player.picture) {
@@ -525,14 +538,14 @@ class PlayerInfo extends React.Component {
           <Grid id="info-container">
             <Row className="full-height-row">
               <div id="info">
-                <Col lg={3} id="pic-col">
+                <Col lg={3} sm={6} xs={12} id="pic-col">
                   <div id="info-pic-team">
                     <img style={{ maxHeight: "200px" }} src={picture} />
                   </div>
                 </Col>
-                <Col lg={9}>
+                <Col lg={9} xs={12}>
                   <Row>
-                    <Col lg={5}>
+                    <Col lg={5} xs={12}>
                       <div id="name-text">
                         <div id="team-name">
                           {this.state.player.name}
@@ -560,7 +573,7 @@ class PlayerInfo extends React.Component {
                       </div>
                       <hr id="info-text-break" />
                     </Col>
-                    <Col lg={3}>
+                    <Col lg={3} xs={6}>
                       <div style={{ marginTop: "70px", fontSize: "15.5px" }}>
                         <div style={{ textAlign: "right" }}>
                           Overall: {this.getOverallRating()}
@@ -573,7 +586,7 @@ class PlayerInfo extends React.Component {
                         </div>
                       </div>
                     </Col>
-                    <Col lg={3}>
+                    <Col lg={3} xs={6}>
                       <a href={`/team/${this.state.colors.id}`}>
                         <div id="logo-pic">
                           <img
@@ -589,7 +602,14 @@ class PlayerInfo extends React.Component {
                     </Col>
                   </Row>
                   <Row style={{ paddingBottom: "20px" }}>
-                    <Col lg={2}>
+                    <Col
+                      lg={2}
+                      xs={2}
+                      lgOffset={0}
+                      mdOffset={0}
+                      smOffset={0}
+                      xsOffset={1}
+                    >
                       <div>
                         <span style={{ color: "#404040" }}>PPG</span>{" "}
                         <span style={{ fontSize: "18px" }}>
@@ -597,7 +617,7 @@ class PlayerInfo extends React.Component {
                         </span>
                       </div>
                     </Col>
-                    <Col lg={2}>
+                    <Col lg={2} xs={2}>
                       <div>
                         <span style={{ color: "#404040" }}>RPG</span>{" "}
                         <span style={{ fontSize: "18px" }}>
@@ -605,7 +625,7 @@ class PlayerInfo extends React.Component {
                         </span>
                       </div>
                     </Col>
-                    <Col lg={2}>
+                    <Col lg={2} xs={2}>
                       <div>
                         <span style={{ color: "#404040" }}>APG</span>{" "}
                         <span style={{ fontSize: "18px" }}>
@@ -613,7 +633,7 @@ class PlayerInfo extends React.Component {
                         </span>
                       </div>
                     </Col>
-                    <Col lg={2}>
+                    <Col lg={2} xs={2}>
                       <div>
                         <span style={{ color: "#404040" }}>GP</span>{" "}
                         <span style={{ fontSize: "18px" }}>
@@ -621,7 +641,7 @@ class PlayerInfo extends React.Component {
                         </span>
                       </div>
                     </Col>
-                    <Col lg={2}>
+                    <Col lg={2} xs={2}>
                       <div>
                         <span style={{ color: "#404040" }}>MPG</span>{" "}
                         <span style={{ fontSize: "18px" }}>
@@ -634,16 +654,7 @@ class PlayerInfo extends React.Component {
               </div>
             </Row>
           </Grid>
-          <PlayerTabs
-            players={this.props.players[0]}
-            teamStats={this.state.teamStats}
-            leagueStats={this.state.leagueStats}
-            player={this.state.player}
-            colors={this.state.colors}
-            postStats={this.state.postStats}
-            catchShootStats={this.state.catchShootStats}
-            shootingStats={this.state.shootingStats}
-          />
+          {this.renderPlayer()}
         </div>
       </div>
     );

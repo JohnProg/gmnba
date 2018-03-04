@@ -122,7 +122,6 @@ export default class NavBar extends React.Component {
 
   renderSearch() {
     if (this.state.showSearch) {
-      console.log("searchList", this.state.searchList);
       return (
         <div id="search-div">
           <SearchBar list={this.state.searchList} />
@@ -133,26 +132,26 @@ export default class NavBar extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="nav-class">
         <div className="w3-top">
           <div className="w3-bar w3-white w3-card" id="myNavbar">
             <a href="#home" className="w3-bar-item w3-button w3-wide">
-              GM NBA
+              BB SCOUT
             </a>
             <div className="w3-right w3-hide-small">
-              <a href="/scouting" className="w3-bar-item w3-button">
-                SCOUTING
+              <a href="/college-scouting" className="w3-bar-item w3-button">
+                COLLEGE
               </a>
-              <a href="#team" className="w3-bar-item w3-button">
+              <a href="/team/3" className="w3-bar-item w3-button">
                 <i className="fa fa-user" /> TEAM
               </a>
-              <a href="#work" className="w3-bar-item w3-button">
-                <i className="fa fa-th" /> LEAGUE
+              <a href="/scouting" className="w3-bar-item w3-button">
+                <i className="fa fa-th" /> NBA
               </a>
               <a className="w3-bar-item w3-button" onClick={this.handleClick}>
                 <i className="fa " /> SEARCH
               </a>
-              <a href="#contact" className="w3-bar-item w3-button">
+              <a className="w3-bar-item w3-button">
                 <i className="fa fa-envelope" /> MESSAGES
               </a>
             </div>

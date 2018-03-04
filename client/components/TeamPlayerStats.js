@@ -162,9 +162,23 @@ export default class TeamPlayerStats extends React.Component {
   }
 
   selectPie(evt, eventKey) {
-    this.setState({ pieStat: eventKey.target.innerHTML }, () => {
-      this.getPlayerShare(this.state.pieStat);
-    });
+    if (eventKey.target.innerHTML === "freeThrowPct") {
+      this.setState({ pieStat: "FT%" }, () => {
+        this.getPlayerShare("freeThrowPct");
+      });
+    } else if (eventKey.target.innerHTML === "threePAr") {
+      this.setState({ pieStat: "3PAr" }, () => {
+        this.getPlayerShare("threePAr");
+      });
+    } else if (eventKey.target.innerHTML === "wsFourtyEight") {
+      this.setState({ pieStat: "WS/48" }, () => {
+        this.getPlayerShare("wsFourtyEight");
+      });
+    } else {
+      this.setState({ pieStat: eventKey.target.innerHTML }, () => {
+        this.getPlayerShare(this.state.pieStat);
+      });
+    }
   }
 
   selectLeaders(evt, eventKey) {
@@ -339,13 +353,20 @@ export default class TeamPlayerStats extends React.Component {
       paddingLeft: "25px",
       color: this.props.team.Color_Sec
     };
+    var headerStyle2 = {
+      backgroundColor: this.props.team.Color_Main,
+      height: "45px",
+      lineHeight: "45px",
+      fontSize: "20px",
+      paddingLeft: "25px",
+      color: this.props.team.Color_Sec
+    };
     var statLabels = {
       backgroundColor: this.props.team.Color_Main,
       color: this.props.team.Color_Sec,
       textAlign: "center",
       fontSize: "20px",
       borderRadius: "0px",
-      width: "80px",
       marginBottom: "3px",
       border: "none"
     };
@@ -370,7 +391,7 @@ export default class TeamPlayerStats extends React.Component {
               <div className="card" style={{ backgroundColor: "white" }}>
                 <div>
                   <form>
-                    <Col lg={4} lgOffset={1}>
+                    <Col lg={4} sm={5} md={5} xs={5}>
                       <div>
                         <label htmlFor="sel1">
                           Select Stat <sub>(y)</sub> :
@@ -425,12 +446,12 @@ export default class TeamPlayerStats extends React.Component {
                           <option>ws</option>
                           <option>obpm</option>
                           <option>dbpm</option>
-                          <option>wsFortyEight</option>
+                          <option>wsFourtyEight</option>
                           <option>vorp</option>
                         </select>
                       </div>
                     </Col>
-                    <Col lg={4}>
+                    <Col lg={4} sm={5} md={5} xs={5}>
                       <div>
                         <label htmlFor="sel2" className="select-stat-label">
                           Select Stat <sub>(x)</sub> :
@@ -485,12 +506,12 @@ export default class TeamPlayerStats extends React.Component {
                           <option>ws</option>
                           <option>obpm</option>
                           <option>dbpm</option>
-                          <option>wsFortyEight</option>
+                          <option>wsFourtyEight</option>
                           <option>vorp</option>
                         </select>
                       </div>
                     </Col>
-                    <Col lg={1}>
+                    <Col lg={1} sm={2} md={2} xs={2}>
                       <div>
                         <button
                           onClick={this.handleSubmit}
@@ -510,7 +531,7 @@ export default class TeamPlayerStats extends React.Component {
             </Col>
           </Row>
           <Row className="chart-row">
-            <Col lg={3} lgOffset={1}>
+            <Col lg={5} lgOffset={1}>
               <div className="card">
                 <div style={headerStyle}>
                   <div>
@@ -521,12 +542,16 @@ export default class TeamPlayerStats extends React.Component {
                       className="card"
                       onSelect={this.selectPie}
                     >
+                      <MenuItem header>Offense</MenuItem>
                       <MenuItem eventKey="1">pts</MenuItem>
                       <MenuItem eventKey="2">ast</MenuItem>
-                      <MenuItem eventKey="3">trb</MenuItem>
-                      <MenuItem eventKey="4">mpg</MenuItem>
-                      <MenuItem eventKey="5">stl</MenuItem>
-                      <MenuItem eventKey="6">blk</MenuItem>
+                      <MenuItem eventKey="20">tov</MenuItem>
+                      <MenuItem eventKey="25">astPct</MenuItem>
+                      <MenuItem eventKey="26">tovPct</MenuItem>
+                      <MenuItem eventKey="30">usgPct</MenuItem>
+                      <MenuItem eventKey="34">ftr</MenuItem>
+                      <MenuItem divider />
+                      <MenuItem header>Shooting</MenuItem>
                       <MenuItem eventKey="7">fgm</MenuItem>
                       <MenuItem eventKey="8">fga</MenuItem>
                       <MenuItem eventKey="9">fgPct</MenuItem>
@@ -540,21 +565,26 @@ export default class TeamPlayerStats extends React.Component {
                       <MenuItem eventKey="17">fta</MenuItem>
                       <MenuItem eventKey="18">freeThrowPct</MenuItem>
                       <MenuItem eventKey="19">efgPct</MenuItem>
-                      <MenuItem eventKey="20">tov</MenuItem>
-                      <MenuItem eventKey="21">orb</MenuItem>
-                      <MenuItem eventKey="22">drb</MenuItem>
-                      <MenuItem eventKey="23">pf</MenuItem>
-                      <MenuItem eventKey="24">orbPct</MenuItem>
-                      <MenuItem eventKey="25">astPct</MenuItem>
-                      <MenuItem eventKey="26">tovPct</MenuItem>
-                      <MenuItem eventKey="27">drbPct</MenuItem>
-                      <MenuItem eventKey="28">stlPct</MenuItem>
-                      <MenuItem eventKey="29">blkPct</MenuItem>
-                      <MenuItem eventKey="30">usgPct</MenuItem>
-                      <MenuItem eventKey="31">trbPct</MenuItem>
                       <MenuItem eventKey="32">tsPct</MenuItem>
                       <MenuItem eventKey="33">threePAr</MenuItem>
-                      <MenuItem eventKey="34">ftr</MenuItem>
+                      <MenuItem divider />
+                      <MenuItem header>Rebounding</MenuItem>
+                      <MenuItem eventKey="3">trb</MenuItem>
+                      <MenuItem eventKey="21">orb</MenuItem>
+                      <MenuItem eventKey="22">drb</MenuItem>
+                      <MenuItem eventKey="24">orbPct</MenuItem>
+                      <MenuItem eventKey="27">drbPct</MenuItem>
+                      <MenuItem eventKey="31">trbPct</MenuItem>
+                      <MenuItem divider />
+                      <MenuItem header>Defense</MenuItem>
+                      <MenuItem eventKey="5">stl</MenuItem>
+                      <MenuItem eventKey="6">blk</MenuItem>
+                      <MenuItem eventKey="28">stlPct</MenuItem>
+                      <MenuItem eventKey="29">blkPct</MenuItem>
+                      <MenuItem divider />
+                      <MenuItem header>Misc.</MenuItem>
+                      <MenuItem eventKey="4">mpg</MenuItem>
+                      <MenuItem eventKey="23">pf</MenuItem>
                       <MenuItem eventKey="35">per</MenuItem>
                       <MenuItem eventKey="36">ows</MenuItem>
                       <MenuItem eventKey="37">dws</MenuItem>
@@ -569,23 +599,27 @@ export default class TeamPlayerStats extends React.Component {
                 </div>
               </div>
             </Col>
-            <Col lg={3} lgOffset={2}>
+            <Col lg={5}>
               <div className="card">
                 <div style={headerStyle}>
                   <div>
-                    Team Leaders -{" "}
+                    Leaders -{" "}
                     <DropdownButton
                       title={this.state.leaderStat.toUpperCase()}
                       style={statLabels}
                       className="card"
                       onSelect={this.selectLeaders}
                     >
+                      <MenuItem header>Offense</MenuItem>
                       <MenuItem eventKey="1">pts</MenuItem>
                       <MenuItem eventKey="2">ast</MenuItem>
-                      <MenuItem eventKey="3">trb</MenuItem>
-                      <MenuItem eventKey="4">mpg</MenuItem>
-                      <MenuItem eventKey="5">stl</MenuItem>
-                      <MenuItem eventKey="6">blk</MenuItem>
+                      <MenuItem eventKey="20">tov</MenuItem>
+                      <MenuItem eventKey="25">astPct</MenuItem>
+                      <MenuItem eventKey="26">tovPct</MenuItem>
+                      <MenuItem eventKey="30">usgPct</MenuItem>
+                      <MenuItem eventKey="34">ftr</MenuItem>
+                      <MenuItem divider />
+                      <MenuItem header>Shooting</MenuItem>
                       <MenuItem eventKey="7">fgm</MenuItem>
                       <MenuItem eventKey="8">fga</MenuItem>
                       <MenuItem eventKey="9">fgPct</MenuItem>
@@ -599,21 +633,26 @@ export default class TeamPlayerStats extends React.Component {
                       <MenuItem eventKey="17">fta</MenuItem>
                       <MenuItem eventKey="18">freeThrowPct</MenuItem>
                       <MenuItem eventKey="19">efgPct</MenuItem>
-                      <MenuItem eventKey="20">tov</MenuItem>
-                      <MenuItem eventKey="21">orb</MenuItem>
-                      <MenuItem eventKey="22">drb</MenuItem>
-                      <MenuItem eventKey="23">pf</MenuItem>
-                      <MenuItem eventKey="24">orbPct</MenuItem>
-                      <MenuItem eventKey="25">astPct</MenuItem>
-                      <MenuItem eventKey="26">tovPct</MenuItem>
-                      <MenuItem eventKey="27">drbPct</MenuItem>
-                      <MenuItem eventKey="28">stlPct</MenuItem>
-                      <MenuItem eventKey="29">blkPct</MenuItem>
-                      <MenuItem eventKey="30">usgPct</MenuItem>
-                      <MenuItem eventKey="31">trbPct</MenuItem>
                       <MenuItem eventKey="32">tsPct</MenuItem>
                       <MenuItem eventKey="33">threePAr</MenuItem>
-                      <MenuItem eventKey="34">ftr</MenuItem>
+                      <MenuItem divider />
+                      <MenuItem header>Rebounding</MenuItem>
+                      <MenuItem eventKey="3">trb</MenuItem>
+                      <MenuItem eventKey="21">orb</MenuItem>
+                      <MenuItem eventKey="22">drb</MenuItem>
+                      <MenuItem eventKey="24">orbPct</MenuItem>
+                      <MenuItem eventKey="27">drbPct</MenuItem>
+                      <MenuItem eventKey="31">trbPct</MenuItem>
+                      <MenuItem divider />
+                      <MenuItem header>Defense</MenuItem>
+                      <MenuItem eventKey="5">stl</MenuItem>
+                      <MenuItem eventKey="6">blk</MenuItem>
+                      <MenuItem eventKey="28">stlPct</MenuItem>
+                      <MenuItem eventKey="29">blkPct</MenuItem>
+                      <MenuItem divider />
+                      <MenuItem header>Misc.</MenuItem>
+                      <MenuItem eventKey="4">mpg</MenuItem>
+                      <MenuItem eventKey="23">pf</MenuItem>
                       <MenuItem eventKey="35">per</MenuItem>
                       <MenuItem eventKey="36">ows</MenuItem>
                       <MenuItem eventKey="37">dws</MenuItem>
@@ -655,9 +694,9 @@ export default class TeamPlayerStats extends React.Component {
             </Col>
           </Row>
           <Row className="chart-row">
-            <Col lg={4} lgOffset={1}>
+            <Col lg={5} lgOffset={1}>
               <div className="card">
-                <div style={headerStyle}>
+                <div style={headerStyle2}>
                   <div>
                     Player Averages -{" "}
                     <DropdownButton
@@ -666,12 +705,16 @@ export default class TeamPlayerStats extends React.Component {
                       className="card"
                       onSelect={this.selectAverage}
                     >
+                      <MenuItem header>Offense</MenuItem>
                       <MenuItem eventKey="1">pts</MenuItem>
                       <MenuItem eventKey="2">ast</MenuItem>
-                      <MenuItem eventKey="3">trb</MenuItem>
-                      <MenuItem eventKey="4">mpg</MenuItem>
-                      <MenuItem eventKey="5">stl</MenuItem>
-                      <MenuItem eventKey="6">blk</MenuItem>
+                      <MenuItem eventKey="20">tov</MenuItem>
+                      <MenuItem eventKey="25">astPct</MenuItem>
+                      <MenuItem eventKey="26">tovPct</MenuItem>
+                      <MenuItem eventKey="30">usgPct</MenuItem>
+                      <MenuItem eventKey="34">ftr</MenuItem>
+                      <MenuItem divider />
+                      <MenuItem header>Shooting</MenuItem>
                       <MenuItem eventKey="7">fgm</MenuItem>
                       <MenuItem eventKey="8">fga</MenuItem>
                       <MenuItem eventKey="9">fgPct</MenuItem>
@@ -685,21 +728,26 @@ export default class TeamPlayerStats extends React.Component {
                       <MenuItem eventKey="17">fta</MenuItem>
                       <MenuItem eventKey="18">freeThrowPct</MenuItem>
                       <MenuItem eventKey="19">efgPct</MenuItem>
-                      <MenuItem eventKey="20">tov</MenuItem>
-                      <MenuItem eventKey="21">orb</MenuItem>
-                      <MenuItem eventKey="22">drb</MenuItem>
-                      <MenuItem eventKey="23">pf</MenuItem>
-                      <MenuItem eventKey="24">orbPct</MenuItem>
-                      <MenuItem eventKey="25">astPct</MenuItem>
-                      <MenuItem eventKey="26">tovPct</MenuItem>
-                      <MenuItem eventKey="27">drbPct</MenuItem>
-                      <MenuItem eventKey="28">stlPct</MenuItem>
-                      <MenuItem eventKey="29">blkPct</MenuItem>
-                      <MenuItem eventKey="30">usgPct</MenuItem>
-                      <MenuItem eventKey="31">trbPct</MenuItem>
                       <MenuItem eventKey="32">tsPct</MenuItem>
                       <MenuItem eventKey="33">threePAr</MenuItem>
-                      <MenuItem eventKey="34">ftr</MenuItem>
+                      <MenuItem divider />
+                      <MenuItem header>Rebounding</MenuItem>
+                      <MenuItem eventKey="3">trb</MenuItem>
+                      <MenuItem eventKey="21">orb</MenuItem>
+                      <MenuItem eventKey="22">drb</MenuItem>
+                      <MenuItem eventKey="24">orbPct</MenuItem>
+                      <MenuItem eventKey="27">drbPct</MenuItem>
+                      <MenuItem eventKey="31">trbPct</MenuItem>
+                      <MenuItem divider />
+                      <MenuItem header>Defense</MenuItem>
+                      <MenuItem eventKey="5">stl</MenuItem>
+                      <MenuItem eventKey="6">blk</MenuItem>
+                      <MenuItem eventKey="28">stlPct</MenuItem>
+                      <MenuItem eventKey="29">blkPct</MenuItem>
+                      <MenuItem divider />
+                      <MenuItem header>Misc.</MenuItem>
+                      <MenuItem eventKey="4">mpg</MenuItem>
+                      <MenuItem eventKey="23">pf</MenuItem>
                       <MenuItem eventKey="35">per</MenuItem>
                       <MenuItem eventKey="36">ows</MenuItem>
                       <MenuItem eventKey="37">dws</MenuItem>

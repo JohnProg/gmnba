@@ -7,8 +7,43 @@ export default class PlayerPositionAverages extends React.Component {
     this.getPositionAverage = this.getPositionAverage.bind(this);
   }
 
+  componentDidMount() {
+    if (this.props.player) {
+      this.setState(
+        {
+          player: this.props.player,
+          positionStats: this.props.positionStats,
+          colors: this.props.colors
+        },
+        () => {
+          if (this.state.positionStats.length > 0) {
+            var ptsAvg = this.getPositionAverage("pts");
+            var trbAvg = this.getPositionAverage("trb");
+            var astAvg = this.getPositionAverage("ast");
+            var stlAvg = this.getPositionAverage("stl");
+            var blkAvg = this.getPositionAverage("blk");
+            var fgAvg = this.getPositionAverage("fgPct");
+            this.setState(
+              {
+                ptsAvg: ptsAvg,
+                trbAvg: trbAvg,
+                astAvg: astAvg,
+                stlAvg: stlAvg,
+                blkAvg: blkAvg,
+                fgAvg: fgAvg
+              },
+              () => {
+                this.createChart();
+              }
+            );
+          }
+        }
+      );
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
-    if (nextProps.player) {
+    if (nextProps.player && nextProps.positionStats) {
       this.setState(
         {
           player: nextProps.player,
@@ -59,7 +94,7 @@ export default class PlayerPositionAverages extends React.Component {
   }
 
   createChart() {
-    var chart = Highcharts.chart("container-average", {
+    var chart = Highcharts.chart("container-average-pl", {
       chart: {
         type: "column"
       },
@@ -136,7 +171,7 @@ export default class PlayerPositionAverages extends React.Component {
       <div>
         <div
           className="card"
-          id="container-average"
+          id="container-average-pl"
           style={{
             height: "500px",
             width: "800",

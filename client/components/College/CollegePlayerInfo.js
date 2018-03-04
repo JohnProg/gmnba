@@ -39,11 +39,29 @@ class CollegePlayerInfo extends React.Component {
     this.getOffenseRating = this.getOffenseRating.bind(this);
     this.getDefenseRating = this.getDefenseRating.bind(this);
     this.calculateStars = this.calculateStars.bind(this);
+    this.getPositionStats = this.getPositionStats.bind(this);
   }
 
   componentDidMount() {
     this.getLeagueStats();
     this.getPlayer();
+  }
+
+  getPositionStats(position) {
+    axios
+      .get("/api/teams/getcPositionStats", {
+        params: {
+          position: position
+        }
+      })
+      .then(data => {
+        this.setState({ positionStats: data.data }, () => {
+          //console.log(this.state.positionStats);
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   getLeagueStats() {
@@ -63,6 +81,7 @@ class CollegePlayerInfo extends React.Component {
       .then(data => {
         this.getTeamColors(data.data.team);
         this.setState({ player: data.data }, () => {});
+        this.getPositionStats(data.data.position);
       })
       .catch(err => {
         console.log(err);
@@ -483,14 +502,14 @@ class CollegePlayerInfo extends React.Component {
           <Grid id="info-container">
             <Row className="full-height-row">
               <div id="info">
-                <Col lg={3} id="pic-col">
+                <Col lg={3} sm={6} xs={12} id="pic-col">
                   <div id="info-pic-team">
                     <img style={{ maxHeight: "200px" }} src={picture} />
                   </div>
                 </Col>
-                <Col lg={9}>
+                <Col lg={9} xs={12}>
                   <Row>
-                    <Col lg={5}>
+                    <Col lg={5} xs={12}>
                       <div id="name-text">
                         <div id="team-name">
                           {this.state.player.name}
@@ -518,7 +537,7 @@ class CollegePlayerInfo extends React.Component {
                       </div>
                       <hr id="info-text-break" />
                     </Col>
-                    <Col lg={3}>
+                    <Col lg={3} xs={6}>
                       <div style={{ marginTop: "70px", fontSize: "15.5px" }}>
                         <div style={{ textAlign: "right" }}>
                           Overall: {this.getOverallRating()}
@@ -531,7 +550,7 @@ class CollegePlayerInfo extends React.Component {
                         </div>
                       </div>
                     </Col>
-                    <Col lg={3}>
+                    <Col lg={3} xs={6}>
                       <a href={`/college-team/${this.state.colors.id}`}>
                         <div id="logo-pic">
                           <img
@@ -547,7 +566,14 @@ class CollegePlayerInfo extends React.Component {
                     </Col>
                   </Row>
                   <Row style={{ paddingBottom: "20px" }}>
-                    <Col lg={2}>
+                    <Col
+                      lg={2}
+                      xs={2}
+                      lgOffset={0}
+                      mdOffset={0}
+                      smOffset={0}
+                      xsOffset={1}
+                    >
                       <div>
                         <span style={{ color: "#404040" }}>PPG</span>{" "}
                         <span style={{ fontSize: "18px" }}>
@@ -555,7 +581,7 @@ class CollegePlayerInfo extends React.Component {
                         </span>
                       </div>
                     </Col>
-                    <Col lg={2}>
+                    <Col lg={2} xs={2}>
                       <div>
                         <span style={{ color: "#404040" }}>RPG</span>{" "}
                         <span style={{ fontSize: "18px" }}>
@@ -563,7 +589,7 @@ class CollegePlayerInfo extends React.Component {
                         </span>
                       </div>
                     </Col>
-                    <Col lg={2}>
+                    <Col lg={2} xs={2}>
                       <div>
                         <span style={{ color: "#404040" }}>APG</span>{" "}
                         <span style={{ fontSize: "18px" }}>
@@ -571,7 +597,7 @@ class CollegePlayerInfo extends React.Component {
                         </span>
                       </div>
                     </Col>
-                    <Col lg={2}>
+                    <Col lg={2} xs={2}>
                       <div>
                         <span style={{ color: "#404040" }}>GP</span>{" "}
                         <span style={{ fontSize: "18px" }}>
@@ -579,7 +605,7 @@ class CollegePlayerInfo extends React.Component {
                         </span>
                       </div>
                     </Col>
-                    <Col lg={2}>
+                    <Col lg={2} xs={2}>
                       <div>
                         <span style={{ color: "#404040" }}>MPG</span>{" "}
                         <span style={{ fontSize: "18px" }}>
@@ -598,6 +624,7 @@ class CollegePlayerInfo extends React.Component {
             leagueStats={this.state.leagueStats}
             player={this.state.player}
             colors={this.state.colors}
+            positionStats={this.state.positionStats}
           />
         </div>
       </div>

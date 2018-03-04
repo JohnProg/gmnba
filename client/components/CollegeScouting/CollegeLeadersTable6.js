@@ -11,7 +11,7 @@ export default class CollegeLeadersTable6 extends React.Component {
   renderPlayers(stat) {
     if (this.props.players) {
       this.props.players.sort(function(a, b) {
-        return parseFloat(b.ast) - parseFloat(a.ast);
+        return parseFloat(b[stat]) - parseFloat(a[stat]);
       });
       return this.props.players.map((player, i) => (
         <CollegeLeaderEntry player={player} key={i} rank={i + 1} stat={stat} />
@@ -29,7 +29,7 @@ export default class CollegeLeadersTable6 extends React.Component {
               <th>{this.props.stat}</th>
             </tr>
           </thead>
-          <tbody>{this.renderPlayers(this.props.stat.toLowerCase())}</tbody>
+          <tbody>{this.renderPlayers(this.props.stat)}</tbody>
         </Table>
       </div>
     );

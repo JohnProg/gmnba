@@ -507,7 +507,7 @@ class Info extends React.Component {
           <Grid id="info-container">
             <Row className="full-height-row">
               <div id="info">
-                <Col lg={3} id="pic-col">
+                <Col lg={3} sm={3} md={3} xs={12} id="pic-col">
                   <div id="info-pic">
                     <img
                       src={this.state.team.Logo}
@@ -515,23 +515,28 @@ class Info extends React.Component {
                     />
                   </div>
                 </Col>
-                <Col lg={9}>
+                <Col lg={9} xs={12} md={9} sm={9}>
                   <Row>
-                    <Col lg={5}>
+                    <Col lg={5} xs={6} md={5}>
                       <div id="name-text">
                         <div id="team-name">{this.state.team.Name}</div>
                         <div id="info-text">
                           <div>
                             Record: {this.state.team.W}-{this.state.team.L}
                           </div>
-                          <div>#5 in the Western Conference</div>
-                          <div>#3 in the Southwest Division</div>
+                          <br />
+                          <div>
+                            Expected Record <sub>(PW-PL)</sub>:{" "}
+                            {this.state.team.PW}-{this.state.team.PL}
+                          </div>
+                          <div>Schedule Strength: {this.state.team.SOS}</div>
+                          <div>Margin of Victory: {this.state.team.MOV} </div>
                         </div>
                       </div>
                       <hr id="info-text-break" />
                     </Col>
 
-                    <Col lg={3}>
+                    <Col lg={3} xs={6} md={5} sm={5}>
                       <div style={{ marginTop: "50px", fontSize: "15.5px" }}>
                         <div style={{ textAlign: "right" }}>
                           Overall: {this.getOverallRating()}
@@ -544,37 +549,56 @@ class Info extends React.Component {
                         </div>
                       </div>
                     </Col>
-                    <Col lg={3}>{this.sampleGLeague()}</Col>
+                    <Col lg={3} md={2} sm={2}>
+                      {this.sampleGLeague()}
+                    </Col>
                   </Row>
                   <Row style={{ paddingBottom: "20px" }}>
-                    <Col lg={2}>
+                    <Col
+                      lg={2}
+                      xs={2}
+                      xsOffset={1}
+                      lgOffset={0}
+                      mdOffset={0}
+                      smOffset={0}
+                    >
                       <div>
                         <span style={{ color: "#404040" }}>PPG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>1st</span>
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.team.PTS}
+                        </span>
                       </div>
                     </Col>
-                    <Col lg={2}>
+                    <Col lg={2} xs={2}>
                       <div>
                         <span style={{ color: "#404040" }}>RPG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>6th</span>
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.team.TRB}
+                        </span>
                       </div>
                     </Col>
-                    <Col lg={2}>
+                    <Col lg={2} xs={2}>
                       <div>
                         <span style={{ color: "#404040" }}>APG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>13th</span>
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.team.AST}
+                        </span>
                       </div>
                     </Col>
-                    <Col lg={2}>
+                    <Col lg={2} xs={2}>
                       <div>
                         <span style={{ color: "#404040" }}>ORTG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>9th</span>
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.team.ORtg}
+                        </span>
                       </div>
                     </Col>
-                    <Col lg={2}>
+                    <Col lg={2} xs={2}>
                       <div>
                         <span style={{ color: "#404040" }}>DRTG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>2nd</span>
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.team.DRtg}
+                        </span>
                       </div>
                     </Col>
                   </Row>
