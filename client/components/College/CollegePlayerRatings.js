@@ -169,10 +169,10 @@ export default class CollegePlayerRatings extends React.Component {
             </Col>
           </Row>
           <Row className="chart-row">
-            <Col lg={5} lgOffset={1}>
+            <Col lg={5} lgOffset={1} md={6}>
               {this.renderPolarCol()}
             </Col>
-            <Col lg={5}>
+            <Col lg={5} md={6}>
               <CollegePlayerPolarArea
                 player={this.props.player}
                 colors={this.props.colors}
@@ -185,7 +185,7 @@ export default class CollegePlayerRatings extends React.Component {
             </Col>
           </Row>
           <Row className="chart-row">
-            <Col lg={3} lgOffset={1}>
+            <Col lg={3} lgOffset={1} md={4}>
               <div className="card" style={headerStyle}>
                 POSITION RANKINGS
               </div>
@@ -203,7 +203,7 @@ export default class CollegePlayerRatings extends React.Component {
           </Row>
 
           <Row className="chart-row">
-            <Col lg={3} lgOffset={1}>
+            <Col lg={3} lgOffset={1} md={4}>
               <div className="card" style={headerStyle}>
                 POSITION AVERAGES
               </div>

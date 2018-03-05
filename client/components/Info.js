@@ -543,7 +543,7 @@ class Info extends React.Component {
                 </Col>
                 <Col lg={9} xs={12} md={9} sm={9}>
                   <Row>
-                    <Col lg={5} xs={6} md={5}>
+                    <Col lg={5} xs={12} md={5}>
                       <div id="name-text">
                         <div id="team-name">{this.state.team.Name}</div>
                         <div id="info-text">
@@ -562,7 +562,7 @@ class Info extends React.Component {
                       <hr id="info-text-break" />
                     </Col>
 
-                    <Col lg={3} xs={6} md={5} sm={5}>
+                    <Col lg={3} xs={12} md={5} sm={5}>
                       <div style={{ marginTop: "50px", fontSize: "15.5px" }}>
                         <div style={{ textAlign: "right" }}>
                           Overall: {this.getOverallRating()}
@@ -579,7 +579,10 @@ class Info extends React.Component {
                       {this.sampleGLeague()}
                     </Col>
                   </Row>
-                  <Row style={{ paddingBottom: "20px" }}>
+                  <Row
+                    style={{ paddingBottom: "20px" }}
+                    className="player-stat-row"
+                  >
                     <Col
                       lg={2}
                       xs={2}

@@ -169,6 +169,12 @@ div.card {
   margin-top: 0px;
 }
 
+@media only screen and (max-width: 992px) {
+  .player-stat-row {
+    padding-top: 20px;
+  }
+}
+
 #team-player-ranks-container {
   overflow-y: hidden;
 }

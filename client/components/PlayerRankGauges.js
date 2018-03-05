@@ -319,7 +319,7 @@ export default class PlayerRankGuages extends React.Component {
     return (
       <div>
         <Row className="chart-row">
-          <Col lg={4} xs={12}>
+          <Col lg={4} md={4} xs={12}>
             <div
               className="gauge-header-div "
               style={{ textAlign: "center", fontSize: "16px" }}
@@ -392,7 +392,7 @@ export default class PlayerRankGuages extends React.Component {
               }}
             />
           </Col>
-          <Col lg={4} xs={12}>
+          <Col lg={4} md={4} xs={12}>
             <div
               className="gauge-header-div"
               style={{ textAlign: "center", fontSize: "16px" }}
@@ -465,7 +465,7 @@ export default class PlayerRankGuages extends React.Component {
               }}
             />
           </Col>
-          <Col lg={4} xs={12}>
+          <Col lg={4} md={4} xs={12}>
             <div
               className="gauge-header-div"
               style={{ textAlign: "center", fontSize: "16px" }}

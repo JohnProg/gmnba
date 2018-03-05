@@ -573,7 +573,7 @@ class PlayerInfo extends React.Component {
                       </div>
                       <hr id="info-text-break" />
                     </Col>
-                    <Col lg={3} xs={6} md={3}>
+                    <Col lg={3} xs={7} md={4}>
                       <div style={{ marginTop: "70px", fontSize: "15.5px" }}>
                         <div style={{ textAlign: "right" }}>
                           Overall: {this.getOverallRating()}
@@ -586,7 +586,7 @@ class PlayerInfo extends React.Component {
                         </div>
                       </div>
                     </Col>
-                    <Col lg={3} xs={6} md={3}>
+                    <Col lg={3} xs={5} md={2}>
                       <a href={`/team/${this.state.colors.id}`}>
                         <div id="logo-pic">
                           <img
@@ -601,7 +601,10 @@ class PlayerInfo extends React.Component {
                       </a>
                     </Col>
                   </Row>
-                  <Row style={{ paddingBottom: "20px" }}>
+                  <Row
+                    style={{ paddingBottom: "20px" }}
+                    className="player-stat-row"
+                  >
                     <Col
                       lg={2}
                       xs={2}
