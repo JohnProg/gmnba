@@ -21,7 +21,7 @@ export default class CPlayerComparison extends React.Component {
     return (
       <div>
         <Row style={{ paddingTop: "40px" }}>
-          <Col lg={3} lgOffset={1}>
+          <Col lg={3} lgOffset={1} md={4}>
             <div className="card" style={headerStyle}>
               League Comparison
             </div>
@@ -37,7 +37,7 @@ export default class CPlayerComparison extends React.Component {
           </Col>
         </Row>
         <Row style={{ paddingTop: "30px" }}>
-          <Col lg={3} lgOffset={1}>
+          <Col lg={3} lgOffset={1} md={4}>
             <div className="card" style={headerStyle}>
               Player Comparison
             </div>

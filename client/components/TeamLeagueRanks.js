@@ -65,7 +65,7 @@ export default class TeamLeagueRanks extends React.Component {
             </Col>
           </Row>
           <Row className="chart-row">
-            <Col lg={3} lgOffset={1}>
+            <Col lg={3} md={4} lgOffset={1}>
               <div className="card header" style={headerStyle}>
                 League Averages
               </div>

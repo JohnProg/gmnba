@@ -40,7 +40,7 @@ export default class CollegePlayerPolColAdvOff extends React.Component {
 
     var astPct = this.getGrade(highAstPct, this.state.player.astPct, 2.0);
     var orbPct = this.getGrade(highOrbPct, this.state.player.orbPct, 0.5);
-    var fg = this.getGrade(highFg, this.state.player.efgPct, 0.35);
+    var fg = this.getGrade(highFg, this.state.player.fgPct, 0.25);
     var tovPct = this.getGrade(
       highTovPct,
       this.state.player.tovPct * -1,
@@ -226,8 +226,8 @@ export default class CollegePlayerPolColAdvOff extends React.Component {
             {
               y: this.state.fg.Grade,
               color: this.state.fg.Color,
-              name: "eFG%",
-              stat: this.state.player.efgPct
+              name: "FG%",
+              stat: this.state.player.fgPct
             },
             {
               y: this.state.tsPct.Grade,

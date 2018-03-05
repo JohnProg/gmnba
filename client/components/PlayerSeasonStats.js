@@ -92,7 +92,7 @@ export default class PlayerSeasonStats extends React.Component {
     var highFT = 0.93;
     var highThree = 0.45;
     var highTwo = 0.7;
-    var highEFg = 0.65;
+    var highFg = 0.65;
     var highOrb = 5.0;
     var highDrb = 10.0;
     var highTov = 0;
@@ -128,7 +128,7 @@ export default class PlayerSeasonStats extends React.Component {
       this.props.player.threePtPct,
       0.2
     );
-    var fg = this.getGrade(highEFg, this.props.player.efgPct, 0.3);
+    var fg = this.getGrade(highFg, this.props.player.fgPct, 0.25);
     var orb = this.getGrade(highOrb, this.props.player.orb, 0);
     var drb = this.getGrade(highDrb, this.props.player.drb, 1.0);
     var tov = this.getGrade(highTov, this.props.player.tov * -1, -5.0);

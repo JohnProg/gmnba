@@ -22,7 +22,7 @@ export default class CollegeTeamLeagueRanks extends React.Component {
       <div>
         <Grid>
           <Row className="chart-row">
-            <Col lg={3} lgOffset={1}>
+            <Col lg={3} lgOffset={1} md={3}>
               <div className="card header" style={headerStyle}>
                 League Rankings
               </div>
@@ -54,7 +54,7 @@ export default class CollegeTeamLeagueRanks extends React.Component {
             </Col>
           </Row>
           <Row className="chart-row">
-            <Col lg={3} lgOffset={1}>
+            <Col lg={3} lgOffset={1} md={3}>
               <div className="card header" style={headerStyle}>
                 League Averages
               </div>

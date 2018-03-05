@@ -531,7 +531,7 @@ export default class TeamPlayerStats extends React.Component {
             </Col>
           </Row>
           <Row className="chart-row">
-            <Col lg={5} lgOffset={1}>
+            <Col lg={5} lgOffset={1} md={5}>
               <div className="card">
                 <div style={headerStyle}>
                   <div>
@@ -599,7 +599,7 @@ export default class TeamPlayerStats extends React.Component {
                 </div>
               </div>
             </Col>
-            <Col lg={5}>
+            <Col lg={5} lgOffset={0} md={5} mdOffset={1}>
               <div className="card">
                 <div style={headerStyle}>
                   <div>
@@ -669,7 +669,7 @@ export default class TeamPlayerStats extends React.Component {
             </Col>
           </Row>
           <Row className="chart-row">
-            <Col lg={5} lgOffset={1}>
+            <Col lg={5} lgOffset={1} md={6}>
               <div className="card">
                 <div
                   id="container2"
@@ -679,7 +679,7 @@ export default class TeamPlayerStats extends React.Component {
                 />
               </div>
             </Col>
-            <Col lg={5}>
+            <Col lg={5} md={6}>
               <div className="card">
                 <div
                   style={{ height: "400px", backgroundColor: "#ffffff" }}
@@ -694,7 +694,7 @@ export default class TeamPlayerStats extends React.Component {
             </Col>
           </Row>
           <Row className="chart-row">
-            <Col lg={5} lgOffset={1}>
+            <Col lg={5} lgOffset={1} md={5}>
               <div className="card">
                 <div style={headerStyle2}>
                   <div>
