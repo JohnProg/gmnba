@@ -23,7 +23,7 @@ export default class PlayerComparison extends React.Component {
       <div>
         <Grid>
           <Row className="chart-row">
-            <Col lg={3}>
+            <Col lg={3} md={4}>
               <div className="card">
                 <div style={headerStyle}>
                   <div>Player Comparison</div>
@@ -32,13 +32,13 @@ export default class PlayerComparison extends React.Component {
             </Col>
           </Row>
           <Row style={{ paddingTop: "20px", paddingBottom: "40px" }}>
-            <Col lg={6} xs={12}>
+            <Col lg={6} xs={12} md={6}>
               <AddPlayerSearch
                 list={this.props.player}
                 colors={this.props.colors}
               />
             </Col>
-            <Col lg={6} xs={12}>
+            <Col lg={6} xs={12} md={6}>
               <AddPlayerSearch2
                 list={this.props.players}
                 colors={this.props.colors}
