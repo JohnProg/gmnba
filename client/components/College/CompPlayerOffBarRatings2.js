@@ -145,7 +145,6 @@ export default class CompPlayerOffBarRatings2 extends React.Component {
       },
       xAxis: {
         categories: [
-          "eFG%",
           "TS%",
           "FTr",
           "3PAr",
@@ -208,18 +207,12 @@ export default class CompPlayerOffBarRatings2 extends React.Component {
             { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" }
           ]
         },
         {
           name: "Grade",
           data: [
-            {
-              y: this.state.efg.Grade,
-              color: this.state.efg.Color,
-              stat: this.props.player.efgPct
-            },
             {
               y: this.state.ts.Grade,
               color: this.state.ts.Color,

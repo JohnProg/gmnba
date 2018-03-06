@@ -177,7 +177,7 @@ export default class AddPlayerSearch extends React.Component {
         >
           <Col lg={6} style={{ paddingTop: "20px" }}>
             <Thumbnail
-              style={{ border: "none" }}
+              style={{ border: "none", maxHeight: "100px" }}
               src="https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443"
             />
           </Col>

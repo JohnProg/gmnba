@@ -67,7 +67,7 @@ export default class ConferenceStandings extends React.Component {
     console.log(this.state);
     return (
       <div>
-        <Col lg={6}>
+        <Col lg={6} md={6}>
           <Table striped hover>
             <thead>
               <tr>
@@ -81,7 +81,7 @@ export default class ConferenceStandings extends React.Component {
             <tbody>{this.renderWestTeams()}</tbody>
           </Table>
         </Col>
-        <Col lg={6}>
+        <Col lg={6} md={6}>
           <Table striped hover>
             <thead>
               <tr>

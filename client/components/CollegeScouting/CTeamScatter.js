@@ -218,11 +218,11 @@ export default class CTeamScatter extends React.Component {
           }}
         />
         <Row style={{ paddingTop: "40px" }}>
-          <Col lg={12}>
+          <Col lg={12} md={12}>
             <div className="card" style={{ backgroundColor: "white" }}>
               <div>
                 <form>
-                  <Col lg={4} lgOffset={1}>
+                  <Col lg={4} lgOffset={1} md={4}>
                     <div>
                       <label htmlFor="sel1">
                         Select Stat <sub>(y)</sub> :
@@ -256,7 +256,7 @@ export default class CTeamScatter extends React.Component {
                       </select>
                     </div>
                   </Col>
-                  <Col lg={4}>
+                  <Col lg={4} md={4}>
                     <div>
                       <label htmlFor="sel2" className="select-stat-label">
                         Select Stat <sub>(x)</sub> :

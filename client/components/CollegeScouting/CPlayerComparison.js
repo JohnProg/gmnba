@@ -44,10 +44,10 @@ export default class CPlayerComparison extends React.Component {
           </Col>
         </Row>
         <Row style={{ paddingTop: "40px", paddingBottom: "40px" }}>
-          <Col lg={5} lgOffset={1}>
+          <Col lg={5} lgOffset={1} md={6}>
             <AddCPlayerSearch list={this.props.players} />
           </Col>
-          <Col lg={5}>
+          <Col lg={5} md={6}>
             <AddCPlayerSearch2 list={this.props.players} />
           </Col>
         </Row>

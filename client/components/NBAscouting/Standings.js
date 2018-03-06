@@ -99,19 +99,19 @@ export default class Standings extends React.Component {
       return (
         <div>
           <Row style={{ paddingTop: "30px" }}>
-            <Col lg={3} lgOffset={1}>
+            <Col lg={3} lgOffset={1} md={3} mdOffset={1}>
               <div className="card" style={headerStyle}>
                 Western Conference
               </div>
             </Col>
-            <Col lg={3} lgOffset={2}>
+            <Col lg={3} lgOffset={2} md={3} mdOffset={2}>
               <div className="card" style={headerStyle}>
                 Eastern Conference
               </div>
             </Col>
           </Row>
           <Row style={{ paddingTop: "30px" }}>
-            <Col lg={10} lgOffset={1}>
+            <Col lg={10} lgOffset={1} md={10} mdOffset={1}>
               <ConferenceStandings
                 west={this.state.westArr}
                 east={this.state.eastArr}
@@ -125,14 +125,14 @@ export default class Standings extends React.Component {
       return (
         <div>
           <Row style={{ paddingTop: "20px" }}>
-            <Col lg={3} lgOffset={1}>
+            <Col lg={3} lgOffset={1} md={3} mdOffset={1}>
               <div className="card" style={headerStyle}>
                 League Standings
               </div>
             </Col>
           </Row>
           <Row style={{ paddingTop: "20px" }}>
-            <Col lg={10} lgOffset={1}>
+            <Col lg={10} lgOffset={1} md={10} mdOffset={1}>
               <LeagueStandings teams={this.props.teams} />
             </Col>
           </Row>
@@ -191,7 +191,7 @@ export default class Standings extends React.Component {
     return (
       <div>
         <Row style={{ paddingTop: "40px" }}>
-          <Col lg={3} lgOffset={1}>
+          <Col lg={3} lgOffset={1} md={3} mdOffset={1}>
             <span>
               <Button onClick={this.handleConferenceButton} style={statStyle}>
                 Conference

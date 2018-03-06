@@ -21,7 +21,7 @@ export default class PlayerComparison extends React.Component {
     return (
       <div>
         <Row style={{ paddingTop: "40px" }}>
-          <Col lg={3} lgOffset={1}>
+          <Col lg={3} lgOffset={1} md={4}>
             <div className="card" style={headerStyle}>
               League Comparison
             </div>
@@ -37,17 +37,17 @@ export default class PlayerComparison extends React.Component {
           </Col>
         </Row>
         <Row style={{ paddingTop: "30px" }}>
-          <Col lg={3} lgOffset={1}>
+          <Col lg={3} lgOffset={1} md={4}>
             <div className="card" style={headerStyle}>
               Player Comparison
             </div>
           </Col>
         </Row>
         <Row style={{ paddingTop: "40px", paddingBottom: "40px" }}>
-          <Col lg={5} lgOffset={1}>
+          <Col lg={5} lgOffset={1} md={6}>
             <AddPlayerSearch list={this.props.players} />
           </Col>
-          <Col lg={5}>
+          <Col lg={5} md={6}>
             <AddPlayerSearch2 list={this.props.players} />
           </Col>
         </Row>

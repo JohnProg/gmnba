@@ -523,10 +523,10 @@ export default class CollegePlayerScatter extends React.Component {
         />
         <Row style={{ paddingTop: "40px" }}>
           <Col lg={12}>
-            <div className="card" style={{ backgroundColor: "white" }}>
+            <div>
               <div>
                 <form>
-                  <Col lg={4} lgOffset={1} mdOffset={1} md={4}>
+                  <Col lg={4} lgOffset={1} sm={5} mdOffset={1} md={4}>
                     <div>
                       <label htmlFor="sel1">
                         Select Stat <sub>(y)</sub> :
@@ -586,7 +586,7 @@ export default class CollegePlayerScatter extends React.Component {
                       </select>
                     </div>
                   </Col>
-                  <Col lg={4} md={4}>
+                  <Col lg={4} sm={5} md={4}>
                     <div>
                       <label htmlFor="sel2" className="select-stat-label">
                         Select Stat <sub>(x)</sub> :
@@ -646,7 +646,7 @@ export default class CollegePlayerScatter extends React.Component {
                       </select>
                     </div>
                   </Col>
-                  <Col lg={1} md={3}>
+                  <Col lg={1} sm={2} md={2}>
                     <div>
                       <button
                         onClick={this.handleSubmit}
@@ -670,7 +670,7 @@ export default class CollegePlayerScatter extends React.Component {
                       Filter
                     </div>
                   </Col>
-                  <Col lg={12} style={{ paddingTop: "20px" }}>
+                  <Col lg={12} md={12} style={{ paddingTop: "20px" }}>
                     {this.renderFilter()}
                   </Col>
                 </form>

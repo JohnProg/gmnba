@@ -504,8 +504,8 @@ export default class PlayerScatter extends React.Component {
   renderFilter() {
     if (this.state.showFilter === true) {
       return (
-        <div style={{ height: "100px" }}>
-          <Col lg={1} lgOffset={1}>
+        <div>
+          <Col lg={1} lgOffset={1} sm={2}>
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               Position
             </div>
@@ -527,7 +527,7 @@ export default class PlayerScatter extends React.Component {
               </Checkbox>
             </FormGroup>
           </Col>
-          <Col lg={2}>
+          <Col lg={2} sm={2}>
             <div style={{ paddingLeft: "30px" }}>
               <div style={{ color: "#d00000", textDecoration: "underline" }}>
                 MPG
@@ -551,7 +551,7 @@ export default class PlayerScatter extends React.Component {
               </FormGroup>
             </div>
           </Col>
-          <Col lg={2}>
+          <Col lg={2} sm={2}>
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               Experience
             </div>
@@ -573,7 +573,7 @@ export default class PlayerScatter extends React.Component {
               </Checkbox>
             </FormGroup>
           </Col>
-          <Col lg={2}>
+          <Col lg={2} sm={2}>
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               Age
             </div>
@@ -595,7 +595,7 @@ export default class PlayerScatter extends React.Component {
               </Checkbox>
             </FormGroup>
           </Col>
-          <Col lg={2}>
+          <Col lg={2} sm={2}>
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               Salary
             </div>
@@ -607,7 +607,7 @@ export default class PlayerScatter extends React.Component {
               <Checkbox disabled>> 20 mil.</Checkbox>
             </FormGroup>
           </Col>
-          <Col lg={2}>
+          <Col lg={2} sm={2}>
             <div>
               <Button
                 onClick={this.handleFilterSubmit}
@@ -634,10 +634,10 @@ export default class PlayerScatter extends React.Component {
         />
         <Row style={{ paddingTop: "40px" }}>
           <Col lg={12}>
-            <div className="card" style={{ backgroundColor: "white" }}>
+            <div>
               <div>
                 <form>
-                  <Col lg={4} lgOffset={1} sm={5} md={5}>
+                  <Col lg={4} lgOffset={1} sm={5} mdOffset={1} md={4}>
                     <div>
                       <label htmlFor="sel1">
                         Select Stat <sub>(y)</sub> :
@@ -697,7 +697,7 @@ export default class PlayerScatter extends React.Component {
                       </select>
                     </div>
                   </Col>
-                  <Col lg={4} sm={5} md={5}>
+                  <Col lg={4} sm={5} md={4}>
                     <div>
                       <label htmlFor="sel2" className="select-stat-label">
                         Select Stat <sub>(x)</sub> :
@@ -768,7 +768,7 @@ export default class PlayerScatter extends React.Component {
                       </button>
                     </div>
                   </Col>
-                  <Col lg={1}>
+                  <Col lg={1} md={1}>
                     <div
                       style={{
                         color: "#d00000",
@@ -781,7 +781,7 @@ export default class PlayerScatter extends React.Component {
                       Filter
                     </div>
                   </Col>
-                  <Col lg={12} style={{ paddingTop: "20px" }}>
+                  <Col lg={12} md={12} style={{ paddingTop: "20px" }}>
                     {this.renderFilter()}
                   </Col>
                 </form>

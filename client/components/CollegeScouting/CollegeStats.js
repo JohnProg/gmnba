@@ -413,7 +413,7 @@ export default class CollegeStats extends React.Component {
     return (
       <div>
         <Row style={{ paddingTop: "40px" }}>
-          <Col lg={3} lgOffset={1}>
+          <Col lg={3} lgOffset={1} md={4}>
             <div className="card" style={headerStyle}>
               League Stats
             </div>

@@ -34,8 +34,8 @@ export default class LeagueLeaders extends React.Component {
       sf: true,
       pf: true,
       c: true,
-      mpg1: true,
-      mpg2: true,
+      mpg1: false,
+      mpg2: false,
       mpg3: true,
       mpg4: true,
       mpg5: true,
@@ -106,6 +106,7 @@ export default class LeagueLeaders extends React.Component {
         this.rankPoints();
         this.rankRebounds();
         this.rankAssists();
+        this.filterPlayers();
       }
     );
   }
@@ -378,7 +379,7 @@ export default class LeagueLeaders extends React.Component {
     if (this.state.showFilter) {
       return (
         <div style={{ height: "100px" }}>
-          <Col lg={2} lgOffset={1}>
+          <Col lg={2} lgOffset={1} md={3} mdOffset={0}>
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               Position
             </div>
@@ -400,7 +401,7 @@ export default class LeagueLeaders extends React.Component {
               </Checkbox>
             </FormGroup>
           </Col>
-          <Col lg={2}>
+          <Col lg={2} md={2}>
             <div style={{ paddingLeft: "30px" }}>
               <div style={{ color: "#d00000", textDecoration: "underline" }}>
                 MPG
@@ -424,7 +425,7 @@ export default class LeagueLeaders extends React.Component {
               </FormGroup>
             </div>
           </Col>
-          <Col lg={2}>
+          <Col lg={2} md={2}>
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               Experience
             </div>
@@ -446,7 +447,7 @@ export default class LeagueLeaders extends React.Component {
               </Checkbox>
             </FormGroup>
           </Col>
-          <Col lg={2}>
+          <Col lg={2} md={2}>
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               Age
             </div>
@@ -468,7 +469,7 @@ export default class LeagueLeaders extends React.Component {
               </Checkbox>
             </FormGroup>
           </Col>
-          <Col lg={3}>
+          <Col lg={3} md={3}>
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               Salary Per Year
             </div>
@@ -480,7 +481,7 @@ export default class LeagueLeaders extends React.Component {
               <Checkbox disabled>> 20 mil.</Checkbox>
             </FormGroup>
           </Col>
-          <Col lg={4}>
+          <Col lg={4} md={4}>
             <div>
               <Button
                 onClick={this.handleFilterSubmit}
@@ -560,17 +561,17 @@ export default class LeagueLeaders extends React.Component {
           </Col>
         </Row>
         <Row style={{ paddingTop: "20px", paddingLeft: "10px" }}>
-          <Col lg={3}>
+          <Col lg={3} md={3}>
             <div className="card" style={headerStyle}>
               Overall
             </div>
           </Col>
-          <Col lg={3} lgOffset={1}>
+          <Col lg={3} lgOffset={1} mdOffset={1} md={3}>
             <div className="card" style={headerStyle}>
               Offense
             </div>
           </Col>
-          <Col lg={3} lgOffset={1}>
+          <Col lg={3} lgOffset={1} mdOffset={1} md={3}>
             <div className="card" style={headerStyle}>
               Defense
             </div>
@@ -583,7 +584,7 @@ export default class LeagueLeaders extends React.Component {
             paddingRight: "10px"
           }}
         >
-          <Col lg={4}>
+          <Col lg={4} md={4}>
             <div
               className="card"
               style={{
@@ -595,7 +596,7 @@ export default class LeagueLeaders extends React.Component {
               <LeadersOverallTable players={this.state.players} />
             </div>
           </Col>
-          <Col lg={4}>
+          <Col lg={4} md={4}>
             <div
               className="card"
               style={{
@@ -607,7 +608,7 @@ export default class LeagueLeaders extends React.Component {
               <LeadersOffenseTable players={this.state.players} />
             </div>
           </Col>
-          <Col lg={4}>
+          <Col lg={4} md={4}>
             <div
               className="card"
               style={{
@@ -621,7 +622,7 @@ export default class LeagueLeaders extends React.Component {
           </Col>
         </Row>
         <Row style={{ paddingTop: "60px", paddingLeft: "10px" }}>
-          <Col lg={3}>
+          <Col lg={3} md={3}>
             <div className="card" style={headerStyle}>
               <DropdownButton
                 title={this.state.table4stat.toUpperCase()}
@@ -684,7 +685,7 @@ export default class LeagueLeaders extends React.Component {
               </DropdownButton>
             </div>
           </Col>
-          <Col lg={3} lgOffset={1}>
+          <Col lg={3} lgOffset={1} mdOffset={1} md={3}>
             <div className="card" style={headerStyle}>
               <DropdownButton
                 title={this.state.table5stat.toUpperCase()}
@@ -747,7 +748,7 @@ export default class LeagueLeaders extends React.Component {
               </DropdownButton>
             </div>
           </Col>
-          <Col lg={3} lgOffset={1}>
+          <Col lg={3} lgOffset={1} mdOffset={1} md={3}>
             <div className="card" style={headerStyle}>
               <DropdownButton
                 title={this.state.table6stat.toUpperCase()}
@@ -818,7 +819,7 @@ export default class LeagueLeaders extends React.Component {
             paddingRight: "10px"
           }}
         >
-          <Col lg={4}>
+          <Col lg={4} md={4}>
             <div
               className="card"
               style={{
@@ -833,7 +834,7 @@ export default class LeagueLeaders extends React.Component {
               />
             </div>
           </Col>
-          <Col lg={4}>
+          <Col lg={4} md={4}>
             <div
               className="card"
               style={{
@@ -848,7 +849,7 @@ export default class LeagueLeaders extends React.Component {
               />
             </div>
           </Col>
-          <Col lg={4}>
+          <Col lg={4} md={4}>
             <div
               className="card"
               style={{
@@ -879,7 +880,7 @@ export default class LeagueLeaders extends React.Component {
           </Col>
         </Row>
         <Row style={{ paddingTop: "40px", paddingLeft: "10px" }}>
-          <Col lg={3}>
+          <Col lg={3} md={3}>
             <div className="card" style={headerStyle}>
               <DropdownButton
                 title={this.state.table7stat.toUpperCase()}
@@ -922,7 +923,7 @@ export default class LeagueLeaders extends React.Component {
               </DropdownButton>
             </div>
           </Col>
-          <Col lg={3} lgOffset={1}>
+          <Col lg={3} lgOffset={1} mdOffset={1} md={3}>
             <div className="card" style={headerStyle}>
               <DropdownButton
                 title={this.state.table8stat.toUpperCase()}
@@ -965,7 +966,7 @@ export default class LeagueLeaders extends React.Component {
               </DropdownButton>
             </div>
           </Col>
-          <Col lg={3} lgOffset={1}>
+          <Col lg={3} lgOffset={1} mdOffset={1} md={3}>
             <div className="card" style={headerStyle}>
               <DropdownButton
                 title={this.state.table9stat.toUpperCase()}
@@ -1017,7 +1018,7 @@ export default class LeagueLeaders extends React.Component {
             paddingBottom: "20px"
           }}
         >
-          <Col lg={4}>
+          <Col lg={4} md={4}>
             <div
               className="card"
               style={{
@@ -1032,7 +1033,7 @@ export default class LeagueLeaders extends React.Component {
               />
             </div>
           </Col>
-          <Col lg={4}>
+          <Col lg={4} md={4}>
             <div
               className="card"
               style={{
@@ -1047,7 +1048,7 @@ export default class LeagueLeaders extends React.Component {
               />
             </div>
           </Col>
-          <Col lg={4}>
+          <Col lg={4} md={4}>
             <div
               className="card"
               style={{

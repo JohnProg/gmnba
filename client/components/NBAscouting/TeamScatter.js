@@ -218,10 +218,10 @@ export default class TeamScatter extends React.Component {
         />
         <Row style={{ paddingTop: "40px" }}>
           <Col lg={12}>
-            <div className="card" style={{ backgroundColor: "white" }}>
+            <div>
               <div>
                 <form>
-                  <Col lg={4} lgOffset={1}>
+                  <Col lg={4} lgOffset={1} sm={5} md={4} mdOffset={1}>
                     <div>
                       <label htmlFor="sel1">
                         Select Stat <sub>(y)</sub> :
@@ -296,7 +296,7 @@ export default class TeamScatter extends React.Component {
                       </select>
                     </div>
                   </Col>
-                  <Col lg={4}>
+                  <Col lg={4} sm={5} md={4}>
                     <div>
                       <label htmlFor="sel2" className="select-stat-label">
                         Select Stat <sub>(x)</sub> :
@@ -371,7 +371,7 @@ export default class TeamScatter extends React.Component {
                       </select>
                     </div>
                   </Col>
-                  <Col lg={1}>
+                  <Col lg={1} sm={2} md={2}>
                     <div>
                       <button
                         onClick={this.handleSubmit}

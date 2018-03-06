@@ -50,6 +50,7 @@ export default class AddTeamSearch extends React.Component {
     this.getOffenseRating = this.getOffenseRating.bind(this);
     this.getDefenseRating = this.getDefenseRating.bind(this);
     this.calculateStars = this.calculateStars.bind(this);
+    this.calculateDStars = this.calculateDStars.bind(this);
     this.handleAdvancedClick = this.handleAdvancedClick.bind(this);
     this.renderBarRatings = this.renderBarRatings.bind(this);
     this.selectAdvancedCat = this.selectAdvancedCat.bind(this);
@@ -164,6 +165,42 @@ export default class AddTeamSearch extends React.Component {
     this.setState({ advancedCat: eventKey.target.innerHTML });
   }
 
+  calculateDStars(high, low, actual) {
+    var gradeScale = (low - high) / 9;
+    var fiveStars = high + gradeScale;
+    var fourHalfStars = fiveStars + gradeScale;
+    var fourStars = fourHalfStars + gradeScale;
+    var threeHalfStars = fourStars + gradeScale;
+    var threeStars = threeHalfStars + gradeScale;
+    var twoHalfStars = threeStars + gradeScale;
+    var twoStars = twoHalfStars + gradeScale;
+    var oneHalfStars = twoStars + gradeScale;
+    var oneStars = oneHalfStars + gradeScale;
+    var starRating;
+    if (actual <= fiveStars) {
+      starRating = 5;
+    } else if (actual <= fourHalfStars) {
+      starRating = 4.5;
+    } else if (actual <= fourStars) {
+      starRating = 4;
+    } else if (actual <= threeHalfStars) {
+      starRating = 3.5;
+    } else if (actual <= threeStars) {
+      starRating = 3;
+    } else if (actual <= twoHalfStars) {
+      starRating = 2.5;
+    } else if (actual <= twoStars) {
+      starRating = 2;
+    } else if (actual <= oneHalfStars) {
+      starRating = 1.5;
+    } else if (actual <= oneStars) {
+      starRating = 1;
+    } else {
+      starRating = 0.5;
+    }
+    return starRating;
+  }
+
   getOverallRating() {
     if (this.state.player) {
       var wins = parseFloat(this.state.player.W) * 0.3;
@@ -171,7 +208,8 @@ export default class AddTeamSearch extends React.Component {
       var sos = parseFloat(this.state.player.SOS) * 0.1;
       var srs = parseFloat(this.state.player.SRS) * 0.3;
       var weightedOvr = wins + mov + sos + srs;
-      var stars = this.calculateStars(10.0, -3.0, weightedOvr);
+      console.log("OVR: ", weightedOvr);
+      var stars = this.calculateStars(16.0, 0, weightedOvr);
       if (stars === 5) {
         return (
           <span className="rating overall">
@@ -285,8 +323,9 @@ export default class AddTeamSearch extends React.Component {
   getDefenseRating() {
     if (this.state.player) {
       var defRating = parseFloat(this.state.player.DRtg);
-      var stars = this.calculateStars(112.0, 103.0, defRating);
-      if (stars === 0.5) {
+      var stars = this.calculateDStars(104.0, 113.0, defRating);
+      console.log(defRating);
+      if (stars === 5) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -297,18 +336,7 @@ export default class AddTeamSearch extends React.Component {
           </span>
         );
       }
-      if (stars === 1) {
-        return (
-          <span className="rating overall">
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-            <i className="glyphicon glyphicon-star" />
-          </span>
-        );
-      }
-      if (stars === 1.5) {
+      if (stars === 4.5) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -319,7 +347,7 @@ export default class AddTeamSearch extends React.Component {
           </span>
         );
       }
-      if (stars === 2) {
+      if (stars === 4) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -330,7 +358,7 @@ export default class AddTeamSearch extends React.Component {
           </span>
         );
       }
-      if (stars === 2.5) {
+      if (stars === 3.5) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -352,7 +380,7 @@ export default class AddTeamSearch extends React.Component {
           </span>
         );
       }
-      if (stars === 3.5) {
+      if (stars === 2.5) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -363,7 +391,7 @@ export default class AddTeamSearch extends React.Component {
           </span>
         );
       }
-      if (stars === 4) {
+      if (stars === 2) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -374,7 +402,7 @@ export default class AddTeamSearch extends React.Component {
           </span>
         );
       }
-      if (stars === 4.5) {
+      if (stars === 1.5) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -385,7 +413,7 @@ export default class AddTeamSearch extends React.Component {
           </span>
         );
       }
-      if (stars === 5) {
+      if (stars === 1) {
         return (
           <span className="rating overall">
             <i className="glyphicon glyphicon-star" />
@@ -410,7 +438,7 @@ export default class AddTeamSearch extends React.Component {
   getOffenseRating() {
     if (this.state.player) {
       var offRating = parseFloat(this.state.player.ORtg);
-      var stars = this.calculateStars(115.0, 100.0, offRating);
+      var stars = this.calculateStars(114.0, 103.0, offRating);
       if (stars === 5) {
         return (
           <span className="rating overall">
@@ -523,7 +551,7 @@ export default class AddTeamSearch extends React.Component {
   }
 
   calculateStars(high, low, actual) {
-    var gradeScale = (high - low) / 8;
+    var gradeScale = (high - low) / 9;
     var fiveStars = high - gradeScale;
     var fourHalfStars = fiveStars - gradeScale;
     var fourStars = fourHalfStars - gradeScale;
@@ -686,7 +714,7 @@ export default class AddTeamSearch extends React.Component {
 
     return (
       <div>
-        <Col lg={10} style={{ paddingLeft: "0px" }}>
+        <Col lg={10} md={10} style={{ paddingLeft: "0px" }}>
           <div className="card">
             <Autosuggest
               suggestions={suggestions}
@@ -698,7 +726,7 @@ export default class AddTeamSearch extends React.Component {
             />
           </div>
         </Col>
-        <Col lg={2} style={{ paddingLeft: "0px" }}>
+        <Col lg={2} md={2} style={{ paddingLeft: "0px" }}>
           <div>
             <button
               onClick={this.handleClick}
@@ -713,7 +741,7 @@ export default class AddTeamSearch extends React.Component {
             </button>
           </div>
         </Col>
-        <Col lg={12} style={{ paddingLeft: "0px", paddingTop: "20px" }}>
+        <Col lg={12} md={12} style={{ paddingLeft: "0px", paddingTop: "20px" }}>
           {this.renderPlayer()}
         </Col>
       </div>

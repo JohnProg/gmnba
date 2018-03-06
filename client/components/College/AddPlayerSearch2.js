@@ -293,7 +293,7 @@ export default class AddPlayerSearch2 extends React.Component {
 
     return (
       <div>
-        <Col lg={9} lgOffset={1} style={{ paddingLeft: "32px" }}>
+        <Col lg={9} lgOffset={1} xs={10} style={{ paddingLeft: "32px" }}>
           <div className="card">
             <Autosuggest
               suggestions={suggestions}
@@ -305,14 +305,14 @@ export default class AddPlayerSearch2 extends React.Component {
             />
           </div>
         </Col>
-        <Col lg={2} style={{ paddingLeft: "0px" }}>
+        <Col lg={2} xs={2} style={{ paddingLeft: "0px" }}>
           <div>
             <button onClick={this.handleClick} style={buttonStyle}>
               Add
             </button>
           </div>
         </Col>
-        <Col lg={12} style={{ paddingLeft: "0px", paddingTop: "20px" }}>
+        <Col lg={12} xs={12} style={{ paddingLeft: "0px", paddingTop: "20px" }}>
           {this.renderPlayer()}
         </Col>
       </div>

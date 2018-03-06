@@ -145,7 +145,6 @@ export default class CompPlayerOffBarRatings extends React.Component {
       },
       xAxis: {
         categories: [
-          "eFG%",
           "TS%",
           "FTr",
           "3PAr",
