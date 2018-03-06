@@ -31,7 +31,7 @@ export default class CRatingslayersEntry extends React.Component {
     var highFT = 0.93;
     var highThree = 0.5;
     var highTwo = 0.88;
-    var highEFg = 0.65;
+    var highFg = 0.65;
 
     var scoring = this.getGrade(
       highPoints,
@@ -64,7 +64,7 @@ export default class CRatingslayersEntry extends React.Component {
       this.state.player.threePtPct,
       0.2
     );
-    var fg = this.getGrade(highEFg, this.state.player.efgPct, 0.3);
+    var fg = this.getGrade(highFg, this.state.player.fgPct, 0.25);
     var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.2);
     this.setState({
       scoring: scoring,
@@ -157,7 +157,7 @@ export default class CRatingslayersEntry extends React.Component {
             fontWeight: "bold"
           }}
         >
-          {this.props.player.Grades.fg.Grade}
+          -
         </td>
         <td
           style={{

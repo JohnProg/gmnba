@@ -290,7 +290,7 @@ export default class CTeamScatter extends React.Component {
                       </select>
                     </div>
                   </Col>
-                  <Col lg={1}>
+                  <Col lg={1} md={1}>
                     <div>
                       <button
                         onClick={this.handleSubmit}

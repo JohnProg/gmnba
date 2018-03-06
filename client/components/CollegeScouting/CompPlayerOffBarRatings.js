@@ -26,20 +26,20 @@ export default class CompPlayerOffBarRatings extends React.Component {
   // }
 
   calculateGrades() {
-    var highEFG = 0.66;
+    var highEFG = 0.62;
     var highTS = 0.67;
-    var highFTr = 0.5;
-    var highThreePar = 0.7;
-    var highAstPct = 46.0;
-    var highTovPct = -5.0;
-    var highOrbPct = 17.0;
-    var highUsgPct = 35.0;
-    var highObpm = 10.0;
-    var highOws = 6.5;
+    var highFTr = 0.68;
+    var highThreePar = 0.8;
+    var highAstPct = 40.0;
+    var highTovPct = -7.0;
+    var highOrbPct = 14.5;
+    var highUsgPct = 32.0;
+    var highObpm = 9.0;
+    var highOws = 4.0;
 
     var efg = this.getGrade(highEFG, this.state.player.efgPct, 0.25);
-    var ts = this.getGrade(highTS, this.state.player.tsPct, 0.35);
-    var ftr = this.getGrade(highFTr, this.state.player.ftr, 0.03);
+    var ts = this.getGrade(highTS, this.state.player.tsPct, 0.44);
+    var ftr = this.getGrade(highFTr, this.state.player.ftr, 0.1);
     var threePar = this.getGrade(highThreePar, this.state.player.threePAr, 0);
     var astPct = this.getGrade(highAstPct, this.state.player.astPct, 2.0);
     var tovPct = this.getGrade(
@@ -47,7 +47,7 @@ export default class CompPlayerOffBarRatings extends React.Component {
       this.state.player.tovPct * -1,
       -18.0
     );
-    var orbPct = this.getGrade(highOrbPct, this.state.player.orbPct, 2.2);
+    var orbPct = this.getGrade(highOrbPct, this.state.player.orbPct, 0.5);
     var usgPct = this.getGrade(highUsgPct, this.state.player.usgPct, 7.0);
     var obpm = this.getGrade(highObpm, this.state.player.obpm, -6.0);
     var ows = this.getGrade(highOws, this.state.player.ows, -1.5);
@@ -208,18 +208,12 @@ export default class CompPlayerOffBarRatings extends React.Component {
             { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
             { y: 80, color: "#d8d8d8" }
           ]
         },
         {
           name: "Grade",
           data: [
-            {
-              y: this.state.efg.Grade,
-              color: this.state.efg.Color,
-              stat: this.props.player.efgPct
-            },
             {
               y: this.state.ts.Grade,
               color: this.state.ts.Color,

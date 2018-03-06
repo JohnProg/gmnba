@@ -434,7 +434,7 @@ export default class CollegePlayerScatter extends React.Component {
     if (this.state.showFilter === true) {
       return (
         <div style={{ height: "100px" }}>
-          <Col lg={1} lgOffset={2}>
+          <Col lg={1} lgOffset={2} md={1} mdOffset={2}>
             <div style={{ color: "#0055bf", textDecoration: "underline" }}>
               Position
             </div>
@@ -450,7 +450,7 @@ export default class CollegePlayerScatter extends React.Component {
               </Checkbox>
             </FormGroup>
           </Col>
-          <Col lg={2}>
+          <Col lg={2} md={2}>
             <div style={{ paddingLeft: "30px" }}>
               <div style={{ color: "#0055bf", textDecoration: "underline" }}>
                 MPG
@@ -474,7 +474,7 @@ export default class CollegePlayerScatter extends React.Component {
               </FormGroup>
             </div>
           </Col>
-          <Col lg={2}>
+          <Col lg={2} md={2}>
             <div style={{ color: "#0055bf", textDecoration: "underline" }}>
               Experience
             </div>
@@ -485,7 +485,7 @@ export default class CollegePlayerScatter extends React.Component {
               <Checkbox disabled>Senior</Checkbox>
             </FormGroup>
           </Col>
-          <Col lg={2}>
+          <Col lg={2} md={2}>
             <div style={{ color: "#0055bf", textDecoration: "underline" }}>
               Age
             </div>
@@ -496,7 +496,7 @@ export default class CollegePlayerScatter extends React.Component {
               <Checkbox disabled>> 22</Checkbox>{" "}
             </FormGroup>
           </Col>
-          <Col lg={2}>
+          <Col lg={2} md={2}>
             <div>
               <Button
                 onClick={this.handleFilterSubmit}
@@ -526,7 +526,7 @@ export default class CollegePlayerScatter extends React.Component {
             <div className="card" style={{ backgroundColor: "white" }}>
               <div>
                 <form>
-                  <Col lg={4} lgOffset={1}>
+                  <Col lg={4} lgOffset={1} mdOffset={1} md={4}>
                     <div>
                       <label htmlFor="sel1">
                         Select Stat <sub>(y)</sub> :
@@ -586,7 +586,7 @@ export default class CollegePlayerScatter extends React.Component {
                       </select>
                     </div>
                   </Col>
-                  <Col lg={4}>
+                  <Col lg={4} md={4}>
                     <div>
                       <label htmlFor="sel2" className="select-stat-label">
                         Select Stat <sub>(x)</sub> :
@@ -646,7 +646,7 @@ export default class CollegePlayerScatter extends React.Component {
                       </select>
                     </div>
                   </Col>
-                  <Col lg={1}>
+                  <Col lg={1} md={3}>
                     <div>
                       <button
                         onClick={this.handleSubmit}
@@ -657,7 +657,7 @@ export default class CollegePlayerScatter extends React.Component {
                       </button>
                     </div>
                   </Col>
-                  <Col lg={1}>
+                  <Col lg={1} md={1}>
                     <div
                       style={{
                         color: "#0055bf",

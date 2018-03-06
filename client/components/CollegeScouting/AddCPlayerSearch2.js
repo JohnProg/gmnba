@@ -288,7 +288,7 @@ export default class AddCPlayerSearch extends React.Component {
 
     return (
       <div>
-        <Col lg={10} style={{ paddingLeft: "0px" }}>
+        <Col lg={10} md={9} style={{ paddingLeft: "0px" }}>
           <div className="card">
             <Autosuggest
               suggestions={suggestions}
@@ -300,7 +300,7 @@ export default class AddCPlayerSearch extends React.Component {
             />
           </div>
         </Col>
-        <Col lg={2} style={{ paddingLeft: "0px" }}>
+        <Col lg={2} md={3} style={{ paddingLeft: "0px" }}>
           <div>
             <button onClick={this.handleClick} style={buttonStyle}>
               Add

@@ -369,7 +369,7 @@ div.card {
 
 .glyphicon-star.half:before {
   position: relative;
-  z-index: 0;
+  z-index: 9;
   width: 47%;
   display: block;
   overflow: hidden;
@@ -377,7 +377,7 @@ div.card {
 .glyphicon-star.half:after {
   content: "\e006";
   position: absolute;
-  z-index: 0;
+  z-index: 8;
   color: #bdc3c7;
   top: 0;
   left: 0;

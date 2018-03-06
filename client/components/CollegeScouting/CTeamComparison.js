@@ -22,7 +22,7 @@ export default class CTeamComparison extends React.Component {
     return (
       <div>
         <Row style={{ paddingTop: "40px" }}>
-          <Col lg={3} lgOffset={1}>
+          <Col lg={3} lgOffset={1} md={3}>
             <div className="card" style={headerStyle}>
               League Comparison
             </div>
@@ -38,17 +38,17 @@ export default class CTeamComparison extends React.Component {
           </Col>
         </Row>
         <Row style={{ paddingTop: "30px" }}>
-          <Col lg={3} lgOffset={1}>
+          <Col lg={3} lgOffset={1} md={3}>
             <div className="card" style={headerStyle}>
               Team Comparison
             </div>
           </Col>
         </Row>
         <Row style={{ paddingTop: "40px", paddingBottom: "40px" }}>
-          <Col lg={5} lgOffset={1}>
+          <Col lg={5} lgOffset={1} md={5} mdOffset={1}>
             <AddCTeamSearch list={this.props.teams} />
           </Col>
-          <Col lg={5}>
+          <Col lg={5} md={5}>
             <AddCTeamSearch2 list={this.props.teams} />
           </Col>
         </Row>
