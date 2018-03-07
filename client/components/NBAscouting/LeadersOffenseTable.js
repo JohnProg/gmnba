@@ -7,6 +7,7 @@ export default class LeadersOffenseTable extends React.Component {
     super(props);
     this.renderPlayers = this.renderPlayers.bind(this);
     this.getOffense = this.getOffense.bind(this);
+    this.scaleStat = this.scaleStat.bind(this);
   }
 
   renderPlayers(stat) {
@@ -26,12 +27,21 @@ export default class LeadersOffenseTable extends React.Component {
     }
   }
 
+  scaleStat(high, stat, low) {
+    var scaled = 100 / (high - low) * (stat - low);
+    return scaled;
+  }
+
   getOffense(players) {
     for (var i = 0; i < players.length; i++) {
       let player = players[i];
-      var obpm = parseFloat(player.obpm);
-      var ows = parseFloat(player.ows);
-      var offRating = obpm + ows;
+      var scaledObpm =
+        this.scaleStat(10.2, parseFloat(player.obpm), -6.0) * 0.5;
+      var scaledOws = this.scaleStat(8.7, parseFloat(player.ows), -2.0) * 0.5;
+      var offRating = scaledObpm + scaledOws;
+      // var obpm = parseFloat(player.obpm);
+      // var ows = parseFloat(player.ows);
+      // var offRating = obpm + ows;
       player["off"] = offRating;
     }
     players.sort(function(a, b) {

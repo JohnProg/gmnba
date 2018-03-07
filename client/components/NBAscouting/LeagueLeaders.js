@@ -36,7 +36,7 @@ export default class LeagueLeaders extends React.Component {
       c: true,
       mpg1: false,
       mpg2: false,
-      mpg3: true,
+      mpg3: false,
       mpg4: true,
       mpg5: true,
       exp1: true,

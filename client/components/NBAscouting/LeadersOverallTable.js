@@ -7,6 +7,7 @@ export default class LeadersOverallTable extends React.Component {
     super(props);
     this.renderPlayers = this.renderPlayers.bind(this);
     this.getOverall = this.getOverall.bind(this);
+    this.scaleStat = this.scaleStat.bind(this);
   }
 
   renderPlayers(stat) {
@@ -26,15 +27,30 @@ export default class LeadersOverallTable extends React.Component {
     }
   }
 
+  scaleStat(high, stat, low) {
+    var scaled = 100 / (high - low) * (stat - low);
+    return scaled;
+  }
+
   getOverall(players) {
     for (var i = 0; i < players.length; i++) {
       let player = players[i];
-      var per = parseFloat(player.per) * 0.4;
-      var bpm = parseFloat(player.bpm) * 0.2;
-      var ws48 = parseFloat(player.wsFourtyEight) * 0.1;
-      var ws = parseFloat(player.ws) * 0.1;
-      var vorp = parseFloat(player.vorp) * 0.25;
-      var weightedOvr = per + bpm + ws48 + ws + vorp;
+      var scaledPer = this.scaleStat(30.5, parseFloat(player.per), 5.0) * 0.4;
+      var scaledBpm = this.scaleStat(10.9, parseFloat(player.bpm), -6.0) * 0.3;
+      var scaledWs48 =
+        this.scaleStat(0.299, parseFloat(player.wsFourtyEight), -0.03) * 0.1;
+      var scaledWs = this.scaleStat(11.2, parseFloat(player.ws), -1.0) * 0.1;
+      var scaledVorp = this.scaleStat(5.9, parseFloat(player.vorp), -1.2) * 0.1;
+      var weightedOvr =
+        scaledPer + scaledBpm + scaledWs48 + scaledWs + scaledVorp;
+      // var per = parseFloat(player.per) * 0.4;
+      // var bpm = parseFloat(player.bpm) * 0.2;
+      // var ws48 = parseFloat(player.wsFourtyEight) * 0.1;
+      // var ws = parseFloat(player.ws) * 0.1;
+      // var vorp = parseFloat(player.vorp) * 0.25;
+      // var weightedOvr = per + bpm + ws48 + ws + vorp;
+      // console.log(player.name + ": " + scaledVorp);
+
       player["ovr"] = weightedOvr;
     }
     players.sort(function(a, b) {
