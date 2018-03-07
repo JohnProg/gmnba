@@ -7,6 +7,7 @@ export default class CollegeLeadersOverallTable extends React.Component {
     super(props);
     this.renderPlayers = this.renderPlayers.bind(this);
     this.getOverall = this.getOverall.bind(this);
+    this.scaleStat = this.scaleStat.bind(this);
   }
 
   renderPlayers(stat) {
@@ -26,14 +27,25 @@ export default class CollegeLeadersOverallTable extends React.Component {
     }
   }
 
+  scaleStat(high, stat, low) {
+    var scaled = 100 / (high - low) * (stat - low);
+    return scaled;
+  }
+
   getOverall(players) {
     for (var i = 0; i < players.length; i++) {
       let player = players[i];
-      var per = parseFloat(player.per) * 0.5;
-      var bpm = parseFloat(player.bpm) * 0.2;
-      var ws48 = parseFloat(player.wsFourtyEight) * 0.15;
-      var ws = parseFloat(player.ws) * 0.15;
-      var weightedOvr = per + bpm + ws48 + ws;
+      var scaledPer = this.scaleStat(34.2, parseFloat(player.per), 5.0) * 0.45;
+      var scaledBpm = this.scaleStat(16.8, parseFloat(player.bpm), -3.5) * 0.35;
+      var scaledWs48 =
+        this.scaleStat(0.309, parseFloat(player.wsFourtyEight), 0) * 0.1;
+      var scaledWs = this.scaleStat(5.8, parseFloat(player.ws), 0) * 0.1;
+      var weightedOvr = scaledPer + scaledBpm + scaledWs48 + scaledWs;
+      // var per = parseFloat(player.per) * 0.5;
+      // var bpm = parseFloat(player.bpm) * 0.2;
+      // var ws48 = parseFloat(player.wsFourtyEight) * 0.15;
+      // var ws = parseFloat(player.ws) * 0.15;
+      // var weightedOvr = per + bpm + ws48 + ws;
       player["ovr"] = weightedOvr;
     }
     players.sort(function(a, b) {

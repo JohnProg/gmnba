@@ -7,6 +7,7 @@ export default class CollegeLeadersDefenseTable extends React.Component {
     super(props);
     this.renderPlayers = this.renderPlayers.bind(this);
     this.getDefense = this.getDefense.bind(this);
+    this.scaleStat = this.scaleStat.bind(this);
   }
 
   renderPlayers(stat) {
@@ -26,12 +27,20 @@ export default class CollegeLeadersDefenseTable extends React.Component {
     }
   }
 
+  scaleStat(high, stat, low) {
+    var scaled = 100 / (high - low) * (stat - low);
+    return scaled;
+  }
+
   getDefense(players) {
     for (var i = 0; i < players.length; i++) {
       let player = players[i];
-      var dbpm = parseFloat(player.dbpm);
-      var dws = parseFloat(player.dws);
-      var defRating = dbpm + dws;
+      var scaledDbpm =
+        this.scaleStat(12.1, parseFloat(player.dbpm), -1.5) * 0.5;
+      var scaledDws = this.scaleStat(2.7, parseFloat(player.dws), 0.2) * 0.5;
+      // var dbpm = parseFloat(player.dbpm);
+      // var dws = parseFloat(player.dws);
+      var defRating = scaledDbpm + scaledDws;
       player["def"] = defRating;
     }
     players.sort(function(a, b) {
