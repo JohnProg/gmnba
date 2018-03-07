@@ -218,19 +218,19 @@ export default class PlayerPolColDef extends React.Component {
               y: this.state.blkPct.Grade,
               color: this.state.blkPct.Color,
               name: "Blk%",
-              stat: (this.state.player.blkPct * 100).toFixed(1)
+              stat: this.state.player.blkPct
             },
             {
               y: this.state.stlPct.Grade,
               color: this.state.stlPct.Color,
               name: "Stl%",
-              stat: (this.state.player.stlPct * 100).toFixed(1)
+              stat: this.state.player.stlPct
             },
             {
               y: this.state.drbPct.Grade,
               color: this.state.drbPct.Color,
               name: "Drb%",
-              stat: (this.state.player.drbPct * 100).toFixed(1)
+              stat: this.state.player.drbPct
             },
             {
               y: this.state.drb.Grade,
