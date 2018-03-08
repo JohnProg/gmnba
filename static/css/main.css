@@ -262,6 +262,11 @@ div.card {
   padding-top: 20px;
 }
 
+.team-overall {
+  margin-top: 50px;
+  font-size: 15.5px;
+}
+
 #search-div {
   background-color: transparent;
   position: fixed;
@@ -385,6 +390,13 @@ div.card {
 
 .rating {
   padding-left: 5px;
+}
+
+@media only screen and (max-width: 767px) {
+  .team-overall {
+    margin-top: 0px;
+    font-size: 15.5px;
+  }
 }
 
 @media only screen and (max-width: 992px) {

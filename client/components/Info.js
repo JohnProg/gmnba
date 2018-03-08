@@ -533,7 +533,7 @@ class Info extends React.Component {
           <Grid id="info-container">
             <Row className="full-height-row">
               <div id="info">
-                <Col lg={3} sm={3} md={3} xs={12} id="pic-col">
+                <Col lg={3} sm={12} md={3} xs={12} id="pic-col">
                   <div id="info-pic">
                     <img
                       src={this.state.team.Logo}
@@ -541,9 +541,9 @@ class Info extends React.Component {
                     />
                   </div>
                 </Col>
-                <Col lg={9} xs={12} md={9} sm={9}>
+                <Col lg={9} xs={12} md={9} sm={12}>
                   <Row>
-                    <Col lg={5} xs={12} md={5}>
+                    <Col lg={5} smOffset={1} mdOffset={0} sm={4} xs={12} md={6}>
                       <div id="name-text">
                         <div id="team-name">{this.state.team.Name}</div>
                         <div id="info-text">
@@ -562,8 +562,8 @@ class Info extends React.Component {
                       <hr id="info-text-break" />
                     </Col>
 
-                    <Col lg={3} xs={12} md={5} sm={5}>
-                      <div style={{ marginTop: "50px", fontSize: "15.5px" }}>
+                    <Col lg={3} xs={12} md={4} sm={6}>
+                      <div className="team-overall">
                         <div style={{ textAlign: "right" }}>
                           Overall: {this.getOverallRating()}
                         </div>
@@ -575,7 +575,7 @@ class Info extends React.Component {
                         </div>
                       </div>
                     </Col>
-                    <Col lg={3} md={2} sm={2}>
+                    <Col lg={3} md={1} sm={0}>
                       {this.sampleGLeague()}
                     </Col>
                   </Row>
@@ -589,7 +589,7 @@ class Info extends React.Component {
                       xsOffset={1}
                       lgOffset={0}
                       mdOffset={0}
-                      smOffset={0}
+                      smOffset={1}
                     >
                       <div>
                         <span style={{ color: "#404040" }}>PPG</span>{" "}
