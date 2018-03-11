@@ -9,7 +9,7 @@ export default class GTeamTabs extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: 1
+      key: 4
     };
     this.handleSelect = this.handleSelect.bind(this);
   }

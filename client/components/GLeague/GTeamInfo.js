@@ -130,7 +130,7 @@ class GTeamInfo extends React.Component {
                       </div>
                     </div>
                   </div>
-                  <hr id="info-text-break" />
+                  <hr id="cinfo-text-break" />
                   <Row style={{ paddingBottom: "20px" }}>
                     <Col
                       lg={2}
