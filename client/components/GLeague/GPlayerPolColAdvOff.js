@@ -178,7 +178,7 @@ export default class GPlayerPolColAdvOff extends React.Component {
       plotOptions: {
         series: {
           pointStart: 0,
-          pointInterval: 36,
+          pointInterval: 51.43,
           dataLabels: {
             useHTML: true,
             enabled: true,
@@ -239,30 +239,30 @@ export default class GPlayerPolColAdvOff extends React.Component {
               name: "TS%",
               stat: this.state.player.tsPct
             },
-            {
-              y: this.state.ftr.Grade,
-              color: this.state.ftr.Color,
-              name: "FTr",
-              stat: this.state.player.ftr
-            },
-            {
-              y: this.state.threePAr.Grade,
-              color: this.state.threePAr.Color,
-              name: "3PAr",
-              stat: this.state.player.threePAr
-            },
+            // {
+            //   y: this.state.ftr.Grade,
+            //   color: this.state.ftr.Color,
+            //   name: "FTr",
+            //   stat: this.state.player.ftr
+            // },
+            // {
+            //   y: this.state.threePAr.Grade,
+            //   color: this.state.threePAr.Color,
+            //   name: "3PAr",
+            //   stat: this.state.player.threePAr
+            // },
             {
               y: this.state.obpm.Grade,
               color: this.state.obpm.Color,
               name: "ORtg",
               stat: this.state.player.obpm
             },
-            {
-              y: this.state.ows.Grade,
-              color: this.state.ows.Color,
-              name: "OWS",
-              stat: this.state.player.ows
-            },
+            // {
+            //   y: this.state.ows.Grade,
+            //   color: this.state.ows.Color,
+            //   name: "OWS",
+            //   stat: this.state.player.ows
+            // },
             {
               y: this.state.usgPct.Grade,
               color: this.state.usgPct.Color,
