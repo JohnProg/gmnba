@@ -529,9 +529,7 @@ class GPlayerInfo extends React.Component {
                           </div>
                           <div>Age: {this.state.player.age}</div>
                           <div>Team: {this.state.player.team}</div>
-                          <div>
-                            High School: {this.state.player.highschool || ""}
-                          </div>
+                          <div>College: {this.state.player.college || ""}</div>
                         </div>
                       </div>
                       <hr id="cinfo-text-break" />

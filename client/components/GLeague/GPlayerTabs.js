@@ -90,7 +90,7 @@ export default class GPlayerTabs extends React.Component {
             <NavItem eventKey={4} href="/">
               <span style={tabColor}>RATINGS</span>
             </NavItem>
-            <NavItem eventKey={5} href="/">
+            <NavItem eventKey={5} href="/" disabled>
               <span style={tabColor}>COMPARISON</span>
             </NavItem>
             <NavItem eventKey={6} title="Item" disabled>
