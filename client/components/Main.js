@@ -7,6 +7,9 @@ import ScoutingPage from "./ScoutingPage";
 import CollegeScoutingPage from "./CollegeScoutingPage";
 import CollegePlayerPage from "./College/CollegePlayerPage";
 import CollegeTeamPage from "./College/CollegeTeamPage";
+import IntTeamPage from "./International/IntTeamPage";
+import GTeamPage from "./GLeague/GTeamPage";
+import GPlayerPage from "./GLeague/GPlayerPage";
 
 const Main = () => (
   <BrowserRouter>
@@ -17,6 +20,9 @@ const Main = () => (
       <Route path="/college-scouting" component={CollegeScoutingPage} />
       <Route path="/college-player/:id" component={CollegePlayerPage} />
       <Route path="/college-team/:id" component={CollegeTeamPage} />
+      <Route path="/gleague-team/:id" component={GTeamPage} />
+      <Route path="/gleague-player/:id" component={GPlayerPage} />
+      <Route path="/int-team/:id" component={IntTeamPage} />
       <Redirect from="/" to="/team/3" />
     </Switch>
   </BrowserRouter>

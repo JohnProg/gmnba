@@ -571,7 +571,7 @@ class PlayerInfo extends React.Component {
                           </div>
                         </div>
                       </div>
-                      <hr id="info-text-break" />
+                      <hr id="cinfo-text-break" />
                     </Col>
                     <Col lg={3} xs={7} md={4}>
                       <div style={{ marginTop: "70px", fontSize: "15.5px" }}>

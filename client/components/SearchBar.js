@@ -76,6 +76,13 @@ export default class SearchBar extends React.Component {
         tag = `/college-team/${suggestion.id}`;
       }
     }
+    if (suggestion.league === "gleague") {
+      if (suggestion.team) {
+        tag = `/gleague-player/${suggestion.id}`;
+      } else {
+        tag = `/gleague-team/${suggestion.id}`;
+      }
+    }
 
     return (
       <span className={"suggestion-content " + suggestion.league}>

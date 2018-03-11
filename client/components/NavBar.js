@@ -16,13 +16,17 @@ export default class NavBar extends React.Component {
     this.getNbaTeams = this.getNbaTeams.bind(this);
     this.getCollegePlayers = this.getCollegePlayers.bind(this);
     this.getCollegeTeams = this.getCollegeTeams.bind(this);
+    this.getGPlayers = this.getGPlayers.bind(this);
+    this.getGTeams = this.getGTeams.bind(this);
   }
 
   componentDidMount() {
-    this.getNbaPlayers();
-    this.getCollegePlayers();
     this.getNbaTeams();
     this.getCollegeTeams();
+    this.getGTeams();
+    this.getNbaPlayers();
+    this.getCollegePlayers();
+    this.getGPlayers();
   }
 
   getNbaPlayers() {
@@ -114,6 +118,51 @@ export default class NavBar extends React.Component {
       });
   }
 
+  getGPlayers() {
+    axios
+      .get("/api/teams/gPlayersList")
+      .then(data => {
+        for (var i = 0; i < data.data.length; i++) {
+          var player = data.data[i];
+          var obj = {
+            name: player.name,
+            id: player.id,
+            picture: player.picture,
+            league: "gleague",
+            team: player.team
+          };
+          this.setState({
+            searchList: [...this.state.searchList, obj]
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+  getGTeams() {
+    axios
+      .get("/api/teams/gTeamsList")
+      .then(data => {
+        var obj = {};
+        for (var i = 0; i < data.data.length; i++) {
+          var team = data.data[i];
+          var obj = {
+            name: team.Name,
+            id: team.id,
+            picture: team.Logo,
+            league: "gleague"
+          };
+          this.setState({
+            searchList: [...this.state.searchList, obj]
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   handleClick() {
     this.setState({
       showSearch: !this.state.showSearch
@@ -152,7 +201,7 @@ export default class NavBar extends React.Component {
                 <i className="fa " /> SEARCH
               </a>
               <a className="w3-bar-item w3-button">
-                <i className="fa fa-envelope" /> MESSAGES
+                <i className="fa fa-envelope" /> GLOSSARY
               </a>
             </div>
             <a

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class PlayerPolarColumn extends React.Component {
+export default class CollegePlayerPolarColumn extends React.Component {
   constructor() {
     super();
     this.createChart = this.createChart.bind(this);

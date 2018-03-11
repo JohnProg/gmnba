@@ -5,6 +5,8 @@ const ligaacbdb = require("./config").ligaacbdb;
 const tracking1db = require("./config").tracking1db;
 const tracking2db = require("./config").tracking2db;
 const tracking3db = require("./config").tracking3db;
+const eurodb = require("./config").eurodb;
+const gleaguedb = require("./config").gleaguedb;
 
 // ************************************************
 // NBA MODELS
@@ -195,6 +197,141 @@ const Teams = db.define("team", {
 });
 
 // *************************************************
+// GLEAGUE MODEL
+// *************************************************
+const gPlayers = gleaguedb.define("player", {
+  name: { type: Sequelize.STRING, allowNull: false },
+  position: { type: Sequelize.STRING, allowNull: true },
+  team: { type: Sequelize.STRING, allowNull: true },
+  mpg: { type: Sequelize.FLOAT, allowNull: true },
+  gamesPlayed: { type: Sequelize.INTEGER, allowNull: true },
+  twoPtPct: { type: Sequelize.FLOAT, allowNull: true },
+  threePtPct: { type: Sequelize.FLOAT, allowNull: true },
+  fgPct: { type: Sequelize.FLOAT, allowNull: true },
+  freeThrowPct: { type: Sequelize.FLOAT, allowNull: true },
+  trb: { type: Sequelize.FLOAT, allowNull: true },
+  ast: { type: Sequelize.FLOAT, allowNull: true },
+  pts: { type: Sequelize.FLOAT, allowNull: true },
+  tov: { type: Sequelize.FLOAT, allowNull: true },
+  stl: { type: Sequelize.FLOAT, allowNull: true },
+  blk: { type: Sequelize.FLOAT, allowNull: true },
+  plusMinus: { type: Sequelize.FLOAT, allowNull: true },
+  draft: { type: Sequelize.STRING, allowNull: true },
+  experience: { type: Sequelize.STRING, allowNull: true },
+  height: { type: Sequelize.STRING, allowNull: true },
+  weight: { type: Sequelize.STRING, allowNull: true },
+  age: { type: Sequelize.STRING, allowNull: true },
+  college: { type: Sequelize.STRING, allowNull: true },
+  picture: { type: Sequelize.STRING, allowNull: true },
+  fgm: { type: Sequelize.STRING, allowNull: true },
+  fga: { type: Sequelize.STRING, allowNull: true },
+  orbPct: { type: Sequelize.STRING, allowNull: true },
+  astPct: { type: Sequelize.STRING, allowNull: true },
+  tovPct: { type: Sequelize.STRING, allowNull: true },
+  dws: { type: Sequelize.STRING, allowNull: true },
+  obpm: { type: Sequelize.STRING, allowNull: true },
+  vorp: { type: Sequelize.STRING, allowNull: true },
+  injury: { type: Sequelize.STRING, allowNull: true },
+  threePt: { type: Sequelize.STRING, allowNull: true },
+  threePtAtt: { type: Sequelize.STRING, allowNull: true },
+  twoPt: { type: Sequelize.STRING, allowNull: true },
+  twoPtAtt: { type: Sequelize.STRING, allowNull: true },
+  efgPct: { type: Sequelize.STRING, allowNull: true },
+  ft: { type: Sequelize.STRING, allowNull: true },
+  fta: { type: Sequelize.STRING, allowNull: true },
+  drbPct: { type: Sequelize.STRING, allowNull: true },
+  stlPct: { type: Sequelize.STRING, allowNull: true },
+  usgPct: { type: Sequelize.STRING, allowNull: true },
+  ws: { type: Sequelize.STRING, allowNull: true },
+  dbpm: { type: Sequelize.STRING, allowNull: true },
+  avgDistShot: { type: Sequelize.STRING, allowNull: true },
+  number: { type: Sequelize.STRING, allowNull: true },
+  orb: { type: Sequelize.STRING, allowNull: true },
+  drb: { type: Sequelize.STRING, allowNull: true },
+  pf: { type: Sequelize.STRING, allowNull: true },
+  per: { type: Sequelize.STRING, allowNull: true },
+  tsPct: { type: Sequelize.STRING, allowNull: true },
+  threePAr: { type: Sequelize.STRING, allowNull: true },
+  ftr: { type: Sequelize.STRING, allowNull: true },
+  trbPct: { type: Sequelize.STRING, allowNull: true },
+  blkPct: { type: Sequelize.STRING, allowNull: true },
+  ows: { type: Sequelize.STRING, allowNull: true },
+  wsFourtyEight: { type: Sequelize.STRING, allowNull: true },
+  bpm: { type: Sequelize.STRING, allowNull: true }
+});
+
+const gTeams = gleaguedb.define("gteam", {
+  Name: { type: Sequelize.STRING, allowNull: false },
+  GP: { type: Sequelize.STRING, allowNull: true },
+  FG: { type: Sequelize.STRING, allowNull: true },
+  FGA: { type: Sequelize.STRING, allowNull: true },
+  FG_PCT: { type: Sequelize.STRING, allowNull: true },
+  Three_Pointers: { type: Sequelize.STRING, allowNull: true },
+  Three_Pointers_Att: { type: Sequelize.STRING, allowNull: true },
+  Three_Pointers_Pct: { type: Sequelize.STRING, allowNull: true },
+  Two_Pointers: { type: Sequelize.STRING, allowNull: true },
+  Two_Pointers_Att: { type: Sequelize.STRING, allowNull: true },
+  Two_Pointers_Pct: { type: Sequelize.STRING, allowNull: true },
+  FTM: { type: Sequelize.STRING, allowNull: true },
+  FTA: { type: Sequelize.STRING, allowNull: true },
+  FT_PCT: { type: Sequelize.STRING, allowNull: true },
+  ORB: { type: Sequelize.STRING, allowNull: true },
+  DRB: { type: Sequelize.STRING, allowNull: true },
+  TRB: { type: Sequelize.STRING, allowNull: true },
+  AST: { type: Sequelize.STRING, allowNull: true },
+  STL: { type: Sequelize.STRING, allowNull: true },
+  BLK: { type: Sequelize.STRING, allowNull: true },
+  TOV: { type: Sequelize.STRING, allowNull: true },
+  PF: { type: Sequelize.STRING, allowNull: true },
+  PTS: { type: Sequelize.STRING, allowNull: true },
+  W: { type: Sequelize.STRING, allowNull: true },
+  L: { type: Sequelize.STRING, allowNull: true },
+  PW: { type: Sequelize.STRING, allowNull: true },
+  PL: { type: Sequelize.STRING, allowNull: true },
+  MOV: { type: Sequelize.STRING, allowNull: true },
+  SOS: { type: Sequelize.STRING, allowNull: true },
+  SRS: { type: Sequelize.STRING, allowNull: true },
+  ORtg: { type: Sequelize.STRING, allowNull: true },
+  DRtg: { type: Sequelize.STRING, allowNull: true },
+  PACE: { type: Sequelize.STRING, allowNull: true },
+  FTr: { type: Sequelize.STRING, allowNull: true },
+  Three_PAr: { type: Sequelize.STRING, allowNull: true },
+  OFF_eFG_PCT: { type: Sequelize.STRING, allowNull: true },
+  OFF_TOV_PCT: { type: Sequelize.STRING, allowNull: true },
+  ORB_PCT: { type: Sequelize.STRING, allowNull: true },
+  OFF_FT_FGA: { type: Sequelize.STRING, allowNull: true },
+  DEF_eFG_PCT: { type: Sequelize.STRING, allowNull: true },
+  DEF_TOV_PCT: { type: Sequelize.STRING, allowNull: true },
+  DRB_PCT: { type: Sequelize.STRING, allowNull: true },
+  DEF_FT_FGA: { type: Sequelize.STRING, allowNull: true },
+  oFG: { type: Sequelize.STRING, allowNull: true },
+  oFGA: { type: Sequelize.STRING, allowNull: true },
+  oFGPCT: { type: Sequelize.STRING, allowNull: true },
+  o3P: { type: Sequelize.STRING, allowNull: true },
+  o3PA: { type: Sequelize.STRING, allowNull: true },
+  o3PCT: { type: Sequelize.STRING, allowNull: true },
+  o2P: { type: Sequelize.STRING, allowNull: true },
+  o2PA: { type: Sequelize.STRING, allowNull: true },
+  o2PCT: { type: Sequelize.STRING, allowNull: true },
+  oFTM: { type: Sequelize.STRING, allowNull: true },
+  oFTA: { type: Sequelize.STRING, allowNull: true },
+  oFTPCT: { type: Sequelize.STRING, allowNull: true },
+  oORB: { type: Sequelize.STRING, allowNull: true },
+  oDRB: { type: Sequelize.STRING, allowNull: true },
+  oTRB: { type: Sequelize.STRING, allowNull: true },
+  oAST: { type: Sequelize.STRING, allowNull: true },
+  oSTL: { type: Sequelize.STRING, allowNull: true },
+  oBLK: { type: Sequelize.STRING, allowNull: true },
+  oTOV: { type: Sequelize.STRING, allowNull: true },
+  oPF: { type: Sequelize.STRING, allowNull: true },
+  oPTS: { type: Sequelize.STRING, allowNull: true },
+  Logo: { type: Sequelize.STRING, allowNull: true },
+  Color_Main: { type: Sequelize.STRING, allowNull: true },
+  Color_Sec: { type: Sequelize.STRING, allowNull: true },
+  Color_Third: { type: Sequelize.STRING, allowNull: true }
+});
+
+// *************************************************
 // COLLEGE MODEL
 // *************************************************
 const cPlayers = cdb.define("player", {
@@ -259,6 +396,80 @@ const cPlayers = cdb.define("player", {
 });
 
 const cTeams = cdb.define("team", {
+  Name: { type: Sequelize.STRING, allowNull: true },
+  GP: { type: Sequelize.STRING, allowNull: true },
+  FG: { type: Sequelize.STRING, allowNull: true },
+  FGA: { type: Sequelize.STRING, allowNull: true },
+  FG_PCT: { type: Sequelize.STRING, allowNull: true },
+  Three_Pointers: { type: Sequelize.STRING, allowNull: true },
+  Three_Pointers_Att: { type: Sequelize.STRING, allowNull: true },
+  Three_Pointers_Pct: { type: Sequelize.STRING, allowNull: true },
+  Two_Pointers: { type: Sequelize.STRING, allowNull: true },
+  Two_Pointers_Att: { type: Sequelize.STRING, allowNull: true },
+  Two_Pointers_Pct: { type: Sequelize.STRING, allowNull: true },
+  FTM: { type: Sequelize.STRING, allowNull: true },
+  FTA: { type: Sequelize.STRING, allowNull: true },
+  FT_PCT: { type: Sequelize.STRING, allowNull: true },
+  ORB: { type: Sequelize.STRING, allowNull: true },
+  DRB: { type: Sequelize.STRING, allowNull: true },
+  TRB: { type: Sequelize.STRING, allowNull: true },
+  AST: { type: Sequelize.STRING, allowNull: true },
+  STL: { type: Sequelize.STRING, allowNull: true },
+  BLK: { type: Sequelize.STRING, allowNull: true },
+  TOV: { type: Sequelize.STRING, allowNull: true },
+  PF: { type: Sequelize.STRING, allowNull: true },
+  PTS: { type: Sequelize.STRING, allowNull: true },
+  W: { type: Sequelize.STRING, allowNull: true },
+  L: { type: Sequelize.STRING, allowNull: true },
+  PW: { type: Sequelize.STRING, allowNull: true },
+  PL: { type: Sequelize.STRING, allowNull: true },
+  MOV: { type: Sequelize.STRING, allowNull: true },
+  SOS: { type: Sequelize.STRING, allowNull: true },
+  SRS: { type: Sequelize.STRING, allowNull: true },
+  ORtg: { type: Sequelize.STRING, allowNull: true },
+  DRtg: { type: Sequelize.STRING, allowNull: true },
+  PACE: { type: Sequelize.STRING, allowNull: true },
+  FTr: { type: Sequelize.STRING, allowNull: true },
+  Three_PAr: { type: Sequelize.STRING, allowNull: true },
+  OFF_eFG_PCT: { type: Sequelize.STRING, allowNull: true },
+  OFF_TOV_PCT: { type: Sequelize.STRING, allowNull: true },
+  ORB_PCT: { type: Sequelize.STRING, allowNull: true },
+  OFF_FT_FGA: { type: Sequelize.STRING, allowNull: true },
+  DEF_eFG_PCT: { type: Sequelize.STRING, allowNull: true },
+  DEF_TOV_PCT: { type: Sequelize.STRING, allowNull: true },
+  DRB_PCT: { type: Sequelize.STRING, allowNull: true },
+  DEF_FT_FGA: { type: Sequelize.STRING, allowNull: true },
+  oFG: { type: Sequelize.STRING, allowNull: true },
+  oFGA: { type: Sequelize.STRING, allowNull: true },
+  oFGPCT: { type: Sequelize.STRING, allowNull: true },
+  o3P: { type: Sequelize.STRING, allowNull: true },
+  o3PA: { type: Sequelize.STRING, allowNull: true },
+  o3PCT: { type: Sequelize.STRING, allowNull: true },
+  o2P: { type: Sequelize.STRING, allowNull: true },
+  o2PA: { type: Sequelize.STRING, allowNull: true },
+  o2PCT: { type: Sequelize.STRING, allowNull: true },
+  oFTM: { type: Sequelize.STRING, allowNull: true },
+  oFTA: { type: Sequelize.STRING, allowNull: true },
+  oFTPCT: { type: Sequelize.STRING, allowNull: true },
+  oORB: { type: Sequelize.STRING, allowNull: true },
+  oDRB: { type: Sequelize.STRING, allowNull: true },
+  oTRB: { type: Sequelize.STRING, allowNull: true },
+  oAST: { type: Sequelize.STRING, allowNull: true },
+  oSTL: { type: Sequelize.STRING, allowNull: true },
+  oBLK: { type: Sequelize.STRING, allowNull: true },
+  oTOV: { type: Sequelize.STRING, allowNull: true },
+  oPF: { type: Sequelize.STRING, allowNull: true },
+  oPTS: { type: Sequelize.STRING, allowNull: true },
+  Logo: { type: Sequelize.STRING, allowNull: true },
+  Color_Main: { type: Sequelize.STRING, allowNull: true },
+  Color_Sec: { type: Sequelize.STRING, allowNull: true },
+  Color_Third: { type: Sequelize.STRING, allowNull: true }
+});
+
+// *************************************************
+// Euro Model
+// *************************************************
+const iTeams = eurodb.define("team", {
   Name: { type: Sequelize.STRING, allowNull: true },
   GP: { type: Sequelize.STRING, allowNull: true },
   FG: { type: Sequelize.STRING, allowNull: true },
@@ -484,6 +695,11 @@ cTeams.sync();
 ligaacbPlayers.sync();
 ligaacbTeams.sync();
 
+iTeams.sync();
+// iTeams.sync({ force: true }).then(() => {
+//   return iTeams.bulkCreate([{ Name: "Euro Griffins" }]);
+// });
+
 PostUp.sync();
 // PostUp.sync({ force: true }).then(() => {
 //   return PostUp.bulkCreate([{ name: "Michael Griffin" }]);
@@ -499,6 +715,16 @@ Shooting.sync();
 //   return Shooting.bulkCreate([{ name: "Michael Griffin" }]);
 // });
 
+gTeams.sync();
+// gTeams.sync({ force: true }).then(() => {
+//   return gTeams.bulkCreate([{ Name: "Michael Griffin" }]);
+// });
+
+gPlayers.sync();
+// gPlayers.sync({ force: true }).then(() => {
+//   return gPlayers.bulkCreate([{ name: "Michael Griffin" }]);
+// });
+
 module.exports = {
   Players,
   Teams,
@@ -508,5 +734,8 @@ module.exports = {
   ligaacbTeams,
   PostUp,
   CatchShoot,
-  Shooting
+  Shooting,
+  iTeams,
+  gTeams,
+  gPlayers
 };

@@ -79,7 +79,7 @@ export default class Tabs extends React.Component {
             </NavItem>
             <NavItem eventKey={6} href="/" disabled>
               <span style={tabColor} className="tab-text">
-                SCHEDULE
+                CONTRACTS
               </span>
             </NavItem>
           </Nav>

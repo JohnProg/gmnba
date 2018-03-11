@@ -219,6 +219,134 @@ module.exports = {
         });
     }
   },
+  updategTeams: (req, res) => {
+    console.log("REQ\n", req.body.data);
+    var teamsArr = req.body.data;
+    for (var i = 0; i < teamsArr.length; i++) {
+      var team = teamsArr[i];
+      db.gTeams
+        .update(
+          {
+            FG: team["FGM"],
+            FGA: team["FGA"],
+            FG_PCT: team["FG%"],
+            Three_Pointers: team["3PM"],
+            Three_Pointers_Att: team["3PA"],
+            Three_Pointers_Pct: team["3P%"],
+            // Two_Pointers: team["2PM"],
+            // Two_Pointers_Att: team["2PA"],
+            // Two_Pointers_Pct: team["2P%"],
+            FTM: team["FTM"],
+            FTA: team["FTA"],
+            FT_PCT: team["FT%"],
+            ORB: team["ORB"],
+            DRB: team["DRB"],
+            TRB: team["TRB"],
+            AST: team["AST"],
+            STL: team["STL"],
+            BLK: team["BLK"],
+            TOV: team["TOV"],
+            PF: team["PF"],
+            PTS: team["PTS"],
+            W: team["W"],
+            L: team["L"],
+            GP: team["GP"],
+            // PW: team["PW"],
+            // PL: team["PL"],
+            MOV: team["MOV"]
+            // SOS: team["SOS"],
+            // SRS: team["SRS"],
+            // ORtg: team["ORtg"],
+            // DRtg: team["DRtg"],
+            // PACE: team["PACE"],
+            // FTr: team["FTr"],
+            // Three_PAr: team["3PAr"],
+            // OFF_eFG_PCT: team["OFF-eFG%"],
+            // OFF_TOV_PCT: team["OFF-TOV%"],
+            // ORB_PCT: team["ORB%"],
+            // OFF_FT_FGA: team["OFF-FT/FGA"],
+            // DEF_eFG_PCT: team["DEF-eFG%"],
+            // DEF_TOV_PCT: team["DEF-TOV%"],
+            // DRB_PCT: team["DRB%"],
+            // DEF_FT_FGA: team["DEF-FT/FGA"],
+            // oFG: team["oFG"],
+            // oFGA: team["oFGA"],
+            // oFGPCT: team["oFGPCT"],
+            // o3P: team["o3P"],
+            // o3PA: team["o3PA"],
+            // o3PCT: team["o3PCT"],
+            // o2P: team["o2P"],
+            // o2PA: team["o2PA"],
+            // o2PCT: team["o2PCT"],
+            // oFTM: team["oFTM"],
+            // oFTA: team["oFTA"],
+            // oFTPCT: team["oFTPCT"],
+            // oORB: team["oORB"],
+            // oDRB: team["oDRB"],
+            // oTRB: team["oTRB"],
+            // oAST: team["oAST"],
+            // oSTL: team["oSTL"],
+            // oBLK: team["oBLK"],
+            // oTOV: team["oTOV"],
+            // oPF: team["oPF"],
+            // oPTS: team["oPTS"]
+          },
+          {
+            where: { Name: team["Name"] },
+            returning: true
+          }
+        )
+        .then(data => {
+          res.status(200).send(data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+  updateiTeams: (req, res) => {
+    console.log("REQ\n", req.body.data);
+    var teamsArr = req.body.data;
+    for (var i = 0; i < teamsArr.length; i++) {
+      var team = teamsArr[i];
+      db.iTeams
+        .update(
+          {
+            FG: team["FG"],
+            FGA: team["FGA"],
+            FG_PCT: team["FGPCT"],
+            Three_Pointers: team["3P"],
+            Three_Pointers_Att: team["3PA"],
+            Three_Pointers_Pct: team["3PCT"],
+            Two_Pointers: team["2P"],
+            Two_Pointers_Att: team["2PA"],
+            Two_Pointers_Pct: team["2PCT"],
+            FTM: team["FTM"],
+            FTA: team["FTA"],
+            FT_PCT: team["FTPCT"],
+            ORB: team["ORB"],
+            DRB: team["DRB"],
+            TRB: team["TRB"],
+            AST: team["AST"],
+            STL: team["STL"],
+            BLK: team["BLK"],
+            TOV: team["TOV"],
+            PF: team["PF"],
+            PTS: team["PTS"]
+          },
+          {
+            where: { Name: team["team"] },
+            returning: true
+          }
+        )
+        .then(data => {
+          res.status(200).send(data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
   createTeams: (req, res) => {
     console.log("pst request: ", req);
     var teamsArr = req.body.data;
@@ -447,6 +575,40 @@ module.exports = {
         });
     }
   },
+  updategPlayersAdv: (req, res) => {
+    console.log("REQ\n", req.body.data);
+    var players = req.body.data;
+    for (var i = 200; i < players.length; i++) {
+      var player = players[i];
+      db.gPlayers
+        .update(
+          {
+            vorp: player["PIE"],
+            tsPct: player["TS%"],
+            trbPct: player["TRB%"] || "0.0",
+            bpm: player["NRtg"],
+            drbPct: player["DRB%"] || "0.0",
+            usgPct: player["USG%"] || "0.0",
+            dbpm: player["DRtg"],
+            orbPct: player["ORB%"] || "0.0",
+            astPct: player["AST%"] || "0.0",
+            tovPct: player["TOV%"] || "0.0",
+            obpm: player["ORtg"],
+            efgPct: player["eFG%"]
+          },
+          {
+            where: { name: player["Name"] },
+            returning: true
+          }
+        )
+        .then(data => {
+          console.log("Player updated successfully!");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
   getPlayerStats: (req, res) => {
     console.log(req.query.team);
     console.log(req.query.statOne);
@@ -475,6 +637,28 @@ module.exports = {
         res.status(500).send(err);
       });
   },
+  getcLeagueStats: (req, res) => {
+    db.cTeams
+      .findAll({})
+      .then(data => {
+        console.log("Successfully retrieved all teams");
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        res.status(500).send(err);
+      });
+  },
+  getgLeagueStats: (req, res) => {
+    db.gTeams
+      .findAll({})
+      .then(data => {
+        console.log("Successfully retrieved all teams");
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        res.status(500).send(err);
+      });
+  },
   postCollegePlayers: (req, res) => {
     console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
@@ -493,6 +677,33 @@ module.exports = {
             team: player["School"],
             position: player["Position"],
             hometown: player["Hometown"]
+          }
+        })
+        .then(data => {
+          console.log("Player added successfully");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+  postgPlayers: (req, res) => {
+    console.log("SAVING PLAYERS");
+    var playersArr = req.body.data;
+    //console.log("Players Array: \n", playersArr);
+    for (var i = 280; i < playersArr.length; i++) {
+      var player = playersArr[i];
+      db.gPlayers
+        .findOrCreate({
+          where: {
+            name: player["Name"]
+            // height: player["Height"],
+            // highschool: player["HighSchool"],
+            // weight: player["Weight"],
+            // number: player["Number"],
+            // team: player["School"],
+            // position: player["Position"],
+            // hometown: player["Hometown"]
           }
         })
         .then(data => {
@@ -647,6 +858,73 @@ module.exports = {
         });
     }
   },
+  updategPlayers: (req, res) => {
+    console.log("REQ\n", req.body.data);
+    var players = req.body.data;
+    for (var i = 0; i < players.length; i++) {
+      var player = players[i];
+      db.gPlayers
+        .update(
+          {
+            mpg: player["MPG"] || "0.0",
+            age: player["age"],
+            team: player["team"],
+            gamesPlayed: player["GP"] || "0",
+            threePt: player["3PM"] || "0.0",
+            threePtAtt: player["3PA"] || "0.0",
+            threePtPct: player["3P%"] || "0.0",
+            ast: player["AST"] || "0.0",
+            blk: player["BLK"] || "0.0",
+            drb: player["DRB"] || "0.0",
+            fgm: player["FG"] || "0.0",
+            fga: player["FGA"] || "0.0",
+            fgPct: player["FG%"] || "0.0",
+            ft: player["FTM"] || "0.0",
+            fta: player["FTA"] || "0.0",
+            freeThrowPct: player["FT%"] || "0.0",
+            orb: player["ORB"] || "0.0",
+            pf: player["PF"] || "0.0",
+            pts: player["PTS"] || "0.0",
+            stl: player["STL"] || "0.0",
+            tov: player["TOV"] || "0.0",
+            trb: player["TRB"] || "0.0"
+          },
+          {
+            where: { name: player["Name"] },
+            returning: true
+          }
+        )
+        .then(data => {
+          console.log("Player saved successfully!!!");
+        })
+        .catch(err => {
+          console.log("Error saving player!!!\n", err);
+        });
+    }
+  },
+  updategPositions: (req, res) => {
+    console.log("REQ\n", req.body.data);
+    var players = req.body.data;
+    for (var i = 0; i < players.length; i++) {
+      var player = players[i];
+      db.gPlayers
+        .update(
+          {
+            position: player["position"]
+          },
+          {
+            where: { name: player["Name"] },
+            returning: true
+          }
+        )
+        .then(data => {
+          console.log("Player saved successfully!!!");
+        })
+        .catch(err => {
+          console.log("Error saving player!!!\n", err);
+        });
+    }
+  },
   renderPlayerProfile: (req, res) => {
     res.redirect(`/player/${req.params.id}`);
   },
@@ -769,6 +1047,16 @@ module.exports = {
         console.log(err);
       });
   },
+  getgPlayerProfile: (req, res) => {
+    db.gPlayers
+      .findById(req.params.id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   createCollegeTeams: (req, res) => {
     console.log("pst request: ", req);
     var teamsArr = req.body.data;
@@ -778,72 +1066,48 @@ module.exports = {
         .findOrCreate({
           where: {
             Name: team["team"]
-            // FG: team["FG"],
-            // FGA: team["FGA"],
-            // FG_PCT: team["FGPCT"],
-            // Three_Pointers: team["3P"],
-            // Three_Pointers_Att: team["3PA"],
-            // Three_Pointers_Pct: team["3PCT"],
-            // Two_Pointers: team["2P"],
-            // Two_Pointers_Att: team["2PA"],
-            // Two_Pointers_Pct: team["2PCT"],
-            // FTM: team["FTM"],
-            // FTA: team["FTA"],
-            // FT_PCT: team["FTPCT"],
-            // ORB: team["ORB"],
-            // DRB: team["DRB"],
-            // TRB: team["TRB"],
-            // AST: team["AST"],
-            // STL: team["STL"],
-            // BLK: team["BLK"],
-            // TOV: team["TOV"],
-            // PF: team["PF"],
-            // PTS: team["PTS"],
-            // W: team["W"],
-            // L: team["L"],
-            // PW: team["PW"],
-            // PL: team["PL"],
-            // MOV: team["MOV"],
-            // SOS: team["SOS"],
-            // SRS: team["SRS"],
-            // ORtg: team["ORtg"],
-            // DRtg: team["DRtg"],
-            // PACE: team["PACE"],
-            // FTr: team["FTr"],
-            // Three_PAr: team["3PAr"],
-            // OFF_eFG_PCT: team["OFF-eFG%"],
-            // OFF_TOV_PCT: team["OFF-TOV%"],
-            // ORB_PCT: team["ORB%"],
-            // OFF_FT_FGA: team["OFF-FT/FGA"],
-            // DEF_eFG_PCT: team["DEF-eFG%"],
-            // DEF_TOV_PCT: team["DEF-TOV%"],
-            // DRB_PCT: team["DRB%"],
-            // DEF_FT_FGA: team["DEF-FT/FGA"],
-            // oFG: team["oFG"],
-            // oFGA: team["oFGA"],
-            // oFGPCT: team["oFGPCT"],
-            // o3P: team["o3P"],
-            // o3PA: team["o3PA"],
-            // o3PCT: team["o3PCT"],
-            // o2P: team["o2P"],
-            // o2PA: team["o2PA"],
-            // o2PCT: team["o2PCT"],
-            // oFTM: team["oFTM"],
-            // oFTA: team["oFTA"],
-            // oFTPCT: team["oFTPCT"],
-            // oORB: team["oORB"],
-            // oDRB: team["oDRB"],
-            // oTRB: team["oTRB"],
-            // oAST: team["oAST"],
-            // oSTL: team["oSTL"],
-            // oBLK: team["oBLK"],
-            // oTOV: team["oTOV"],
-            // oPF: team["oPF"],
-            // oPTS: team["oPTS"]
           }
         })
         .then(data => {
           console.log("Team Average saved");
+        })
+        .catch(err => {
+          console.log("Error saving team average: ", err);
+        });
+    }
+  },
+  creategLeagueTeams: (req, res) => {
+    console.log("pst request: ", req.body.data);
+    var teamsArr = req.body.data;
+    for (var i = 0; i < teamsArr.length; i++) {
+      var team = teamsArr[i];
+      db.gTeams
+        .findOrCreate({
+          where: {
+            Name: team["Name"]
+          }
+        })
+        .then(data => {
+          console.log("Team Average saved");
+        })
+        .catch(err => {
+          console.log("Error saving team average: ", err);
+        });
+    }
+  },
+  createInternationalTeams: (req, res) => {
+    console.log("pst request: ", req);
+    var teamsArr = req.body.data;
+    for (var i = 0; i < teamsArr.length; i++) {
+      var team = teamsArr[i];
+      db.iTeams
+        .findOrCreate({
+          where: {
+            Name: team["team"]
+          }
+        })
+        .then(data => {
+          console.log("Team saved");
         })
         .catch(err => {
           console.log("Error saving team average: ", err);
@@ -863,8 +1127,41 @@ module.exports = {
         console.log(err);
       });
   },
+  getgTeamColors: (req, res) => {
+    db.gTeams
+      .findOne({
+        where: { Name: req.params.team },
+        attributes: ["Color_Main", "Color_Sec", "Color_Third", "Logo", "id"]
+      })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   getCollegeTeamProfile: (req, res) => {
     db.cTeams
+      .findById(req.params.id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getGTeamProfile: (req, res) => {
+    db.gTeams
+      .findById(req.params.id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getIntTeamProfile: (req, res) => {
+    db.iTeams
       .findById(req.params.id)
       .then(data => {
         res.send(data);
@@ -891,8 +1188,55 @@ module.exports = {
         console.log("ERROR RETREIVING ROSTER\n", err);
       });
   },
+  getGTeamsPlayers: (req, res) => {
+    var team = req.query.team;
+    console.log("TEAM:", team);
+    db.gPlayers
+      .findAll({
+        where: {
+          team: team
+        }
+      })
+      .then(data => {
+        res.status(200).send(data);
+        console.log("Successfully retrieved roster!!");
+      })
+      .catch(err => {
+        res.status(500).send(err);
+        console.log("ERROR RETREIVING ROSTER\n", err);
+      });
+  },
+  // getIntTeamsPlayers: (req, res) => {
+  //   var team = req.query.team;
+  //   console.log("TEAM:", team);
+  //   db.iPlayers
+  //     .findAll({
+  //       where: {
+  //         team: team
+  //       }
+  //     })
+  //     .then(data => {
+  //       res.status(200).send(data);
+  //       console.log("Successfully retrieved roster!!");
+  //     })
+  //     .catch(err => {
+  //       res.status(500).send(err);
+  //       console.log("ERROR RETREIVING ROSTER\n", err);
+  //     });
+  // },
   getcLeagueStats: (req, res) => {
     db.cTeams
+      .findAll({})
+      .then(data => {
+        console.log("Successfully retrieved all teams");
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        res.status(500).send(err);
+      });
+  },
+  getgLeagueStats: (req, res) => {
+    db.gTeams
       .findAll({})
       .then(data => {
         console.log("Successfully retrieved all teams");
@@ -919,7 +1263,39 @@ module.exports = {
         console.log(err);
       });
   },
+  getgPlayerStats: (req, res) => {
+    console.log(req.query.team);
+    console.log(req.query.statOne);
+    console.log(req.query.statTwo);
+    console.log(req.query.position);
+    db.gPlayers
+      .findAll({
+        where: { team: req.query.team }
+      })
+      .then(data => {
+        console.log("Successfully retrieved player data!!");
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   getcPositionStats: (req, res) => {
+    console.log("REQ POSITION\n\n\n\n\n\n", req.query.position);
+    db.cPlayers
+      .findAll({
+        where: {
+          position: req.query.position
+        }
+      })
+      .then(data => {
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getgPositionStats: (req, res) => {
     console.log("REQ POSITION\n\n\n\n\n\n", req.query.position);
     db.cPlayers
       .findAll({
@@ -958,6 +1334,18 @@ module.exports = {
         console.log(err);
       });
   },
+  gPlayersList: (req, res) => {
+    db.gPlayers
+      .findAll({
+        attributes: ["id", "name", "picture", "team"]
+      })
+      .then(data => {
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   nbaTeamsList: (req, res) => {
     db.Teams
       .findAll({
@@ -972,6 +1360,18 @@ module.exports = {
   },
   collegeTeamsList: (req, res) => {
     db.cTeams
+      .findAll({
+        attributes: ["id", "Name", "Logo"]
+      })
+      .then(data => {
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  gTeamsList: (req, res) => {
+    db.gTeams
       .findAll({
         attributes: ["id", "Name", "Logo"]
       })
@@ -999,6 +1399,20 @@ module.exports = {
   },
   getAllCollegePlayers: (req, res) => {
     db.cPlayers
+      .findAll({
+        where: {
+          mpg: { gt: 5 }
+        }
+      })
+      .then(data => {
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getAllgPlayers: (req, res) => {
+    db.gPlayers
       .findAll({
         where: {
           mpg: { gt: 5 }

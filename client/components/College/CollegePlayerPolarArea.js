@@ -34,27 +34,27 @@ export default class CollegePlayerPolarArea extends React.Component {
 
     var scoring = this.getGrade(
       highPoints,
-      this.state.player.pts / this.state.player.mpg * 36,
+      this.state.player.pts / this.state.player.mpg * 32,
       0
     );
     var ast = this.getGrade(
       highAst,
-      this.state.player.ast / this.state.player.mpg * 36,
+      this.state.player.ast / this.state.player.mpg * 32,
       0
     );
     var reb = this.getGrade(
       highReb,
-      this.state.player.trb / this.state.player.mpg * 36,
+      this.state.player.trb / this.state.player.mpg * 32,
       0
     );
     var stl = this.getGrade(
       highStl,
-      this.state.player.stl / this.state.player.mpg * 36,
+      this.state.player.stl / this.state.player.mpg * 32,
       0
     );
     var blk = this.getGrade(
       highBlk,
-      this.state.player.blk / this.state.player.mpg * 36,
+      this.state.player.blk / this.state.player.mpg * 32,
       0
     );
     var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.4);
