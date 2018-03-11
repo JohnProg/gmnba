@@ -99,10 +99,10 @@ export default class GPlayerRatings extends React.Component {
       return <GPlayerPolColAdvOff player={this.props.player} />;
     } else if (this.state.statCat === "Defense") {
       return <GPlayerPolColDef player={this.props.player} />;
+    } else if (this.state.statCat === "Overall") {
+      //return <CollegePlayerPolColOvr player={this.props.player} />;
+      return <GPlayerPolarColumn player={this.props.player} />;
     }
-    //else if (this.state.statCat === "Overall") {
-    //   return <CollegePlayerPolColOvr player={this.props.player} />;
-    // }
   }
 
   renderBarChart() {
