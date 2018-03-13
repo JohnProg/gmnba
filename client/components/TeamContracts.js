@@ -14,7 +14,17 @@ import TeamContractListEntry from "./TeamContractListEntry";
 export default class TeamContracts extends React.Component {
   constructor() {
     super();
+    this.state = {
+      avgAge: 25
+    };
     this.renderPlayers = this.renderPlayers.bind(this);
+    this.getAgeAvg = this.getAgeAvg.bind(this);
+    this.getTotals = this.getTotals.bind(this);
+  }
+
+  componentDidMount() {
+    this.getAgeAvg();
+    this.getTotals();
   }
 
   renderPlayers() {
@@ -23,6 +33,122 @@ export default class TeamContracts extends React.Component {
         <TeamContractListEntry player={player} key={i} />
       ));
     }
+  }
+
+  getAgeAvg() {
+    var count = 0;
+    for (var i = 0; i < this.props.contracts.length; i++) {
+      count += parseInt(this.props.contracts[i].age);
+    }
+    var average = (count / this.props.contracts.length).toFixed(0);
+    this.setState({ avgAge: average });
+  }
+
+  getTotals() {
+    var countOne = 0;
+    for (let i = 0; i < this.props.contracts.length; i++) {
+      if (
+        this.props.contracts[i].yearOne !== "TBD" &&
+        this.props.contracts[i].yearOne !== ""
+      ) {
+        let arr = this.props.contracts[i].yearOne.split("");
+        let nums = arr.slice(1, this.props.contracts[i].yearOne.length);
+        let str = nums.join("");
+        countOne += parseInt(str);
+      }
+    }
+    var newStr = countOne.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    this.setState({ totalOne: newStr });
+
+    var countTwo = 0;
+    for (let i = 0; i < this.props.contracts.length; i++) {
+      if (
+        this.props.contracts[i].yearTwo !== "TBD" &&
+        this.props.contracts[i].yearTwo !== ""
+      ) {
+        let arr = this.props.contracts[i].yearTwo.split("");
+        let nums = arr.slice(1, this.props.contracts[i].yearTwo.length);
+        let str = nums.join("");
+        countTwo += parseInt(str);
+      }
+    }
+    var ns2 = countTwo.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    this.setState({ totalTwo: ns2 });
+
+    var countThree = 0;
+    for (let i = 0; i < this.props.contracts.length; i++) {
+      if (
+        this.props.contracts[i].yearThird !== "TBD" &&
+        this.props.contracts[i].yearThird !== ""
+      ) {
+        let arr = this.props.contracts[i].yearThird.split("");
+        let nums = arr.slice(1, this.props.contracts[i].yearThird.length);
+        let str = nums.join("");
+        countThree += parseInt(str);
+      }
+    }
+    var ns3 = countThree.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    this.setState({ totalThree: ns3 });
+
+    var countFour = 0;
+    for (let i = 0; i < this.props.contracts.length; i++) {
+      if (
+        this.props.contracts[i].yearFour !== "TBD" &&
+        this.props.contracts[i].yearFour !== ""
+      ) {
+        let arr = this.props.contracts[i].yearFour.split("");
+        let nums = arr.slice(1, this.props.contracts[i].yearFour.length);
+        let str = nums.join("");
+        countFour += parseInt(str);
+      }
+    }
+    var ns4 = countFour.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    this.setState({ totalFour: ns4 });
+
+    var countFive = 0;
+    for (let i = 0; i < this.props.contracts.length; i++) {
+      if (
+        this.props.contracts[i].yearFive !== "TBD" &&
+        this.props.contracts[i].yearFive !== ""
+      ) {
+        let arr = this.props.contracts[i].yearFive.split("");
+        let nums = arr.slice(1, this.props.contracts[i].yearFive.length);
+        let str = nums.join("");
+        countFive += parseInt(str);
+      }
+    }
+    var ns5 = countFive.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    this.setState({ totalFive: ns5 });
+
+    var countSix = 0;
+    for (let i = 0; i < this.props.contracts.length; i++) {
+      if (
+        this.props.contracts[i].yearSix !== "TBD" &&
+        this.props.contracts[i].yearSix !== ""
+      ) {
+        let arr = this.props.contracts[i].yearSix.split("");
+        let nums = arr.slice(1, this.props.contracts[i].yearSix.length);
+        let str = nums.join("");
+        countSix += parseInt(str);
+      }
+    }
+    var ns6 = countSix.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    this.setState({ totalSix: ns6 });
+
+    var countG = 0;
+    for (let i = 0; i < this.props.contracts.length; i++) {
+      if (
+        this.props.contracts[i].guaranteed !== "TBD" &&
+        this.props.contracts[i].guaranteed !== ""
+      ) {
+        let arr = this.props.contracts[i].guaranteed.split("");
+        let nums = arr.slice(1, this.props.contracts[i].guaranteed.length);
+        let str = nums.join("");
+        countG += parseInt(str);
+      }
+    }
+    var ns7 = countG.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    this.setState({ totalGuaranteed: ns7 });
   }
 
   render() {
@@ -75,7 +201,35 @@ export default class TeamContracts extends React.Component {
                     <th>Guaranteed</th>
                   </tr>
                 </thead>
-                <tbody>{this.renderPlayers()}</tbody>
+                <tbody>
+                  {this.renderPlayers()}
+                  <tr>
+                    <td style={{ fontWeight: "bold" }}>Totals</td>
+                    <td style={{ fontWeight: "bold" }}>{this.state.avgAge}</td>
+                    <td style={{ fontWeight: "bold" }}>
+                      ${this.state.totalOne}
+                    </td>
+                    <td style={{ fontWeight: "bold" }}>
+                      ${this.state.totalTwo}
+                    </td>
+                    <td style={{ fontWeight: "bold" }}>
+                      ${this.state.totalThree}
+                    </td>
+                    <td style={{ fontWeight: "bold" }}>
+                      ${this.state.totalFour}
+                    </td>
+                    <td style={{ fontWeight: "bold" }}>
+                      ${this.state.totalFive}
+                    </td>
+                    <td style={{ fontWeight: "bold" }}>
+                      ${this.state.totalSix}
+                    </td>
+                    <td style={{ fontWeight: "bold" }}>-</td>
+                    <td style={{ fontWeight: "bold" }}>
+                      ${this.state.totalGuaranteed}
+                    </td>
+                  </tr>
+                </tbody>
               </Table>
             </Col>
           </Row>
