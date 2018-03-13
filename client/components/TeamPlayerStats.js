@@ -391,7 +391,7 @@ export default class TeamPlayerStats extends React.Component {
               <div className="card" style={{ backgroundColor: "white" }}>
                 <div>
                   <form>
-                    <Col lg={4} sm={5} md={5} xs={5}>
+                    <Col lg={4} lgOffset={1} sm={5} md={5} xs={5}>
                       <div>
                         <label htmlFor="sel1">
                           Select Stat <sub>(y)</sub> :
