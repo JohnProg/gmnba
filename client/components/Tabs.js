@@ -4,6 +4,7 @@ import PlayersList from "./PlayersList";
 import TeamStats from "./TeamStats";
 import TeamPlayerStats from "./TeamPlayerStats";
 import TeamLeagueRanks from "./TeamLeagueRanks";
+import TeamContracts from "./TeamContracts";
 
 export default class Tabs extends React.Component {
   constructor(props) {
@@ -31,6 +32,13 @@ export default class Tabs extends React.Component {
       component = (
         <TeamLeagueRanks
           leagueStats={this.props.leagueStats}
+          team={this.props.team}
+        />
+      );
+    if (this.state.key === 6)
+      component = (
+        <TeamContracts
+          contracts={this.props.contracts}
           team={this.props.team}
         />
       );
@@ -77,7 +85,7 @@ export default class Tabs extends React.Component {
                 LINEUPS
               </span>
             </NavItem>
-            <NavItem eventKey={6} href="/" disabled>
+            <NavItem eventKey={6} href="/">
               <span style={tabColor} className="tab-text">
                 CONTRACTS
               </span>

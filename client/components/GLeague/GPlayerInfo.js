@@ -55,7 +55,7 @@ class GPlayerInfo extends React.Component {
       })
       .then(data => {
         this.setState({ positionStats: data.data }, () => {
-          //console.log(this.state.positionStats);
+          console.log(this.state.positionStats);
         });
       })
       .catch(err => {

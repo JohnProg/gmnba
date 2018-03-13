@@ -32,11 +32,65 @@ module.exports = {
         });
     }
   },
+  createPlayerSalaries: (req, res) => {
+    console.log("SAVING PLAYERS");
+    var playersArr = req.body.data;
+    //console.log("Players Array: \n", playersArr);
+    for (var i = 550; i < playersArr.length; i++) {
+      var player = playersArr[i];
+      db.Salaries
+        .findOrCreate({
+          where: {
+            name: player["name"],
+            team: player["team"],
+            age: player["age"],
+            yearOne: player["y1"],
+            yearTwo: player["y2"],
+            yearThird: player["y3"],
+            yearFour: player["y4"],
+            yearFive: player["y5"],
+            yearSix: player["y6"],
+            yearOneOption: player["y1option"],
+            yearTwoOption: player["y2option"],
+            yearThirdOption: player["y3option"],
+            yearFourOption: player["y4option"],
+            yearFiveOption: player["y5option"],
+            yearSixOption: player["y6option"],
+            guaranteed: player["guaranteed"],
+            signedUsing: player["signedUsing"]
+          }
+        })
+        .then(data => {
+          console.log("Player added successfully");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
   upsertPlayerInfo: (req, res) => {},
   getTeamsPlayers: (req, res) => {
     var team = req.query.team;
     console.log("TEAM:", team);
     db.Players
+      .findAll({
+        where: {
+          team: team
+        }
+      })
+      .then(data => {
+        res.status(200).send(data);
+        console.log("Successfully retrieved roster!!");
+      })
+      .catch(err => {
+        res.status(500).send(err);
+        console.log("ERROR RETREIVING ROSTER\n", err);
+      });
+  },
+  getTeamContracts: (req, res) => {
+    var team = req.query.team;
+    console.log("TEAM:", team);
+    db.Salaries
       .findAll({
         where: {
           team: team
@@ -1297,7 +1351,7 @@ module.exports = {
   },
   getgPositionStats: (req, res) => {
     console.log("REQ POSITION\n\n\n\n\n\n", req.query.position);
-    db.cPlayers
+    db.gPlayers
       .findAll({
         where: {
           position: req.query.position

@@ -28,6 +28,7 @@ class Info extends React.Component {
     this.state = {
       teamStats: [],
       leagueStats: [],
+      contracts: [],
       teamId: this.props.props.match.params.id,
       team: {}
     };
@@ -40,12 +41,27 @@ class Info extends React.Component {
     this.getDefenseRating = this.getDefenseRating.bind(this);
     this.calculateStars = this.calculateStars.bind(this);
     this.calculateDStars = this.calculateDStars.bind(this);
+    this.getTeamContracts = this.getTeamContracts.bind(this);
   }
 
   componentDidMount() {
     this.getTeam();
     this.getLeagueStats();
     //this.getRoster();
+  }
+
+  getTeamContracts() {
+    var team = this.state.team.Name;
+    axios
+      .get("/api/teams/getTeamContracts", {
+        params: {
+          team: team
+        }
+      })
+      .then(data => {
+        this.setState({ contracts: data.data });
+      })
+      .catch("error retrieving contracts!!!");
   }
 
   getRoster() {
@@ -69,6 +85,7 @@ class Info extends React.Component {
       .then(data => {
         this.setState({ team: data.data }, () => {
           this.getRoster();
+          this.getTeamContracts();
         });
       })
       .catch(err => {
@@ -639,6 +656,7 @@ class Info extends React.Component {
             team={this.state.team}
             players={this.props.players[0]}
             leagueStats={this.state.leagueStats}
+            contracts={this.state.contracts}
           />
         </div>
       </div>

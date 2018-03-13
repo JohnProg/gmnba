@@ -112,6 +112,20 @@ const gleaguedb = new Sequelize(
   }
 );
 
+const salariesdb = new Sequelize(
+  "postgres://fhdnfxka:bpybkL-Nn0gUQNg1cy9AQH6WS6XvyLCS@baasu.db.elephantsql.com:5432/fhdnfxka",
+  {
+    dialect: "postgres",
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 20000,
+      acquire: 20000,
+      evict: 20000
+    }
+  }
+);
+
 console.log("connected to remote db - NBA");
 console.log("connected to remote db - College");
 console.log("connected to remote db - Tracking");
@@ -125,5 +139,6 @@ module.exports = {
   tracking2db,
   tracking3db,
   eurodb,
-  gleaguedb
+  gleaguedb,
+  salariesdb
 };

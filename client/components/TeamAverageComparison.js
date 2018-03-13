@@ -62,7 +62,6 @@ export default class TeamAverageComparison extends React.Component {
               avgSHOT: shotAvg
             },
             () => {
-              console.log(this.state);
               this.createChart();
             }
           );
@@ -76,8 +75,6 @@ export default class TeamAverageComparison extends React.Component {
     var teamsCount = this.props.league.length;
     this.state.league.forEach(team => {
       count += parseFloat(team[stat]);
-      console.log(team.Name);
-      console.log(team[stat]);
     });
     var average = count / teamsCount;
     return average.toFixed(2);

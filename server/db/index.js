@@ -7,6 +7,7 @@ const tracking2db = require("./config").tracking2db;
 const tracking3db = require("./config").tracking3db;
 const eurodb = require("./config").eurodb;
 const gleaguedb = require("./config").gleaguedb;
+const salariesdb = require("./config").salariesdb;
 
 // ************************************************
 // NBA MODELS
@@ -72,6 +73,27 @@ const Players = db.define("player", {
   wsFourtyEight: { type: Sequelize.STRING, allowNull: true },
   bpm: { type: Sequelize.STRING, allowNull: true },
   salary: { type: Sequelize.STRING, allowNull: true }
+});
+
+const Salaries = salariesdb.define("salary", {
+  name: { type: Sequelize.STRING, allowNull: false },
+  team: { type: Sequelize.STRING, allowNull: true },
+  age: { type: Sequelize.STRING, allowNull: true },
+  guaranteed: { type: Sequelize.STRING, allowNull: true },
+  signedUsing: { type: Sequelize.STRING, allowNull: true },
+  yearOne: { type: Sequelize.STRING, allowNull: true },
+  yearTwo: { type: Sequelize.STRING, allowNull: true },
+  yearThird: { type: Sequelize.STRING, allowNull: true },
+  yearFour: { type: Sequelize.STRING, allowNull: true },
+  yearFive: { type: Sequelize.STRING, allowNull: true },
+  yearSix: { type: Sequelize.STRING, allowNull: true },
+  yearOneOption: { type: Sequelize.STRING, allowNull: true },
+  yearTwoOption: { type: Sequelize.STRING, allowNull: true },
+  yearThirdOption: { type: Sequelize.STRING, allowNull: true },
+  yearFourOption: { type: Sequelize.STRING, allowNull: true },
+  yearFiveOption: { type: Sequelize.STRING, allowNull: true },
+  yearSixOption: { type: Sequelize.STRING, allowNull: true },
+  notes: { type: Sequelize.STRING, allowNull: true }
 });
 
 const PostUp = tracking1db.define("postUp", {
@@ -725,6 +747,11 @@ gPlayers.sync();
 //   return gPlayers.bulkCreate([{ name: "Michael Griffin" }]);
 // });
 
+Salaries.sync();
+// Salaries.sync({ force: true }).then(() => {
+//   return Salaries.bulkCreate([{ name: "Michael Griffin" }]);
+// });
+
 module.exports = {
   Players,
   Teams,
@@ -737,5 +764,6 @@ module.exports = {
   Shooting,
   iTeams,
   gTeams,
-  gPlayers
+  gPlayers,
+  Salaries
 };
