@@ -32,6 +32,7 @@ router.get("/renderPlayerProfile", controller.renderPlayerProfile);
 router.get("/renderTeamProfile", controller.renderTeamProfile);
 router.get("/getPlayerProfile/:id", controller.getPlayerProfile);
 router.get("/getPostStats/:name", controller.getPostStats);
+router.get("/getPlayerContract/:name", controller.getPlayerContract);
 router.get("/getCatchShootStats/:name", controller.getCatchShootStats);
 router.get("/getShootingStats/:name", controller.getShootingStats);
 router.get("/getTeamProfile/:id", controller.getTeamProfile);

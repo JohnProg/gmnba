@@ -1052,6 +1052,18 @@ module.exports = {
         console.log(err);
       });
   },
+  getPlayerContract: (req, res) => {
+    db.Salaries
+      .findOne({
+        where: { name: req.params.name }
+      })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   getShootingStats: (req, res) => {
     db.Shooting
       .findOne({

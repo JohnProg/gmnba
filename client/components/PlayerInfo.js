@@ -29,7 +29,8 @@ class PlayerInfo extends React.Component {
       teamStats: [],
       id: this.props.props.match.params.id,
       player: {},
-      colors: {}
+      colors: {},
+      contract: {}
     };
     this.getPlayer = this.getPlayer.bind(this);
     this.getTeamColors = this.getTeamColors.bind(this);
@@ -42,6 +43,7 @@ class PlayerInfo extends React.Component {
     this.getShootingStats = this.getShootingStats.bind(this);
     this.getPositionStats = this.getPositionStats.bind(this);
     this.renderPlayer = this.renderPlayer.bind(this);
+    this.getContract = this.getContract.bind(this);
   }
 
   componentDidMount() {
@@ -63,6 +65,12 @@ class PlayerInfo extends React.Component {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  getContract(name) {
+    axios.get(`/api/teams/getPlayerContract/${name}`).then(data => {
+      this.setState({ contract: data.data });
+    });
   }
 
   getPostStats(name) {
@@ -93,6 +101,7 @@ class PlayerInfo extends React.Component {
         this.getPostStats(data.data.name);
         this.getCatchShootStats(data.data.name);
         this.getShootingStats(data.data.name);
+        this.getContract(data.data.name);
       })
       .catch(err => {
         console.log(err);
@@ -517,6 +526,7 @@ class PlayerInfo extends React.Component {
           catchShootStats={this.state.catchShootStats}
           shootingStats={this.state.shootingStats}
           positionStats={this.state.positionStats}
+          contract={this.state.contract}
         />
       );
     } else {

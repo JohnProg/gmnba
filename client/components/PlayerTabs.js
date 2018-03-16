@@ -6,6 +6,7 @@ import TeamPlayerStats from "./TeamPlayerStats";
 import PlayerRatings from "./PlayerRatings";
 import PlayerSeasonStats from "./PlayerSeasonStats";
 import PlayerComparison from "./PlayerComparison";
+import PlayerContract from "./PlayerContract";
 import axios from "axios";
 
 export default class PlayerTabs extends React.Component {
@@ -68,6 +69,15 @@ export default class PlayerTabs extends React.Component {
           players={this.state.playerStats}
         />
       );
+    if (this.state.key === 6)
+      component = (
+        <PlayerContract
+          player={this.props.player}
+          colors={this.props.colors}
+          players={this.state.playerStats}
+          contract={this.props.contract}
+        />
+      );
     var headerStyle = {
       backgroundColor: this.props.colors.Color_Main
     };
@@ -97,7 +107,7 @@ export default class PlayerTabs extends React.Component {
             <NavItem eventKey={5} href="/">
               <span style={tabColor}>COMPARISON</span>
             </NavItem>
-            <NavItem eventKey={6} href="/" disabled>
+            <NavItem eventKey={6} href="/">
               <span style={tabColor}>CONTRACT</span>
             </NavItem>
           </Nav>
