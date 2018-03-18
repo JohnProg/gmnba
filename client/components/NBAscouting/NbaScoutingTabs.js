@@ -36,6 +36,8 @@ export default class NbaScoutingTabs extends React.Component {
       );
     if (this.state.key === 6)
       component = <Standings teams={this.props.teams} />;
+    // if (this.state.key === 7)
+    //   component = <UpcomingFAs contracts={this.props.contracts} />;
     return (
       <div>
         <div className="card">
@@ -62,6 +64,9 @@ export default class NbaScoutingTabs extends React.Component {
             </NavItem>
             <NavItem eventKey={6} title="Item">
               <span className="tab-text">Standings</span>
+            </NavItem>
+            <NavItem eventKey={7} title="Item" disabled>
+              <span className="tab-text">Upcoming FAs</span>
             </NavItem>
           </Nav>
         </div>

@@ -979,6 +979,29 @@ module.exports = {
         });
     }
   },
+  updateCurrentSalary: (req, res) => {
+    console.log("REQ\n", req.body.data);
+    var players = req.body.data;
+    for (var i = 0; i < players.length; i++) {
+      var player = players[i];
+      db.Players
+        .update(
+          {
+            salary: player["salary"]
+          },
+          {
+            where: { name: player["name"] },
+            returning: true
+          }
+        )
+        .then(data => {
+          console.log("Player saved successfully!!!");
+        })
+        .catch(err => {
+          console.log("Error saving player!!!\n", err);
+        });
+    }
+  },
   renderPlayerProfile: (req, res) => {
     res.redirect(`/player/${req.params.id}`);
   },
@@ -1303,6 +1326,17 @@ module.exports = {
   },
   getgLeagueStats: (req, res) => {
     db.gTeams
+      .findAll({})
+      .then(data => {
+        console.log("Successfully retrieved all teams");
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        res.status(500).send(err);
+      });
+  },
+  getPlayerContracts: (req, res) => {
+    db.Salaries
       .findAll({})
       .then(data => {
         console.log("Successfully retrieved all teams");

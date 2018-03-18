@@ -41,7 +41,12 @@ export default class PlayerScatter extends React.Component {
       age2: true,
       age3: true,
       age4: true,
-      age5: true
+      age5: true,
+      sal1: true,
+      sal2: true,
+      sal3: true,
+      sal4: true,
+      sal5: true
     };
     this.createChart = this.createChart.bind(this);
     this.filterClick = this.filterClick.bind(this);
@@ -69,6 +74,11 @@ export default class PlayerScatter extends React.Component {
     this.handleAGE3 = this.handleAGE3.bind(this);
     this.handleAGE4 = this.handleAGE4.bind(this);
     this.handleAGE5 = this.handleAGE5.bind(this);
+    this.handleSAL1 = this.handleSAL1.bind(this);
+    this.handleSAL2 = this.handleSAL2.bind(this);
+    this.handleSAL3 = this.handleSAL3.bind(this);
+    this.handleSAL4 = this.handleSAL4.bind(this);
+    this.handleSAL5 = this.handleSAL5.bind(this);
     this.filterPlayers = this.filterPlayers.bind(this);
     this.handleFilterSubmit = this.handleFilterSubmit.bind(this);
   }
@@ -334,6 +344,22 @@ export default class PlayerScatter extends React.Component {
     this.setState({ age5: evt.target.checked });
   }
 
+  handleSAL1(evt) {
+    this.setState({ sal1: evt.target.checked });
+  }
+  handleSAL2(evt) {
+    this.setState({ sal2: evt.target.checked });
+  }
+  handleSAL3(evt) {
+    this.setState({ sal3: evt.target.checked });
+  }
+  handleSAL4(evt) {
+    this.setState({ sal4: evt.target.checked });
+  }
+  handleSAL5(evt) {
+    this.setState({ sal5: evt.target.checked });
+  }
+
   filterPlayers() {
     var playersArr = this.state.teamPlayers;
 
@@ -472,6 +498,38 @@ export default class PlayerScatter extends React.Component {
         return player.age < 35;
       });
     }
+
+    if (!this.state.sal1) {
+      playersArr = playersArr.filter(function(player) {
+        return player.salary >= 5000000;
+      });
+    }
+    if (!this.state.sal2) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.salary < 5000000 || player.salary >= 10000000) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.sal3) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.salary < 10000000 || player.salary >= 15000000) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.sal4) {
+      playersArr = playersArr.filter(function(player) {
+        if (player.salary < 15000000 || player.salary >= 20000000) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.sal5) {
+      playersArr = playersArr.filter(function(player) {
+        return player.salary < 20000000;
+      });
+    }
     this.setState({ players: playersArr }, () => {
       //console.log("End Arr: ", this.state.players);
       var statArr = [];
@@ -600,11 +658,21 @@ export default class PlayerScatter extends React.Component {
               Salary
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
-              <Checkbox disabled>&#60; 5 mil.</Checkbox>{" "}
-              <Checkbox disabled>5-10 mil.</Checkbox>{" "}
-              <Checkbox disabled>10-15 mil.</Checkbox>{" "}
-              <Checkbox disabled>15-20 mil.</Checkbox>{" "}
-              <Checkbox disabled>> 20 mil.</Checkbox>
+              <Checkbox checked={this.state.sal1} onChange={this.handleSAL1}>
+                &#60; 5 mil.
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.sal2} onChange={this.handleSAL2}>
+                5-10 mil.
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.sal3} onChange={this.handleSAL3}>
+                10-15 mil.
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.sal4} onChange={this.handleSAL4}>
+                15-20 mil.
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.sal5} onChange={this.handleSAL5}>
+                > 20 mil.
+              </Checkbox>
             </FormGroup>
           </Col>
           <Col lg={2} sm={2}>

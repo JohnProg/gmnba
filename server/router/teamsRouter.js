@@ -19,7 +19,9 @@ router.put(
   controller.updateCPlayerAdvancedStats
 );
 router.put("/updategPlayersAdv", controller.updategPlayersAdv);
+router.put("/updateCurrentSalary", controller.updateCurrentSalary);
 router.get("/getPlayerStats", controller.getPlayerStats);
+router.get("/getPlayerContracts", controller.getPlayerContracts);
 router.get("/getLeagueStats", controller.getLeagueStats);
 router.get("/getcLeagueStats", controller.getcLeagueStats);
 router.get("/getgLeagueStats", controller.getgLeagueStats);
