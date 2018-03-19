@@ -1018,6 +1018,16 @@ module.exports = {
         console.log(err);
       });
   },
+  getPlayer: (req, res) => {
+    db.Players
+      .findOne({ where: { name: req.params.name } })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   getTeamProfile: (req, res) => {
     db.Teams
       .findById(req.params.id)
