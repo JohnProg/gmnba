@@ -29,6 +29,7 @@ import PlayerPolColPostUp from "./PlayerPolColPostUp";
 import PlayerPolColCatchShoot from "./PlayerPolColCatchShoot";
 import PlayerCatchShootBarRatings from "./PlayerCatchShootBarRatings";
 import PlayerPolColShooting from "./PlayerPolColShooting";
+import PlayerPolColSD from "./PlayerPolColSD";
 import axios from "axios";
 
 export default class PlayerRatings extends React.Component {
@@ -99,6 +100,8 @@ export default class PlayerRatings extends React.Component {
       return <PlayerPolColCatchShoot player={this.props.catchShootStats} />;
     } else if (this.state.statCat === "Shooting Efficiency") {
       return <PlayerPolColShooting player={this.props.shootingStats} />;
+    } else if (this.state.statCat === "Speed/Distance") {
+      return <PlayerPolColSD player={this.props.speedDistanceStats} />;
     }
   }
 
@@ -176,6 +179,7 @@ export default class PlayerRatings extends React.Component {
                   <MenuItem eventKey="4">Shooting Efficiency</MenuItem>
                   <MenuItem eventKey="5">Catch/Shoot</MenuItem>
                   <MenuItem eventKey="6">Post Ups</MenuItem>
+                  <MenuItem eventKey="9">Speed/Distance</MenuItem>
                   <MenuItem divider />
                   <MenuItem eventKey="7">Defense</MenuItem>
                   <MenuItem divider />

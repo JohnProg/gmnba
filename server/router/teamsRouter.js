@@ -37,6 +37,7 @@ router.get("/getPlayer/:name", controller.getPlayer);
 router.get("/getPostStats/:name", controller.getPostStats);
 router.get("/getPlayerContract/:name", controller.getPlayerContract);
 router.get("/getCatchShootStats/:name", controller.getCatchShootStats);
+router.get("/getSpeedDistanceStats/:name", controller.getSpeedDistanceStats);
 router.get("/getShootingStats/:name", controller.getShootingStats);
 router.get("/getTeamProfile/:id", controller.getTeamProfile);
 router.put("/loadTeamLogoColor", controller.loadTeamLogoColor);
@@ -67,6 +68,7 @@ router.get("/getAllgPlayers", controller.getAllgPlayers);
 router.post("/createPostStats", controller.createPostStats);
 router.post("/createShootingStats", controller.createShootingStats);
 router.post("/createCatchShootStats", controller.createCatchShootStats);
+router.post("/createSpeedDistanceStats", controller.createSpeedDistanceStats);
 router.post("/createPlayerSalaries", controller.createPlayerSalaries);
 
 router.get("/nbaPlayersList", controller.nbaPlayersList);

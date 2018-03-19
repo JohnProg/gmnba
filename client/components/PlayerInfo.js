@@ -40,6 +40,7 @@ class PlayerInfo extends React.Component {
     this.calculateStars = this.calculateStars.bind(this);
     this.getPostStats = this.getPostStats.bind(this);
     this.getCatchShootStats = this.getCatchShootStats.bind(this);
+    this.getSpeedDistanceStats = this.getSpeedDistanceStats.bind(this);
     this.getShootingStats = this.getShootingStats.bind(this);
     this.getPositionStats = this.getPositionStats.bind(this);
     this.renderPlayer = this.renderPlayer.bind(this);
@@ -85,6 +86,12 @@ class PlayerInfo extends React.Component {
     });
   }
 
+  getSpeedDistanceStats(name) {
+    axios.get(`/api/teams/getSpeedDistanceStats/${name}`).then(data => {
+      this.setState({ speedDistanceStats: data.data });
+    });
+  }
+
   getShootingStats(name) {
     axios.get(`/api/teams/getShootingStats/${name}`).then(data => {
       this.setState({ shootingStats: data.data });
@@ -100,6 +107,7 @@ class PlayerInfo extends React.Component {
         this.getPositionStats(data.data.position);
         this.getPostStats(data.data.name);
         this.getCatchShootStats(data.data.name);
+        this.getSpeedDistanceStats(data.data.name);
         this.getShootingStats(data.data.name);
         this.getContract(data.data.name);
       })
@@ -524,6 +532,7 @@ class PlayerInfo extends React.Component {
           colors={this.state.colors}
           postStats={this.state.postStats}
           catchShootStats={this.state.catchShootStats}
+          speedDistanceStats={this.state.speedDistanceStats}
           shootingStats={this.state.shootingStats}
           positionStats={this.state.positionStats}
           contract={this.state.contract}

@@ -5,6 +5,7 @@ const ligaacbdb = require("./config").ligaacbdb;
 const tracking1db = require("./config").tracking1db;
 const tracking2db = require("./config").tracking2db;
 const tracking3db = require("./config").tracking3db;
+const tracking4db = require("./config").tracking4db;
 const eurodb = require("./config").eurodb;
 const gleaguedb = require("./config").gleaguedb;
 const salariesdb = require("./config").salariesdb;
@@ -145,6 +146,16 @@ const CatchShoot = tracking2db.define("catchShoot", {
   threePtAtt: { type: Sequelize.FLOAT, allowNull: true },
   threePtPct: { type: Sequelize.FLOAT, allowNull: true },
   efgPct: { type: Sequelize.FLOAT, allowNull: true }
+});
+
+const SpeedDistance = tracking4db.define("speedDistance", {
+  name: { type: Sequelize.STRING, allowNull: false },
+  distMiles: { type: Sequelize.FLOAT, allowNull: true },
+  distMilesOff: { type: Sequelize.FLOAT, allowNull: true },
+  distMilesDef: { type: Sequelize.FLOAT, allowNull: true },
+  avgSpeed: { type: Sequelize.FLOAT, allowNull: true },
+  avgSpeedOff: { type: Sequelize.FLOAT, allowNull: true },
+  avgSpeedDef: { type: Sequelize.FLOAT, allowNull: true }
 });
 
 const Teams = db.define("team", {
@@ -732,6 +743,11 @@ CatchShoot.sync();
 //   return CatchShoot.bulkCreate([{ name: "Michael Griffin" }]);
 // });
 
+SpeedDistance.sync();
+// SpeedDistance.sync({ force: true }).then(() => {
+//   return SpeedDistance.bulkCreate([{ name: "Michael Griffin" }]);
+// });
+
 Shooting.sync();
 // Shooting.sync({ force: true }).then(() => {
 //   return Shooting.bulkCreate([{ name: "Michael Griffin" }]);
@@ -761,6 +777,7 @@ module.exports = {
   ligaacbTeams,
   PostUp,
   CatchShoot,
+  SpeedDistance,
   Shooting,
   iTeams,
   gTeams,

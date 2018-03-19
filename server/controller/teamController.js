@@ -867,6 +867,32 @@ module.exports = {
         });
     }
   },
+  createSpeedDistanceStats: (req, res) => {
+    console.log("SAVING PLAYERS");
+    var playersArr = req.body.data;
+    //console.log("##########Players Array: \n", playersArr.length);
+    for (var i = 300; i < playersArr.length; i++) {
+      var player = playersArr[i];
+      db.SpeedDistance
+        .findOrCreate({
+          where: {
+            name: player["Name"],
+            distMiles: player["distMiles"],
+            distMilesOff: player["distMilesOff"],
+            distMilesDef: player["distMilesDef"],
+            avgSpeed: player["avgSpeed"],
+            avgSpeedOff: player["avgSpeedOff"],
+            avgSpeedDef: player["avgSpeedDef"]
+          }
+        })
+        .then(data => {
+          console.log("Player added successfully");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
   updateCollegePlayers: (req, res) => {
     console.log("REQ\n", req.body.data);
     var players = req.body.data;
@@ -1111,6 +1137,18 @@ module.exports = {
   },
   getCatchShootStats: (req, res) => {
     db.CatchShoot
+      .findOne({
+        where: { name: req.params.name }
+      })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getSpeedDistanceStats: (req, res) => {
+    db.SpeedDistance
       .findOne({
         where: { name: req.params.name }
       })

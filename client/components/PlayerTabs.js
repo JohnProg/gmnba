@@ -58,6 +58,7 @@ export default class PlayerTabs extends React.Component {
           positionStats={this.props.positionStats}
           postStats={this.props.postStats}
           catchShootStats={this.props.catchShootStats}
+          speedDistanceStats={this.props.speedDistanceStats}
           shootingStats={this.props.shootingStats}
         />
       );
