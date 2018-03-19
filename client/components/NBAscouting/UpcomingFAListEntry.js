@@ -438,7 +438,7 @@ export default class UpcomingFAListEntry extends React.Component {
           }}
         >
           <Row>
-            <Col lg={3}>
+            <Col lg={3} md={3}>
               <div>
                 <img
                   src={picture}
@@ -446,7 +446,7 @@ export default class UpcomingFAListEntry extends React.Component {
                 />
               </div>
             </Col>
-            <Col lg={4}>
+            <Col lg={4} md={4}>
               <div style={{ paddingTop: "15px" }}>
                 <a href={`/player/${this.state.player.id}`}>
                   <div style={{ fontSize: "20px" }}>
@@ -480,7 +480,7 @@ export default class UpcomingFAListEntry extends React.Component {
                 </div>
               </div>
             </Col>
-            <Col lg={3}>
+            <Col lg={3} md={3}>
               <div style={{ paddingTop: "25px", fontSize: "15.5px" }}>
                 <div style={{ textAlign: "right" }}>
                   Overall: {this.getOverallRating()}

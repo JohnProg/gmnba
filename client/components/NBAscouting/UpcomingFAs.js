@@ -100,7 +100,7 @@ export default class UpcomingFAs extends React.Component {
           </Col>
         </Row>
         <Row style={{ paddingTop: "20px" }}>
-          <Col lg={10} lgOffset={1} md={4}>
+          <Col lg={10} lgOffset={1} md={12}>
             {this.renderPlayers()}
           </Col>
         </Row>
