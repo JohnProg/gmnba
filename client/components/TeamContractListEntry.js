@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 export default class TeamContractListEntry extends React.Component {
   constructor(props) {
@@ -8,12 +9,22 @@ export default class TeamContractListEntry extends React.Component {
       yrThreeOption: "None",
       yrFourOption: "None",
       yrFiveOption: "None",
-      yrSixOption: "None"
+      yrSixOption: "None",
+      id: null
     };
     this.createDollar = this.createDollar.bind(this);
+    this.addLink = this.addLink.bind(this);
   }
 
   componentDidMount() {
+    axios.get(`/api/teams/getPlayer/${this.props.player.name}`).then(data => {
+      //console.log(data.data);
+      if (data.data.id) {
+        this.setState({ id: data.data.id }, () => {
+          console.log(this.props.player.name + ": " + this.state.id);
+        });
+      }
+    });
     if (this.props.player.yearTwoOption !== "None") {
       this.setState({ yrTwoOption: this.props.player.yearTwoOption });
     }
@@ -42,6 +53,18 @@ export default class TeamContractListEntry extends React.Component {
     var newStr = str.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 
     return "$" + newStr;
+  }
+
+  addLink() {
+    if (this.state.id) {
+      return (
+        <td>
+          <a href={`/player/${this.state.id}`}>{this.props.player.name}</a>
+        </td>
+      );
+    } else {
+      return <td>{this.props.player.name}</td>;
+    }
   }
 
   render() {
@@ -112,7 +135,7 @@ export default class TeamContractListEntry extends React.Component {
     //console.log(this.props.player);
     return (
       <tr>
-        <td>{this.props.player.name}</td>
+        {this.addLink()}
         <td>{this.props.player.age}</td>
         <td>{this.createDollar(this.props.player.yearOne)}</td>
         <td style={yrTwoHeader}>

@@ -152,7 +152,7 @@ export default class TeamContracts extends React.Component {
   }
 
   render() {
-    console.log(this.props.contracts);
+    //console.log(this.props.contracts);
     var headerStyle = {
       backgroundColor: this.props.team.Color_Main || "#eee",
       height: "45px",
