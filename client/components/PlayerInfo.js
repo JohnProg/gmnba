@@ -31,7 +31,8 @@ class PlayerInfo extends React.Component {
       player: {},
       colors: {},
       contract: {},
-      prHandler: {}
+      prHandler: {},
+      prRollMan: {}
     };
     this.getPlayer = this.getPlayer.bind(this);
     this.getTeamColors = this.getTeamColors.bind(this);
@@ -47,6 +48,7 @@ class PlayerInfo extends React.Component {
     this.renderPlayer = this.renderPlayer.bind(this);
     this.getContract = this.getContract.bind(this);
     this.getPRHandler = this.getPRHandler.bind(this);
+    this.getPRRollMan = this.getPRRollMan.bind(this);
   }
 
   componentDidMount() {
@@ -79,6 +81,12 @@ class PlayerInfo extends React.Component {
   getPRHandler(name) {
     axios.get(`/api/teams/getPRHandler/${name}`).then(data => {
       this.setState({ prHandler: data.data });
+    });
+  }
+
+  getPRRollMan(name) {
+    axios.get(`/api/teams/getPRRollMan/${name}`).then(data => {
+      this.setState({ prRollMan: data.data });
     });
   }
 
@@ -118,6 +126,7 @@ class PlayerInfo extends React.Component {
         this.getSpeedDistanceStats(data.data.name);
         this.getShootingStats(data.data.name);
         this.getPRHandler(data.data.name);
+        this.getPRRollMan(data.data.name);
         this.getContract(data.data.name);
       })
       .catch(err => {
@@ -544,6 +553,7 @@ class PlayerInfo extends React.Component {
           speedDistanceStats={this.state.speedDistanceStats}
           shootingStats={this.state.shootingStats}
           prHandler={this.state.prHandler}
+          prRollMan={this.state.prRollMan}
           positionStats={this.state.positionStats}
           contract={this.state.contract}
         />

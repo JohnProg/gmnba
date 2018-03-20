@@ -7,6 +7,7 @@ const tracking2db = require("./config").tracking2db;
 const tracking3db = require("./config").tracking3db;
 const tracking4db = require("./config").tracking4db;
 const tracking5db = require("./config").tracking5db;
+const tracking6db = require("./config").tracking6db;
 const eurodb = require("./config").eurodb;
 const gleaguedb = require("./config").gleaguedb;
 const salariesdb = require("./config").salariesdb;
@@ -160,6 +161,18 @@ const SpeedDistance = tracking4db.define("speedDistance", {
 });
 
 const PRBallHandler = tracking5db.define("prBallHandler", {
+  name: { type: Sequelize.STRING, allowNull: false },
+  freq: { type: Sequelize.FLOAT, allowNull: true },
+  ppp: { type: Sequelize.FLOAT, allowNull: true },
+  pts: { type: Sequelize.FLOAT, allowNull: true },
+  efg: { type: Sequelize.FLOAT, allowNull: true },
+  scoreFreq: { type: Sequelize.FLOAT, allowNull: true },
+  toFreq: { type: Sequelize.FLOAT, allowNull: true },
+  ftFreq: { type: Sequelize.FLOAT, allowNull: true },
+  fga: { type: Sequelize.FLOAT, allowNull: true }
+});
+
+const PRRollMan = tracking6db.define("prRollMan", {
   name: { type: Sequelize.STRING, allowNull: false },
   freq: { type: Sequelize.FLOAT, allowNull: true },
   ppp: { type: Sequelize.FLOAT, allowNull: true },
@@ -766,6 +779,11 @@ PRBallHandler.sync();
 //   return PRBallHandler.bulkCreate([{ name: "Michael Griffin" }]);
 // });
 
+PRRollMan.sync();
+// PRRollMan.sync({ force: true }).then(() => {
+//   return PRRollMan.bulkCreate([{ name: "Michael Griffin" }]);
+// });
+
 Shooting.sync();
 // Shooting.sync({ force: true }).then(() => {
 //   return Shooting.bulkCreate([{ name: "Michael Griffin" }]);
@@ -797,6 +815,7 @@ module.exports = {
   CatchShoot,
   SpeedDistance,
   PRBallHandler,
+  PRRollMan,
   Shooting,
   iTeams,
   gTeams,
