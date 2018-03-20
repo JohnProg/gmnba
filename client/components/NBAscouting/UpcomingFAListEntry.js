@@ -426,76 +426,82 @@ export default class UpcomingFAListEntry extends React.Component {
 
   renderPlayer() {
     if (this.state.player.name) {
-      var picture =
-        this.state.player.picture ||
-        "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443";
-      return (
-        <div
-          className="card"
-          style={{
-            backgroundColor: "white",
-            height: "140px"
-          }}
-        >
-          <Row>
-            <Col lg={3} md={3}>
-              <div>
-                <img
-                  src={picture}
-                  style={{ maxHeight: "135px", padding: "10px 0px 10px 10px" }}
-                />
-              </div>
-            </Col>
-            <Col lg={4} md={4}>
-              <div style={{ paddingTop: "15px" }}>
-                <a href={`/player/${this.state.player.id}`}>
-                  <div style={{ fontSize: "20px" }}>
-                    {this.state.player.name}
-                    <span style={{ paddingLeft: "3px", fontSize: "12px" }}>
+      if (this.state.player.team === this.props.player.team) {
+        var picture =
+          this.state.player.picture ||
+          "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443";
+        return (
+          <div
+            className="card"
+            style={{
+              backgroundColor: "white",
+              height: "140px",
+              paddingBottom: "5px"
+            }}
+          >
+            <Row>
+              <Col lg={3} md={3}>
+                <div>
+                  <img
+                    src={picture}
+                    style={{
+                      maxHeight: "135px",
+                      padding: "10px 0px 10px 10px"
+                    }}
+                  />
+                </div>
+              </Col>
+              <Col lg={4} md={4}>
+                <div style={{ paddingTop: "15px" }}>
+                  <a href={`/player/${this.state.player.id}`}>
+                    <div style={{ fontSize: "20px" }}>
+                      {this.state.player.name}
+                      <span style={{ paddingLeft: "3px", fontSize: "12px" }}>
+                        {" "}
+                        {this.state.player.position}
+                      </span>
+                    </div>
+                  </a>
+                  <div style={{ fontWeight: "bold", fontSize: "14px" }}>
+                    {this.props.player.type}
+                  </div>
+                  <div>
+                    <span>Height: {this.state.player.height}</span>
+                    <span style={{ paddingLeft: "3px" }}>
                       {" "}
-                      {this.state.player.position}
+                      Weight: {this.state.player.weight}
                     </span>
                   </div>
-                </a>
-                <div style={{ fontWeight: "bold", fontSize: "14px" }}>
-                  {this.props.player.type}
+                  <div>
+                    <span>Age: {this.state.player.age}</span>
+                    <span style={{ paddingLeft: "3px" }}>
+                      {" "}
+                      Experience: {this.state.player.experience}
+                    </span>
+                  </div>
+                  <div>
+                    Current Salary:{" "}
+                    {this.convertDollars(this.props.player.current)}
+                  </div>
                 </div>
-                <div>
-                  <span>Height: {this.state.player.height}</span>
-                  <span style={{ paddingLeft: "3px" }}>
-                    {" "}
-                    Weight: {this.state.player.weight}
-                  </span>
+              </Col>
+              <Col lg={3} md={3}>
+                <div style={{ paddingTop: "25px", fontSize: "15.5px" }}>
+                  <div style={{ textAlign: "right" }}>
+                    Overall: {this.getOverallRating()}
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    Offense: {this.getOffenseRating()}
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    Defense: {this.getDefenseRating()}
+                  </div>
                 </div>
-                <div>
-                  <span>Age: {this.state.player.age}</span>
-                  <span style={{ paddingLeft: "3px" }}>
-                    {" "}
-                    Experience: {this.state.player.experience}
-                  </span>
-                </div>
-                <div>
-                  Current Salary:{" "}
-                  {this.convertDollars(this.props.player.current)}
-                </div>
-              </div>
-            </Col>
-            <Col lg={3} md={3}>
-              <div style={{ paddingTop: "25px", fontSize: "15.5px" }}>
-                <div style={{ textAlign: "right" }}>
-                  Overall: {this.getOverallRating()}
-                </div>
-                <div style={{ textAlign: "right" }}>
-                  Offense: {this.getOffenseRating()}
-                </div>
-                <div style={{ textAlign: "right" }}>
-                  Defense: {this.getDefenseRating()}
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </div>
-      );
+              </Col>
+            </Row>
+          </div>
+        );
+      }
     } else {
       return null;
     }
@@ -515,6 +521,6 @@ export default class UpcomingFAListEntry extends React.Component {
   }
 
   render() {
-    return <div style={{ paddingBottom: "5px" }}>{this.renderPlayer()}</div>;
+    return <div>{this.renderPlayer()}</div>;
   }
 }

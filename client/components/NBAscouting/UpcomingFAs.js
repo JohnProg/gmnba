@@ -50,14 +50,17 @@ export default class UpcomingFAs extends React.Component {
           var player = {};
           if (contracts[i].signedUsing === "1st Round Pick") {
             player.name = contracts[i].name;
+            player.team = contracts[i].team;
             player.current = contracts[i].yearOne;
             player.type = "Restricted";
           } else if (contracts[i].yearTwoOption === "Player") {
             player.name = contracts[i].name;
+            player.team = contracts[i].team;
             player.current = contracts[i].yearOne;
             player.type = "Player Option";
           } else {
             player.name = contracts[i].name;
+            player.team = contracts[i].team;
             player.current = contracts[i].yearOne;
             player.type = "Unrestricted";
           }
