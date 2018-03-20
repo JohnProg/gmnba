@@ -30,6 +30,7 @@ import PlayerPolColCatchShoot from "./PlayerPolColCatchShoot";
 import PlayerCatchShootBarRatings from "./PlayerCatchShootBarRatings";
 import PlayerPolColShooting from "./PlayerPolColShooting";
 import PlayerPolColSD from "./PlayerPolColSD";
+import PlayerPolColPRBH from "./PlayerPolColPRBH";
 import axios from "axios";
 
 export default class PlayerRatings extends React.Component {
@@ -102,6 +103,13 @@ export default class PlayerRatings extends React.Component {
       return <PlayerPolColShooting player={this.props.shootingStats} />;
     } else if (this.state.statCat === "Speed/Distance") {
       return <PlayerPolColSD player={this.props.speedDistanceStats} />;
+    } else if (this.state.statCat === "P+R Ball Handler") {
+      return (
+        <PlayerPolColPRBH
+          player={this.props.prHandler}
+          gp={this.props.player.gamesPlayed}
+        />
+      );
     }
   }
 
@@ -174,6 +182,9 @@ export default class PlayerRatings extends React.Component {
                   <MenuItem divider />
                   <MenuItem eventKey="2">Offense</MenuItem>
                   <MenuItem eventKey="3">Advanced Offense</MenuItem>
+                  <MenuItem divider />
+                  <MenuItem header>Play Type</MenuItem>
+                  <MenuItem eventKey="10">P+R Ball Handler</MenuItem>
                   <MenuItem divider />
                   <MenuItem header>Player Tracking</MenuItem>
                   <MenuItem eventKey="4">Shooting Efficiency</MenuItem>

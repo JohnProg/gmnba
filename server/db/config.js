@@ -84,6 +84,20 @@ const tracking4db = new Sequelize(
   }
 );
 
+const tracking5db = new Sequelize(
+  "postgres://tqbgvbpo:5v95bJP5LhrnvTWJEjU7S86iX-Mgu-RJ@baasu.db.elephantsql.com:5432/tqbgvbpo",
+  {
+    dialect: "postgres",
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 20000,
+      acquire: 20000,
+      evict: 20000
+    }
+  }
+);
+
 const ligaacbdb = new Sequelize(
   "postgres://duxdpgwx:fsdbfMAx6UIMhQJhlMHs-mqql6WCrX2o@baasu.db.elephantsql.com:5432/duxdpgwx",
   {
@@ -153,6 +167,7 @@ module.exports = {
   tracking2db,
   tracking3db,
   tracking4db,
+  tracking5db,
   eurodb,
   gleaguedb,
   salariesdb

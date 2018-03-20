@@ -60,6 +60,7 @@ export default class PlayerTabs extends React.Component {
           catchShootStats={this.props.catchShootStats}
           speedDistanceStats={this.props.speedDistanceStats}
           shootingStats={this.props.shootingStats}
+          prHandler={this.props.prHandler}
         />
       );
     if (this.state.key === 5)

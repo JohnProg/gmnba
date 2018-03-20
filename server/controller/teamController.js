@@ -867,6 +867,34 @@ module.exports = {
         });
     }
   },
+  createPRBHStats: (req, res) => {
+    console.log("SAVING PLAYERS");
+    var playersArr = req.body.data;
+    //console.log("##########Players Array: \n", playersArr.length);
+    for (var i = 0; i < playersArr.length; i++) {
+      var player = playersArr[i];
+      db.PRBallHandler
+        .findOrCreate({
+          where: {
+            name: player["name"],
+            freq: player["freq"],
+            ppp: player["ppp"],
+            pts: player["pts"],
+            efg: player["efg"],
+            scoreFreq: player["scoreFreq"],
+            toFreq: player["toFreq"],
+            ftFreq: player["ftFreq"],
+            fga: player["fga"]
+          }
+        })
+        .then(data => {
+          console.log("Player added successfully");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
   createSpeedDistanceStats: (req, res) => {
     console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
@@ -1113,6 +1141,18 @@ module.exports = {
   },
   getPlayerContract: (req, res) => {
     db.Salaries
+      .findOne({
+        where: { name: req.params.name }
+      })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getPRHandler: (req, res) => {
+    db.PRBallHandler
       .findOne({
         where: { name: req.params.name }
       })
