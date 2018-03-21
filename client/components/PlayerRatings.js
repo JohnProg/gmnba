@@ -32,6 +32,7 @@ import PlayerPolColShooting from "./PlayerPolColShooting";
 import PlayerPolColSD from "./PlayerPolColSD";
 import PlayerPolColPRBH from "./PlayerPolColPRBH";
 import PlayerPolColPRRM from "./PlayerPolColPRRM";
+import PlayerPolColIso from "./PlayerPolColIso";
 import axios from "axios";
 
 export default class PlayerRatings extends React.Component {
@@ -118,6 +119,13 @@ export default class PlayerRatings extends React.Component {
           gp={this.props.player.gamesPlayed}
         />
       );
+    } else if (this.state.statCat === "Isolation") {
+      return (
+        <PlayerPolColIso
+          player={this.props.iso}
+          gp={this.props.player.gamesPlayed}
+        />
+      );
     }
   }
 
@@ -194,6 +202,7 @@ export default class PlayerRatings extends React.Component {
                   <MenuItem header>Play Type</MenuItem>
                   <MenuItem eventKey="10">P+R Ball Handler</MenuItem>
                   <MenuItem eventKey="11">P+R Roll Man</MenuItem>
+                  <MenuItem eventKey="12">Isolation</MenuItem>
                   <MenuItem divider />
                   <MenuItem header>Player Tracking</MenuItem>
                   <MenuItem eventKey="4">Shooting Efficiency</MenuItem>

@@ -32,7 +32,8 @@ class PlayerInfo extends React.Component {
       colors: {},
       contract: {},
       prHandler: {},
-      prRollMan: {}
+      prRollMan: {},
+      iso: {}
     };
     this.getPlayer = this.getPlayer.bind(this);
     this.getTeamColors = this.getTeamColors.bind(this);
@@ -49,6 +50,7 @@ class PlayerInfo extends React.Component {
     this.getContract = this.getContract.bind(this);
     this.getPRHandler = this.getPRHandler.bind(this);
     this.getPRRollMan = this.getPRRollMan.bind(this);
+    this.getIso = this.getIso.bind(this);
   }
 
   componentDidMount() {
@@ -90,6 +92,12 @@ class PlayerInfo extends React.Component {
     });
   }
 
+  getIso(name) {
+    axios.get(`/api/teams/getIso/${name}`).then(data => {
+      this.setState({ iso: data.data });
+    });
+  }
+
   getPostStats(name) {
     axios.get(`/api/teams/getPostStats/${name}`).then(data => {
       this.setState({ postStats: data.data });
@@ -127,6 +135,7 @@ class PlayerInfo extends React.Component {
         this.getShootingStats(data.data.name);
         this.getPRHandler(data.data.name);
         this.getPRRollMan(data.data.name);
+        this.getIso(data.data.name);
         this.getContract(data.data.name);
       })
       .catch(err => {
@@ -554,6 +563,7 @@ class PlayerInfo extends React.Component {
           shootingStats={this.state.shootingStats}
           prHandler={this.state.prHandler}
           prRollMan={this.state.prRollMan}
+          iso={this.state.iso}
           positionStats={this.state.positionStats}
           contract={this.state.contract}
         />

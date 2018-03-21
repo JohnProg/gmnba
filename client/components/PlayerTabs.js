@@ -62,6 +62,7 @@ export default class PlayerTabs extends React.Component {
           shootingStats={this.props.shootingStats}
           prHandler={this.props.prHandler}
           prRollMan={this.props.prRollMan}
+          iso={this.props.iso}
         />
       );
     if (this.state.key === 5)

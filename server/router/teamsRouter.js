@@ -38,6 +38,7 @@ router.get("/getPostStats/:name", controller.getPostStats);
 router.get("/getPlayerContract/:name", controller.getPlayerContract);
 router.get("/getPRHandler/:name", controller.getPRHandler);
 router.get("/getPRRollMan/:name", controller.getPRRollMan);
+router.get("/getIso/:name", controller.getIso);
 router.get("/getCatchShootStats/:name", controller.getCatchShootStats);
 router.get("/getSpeedDistanceStats/:name", controller.getSpeedDistanceStats);
 router.get("/getShootingStats/:name", controller.getShootingStats);
@@ -72,6 +73,7 @@ router.post("/createShootingStats", controller.createShootingStats);
 router.post("/createCatchShootStats", controller.createCatchShootStats);
 router.post("/createPRBHStats", controller.createPRBHStats);
 router.post("/createPRRMStats", controller.createPRRMStats);
+router.post("/createIsoStats", controller.createIsoStats);
 router.post("/createSpeedDistanceStats", controller.createSpeedDistanceStats);
 router.post("/createPlayerSalaries", controller.createPlayerSalaries);
 

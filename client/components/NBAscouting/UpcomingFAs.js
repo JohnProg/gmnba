@@ -201,134 +201,129 @@ export default class UpcomingFAs extends React.Component {
   }
 
   renderFilter() {
-    // if (this.state.showFilter) {
-    //   return (
-    //     <div style={{ height: "100px" }}>
-    //       <Col lg={3} md={3} mdOffset={0}>
-    //         <div style={{ color: "#d00000", textDecoration: "underline" }}>
-    //           Position
-    //         </div>
-    //         <FormGroup style={{ paddingLeft: "10px" }}>
-    //           <Checkbox checked={this.state.pg} onChange={this.handlePG}>
-    //             Point Guard
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.sg} onChange={this.handleSG}>
-    //             Shooting Guard
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.sf} onChange={this.handleSF}>
-    //             Shooting Forward
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.pf} onChange={this.handlePF}>
-    //             Power Forward
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.c} onChange={this.handleC}>
-    //             Center
-    //           </Checkbox>
-    //         </FormGroup>
-    //       </Col>
-    //       <Col lg={2} md={2}>
-    //         <div style={{ paddingLeft: "30px" }}>
-    //           <div style={{ color: "#d00000", textDecoration: "underline" }}>
-    //             MPG
-    //           </div>
-    //           <FormGroup style={{ paddingLeft: "10px" }}>
-    //             <Checkbox checked={this.state.mpg1} onChange={this.handleMPG1}>
-    //               &#60; 15
-    //             </Checkbox>{" "}
-    //             <Checkbox checked={this.state.mpg2} onChange={this.handleMPG2}>
-    //               15-20
-    //             </Checkbox>{" "}
-    //             <Checkbox checked={this.state.mpg3} onChange={this.handleMPG3}>
-    //               20-25
-    //             </Checkbox>{" "}
-    //             <Checkbox checked={this.state.mpg4} onChange={this.handleMPG4}>
-    //               25-30
-    //             </Checkbox>{" "}
-    //             <Checkbox checked={this.state.mpg5} onChange={this.handleMPG5}>
-    //               > 30
-    //             </Checkbox>
-    //           </FormGroup>
-    //         </div>
-    //       </Col>
-    //       <Col lg={2} md={2}>
-    //         <div style={{ color: "#d00000", textDecoration: "underline" }}>
-    //           Experience
-    //         </div>
-    //         <FormGroup style={{ paddingLeft: "10px" }}>
-    //           <Checkbox checked={this.state.exp1} onChange={this.handleEXP1}>
-    //             Rookie
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.exp2} onChange={this.handleEXP2}>
-    //             1-3
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.exp3} onChange={this.handleEXP3}>
-    //             4-6
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.exp4} onChange={this.handleEXP4}>
-    //             7-10
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.exp5} onChange={this.handleEXP5}>
-    //             > 10
-    //           </Checkbox>
-    //         </FormGroup>
-    //       </Col>
-    //       <Col lg={2} md={2}>
-    //         <div style={{ color: "#d00000", textDecoration: "underline" }}>
-    //           Age
-    //         </div>
-    //         <FormGroup style={{ paddingLeft: "10px" }}>
-    //           <Checkbox checked={this.state.age1} onChange={this.handleAGE1}>
-    //             &#60; 21
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.age2} onChange={this.handleAGE2}>
-    //             21-25
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.age3} onChange={this.handleAGE3}>
-    //             26-30
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.age4} onChange={this.handleAGE4}>
-    //             31-35
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.age5} onChange={this.handleAGE5}>
-    //             > 35
-    //           </Checkbox>
-    //         </FormGroup>
-    //       </Col>
-    //       <Col lg={3} md={3}>
-    //         <div style={{ color: "#d00000", textDecoration: "underline" }}>
-    //           Salary Per Year
-    //         </div>
-    //         <FormGroup style={{ paddingLeft: "10px" }}>
-    //           <Checkbox checked={this.state.sal1} onChange={this.handleSAL1}>
-    //             &#60; 5 mil.
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.sal2} onChange={this.handleSAL2}>
-    //             5-10 mil.
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.sal3} onChange={this.handleSAL3}>
-    //             10-15 mil.
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.sal4} onChange={this.handleSAL4}>
-    //             15-20 mil.
-    //           </Checkbox>{" "}
-    //           <Checkbox checked={this.state.sal5} onChange={this.handleSAL5}>
-    //             > 20 mil.
-    //           </Checkbox>
-    //         </FormGroup>
-    //       </Col>
-    //       <Col lg={4} md={4}>
-    //         <div>
-    //           <Button
-    //             onClick={this.handleFilterSubmit}
-    //             style={{ backgroundColor: "#d00000", color: "white" }}
-    //           >
-    //             Filter
-    //           </Button>
-    //         </div>
-    //       </Col>
-    //     </div>
-    //   );
-    // }
+    if (this.state.showFilter) {
+      return (
+        <div style={{ height: "100px" }}>
+          <Col lg={3} md={3} mdOffset={0}>
+            <div style={{ color: "#d00000", textDecoration: "underline" }}>
+              Position
+            </div>
+            <FormGroup style={{ paddingLeft: "10px" }} disabled>
+              <Checkbox checked={this.state.pg} onChange={this.handlePG}>
+                Point Guard
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.sg} onChange={this.handleSG}>
+                Shooting Guard
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.sf} onChange={this.handleSF}>
+                Shooting Forward
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.pf} onChange={this.handlePF}>
+                Power Forward
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.c} onChange={this.handleC}>
+                Center
+              </Checkbox>
+            </FormGroup>
+          </Col>
+          <Col lg={2} md={2}>
+            <div style={{ paddingLeft: "30px" }}>
+              <div style={{ color: "#d00000", textDecoration: "underline" }}>
+                MPG
+              </div>
+              <FormGroup style={{ paddingLeft: "10px" }} disabled>
+                <Checkbox checked={this.state.mpg1} onChange={this.handleMPG1}>
+                  &#60; 15
+                </Checkbox>{" "}
+                <Checkbox checked={this.state.mpg2} onChange={this.handleMPG2}>
+                  15-20
+                </Checkbox>{" "}
+                <Checkbox checked={this.state.mpg3} onChange={this.handleMPG3}>
+                  20-25
+                </Checkbox>{" "}
+                <Checkbox checked={this.state.mpg4} onChange={this.handleMPG4}>
+                  25-30
+                </Checkbox>{" "}
+                <Checkbox checked={this.state.mpg5} onChange={this.handleMPG5}>
+                  > 30
+                </Checkbox>
+              </FormGroup>
+            </div>
+          </Col>
+          <Col lg={2} md={2}>
+            <div style={{ color: "#d00000", textDecoration: "underline" }}>
+              Experience
+            </div>
+            <FormGroup style={{ paddingLeft: "10px" }} disabled>
+              <Checkbox checked={this.state.exp1} onChange={this.handleEXP1}>
+                Rookie
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.exp2} onChange={this.handleEXP2}>
+                1-3
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.exp3} onChange={this.handleEXP3}>
+                4-6
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.exp4} onChange={this.handleEXP4}>
+                7-10
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.exp5} onChange={this.handleEXP5}>
+                > 10
+              </Checkbox>
+            </FormGroup>
+          </Col>
+          <Col lg={2} md={2}>
+            <div style={{ color: "#d00000", textDecoration: "underline" }}>
+              Age
+            </div>
+            <FormGroup style={{ paddingLeft: "10px" }} disabled>
+              <Checkbox checked={this.state.age1} onChange={this.handleAGE1}>
+                &#60; 21
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.age2} onChange={this.handleAGE2}>
+                21-25
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.age3} onChange={this.handleAGE3}>
+                26-30
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.age4} onChange={this.handleAGE4}>
+                31-35
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.age5} onChange={this.handleAGE5}>
+                > 35
+              </Checkbox>
+            </FormGroup>
+          </Col>
+          <Col lg={3} md={3}>
+            <div style={{ color: "#d00000", textDecoration: "underline" }}>
+              FA Type
+            </div>
+            <FormGroup style={{ paddingLeft: "10px" }} disabled>
+              <Checkbox checked={this.state.sal1} onChange={this.handleSAL1}>
+                Unrestricted
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.sal2} onChange={this.handleSAL2}>
+                Restricted
+              </Checkbox>{" "}
+              <Checkbox checked={this.state.sal3} onChange={this.handleSAL3}>
+                Player Option
+              </Checkbox>
+            </FormGroup>
+          </Col>
+          <Col lg={4} md={4}>
+            <div>
+              <Button
+                onClick={this.handleFilterSubmit}
+                style={{ backgroundColor: "#d00000", color: "white" }}
+                disabled
+              >
+                Filter
+              </Button>
+            </div>
+          </Col>
+        </div>
+      );
+    }
   }
 
   getExpiring() {
