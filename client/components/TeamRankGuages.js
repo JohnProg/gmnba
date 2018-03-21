@@ -343,7 +343,7 @@ export default class TeamRankGuages extends React.Component {
     };
     return (
       <div>
-        <Row className="chart-row">
+        <Row style={{ paddingTop: "30px" }}>
           <Col lg={4} xs={12} md={4} sm={4}>
             <div
               className="gauge-header-div"

@@ -165,7 +165,7 @@ export default class PlayerRatings extends React.Component {
     return (
       <div>
         <Grid>
-          <Row className="chart-row">
+          <Row style={{ paddingTop: "30px" }}>
             <Col lg={3} lgOffset={1} md={4}>
               <div className="card" style={headerStyle}>
                 PLAYER RATINGS
@@ -208,7 +208,7 @@ export default class PlayerRatings extends React.Component {
               </div>
             </Col>
           </Row>
-          <Row className="chart-row">
+          <Row style={{ paddingTop: "30px" }}>
             <Col lg={5} lgOffset={1} md={6}>
               {this.renderPolarCol()}
             </Col>

@@ -611,7 +611,7 @@ export default class LeagueLeaders extends React.Component {
     return (
       <div>
         <Row style={{ paddingLeft: "20px", paddingTop: "30px" }}>
-          <Col lg={12}>
+          <Col lg={10}>
             <div
               onClick={this.toggleFilter}
               style={{
