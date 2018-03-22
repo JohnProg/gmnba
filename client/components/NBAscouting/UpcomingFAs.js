@@ -39,11 +39,11 @@ export default class UpcomingFAs extends React.Component {
       age3: true,
       age4: true,
       age5: true,
-      sal1: true,
-      sal2: true,
-      sal3: true,
-      sal4: true,
-      sal5: true
+      type1: true,
+      type2: true,
+      type3: true,
+      type4: true,
+      type5: true
     };
     this.renderPlayers = this.renderPlayers.bind(this);
     this.getExpiring = this.getExpiring.bind(this);
@@ -71,11 +71,11 @@ export default class UpcomingFAs extends React.Component {
     this.handleAGE3 = this.handleAGE3.bind(this);
     this.handleAGE4 = this.handleAGE4.bind(this);
     this.handleAGE5 = this.handleAGE5.bind(this);
-    this.handleSAL1 = this.handleSAL1.bind(this);
-    this.handleSAL2 = this.handleSAL2.bind(this);
-    this.handleSAL3 = this.handleSAL3.bind(this);
-    this.handleSAL4 = this.handleSAL4.bind(this);
-    this.handleSAL5 = this.handleSAL5.bind(this);
+    this.handleTYPE1 = this.handleTYPE1.bind(this);
+    this.handleTYPE2 = this.handleTYPE2.bind(this);
+    this.handleTYPE3 = this.handleTYPE3.bind(this);
+    this.handleTYPE4 = this.handleTYPE4.bind(this);
+    this.handleTYPE5 = this.handleTYPE5.bind(this);
   }
 
   componentDidMount() {
@@ -93,7 +93,18 @@ export default class UpcomingFAs extends React.Component {
   renderPlayers() {
     if (this.state.expiring.length > 0) {
       return this.state.expiring.map((player, i) => (
-        <UpcomingFAListEntry player={player} key={i} />
+        <UpcomingFAListEntry
+          player={player}
+          key={i}
+          unrestricted={this.state.type1}
+          restricted={this.state.type2}
+          playerOption={this.state.type3}
+          pg={this.state.pg}
+          sg={this.state.sg}
+          sf={this.state.sf}
+          pf={this.state.pf}
+          c={this.state.c}
+        />
       ));
     }
   }
@@ -184,20 +195,20 @@ export default class UpcomingFAs extends React.Component {
     this.setState({ age5: evt.target.checked });
   }
 
-  handleSAL1(evt) {
-    this.setState({ sal1: evt.target.checked });
+  handleTYPE1(evt) {
+    this.setState({ type1: evt.target.checked });
   }
-  handleSAL2(evt) {
-    this.setState({ sal2: evt.target.checked });
+  handleTYPE2(evt) {
+    this.setState({ type2: evt.target.checked });
   }
-  handleSAL3(evt) {
-    this.setState({ sal3: evt.target.checked });
+  handleTYPE3(evt) {
+    this.setState({ type3: evt.target.checked });
   }
-  handleSAL4(evt) {
-    this.setState({ sal4: evt.target.checked });
+  handleTYPE4(evt) {
+    this.setState({ type4: evt.target.checked });
   }
-  handleSAL5(evt) {
-    this.setState({ sal5: evt.target.checked });
+  handleTYPE5(evt) {
+    this.setState({ type5: evt.target.checked });
   }
 
   renderFilter() {
@@ -208,7 +219,7 @@ export default class UpcomingFAs extends React.Component {
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               Position
             </div>
-            <FormGroup style={{ paddingLeft: "10px" }} disabled>
+            <FormGroup style={{ paddingLeft: "10px" }}>
               <Checkbox checked={this.state.pg} onChange={this.handlePG}>
                 Point Guard
               </Checkbox>{" "}
@@ -231,20 +242,40 @@ export default class UpcomingFAs extends React.Component {
               <div style={{ color: "#d00000", textDecoration: "underline" }}>
                 MPG
               </div>
-              <FormGroup style={{ paddingLeft: "10px" }} disabled>
-                <Checkbox checked={this.state.mpg1} onChange={this.handleMPG1}>
+              <FormGroup style={{ paddingLeft: "10px" }}>
+                <Checkbox
+                  checked={this.state.mpg1}
+                  onChange={this.handleMPG1}
+                  disabled
+                >
                   &#60; 15
                 </Checkbox>{" "}
-                <Checkbox checked={this.state.mpg2} onChange={this.handleMPG2}>
+                <Checkbox
+                  checked={this.state.mpg2}
+                  onChange={this.handleMPG2}
+                  disabled
+                >
                   15-20
                 </Checkbox>{" "}
-                <Checkbox checked={this.state.mpg3} onChange={this.handleMPG3}>
+                <Checkbox
+                  checked={this.state.mpg3}
+                  onChange={this.handleMPG3}
+                  disabled
+                >
                   20-25
                 </Checkbox>{" "}
-                <Checkbox checked={this.state.mpg4} onChange={this.handleMPG4}>
+                <Checkbox
+                  checked={this.state.mpg4}
+                  onChange={this.handleMPG4}
+                  disabled
+                >
                   25-30
                 </Checkbox>{" "}
-                <Checkbox checked={this.state.mpg5} onChange={this.handleMPG5}>
+                <Checkbox
+                  checked={this.state.mpg5}
+                  onChange={this.handleMPG5}
+                  disabled
+                >
                   > 30
                 </Checkbox>
               </FormGroup>
@@ -254,20 +285,40 @@ export default class UpcomingFAs extends React.Component {
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               Experience
             </div>
-            <FormGroup style={{ paddingLeft: "10px" }} disabled>
-              <Checkbox checked={this.state.exp1} onChange={this.handleEXP1}>
+            <FormGroup style={{ paddingLeft: "10px" }}>
+              <Checkbox
+                checked={this.state.exp1}
+                onChange={this.handleEXP1}
+                disabled
+              >
                 Rookie
               </Checkbox>{" "}
-              <Checkbox checked={this.state.exp2} onChange={this.handleEXP2}>
+              <Checkbox
+                checked={this.state.exp2}
+                onChange={this.handleEXP2}
+                disabled
+              >
                 1-3
               </Checkbox>{" "}
-              <Checkbox checked={this.state.exp3} onChange={this.handleEXP3}>
+              <Checkbox
+                checked={this.state.exp3}
+                onChange={this.handleEXP3}
+                disabled
+              >
                 4-6
               </Checkbox>{" "}
-              <Checkbox checked={this.state.exp4} onChange={this.handleEXP4}>
+              <Checkbox
+                checked={this.state.exp4}
+                onChange={this.handleEXP4}
+                disabled
+              >
                 7-10
               </Checkbox>{" "}
-              <Checkbox checked={this.state.exp5} onChange={this.handleEXP5}>
+              <Checkbox
+                checked={this.state.exp5}
+                onChange={this.handleEXP5}
+                disabled
+              >
                 > 10
               </Checkbox>
             </FormGroup>
@@ -276,20 +327,40 @@ export default class UpcomingFAs extends React.Component {
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               Age
             </div>
-            <FormGroup style={{ paddingLeft: "10px" }} disabled>
-              <Checkbox checked={this.state.age1} onChange={this.handleAGE1}>
+            <FormGroup style={{ paddingLeft: "10px" }}>
+              <Checkbox
+                checked={this.state.age1}
+                onChange={this.handleAGE1}
+                disabled
+              >
                 &#60; 21
               </Checkbox>{" "}
-              <Checkbox checked={this.state.age2} onChange={this.handleAGE2}>
+              <Checkbox
+                checked={this.state.age2}
+                onChange={this.handleAGE2}
+                disabled
+              >
                 21-25
               </Checkbox>{" "}
-              <Checkbox checked={this.state.age3} onChange={this.handleAGE3}>
+              <Checkbox
+                checked={this.state.age3}
+                onChange={this.handleAGE3}
+                disabled
+              >
                 26-30
               </Checkbox>{" "}
-              <Checkbox checked={this.state.age4} onChange={this.handleAGE4}>
+              <Checkbox
+                checked={this.state.age4}
+                onChange={this.handleAGE4}
+                disabled
+              >
                 31-35
               </Checkbox>{" "}
-              <Checkbox checked={this.state.age5} onChange={this.handleAGE5}>
+              <Checkbox
+                checked={this.state.age5}
+                onChange={this.handleAGE5}
+                disabled
+              >
                 > 35
               </Checkbox>
             </FormGroup>
@@ -298,28 +369,17 @@ export default class UpcomingFAs extends React.Component {
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               FA Type
             </div>
-            <FormGroup style={{ paddingLeft: "10px" }} disabled>
-              <Checkbox checked={this.state.sal1} onChange={this.handleSAL1}>
+            <FormGroup style={{ paddingLeft: "10px" }}>
+              <Checkbox checked={this.state.type1} onChange={this.handleTYPE1}>
                 Unrestricted
               </Checkbox>{" "}
-              <Checkbox checked={this.state.sal2} onChange={this.handleSAL2}>
+              <Checkbox checked={this.state.type2} onChange={this.handleTYPE2}>
                 Restricted
               </Checkbox>{" "}
-              <Checkbox checked={this.state.sal3} onChange={this.handleSAL3}>
+              <Checkbox checked={this.state.type3} onChange={this.handleTYPE3}>
                 Player Option
               </Checkbox>
             </FormGroup>
-          </Col>
-          <Col lg={4} md={4}>
-            <div>
-              <Button
-                onClick={this.handleFilterSubmit}
-                style={{ backgroundColor: "#d00000", color: "white" }}
-                disabled
-              >
-                Filter
-              </Button>
-            </div>
           </Col>
         </div>
       );

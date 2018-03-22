@@ -425,6 +425,25 @@ export default class UpcomingFAListEntry extends React.Component {
   }
 
   renderPlayer() {
+    // Props = contract / State = Player Info
+    if (this.props.player.type === "Unrestricted" && !this.props.unrestricted)
+      return null;
+    if (this.props.player.type === "Restricted" && !this.props.restricted)
+      return null;
+    if (this.props.player.type === "Player Option" && !this.props.playerOption)
+      return null;
+    // if (
+    //   !this.props.unrestricted &&
+    //   !this.props.restricted &&
+    //   !this.props.playerOption
+    // ) {
+    //   return <div>No Players Selected</div>;
+    // }
+    if (this.state.player.position === "PG" && !this.props.pg) return null;
+    if (this.state.player.position === "SG" && !this.props.sg) return null;
+    if (this.state.player.position === "SF" && !this.props.sf) return null;
+    if (this.state.player.position === "PF" && !this.props.pf) return null;
+    if (this.state.player.position === "C" && !this.props.c) return null;
     if (this.state.player.name) {
       if (this.state.player.team === this.props.player.team) {
         var picture =
