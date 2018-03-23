@@ -8,16 +8,19 @@ export default class NavBar extends React.Component {
     super();
     this.state = {
       showSearch: false,
+      showScoutMenu: false,
       searchList: []
     };
     this.renderSearch = this.renderSearch.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleScoutClick = this.handleScoutClick.bind(this);
     this.getNbaPlayers = this.getNbaPlayers.bind(this);
     this.getNbaTeams = this.getNbaTeams.bind(this);
     this.getCollegePlayers = this.getCollegePlayers.bind(this);
     this.getCollegeTeams = this.getCollegeTeams.bind(this);
     this.getGPlayers = this.getGPlayers.bind(this);
     this.getGTeams = this.getGTeams.bind(this);
+    this.renderScouting = this.renderScouting.bind(this);
   }
 
   componentDidMount() {
@@ -165,7 +168,15 @@ export default class NavBar extends React.Component {
 
   handleClick() {
     this.setState({
-      showSearch: !this.state.showSearch
+      showSearch: !this.state.showSearch,
+      showScoutMenu: false
+    });
+  }
+
+  handleScoutClick() {
+    this.setState({
+      showScoutMenu: !this.state.showScoutMenu,
+      showSearch: false
     });
   }
 
@@ -174,6 +185,36 @@ export default class NavBar extends React.Component {
       return (
         <div id="search-div">
           <SearchBar list={this.state.searchList} />
+        </div>
+      );
+    }
+  }
+
+  renderScouting() {
+    if (this.state.showScoutMenu) {
+      return (
+        <div className="card" id="scoutMenu-div">
+          <div id="dropdown-content">
+            <div
+              style={{
+                paddingTop: "15px",
+                paddingLeft: "15px",
+                paddingBottom: "15px"
+              }}
+            >
+              <a href="/college-scouting">COLLEGE</a>
+            </div>
+            <div
+              style={{
+                paddingTop: "15px",
+                paddingBottom: "15px",
+                paddingLeft: "15px",
+                borderTop: "1px solid #eee"
+              }}
+            >
+              <a href="/gleague-scouting">G-LEAGUE</a>
+            </div>
+          </div>
         </div>
       );
     }
@@ -188,8 +229,11 @@ export default class NavBar extends React.Component {
               BB SCOUT
             </a>
             <div className="w3-right w3-hide-small">
-              <a href="/college-scouting" className="w3-bar-item w3-button">
-                COLLEGE
+              <a
+                className="w3-bar-item w3-button"
+                onClick={this.handleScoutClick}
+              >
+                SCOUTING &#9660;
               </a>
               <a href="/team/3" className="w3-bar-item w3-button">
                 <i className="fa fa-user" /> TEAM
@@ -213,6 +257,7 @@ export default class NavBar extends React.Component {
             </a>
           </div>
         </div>
+        {this.renderScouting()}
         {this.renderSearch()}
       </div>
     );

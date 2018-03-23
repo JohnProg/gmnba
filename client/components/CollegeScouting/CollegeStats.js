@@ -358,7 +358,7 @@ export default class CollegeStats extends React.Component {
 
   render() {
     var headerStyle = {
-      backgroundColor: "#0055bf",
+      backgroundColor: "#192e4f",
       height: "45px",
       lineHeight: "45px",
       fontSize: "20px",
@@ -367,14 +367,14 @@ export default class CollegeStats extends React.Component {
     };
     var statHeader = {
       lineHeight: "40px",
-      backgroundColor: "#0055bf",
+      backgroundColor: "#192e4f",
       fontSize: "18px",
       paddingLeft: "15px",
       color: "white"
     };
     var selectedStatButton = {
       borderRadius: "10px 0px 0px 10px",
-      backgroundColor: "#0055bf",
+      backgroundColor: "#192e4f",
       color: "white",
       width: "100px",
       fontWeight: "bold"
@@ -382,12 +382,12 @@ export default class CollegeStats extends React.Component {
     var unSelectedStatButton = {
       borderRadius: "10px 0px 0px 10px",
       backgroundColor: "#fff",
-      color: "#0055bf",
+      color: "#192e4f",
       width: "100px"
     };
     var selectedRatingButton = {
       borderRadius: "0px 10px 10px 0px",
-      backgroundColor: "#0055bf",
+      backgroundColor: "#192e4f",
       color: "white",
       width: "100px",
       fontWeight: "bold"
@@ -395,7 +395,7 @@ export default class CollegeStats extends React.Component {
     var unSelectedRatingButton = {
       borderRadius: "0px 10px 10px 0px",
       backgroundColor: "#fff",
-      color: "#0055bf",
+      color: "#192e4f",
       width: "100px"
     };
     var statStyle;

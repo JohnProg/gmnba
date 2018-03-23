@@ -12,7 +12,7 @@ export default class CTeamComparison extends React.Component {
   render() {
     console.log(this.props.teams);
     var headerStyle = {
-      backgroundColor: "#0055bf",
+      backgroundColor: "#192e4f",
       height: "45px",
       lineHeight: "45px",
       fontSize: "20px",

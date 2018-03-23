@@ -282,6 +282,21 @@ div.card {
   margin-right: 125px;
 }
 
+#scoutMenu-div {
+  background-color: white;
+  position: fixed;
+  z-index: 2;
+  margin-top: 53px;
+  float: right;
+  right: 0;
+  margin-right: 301px;
+  width: 200px;
+}
+
+.dropdown-content {
+  border-top: 1px black solid;
+}
+
 #myNavbar {
   z-index: 10;
 }

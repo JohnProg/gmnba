@@ -47,7 +47,7 @@ export default class CTeamScatter extends React.Component {
             ]
           ],
           name: data[j].Name,
-          color: "#0055bf",
+          color: "#192e4f",
           _symbolIndex: 0,
           id: data[j].id
         });
@@ -73,7 +73,7 @@ export default class CTeamScatter extends React.Component {
   //           ]
   //         ],
   //         name: data[j].Name,
-  //         color: "#0055bf",
+  //         color: "#192e4f",
   //         _symbolIndex: 0
   //       });
   //     }
@@ -193,7 +193,7 @@ export default class CTeamScatter extends React.Component {
           ]
         ],
         name: team.Name,
-        color: "#0055bf",
+        color: "#192e4f",
         _symbolIndex: 0,
         id: team.id
       });
@@ -295,7 +295,7 @@ export default class CTeamScatter extends React.Component {
                       <button
                         onClick={this.handleSubmit}
                         id="submit-button"
-                        style={{ backgroundColor: "#0055bf", color: "white" }}
+                        style={{ backgroundColor: "#192e4f", color: "white" }}
                       >
                         Submit
                       </button>

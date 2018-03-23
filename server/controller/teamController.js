@@ -1683,7 +1683,8 @@ module.exports = {
     db.gPlayers
       .findAll({
         where: {
-          mpg: { gt: 5 }
+          mpg: { gt: 5 },
+          gamesPlayed: { gt: 5 }
         }
       })
       .then(data => {

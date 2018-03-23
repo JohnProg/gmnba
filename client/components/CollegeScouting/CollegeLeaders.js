@@ -354,7 +354,7 @@ export default class CollegeLeaders extends React.Component {
       return (
         <div style={{ height: "100px" }}>
           <Col lg={2} lgOffset={1} md={2} mdOffset={1}>
-            <div style={{ color: "#0055bf", textDecoration: "underline" }}>
+            <div style={{ color: "#192e4f", textDecoration: "underline" }}>
               Position
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
@@ -371,7 +371,7 @@ export default class CollegeLeaders extends React.Component {
           </Col>
           <Col lg={2} md={2}>
             <div style={{ paddingLeft: "30px" }}>
-              <div style={{ color: "#0055bf", textDecoration: "underline" }}>
+              <div style={{ color: "#192e4f", textDecoration: "underline" }}>
                 MPG
               </div>
               <FormGroup style={{ paddingLeft: "10px" }}>
@@ -394,7 +394,7 @@ export default class CollegeLeaders extends React.Component {
             </div>
           </Col>
           <Col lg={2} md={2}>
-            <div style={{ color: "#0055bf", textDecoration: "underline" }}>
+            <div style={{ color: "#192e4f", textDecoration: "underline" }}>
               Experience
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
@@ -429,7 +429,7 @@ export default class CollegeLeaders extends React.Component {
             </FormGroup>
           </Col>
           <Col lg={2} md={2}>
-            <div style={{ color: "#0055bf", textDecoration: "underline" }}>
+            <div style={{ color: "#192e4f", textDecoration: "underline" }}>
               Age
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
@@ -467,7 +467,7 @@ export default class CollegeLeaders extends React.Component {
             <div>
               <Button
                 onClick={this.handleFilterSubmit}
-                style={{ backgroundColor: "#0055bf", color: "white" }}
+                style={{ backgroundColor: "#192e4f", color: "white" }}
               >
                 Filter
               </Button>
@@ -504,7 +504,7 @@ export default class CollegeLeaders extends React.Component {
 
   render() {
     var headerStyle = {
-      backgroundColor: "#0055bf",
+      backgroundColor: "#192e4f",
       height: "45px",
       lineHeight: "45px",
       fontSize: "20px",
@@ -512,7 +512,7 @@ export default class CollegeLeaders extends React.Component {
       color: "#fff"
     };
     var statLabels = {
-      backgroundColor: "#0055bf",
+      backgroundColor: "#192e4f",
       color: "#fff",
       textAlign: "center",
       fontSize: "20px",
@@ -529,7 +529,7 @@ export default class CollegeLeaders extends React.Component {
             <div
               onClick={this.toggleFilter}
               style={{
-                color: "#0055bf",
+                color: "#192e4f",
                 textDecoration: "underline",
                 fontSize: "16px",
                 cursor: "pointer"
@@ -850,7 +850,7 @@ export default class CollegeLeaders extends React.Component {
             <div
               style={{
                 paddingLeft: "20px",
-                color: "#0055bf",
+                color: "#192e4f",
                 fontSize: "18px",
                 textDecoration: "underline"
               }}

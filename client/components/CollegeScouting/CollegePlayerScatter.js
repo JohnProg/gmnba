@@ -78,7 +78,7 @@ export default class CollegePlayerScatter extends React.Component {
             ]
           ],
           name: playerData[j].name,
-          color: "#0055bf",
+          color: "#192e4f",
           _symbolIndex: 0,
           id: playerData[j].id
         });
@@ -109,7 +109,7 @@ export default class CollegePlayerScatter extends React.Component {
             ]
           ],
           name: playerData[j].name,
-          color: "#0055bf",
+          color: "#192e4f",
           _symbolIndex: 0,
           id: playerData[j].id
         });
@@ -264,7 +264,7 @@ export default class CollegePlayerScatter extends React.Component {
           ]
         ],
         name: player.name,
-        color: "#0055bf",
+        color: "#192e4f",
         _symbolIndex: 0,
         id: player.id
       });
@@ -414,7 +414,7 @@ export default class CollegePlayerScatter extends React.Component {
             ]
           ],
           name: player.name,
-          color: "#0055bf",
+          color: "#192e4f",
           _symbolIndex: 0,
           id: player.id
         });
@@ -435,7 +435,7 @@ export default class CollegePlayerScatter extends React.Component {
       return (
         <div style={{ height: "100px" }}>
           <Col lg={1} lgOffset={2} md={1} mdOffset={2}>
-            <div style={{ color: "#0055bf", textDecoration: "underline" }}>
+            <div style={{ color: "#192e4f", textDecoration: "underline" }}>
               Position
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
@@ -452,7 +452,7 @@ export default class CollegePlayerScatter extends React.Component {
           </Col>
           <Col lg={2} md={2}>
             <div style={{ paddingLeft: "30px" }}>
-              <div style={{ color: "#0055bf", textDecoration: "underline" }}>
+              <div style={{ color: "#192e4f", textDecoration: "underline" }}>
                 MPG
               </div>
               <FormGroup style={{ paddingLeft: "10px" }}>
@@ -475,7 +475,7 @@ export default class CollegePlayerScatter extends React.Component {
             </div>
           </Col>
           <Col lg={2} md={2}>
-            <div style={{ color: "#0055bf", textDecoration: "underline" }}>
+            <div style={{ color: "#192e4f", textDecoration: "underline" }}>
               Experience
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
@@ -486,7 +486,7 @@ export default class CollegePlayerScatter extends React.Component {
             </FormGroup>
           </Col>
           <Col lg={2} md={2}>
-            <div style={{ color: "#0055bf", textDecoration: "underline" }}>
+            <div style={{ color: "#192e4f", textDecoration: "underline" }}>
               Age
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
@@ -500,7 +500,7 @@ export default class CollegePlayerScatter extends React.Component {
             <div>
               <Button
                 onClick={this.handleFilterSubmit}
-                style={{ backgroundColor: "#0055bf", color: "white" }}
+                style={{ backgroundColor: "#192e4f", color: "white" }}
               >
                 Filter
               </Button>
@@ -651,7 +651,7 @@ export default class CollegePlayerScatter extends React.Component {
                       <button
                         onClick={this.handleSubmit}
                         id="submit-button"
-                        style={{ backgroundColor: "#0055bf", color: "white" }}
+                        style={{ backgroundColor: "#192e4f", color: "white" }}
                       >
                         Submit
                       </button>
@@ -660,7 +660,7 @@ export default class CollegePlayerScatter extends React.Component {
                   <Col lg={1} md={1}>
                     <div
                       style={{
-                        color: "#0055bf",
+                        color: "#192e4f",
                         textDecoration: "underline",
                         paddingTop: "2px",
                         cursor: "pointer"

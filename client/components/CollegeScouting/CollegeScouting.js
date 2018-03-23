@@ -59,7 +59,7 @@ export default class CollegeScouting extends React.Component {
                       marginTop: "20px",
                       marginLeft: "20px",
                       fontSize: "22px",
-                      color: "#0055bf"
+                      color: "#192e4f"
                     }}
                   >
                     COLLEGE SCOUTING
