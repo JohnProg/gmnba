@@ -30,12 +30,12 @@ export default class GPlayerPolColDef extends React.Component {
     var highBlkPct = 14.5;
     var highStlPct = 4.0;
     var highDrbPct = 27.0;
-    var highDRtg = -93.0;
+    var highDRtg = -96.0;
     //var highDws = 2.5;
-    var highDrb = 9.0;
-    var highStl = 2.6;
-    var highBlk = 4.0;
-    var highPf = -1.5;
+    var highDrb = 10.2;
+    var highStl = 3.0;
+    var highBlk = 3.6;
+    var highPf = -0.7;
 
     var blkPct = this.getGrade(highBlkPct, this.state.player.blkPct, 0);
     var stlPct = this.getGrade(highStlPct, this.state.player.stlPct, 0.5);
@@ -44,7 +44,7 @@ export default class GPlayerPolColDef extends React.Component {
     var drb = this.getGrade(
       highDrb,
       this.state.player.drb / this.state.player.mpg * 36,
-      1.8
+      1.9
     );
     var stl = this.getGrade(
       highStl,
@@ -56,11 +56,11 @@ export default class GPlayerPolColDef extends React.Component {
       this.state.player.blk / this.state.player.mpg * 36,
       0
     );
-    var drtg = this.getGrade(highDRtg, this.state.player.dbpm * -1, -116.0);
+    var drtg = this.getGrade(highDRtg, this.state.player.dbpm * -1, -114.0);
     var pf = this.getGrade(
       highPf,
       this.state.player.pf / this.state.player.mpg * 36 * -1,
-      -6
+      -5.1
     );
     this.setState(
       {
@@ -216,19 +216,21 @@ export default class GPlayerPolColDef extends React.Component {
           data: [
             {
               y: this.state.blkPct.Grade,
-              color: this.state.blkPct.Color,
+              color: "transparent",
               name: "Blk%",
               stat: this.state.player.blkPct
             },
             {
               y: this.state.stlPct.Grade,
-              color: this.state.stlPct.Color,
+              //color: this.state.stlPct.Color,
+              color: "transparent",
               name: "Stl%",
               stat: this.state.player.stlPct
             },
             {
               y: this.state.drbPct.Grade,
-              color: this.state.drbPct.Color,
+              //color: this.state.drbPct.Color,
+              color: "transparent",
               name: "Drb%",
               stat: this.state.player.drbPct
             },

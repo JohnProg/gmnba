@@ -7,16 +7,20 @@ export default class GPlayerListEntry extends React.Component {
     this.getOffenseRating = this.getOffenseRating.bind(this);
     this.getDefenseRating = this.getDefenseRating.bind(this);
     this.calculateStars = this.calculateStars.bind(this);
+    this.scaleStat = this.scaleStat.bind(this);
   }
 
   getOverallRating() {
     if (this.props.player) {
-      var per = parseFloat(this.props.player.per) * 0.5;
-      var bpm = parseFloat(this.props.player.bpm) * 0.2;
-      var ws48 = parseFloat(this.props.player.wsFourtyEight) * 0.15;
-      var ws = parseFloat(this.props.player.ws) * 0.15;
-      var weightedOvr = per + bpm + ws48 + ws;
-      var stars = this.calculateStars(18.5, 2.0, weightedOvr);
+      var pie =
+        this.scaleStat(0.182, parseFloat(this.props.player.vorp), 0) * 0.4;
+      var scaledOffRtg =
+        this.scaleStat(117.0, parseFloat(this.props.player.obpm), 87.0) * 0.3;
+      var scaledDefRtg =
+        this.scaleStat(-96.0, parseFloat(this.props.player.dbpm) * -1, -115.0) *
+        0.3;
+      var weightedOvr = pie + scaledOffRtg + scaledDefRtg;
+      var stars = this.calculateStars(84.1, 21.0, weightedOvr);
       if (stars === 5) {
         return (
           <span className="rating overall">
@@ -130,10 +134,10 @@ export default class GPlayerListEntry extends React.Component {
 
   getOffenseRating() {
     if (this.props.player) {
-      var obpm = parseFloat(this.props.player.obpm);
+      var offRtg = parseFloat(this.props.player.obpm);
       var ows = parseFloat(this.props.player.ows);
-      var offRating = obpm + ows;
-      var stars = this.calculateStars(13.0, -3.5, offRating);
+      var offRating = offRtg;
+      var stars = this.calculateStars(117.0, 87.0, offRating);
       if (stars === 5) {
         return (
           <span className="rating overall">
@@ -247,11 +251,10 @@ export default class GPlayerListEntry extends React.Component {
 
   getDefenseRating() {
     if (this.props.player) {
-      var dbpm = parseFloat(this.props.player.dbpm);
+      var defRtg = parseFloat(this.props.player.dbpm);
       var dws = parseFloat(this.props.player.dws);
-      var defRating = dbpm + dws;
-      console.log(defRating);
-      var stars = this.calculateStars(12.0, -1.0, defRating);
+      var defRating = defRtg;
+      var stars = this.calculateStars(-96.0, -115.0, defRating * -1);
       if (stars === 5) {
         return (
           <span className="rating overall">
@@ -363,6 +366,11 @@ export default class GPlayerListEntry extends React.Component {
     }
   }
 
+  scaleStat(high, stat, low) {
+    var scaled = 100 / (high - low) * (stat - low);
+    return scaled;
+  }
+
   calculateStars(high, low, actual) {
     var gradeScale = (high - low) / 8;
     var fiveStars = high - gradeScale;
@@ -430,9 +438,9 @@ export default class GPlayerListEntry extends React.Component {
           </a>
         </td>
         <td>{this.props.player.position}</td>
-        <td>N/A</td>
-        <td>N/A</td>
-        <td>N/A</td>
+        <td>{this.getOverallRating()}</td>
+        <td>{this.getOffenseRating()}</td>
+        <td>{this.getDefenseRating()}</td>
         <td>{this.props.player.experience}</td>
         <td>{this.props.player.height}</td>
         <td>{this.props.player.weight}</td>

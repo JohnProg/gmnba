@@ -27,19 +27,19 @@ export default class GPlayerPolarColumn extends React.Component {
   }
 
   calculateGrades() {
-    var highPoints = 24.0;
-    var highAst = 9.0;
-    var highReb = 12.5;
-    var highStl = 2.6;
-    var highBlk = 4.0;
-    var highFT = 0.93;
+    var highPoints = 30.0;
+    var highAst = 10.6;
+    var highReb = 15.0;
+    var highStl = 3.0;
+    var highBlk = 3.6;
+    var highFT = 0.94;
     var highThree = 0.46;
     var highTwo = 0.68;
 
     var scoring = this.getGrade(
       highPoints,
       this.state.player.pts / this.state.player.mpg * 36,
-      4.0
+      8.0
     );
     var ast = this.getGrade(
       highAst,
@@ -49,25 +49,25 @@ export default class GPlayerPolarColumn extends React.Component {
     var reb = this.getGrade(
       highReb,
       this.state.player.trb / this.state.player.mpg * 36,
-      2.0
+      2.5
     );
     var stl = this.getGrade(
       highStl,
       this.state.player.stl / this.state.player.mpg * 36,
-      0.3
+      0.4
     );
     var blk = this.getGrade(
       highBlk,
       this.state.player.blk / this.state.player.mpg * 36,
       0
     );
-    var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.42);
+    var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.5);
     var threePoint = this.getGrade(
       highThree,
       this.state.player.threePtPct,
       0.2
     );
-    var twoPoint = this.getGrade(highTwo, this.state.player.efgPct, 0.35);
+    var twoPoint = this.getGrade(highTwo, this.state.player.efgPct, 0.36);
     this.setState(
       {
         scoring: scoring,

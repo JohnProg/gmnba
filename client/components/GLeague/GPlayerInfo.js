@@ -39,6 +39,7 @@ class GPlayerInfo extends React.Component {
     this.getDefenseRating = this.getDefenseRating.bind(this);
     this.calculateStars = this.calculateStars.bind(this);
     this.getPositionStats = this.getPositionStats.bind(this);
+    this.scaleStat = this.scaleStat.bind(this);
   }
 
   componentDidMount() {
@@ -100,10 +101,10 @@ class GPlayerInfo extends React.Component {
 
   getOffenseRating() {
     if (this.state.player) {
-      var obpm = parseFloat(this.state.player.obpm);
+      var offRtg = parseFloat(this.state.player.obpm);
       var ows = parseFloat(this.state.player.ows);
-      var offRating = obpm + ows;
-      var stars = this.calculateStars(13.0, -3.5, offRating);
+      var offRating = offRtg;
+      var stars = this.calculateStars(118.0, 91.0, offRating);
       if (stars === 5) {
         return (
           <span className="rating overall">
@@ -217,10 +218,10 @@ class GPlayerInfo extends React.Component {
 
   getDefenseRating() {
     if (this.state.player) {
-      var dbpm = parseFloat(this.state.player.dbpm);
+      var defRtg = parseFloat(this.state.player.dbpm);
       var dws = parseFloat(this.state.player.dws);
-      var defRating = dbpm + dws;
-      var stars = this.calculateStars(12.0, -1.0, defRating);
+      var defRating = defRtg;
+      var stars = this.calculateStars(-96.0, -114.0, defRating * -1);
       if (stars === 5) {
         return (
           <span className="rating overall">
@@ -332,14 +333,26 @@ class GPlayerInfo extends React.Component {
     }
   }
 
+  scaleStat(high, stat, low) {
+    var scaled = 100 / (high - low) * (stat - low);
+    return scaled;
+  }
+
   getOverallRating() {
     if (this.state.player) {
-      var per = parseFloat(this.state.player.per) * 0.5;
-      var bpm = parseFloat(this.state.player.bpm) * 0.2;
-      var ws48 = parseFloat(this.state.player.wsFourtyEight) * 0.15;
-      var ws = parseFloat(this.state.player.ws) * 0.15;
-      var weightedOvr = per + bpm + ws48 + ws;
-      var stars = this.calculateStars(18.5, 2.0, weightedOvr);
+      // var per = parseFloat(this.state.player.per) * 0.5;
+      // var bpm = parseFloat(this.state.player.bpm) * 0.2;
+      // var ws48 = parseFloat(this.state.player.wsFourtyEight) * 0.15;
+      // var ws = parseFloat(this.state.player.ws) * 0.15;
+      var pie =
+        this.scaleStat(0.182, parseFloat(this.state.player.vorp), 0) * 0.4;
+      var scaledOffRtg =
+        this.scaleStat(117.0, parseFloat(this.state.player.obpm), 87.0) * 0.3;
+      var scaledDefRtg =
+        this.scaleStat(-96.0, parseFloat(this.state.player.dbpm) * -1, -115.0) *
+        0.3;
+      var weightedOvr = pie + scaledOffRtg + scaledDefRtg;
+      var stars = this.calculateStars(84.1, 21.0, weightedOvr);
       if (stars === 5) {
         return (
           <span className="rating overall">

@@ -164,7 +164,7 @@ export default class GPlayerRatings extends React.Component {
                   <MenuItem eventKey="2">Offense</MenuItem>
                   <MenuItem eventKey="3">Advanced Offense</MenuItem>
                   <MenuItem eventKey="3">Defense</MenuItem>
-                  <MenuItem eventKey="3">Overall</MenuItem>
+                  {/*<MenuItem eventKey="3">Overall</MenuItem>*/}
                 </DropdownButton>
               </div>
             </Col>

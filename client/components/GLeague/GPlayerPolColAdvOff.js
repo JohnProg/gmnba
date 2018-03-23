@@ -28,23 +28,27 @@ export default class GPlayerPolColAdvOff extends React.Component {
 
   calculateGrades() {
     var highAstPct = 40.0;
-    var highOrbPct = 14.5;
+    var highOrbPct = 17.5;
     var highFg = 0.62;
-    var highTovPct = -7.0;
+    var highTovPct = -6.0;
     var highFtr = 0.7;
     var highThreePar = 0.8;
-    var highTsPct = 0.68;
-    var highUsgPct = 32.0;
-    var highORtg = 116.0;
+    var highTsPct = 0.7;
+    var highUsgPct = 33.0;
+    var highORtg = 118.0;
     var highOws = 4.0;
 
-    var astPct = this.getGrade(highAstPct, this.state.player.astPct * 100, 2.0);
-    var orbPct = this.getGrade(highOrbPct, this.state.player.orbPct * 100, 0.5);
+    var astPct = this.getGrade(
+      highAstPct,
+      this.state.player.astPct * 100,
+      0.04
+    );
+    var orbPct = this.getGrade(highOrbPct, this.state.player.orbPct * 100, 1.0);
     var fg = this.getGrade(highFg, this.state.player.fgPct, 0.25);
     var tovPct = this.getGrade(
       highTovPct,
       this.state.player.tovPct * -1,
-      -27.0
+      -18.0
     );
     var ftr = this.getGrade(highFtr, this.state.player.ftr, 0.1);
     var threePAr = this.getGrade(highThreePar, this.state.player.threePAr, 0);
@@ -54,7 +58,7 @@ export default class GPlayerPolColAdvOff extends React.Component {
       this.state.player.usgPct * 100,
       10.0
     );
-    var obpm = this.getGrade(highORtg, this.state.player.obpm, 90.0);
+    var obpm = this.getGrade(highORtg, this.state.player.obpm, 91.0);
     var ows = this.getGrade(highOws, this.state.player.ows, 0);
     this.setState(
       {
