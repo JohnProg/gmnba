@@ -139,7 +139,7 @@ export default class GTeamScatter extends React.Component {
               click: event => {
                 console.log("Event: ", event.point.series.userOptions.id);
                 window.location =
-                  "/college-team/" + event.point.series.userOptions.id;
+                  "/gleague-team/" + event.point.series.userOptions.id;
                 // this.setState({
                 //   name: event.point.series.userOptions.name
                 // });
