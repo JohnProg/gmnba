@@ -207,7 +207,7 @@ export default class AddCPlayerSearch extends React.Component {
             <div
               style={{
                 textDecoration: "underline",
-                color: "#0055bf",
+                color: "#192e4f",
                 textAlign: "center",
                 cursor: "pointer",
                 paddingBottom: "10px"
@@ -282,7 +282,7 @@ export default class AddCPlayerSearch extends React.Component {
     var buttonStyle = {
       width: "100%",
       height: "40px",
-      backgroundColor: "#0055bf",
+      backgroundColor: "#192e4f",
       color: "#fff"
     };
 
