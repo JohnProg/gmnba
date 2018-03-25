@@ -7,6 +7,7 @@ import PlayerRatings from "./PlayerRatings";
 import PlayerSeasonStats from "./PlayerSeasonStats";
 import PlayerComparison from "./PlayerComparison";
 import PlayerContract from "./PlayerContract";
+import PlayerShotChart from "./PlayerShotChart";
 import axios from "axios";
 
 export default class PlayerTabs extends React.Component {
@@ -65,6 +66,13 @@ export default class PlayerTabs extends React.Component {
           iso={this.props.iso}
         />
       );
+    if (this.state.key === 7)
+      component = (
+        <PlayerShotChart
+          player={this.props.player}
+          colors={this.props.colors}
+        />
+      );
     if (this.state.key === 5)
       component = (
         <PlayerComparison
@@ -107,6 +115,9 @@ export default class PlayerTabs extends React.Component {
             </NavItem>
             <NavItem eventKey={4} href="/">
               <span style={tabColor}>RATINGS</span>
+            </NavItem>
+            <NavItem eventKey={7} href="/" disabled>
+              <span style={tabColor}>SHOT CHART</span>
             </NavItem>
             <NavItem eventKey={5} href="/">
               <span style={tabColor}>COMPARISON</span>

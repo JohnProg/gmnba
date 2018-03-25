@@ -9,6 +9,7 @@ const tracking4db = require("./config").tracking4db;
 const tracking5db = require("./config").tracking5db;
 const tracking6db = require("./config").tracking6db;
 const tracking7db = require("./config").tracking7db;
+const tracking8db = require("./config").tracking8db;
 const eurodb = require("./config").eurodb;
 const gleaguedb = require("./config").gleaguedb;
 const salariesdb = require("./config").salariesdb;
@@ -195,6 +196,18 @@ const Isolation = tracking7db.define("isolation", {
   toFreq: { type: Sequelize.FLOAT, allowNull: true },
   ftFreq: { type: Sequelize.FLOAT, allowNull: true },
   fga: { type: Sequelize.FLOAT, allowNull: true }
+});
+
+const Hustle = tracking8db.define("hustle", {
+  name: { type: Sequelize.STRING, allowNull: false },
+  gp: { type: Sequelize.FLOAT, allowNull: true },
+  screenAst: { type: Sequelize.FLOAT, allowNull: true },
+  deflections: { type: Sequelize.FLOAT, allowNull: true },
+  looseBallRec: { type: Sequelize.FLOAT, allowNull: true },
+  chargesDrawn: { type: Sequelize.FLOAT, allowNull: true },
+  contestedTwo: { type: Sequelize.FLOAT, allowNull: true },
+  contestedThree: { type: Sequelize.FLOAT, allowNull: true },
+  contestedShots: { type: Sequelize.FLOAT, allowNull: true }
 });
 
 const Teams = db.define("team", {
@@ -802,6 +815,11 @@ Isolation.sync();
 //   return Isolation.bulkCreate([{ name: "Michael Griffin" }]);
 // });
 
+Hustle.sync();
+// Hustle.sync({ force: true }).then(() => {
+//   return Hustle.bulkCreate([{ name: "Michael Griffin" }]);
+// });
+
 Shooting.sync();
 // Shooting.sync({ force: true }).then(() => {
 //   return Shooting.bulkCreate([{ name: "Michael Griffin" }]);
@@ -835,6 +853,7 @@ module.exports = {
   PRBallHandler,
   PRRollMan,
   Isolation,
+  Hustle,
   Shooting,
   iTeams,
   gTeams,

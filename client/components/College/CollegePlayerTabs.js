@@ -66,6 +66,7 @@ export default class CollegePlayerTabs extends React.Component {
           players={this.state.playerStats}
         />
       );
+    //if (this.state.key === 7) component = <TeamPlayerStats />;
     var headerStyle = {
       backgroundColor: this.props.colors.Color_Main
     };
@@ -94,6 +95,9 @@ export default class CollegePlayerTabs extends React.Component {
             </NavItem>
             <NavItem eventKey={5} href="/">
               <span style={tabColor}>COMPARISON</span>
+            </NavItem>
+            <NavItem eventKey={7} href="/" disabled>
+              <span style={tabColor}>COMBINE</span>
             </NavItem>
             <NavItem eventKey={6} title="Item" disabled>
               <span style={tabColor}>VIDEOS</span>
