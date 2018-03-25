@@ -42,12 +42,143 @@ class Info extends React.Component {
     this.calculateStars = this.calculateStars.bind(this);
     this.calculateDStars = this.calculateDStars.bind(this);
     this.getTeamContracts = this.getTeamContracts.bind(this);
+    this.checkLoad = this.checkLoad.bind(this);
   }
 
   componentDidMount() {
     this.getTeam();
     this.getLeagueStats();
     //this.getRoster();
+  }
+
+  checkLoad() {
+    if (JSON.stringify(this.state.team) != "{}") {
+      return (
+        <div id="info-container-max">
+          <Grid id="info-container">
+            <Row className="full-height-row">
+              <div id="info">
+                <Col lg={3} sm={12} md={3} xs={12} id="pic-col">
+                  <div id="info-pic">
+                    <img
+                      src={this.state.team.Logo}
+                      style={{ maxHeight: "170px" }}
+                    />
+                  </div>
+                </Col>
+                <Col lg={9} xs={12} md={9} sm={12}>
+                  <Row>
+                    <Col lg={5} smOffset={1} mdOffset={0} sm={4} xs={12} md={6}>
+                      <div id="name-text">
+                        <div id="team-name">{this.state.team.Name}</div>
+                        <div id="info-text">
+                          <div>
+                            Record: {this.state.team.W}-{this.state.team.L}
+                          </div>
+                          <br />
+                          <div>
+                            Expected Record <sub>(PW-PL)</sub>:{" "}
+                            {this.state.team.PW}-{this.state.team.PL}
+                          </div>
+                          <div>Schedule Strength: {this.state.team.SOS}</div>
+                          <div>Margin of Victory: {this.state.team.MOV} </div>
+                        </div>
+                      </div>
+                      <hr id="info-text-break" />
+                    </Col>
+
+                    <Col lg={3} xs={12} md={4} sm={6}>
+                      <div className="team-overall">
+                        <div style={{ textAlign: "right" }}>
+                          Overall: {this.getOverallRating()}
+                        </div>
+                        <div style={{ textAlign: "right" }}>
+                          Offense: {this.getOffenseRating()}
+                        </div>
+                        <div style={{ textAlign: "right" }}>
+                          Defense: {this.getDefenseRating()}
+                        </div>
+                      </div>
+                    </Col>
+                    <Col lg={3} md={1} sm={0}>
+                      {this.sampleGLeague()}
+                    </Col>
+                  </Row>
+                  <Row
+                    style={{ paddingBottom: "20px" }}
+                    className="player-stat-row"
+                  >
+                    <Col
+                      lg={2}
+                      xs={2}
+                      xsOffset={1}
+                      lgOffset={0}
+                      mdOffset={0}
+                      smOffset={1}
+                    >
+                      <div>
+                        <span style={{ color: "#404040" }}>PPG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.team.PTS}
+                        </span>
+                      </div>
+                    </Col>
+                    <Col lg={2} xs={2}>
+                      <div>
+                        <span style={{ color: "#404040" }}>RPG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.team.TRB}
+                        </span>
+                      </div>
+                    </Col>
+                    <Col lg={2} xs={2}>
+                      <div>
+                        <span style={{ color: "#404040" }}>APG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.team.AST}
+                        </span>
+                      </div>
+                    </Col>
+                    <Col lg={2} xs={2}>
+                      <div>
+                        <span style={{ color: "#404040" }}>ORTG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.team.ORtg}
+                        </span>
+                      </div>
+                    </Col>
+                    <Col lg={2} xs={2}>
+                      <div>
+                        <span style={{ color: "#404040" }}>DRTG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.team.DRtg}
+                        </span>
+                      </div>
+                    </Col>
+                  </Row>
+                </Col>
+              </div>
+            </Row>
+          </Grid>
+          <Tabs
+            team={this.state.team}
+            players={this.props.players[0]}
+            leagueStats={this.state.leagueStats}
+            contracts={this.state.contracts}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div style={{ textAlign: "center", marginTop: "250px" }}>
+          <img
+            style={{ height: "150px" }}
+            src="https://thumbs.gfycat.com/AggressiveGrouchyHammerkop-max-1mb.gif"
+          />
+          <div>Loading Team...</div>
+        </div>
+      );
+    }
   }
 
   getTeamContracts() {
@@ -543,10 +674,11 @@ class Info extends React.Component {
   }
 
   render() {
-    console.log(this.state.team);
+    //console.log(this.state.team);
     return (
       <div>
-        <div id="info-container-max">
+        {this.checkLoad()}
+        {/*<div id="info-container-max">
           <Grid id="info-container">
             <Row className="full-height-row">
               <div id="info">
@@ -658,7 +790,7 @@ class Info extends React.Component {
             leagueStats={this.state.leagueStats}
             contracts={this.state.contracts}
           />
-        </div>
+    </div>*/}
       </div>
     );
   }
