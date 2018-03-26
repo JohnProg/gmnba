@@ -40,11 +40,168 @@ class CollegePlayerInfo extends React.Component {
     this.getDefenseRating = this.getDefenseRating.bind(this);
     this.calculateStars = this.calculateStars.bind(this);
     this.getPositionStats = this.getPositionStats.bind(this);
+    this.checkLoad = this.checkLoad.bind(this);
   }
 
   componentDidMount() {
     this.getLeagueStats();
     this.getPlayer();
+  }
+
+  checkLoad() {
+    var picture;
+    if (this.state.player.picture) {
+      picture = this.state.player.picture;
+    } else {
+      picture =
+        "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443";
+    }
+    if (JSON.stringify(this.state.colors) != "{}") {
+      return (
+        <div id="info-container-max">
+          <Grid id="info-container">
+            <Row className="full-height-row">
+              <div id="info">
+                <Col lg={3} sm={6} md={3} xs={12} id="pic-col">
+                  <div id="info-pic-team">
+                    <img style={{ maxHeight: "200px" }} src={picture} />
+                  </div>
+                </Col>
+                <Col lg={9} xs={12} md={9}>
+                  <Row>
+                    <Col lg={5} xs={12} md={5}>
+                      <div id="name-text">
+                        <div id="team-name">
+                          {this.state.player.name}
+                          <span
+                            style={{ paddingLeft: "3px", fontSize: "14px" }}
+                          >
+                            {" "}
+                            {this.state.player.position}
+                          </span>
+                        </div>
+                        <div id="info-text">
+                          <div>
+                            <span>Height: {this.state.player.height}</span>
+                            <span style={{ paddingLeft: "3px" }}>
+                              {" "}
+                              Weight: {this.state.player.weight}
+                            </span>
+                          </div>
+                          <div>Age: {this.state.player.age}</div>
+                          <div>Team: {this.state.player.team}</div>
+                          <div>
+                            High School: {this.state.player.highschool || ""}
+                          </div>
+                        </div>
+                      </div>
+                      <hr id="cinfo-text-break" />
+                    </Col>
+                    <Col lg={3} xs={7} md={4}>
+                      <div style={{ marginTop: "70px", fontSize: "15.5px" }}>
+                        <div style={{ textAlign: "right" }}>
+                          Overall: {this.getOverallRating()}
+                        </div>
+                        <div style={{ textAlign: "right" }}>
+                          Offense: {this.getOffenseRating()}
+                        </div>
+                        <div style={{ textAlign: "right" }}>
+                          Defense: {this.getDefenseRating()}
+                        </div>
+                      </div>
+                    </Col>
+                    <Col lg={3} xs={5} md={2}>
+                      <a href={`/college-team/${this.state.colors.id}`}>
+                        <div id="logo-pic">
+                          <img
+                            id="teamLogoPic"
+                            src={this.state.colors.Logo}
+                            style={{ maxHeight: "100px" }}
+                          />
+                          <div id="teamLogoHeader">
+                            {this.state.player.team}
+                          </div>
+                        </div>
+                      </a>
+                    </Col>
+                  </Row>
+                  <Row
+                    style={{ paddingBottom: "20px" }}
+                    className="player-stat-row"
+                  >
+                    <Col
+                      lg={2}
+                      xs={2}
+                      lgOffset={0}
+                      mdOffset={0}
+                      smOffset={0}
+                      xsOffset={1}
+                    >
+                      <div>
+                        <span style={{ color: "#404040" }}>PPG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.player.pts}
+                        </span>
+                      </div>
+                    </Col>
+                    <Col lg={2} xs={2}>
+                      <div>
+                        <span style={{ color: "#404040" }}>RPG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.player.trb}
+                        </span>
+                      </div>
+                    </Col>
+                    <Col lg={2} xs={2}>
+                      <div>
+                        <span style={{ color: "#404040" }}>APG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.player.ast}
+                        </span>
+                      </div>
+                    </Col>
+                    <Col lg={2} xs={2}>
+                      <div>
+                        <span style={{ color: "#404040" }}>GP</span>{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.player.gamesPlayed || 0}
+                        </span>
+                      </div>
+                    </Col>
+                    <Col lg={2} xs={2}>
+                      <div>
+                        <span style={{ color: "#404040" }}>MPG</span>{" "}
+                        <span style={{ fontSize: "18px" }}>
+                          {this.state.player.mpg}
+                        </span>
+                      </div>
+                    </Col>
+                  </Row>
+                </Col>
+              </div>
+            </Row>
+          </Grid>
+          <CollegePlayerTabs
+            players={this.props.players[0]}
+            teamStats={this.state.teamStats}
+            leagueStats={this.state.leagueStats}
+            player={this.state.player}
+            colors={this.state.colors}
+            positionStats={this.state.positionStats}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div style={{ textAlign: "center", marginTop: "250px" }}>
+          <img
+            style={{ height: "150px" }}
+            src="https://thumbs.gfycat.com/AggressiveGrouchyHammerkop-max-1mb.gif"
+          />
+          <div>Loading Player...</div>
+        </div>
+      );
+    }
   }
 
   getPositionStats(position) {
@@ -489,16 +646,10 @@ class CollegePlayerInfo extends React.Component {
   }
 
   render() {
-    var picture;
-    if (this.state.player.picture) {
-      picture = this.state.player.picture;
-    } else {
-      picture =
-        "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443";
-    }
     return (
       <div>
-        <div id="info-container-max">
+        {this.checkLoad()}
+        {/*<div id="info-container-max">
           <Grid id="info-container">
             <Row className="full-height-row">
               <div id="info">
@@ -629,7 +780,7 @@ class CollegePlayerInfo extends React.Component {
             colors={this.state.colors}
             positionStats={this.state.positionStats}
           />
-        </div>
+    </div>*/}
       </div>
     );
   }
