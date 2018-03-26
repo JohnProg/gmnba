@@ -35,6 +35,7 @@ class GTeamInfo extends React.Component {
     this.getTeam = this.getTeam.bind(this);
     this.getgLeagueStats = this.getgLeagueStats.bind(this);
     this.sampleGLeague = this.sampleGLeague.bind(this);
+    this.checkLoad = this.checkLoad.bind(this);
   }
 
   componentDidMount() {
@@ -43,72 +44,9 @@ class GTeamInfo extends React.Component {
     //this.getRoster();
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps) {
-  //     console.log("NEXTPROPS: ", nextProps.props.match.params.id);
-  //     this.setState({ id: nextProps.props.match.params.id }, () => {
-  //       this.getTeam();
-  //       //this.createChart();
-  //     });
-  //   }
-  // }
-
-  getRoster() {
-    var team = this.state.team.Name;
-    axios
-      .get("/api/teams/getGTeamsPlayers", {
-        params: {
-          team: team
-        }
-      })
-      .then(data => {
-        var playersArray = data.data;
-        this.props.addPlayers(playersArray);
-      })
-      .catch("error retrieving players!!!");
-  }
-
-  getTeam() {
-    axios
-      .get(`/api/teams/getGTeamProfile/${this.state.teamId}`)
-      .then(data => {
-        this.setState({ team: data.data }, () => {
-          this.getRoster();
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  getgLeagueStats() {
-    axios
-      .get("/api/teams/getgLeagueStats")
-      .then(data => {
-        this.setState({ leagueStats: data.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  sampleGLeague() {
-    if (this.state.team.Name === "Minnesota Timberwolves") {
+  checkLoad() {
+    if (JSON.stringify(this.state.team) != "{}") {
       return (
-        <div id="affiliate-pic">
-          <img
-            id="gLeaguePic"
-            src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b5/Iowa_Wolves_logo.svg/1200px-Iowa_Wolves_logo.svg.png"
-          />
-          <div id="gleagueheader">G-League Affiliate</div>
-        </div>
-      );
-    }
-  }
-
-  render() {
-    return (
-      <div>
         <div id="info-container-max">
           <Grid id="info-container">
             <Row className="full-height-row">
@@ -191,8 +129,85 @@ class GTeamInfo extends React.Component {
             leagueStats={this.state.leagueStats}
           />
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div style={{ textAlign: "center", marginTop: "250px" }}>
+          <img
+            style={{ height: "150px" }}
+            src="https://thumbs.gfycat.com/AggressiveGrouchyHammerkop-max-1mb.gif"
+          />
+          <div>Loading Team...</div>
+        </div>
+      );
+    }
+  }
+
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps) {
+  //     console.log("NEXTPROPS: ", nextProps.props.match.params.id);
+  //     this.setState({ id: nextProps.props.match.params.id }, () => {
+  //       this.getTeam();
+  //       //this.createChart();
+  //     });
+  //   }
+  // }
+
+  getRoster() {
+    var team = this.state.team.Name;
+    axios
+      .get("/api/teams/getGTeamsPlayers", {
+        params: {
+          team: team
+        }
+      })
+      .then(data => {
+        var playersArray = data.data;
+        this.props.addPlayers(playersArray);
+      })
+      .catch("error retrieving players!!!");
+  }
+
+  getTeam() {
+    axios
+      .get(`/api/teams/getGTeamProfile/${this.state.teamId}`)
+      .then(data => {
+        this.setState({ team: data.data }, () => {
+          this.getRoster();
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  getgLeagueStats() {
+    axios
+      .get("/api/teams/getgLeagueStats")
+      .then(data => {
+        this.setState({ leagueStats: data.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  sampleGLeague() {
+    if (this.state.team.Name === "Minnesota Timberwolves") {
+      return (
+        <div id="affiliate-pic">
+          <img
+            id="gLeaguePic"
+            src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b5/Iowa_Wolves_logo.svg/1200px-Iowa_Wolves_logo.svg.png"
+          />
+          <div id="gleagueheader">G-League Affiliate</div>
+        </div>
+      );
+    }
+  }
+
+  render() {
+    return <div>{this.checkLoad()}</div>;
   }
 }
 
