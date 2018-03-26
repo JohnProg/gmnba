@@ -12,6 +12,7 @@ export default class GLeagueScouting extends React.Component {
     };
     this.getGLeaguePlayers = this.getGLeaguePlayers.bind(this);
     this.getTeams = this.getTeams.bind(this);
+    this.checkLoad = this.checkLoad.bind(this);
   }
 
   componentDidMount() {
@@ -43,45 +44,61 @@ export default class GLeagueScouting extends React.Component {
       });
   }
 
+  checkLoad() {
+    if (this.state.playerStats.length > 0) {
+      return (
+        <Grid>
+          <Row style={{ paddingBottom: "40px" }}>
+            <Col lg={12}>
+              <div
+                style={{ marginTop: "53px", backgroundColor: "white" }}
+                className="card"
+              >
+                <Row>
+                  <Col lg={12}>
+                    <div
+                      style={{
+                        marginTop: "20px",
+                        marginLeft: "20px",
+                        fontSize: "22px",
+                        color: "#3f336d"
+                      }}
+                    >
+                      G-LEAGUE SCOUTING
+                    </div>
+                    <hr
+                      style={{
+                        marginLeft: "20px",
+                        marginRight: "20px",
+                        marginBottom: "0px"
+                      }}
+                    />
+                    <GLeagueScoutingTabs
+                      players={this.state.playerStats}
+                      teams={this.state.teams}
+                      style={{ marginLeft: "20px", marginRight: "20px" }}
+                    />
+                  </Col>
+                </Row>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
+      );
+    } else {
+      return (
+        <div style={{ textAlign: "center", marginTop: "250px" }}>
+          <img
+            style={{ height: "150px" }}
+            src="https://thumbs.gfycat.com/AggressiveGrouchyHammerkop-max-1mb.gif"
+          />
+          <div>Loading Players...</div>
+        </div>
+      );
+    }
+  }
+
   render() {
-    return (
-      <Grid>
-        <Row style={{ paddingBottom: "40px" }}>
-          <Col lg={12}>
-            <div
-              style={{ marginTop: "53px", backgroundColor: "white" }}
-              className="card"
-            >
-              <Row>
-                <Col lg={12}>
-                  <div
-                    style={{
-                      marginTop: "20px",
-                      marginLeft: "20px",
-                      fontSize: "22px",
-                      color: "#3f336d"
-                    }}
-                  >
-                    G-LEAGUE SCOUTING
-                  </div>
-                  <hr
-                    style={{
-                      marginLeft: "20px",
-                      marginRight: "20px",
-                      marginBottom: "0px"
-                    }}
-                  />
-                  <GLeagueScoutingTabs
-                    players={this.state.playerStats}
-                    teams={this.state.teams}
-                    style={{ marginLeft: "20px", marginRight: "20px" }}
-                  />
-                </Col>
-              </Row>
-            </div>
-          </Col>
-        </Row>
-      </Grid>
-    );
+    return <div>{this.checkLoad()}</div>;
   }
 }

@@ -14,6 +14,7 @@ export default class NbaScouting extends React.Component {
     this.getAllNbaPlayers = this.getAllNbaPlayers.bind(this);
     this.getTeams = this.getTeams.bind(this);
     this.getAllContracts = this.getAllContracts.bind(this);
+    this.checkLoad = this.checkLoad.bind(this);
   }
 
   componentDidMount() {
@@ -57,46 +58,62 @@ export default class NbaScouting extends React.Component {
       });
   }
 
+  checkLoad() {
+    if (this.state.playerStats.length > 0) {
+      return (
+        <Grid>
+          <Row style={{ paddingBottom: "40px" }}>
+            <Col lg={12}>
+              <div
+                style={{ marginTop: "53px", backgroundColor: "white" }}
+                className="card"
+              >
+                <Row>
+                  <Col lg={12}>
+                    <div
+                      style={{
+                        marginTop: "20px",
+                        marginLeft: "20px",
+                        fontSize: "22px",
+                        color: "#d00000"
+                      }}
+                    >
+                      NBA SCOUTING
+                    </div>
+                    <hr
+                      style={{
+                        marginLeft: "20px",
+                        marginRight: "20px",
+                        marginBottom: "0px"
+                      }}
+                    />
+                    <NbaScoutingTabs
+                      players={this.state.playerStats}
+                      teams={this.state.teams}
+                      contracts={this.state.playerContracts}
+                      style={{ marginLeft: "20px", marginRight: "20px" }}
+                    />
+                  </Col>
+                </Row>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
+      );
+    } else {
+      return (
+        <div style={{ textAlign: "center", marginTop: "250px" }}>
+          <img
+            style={{ height: "150px" }}
+            src="https://thumbs.gfycat.com/AggressiveGrouchyHammerkop-max-1mb.gif"
+          />
+          <div>Loading Players...</div>
+        </div>
+      );
+    }
+  }
+
   render() {
-    return (
-      <Grid>
-        <Row style={{ paddingBottom: "40px" }}>
-          <Col lg={12}>
-            <div
-              style={{ marginTop: "53px", backgroundColor: "white" }}
-              className="card"
-            >
-              <Row>
-                <Col lg={12}>
-                  <div
-                    style={{
-                      marginTop: "20px",
-                      marginLeft: "20px",
-                      fontSize: "22px",
-                      color: "#d00000"
-                    }}
-                  >
-                    NBA SCOUTING
-                  </div>
-                  <hr
-                    style={{
-                      marginLeft: "20px",
-                      marginRight: "20px",
-                      marginBottom: "0px"
-                    }}
-                  />
-                  <NbaScoutingTabs
-                    players={this.state.playerStats}
-                    teams={this.state.teams}
-                    contracts={this.state.playerContracts}
-                    style={{ marginLeft: "20px", marginRight: "20px" }}
-                  />
-                </Col>
-              </Row>
-            </div>
-          </Col>
-        </Row>
-      </Grid>
-    );
+    return <div>{this.checkLoad()}</div>;
   }
 }
