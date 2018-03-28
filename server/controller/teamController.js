@@ -806,6 +806,34 @@ module.exports = {
         });
     }
   },
+  createHustleStats: (req, res) => {
+    console.log("SAVING PLAYERS");
+    var playersArr = req.body.data;
+    //console.log("##########Players Array: \n", playersArr.length);
+    for (var i = 480; i < playersArr.length; i++) {
+      var player = playersArr[i];
+      db.Hustle
+        .findOrCreate({
+          where: {
+            name: player["name"],
+            gp: player["gp"],
+            screenAst: player["screenAst"],
+            deflections: player["deflections"],
+            looseBallRec: player["looseBallRec"],
+            chargesDrawn: player["chargesDrawn"],
+            contestedTwo: player["contestedTwo"],
+            contestedThree: player["contestedThree"],
+            contestedShots: player["contestedShot"]
+          }
+        })
+        .then(data => {
+          console.log("Player added successfully");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
   createShootingStats: (req, res) => {
     console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
@@ -1185,6 +1213,18 @@ module.exports = {
   },
   getPostStats: (req, res) => {
     db.PostUp
+      .findOne({
+        where: { name: req.params.name }
+      })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getHustleStats: (req, res) => {
+    db.Hustle
       .findOne({
         where: { name: req.params.name }
       })

@@ -33,6 +33,7 @@ import PlayerPolColSD from "./PlayerPolColSD";
 import PlayerPolColPRBH from "./PlayerPolColPRBH";
 import PlayerPolColPRRM from "./PlayerPolColPRRM";
 import PlayerPolColIso from "./PlayerPolColIso";
+import PlayerPolColHustle from "./PlayerPolColHustle";
 import axios from "axios";
 
 export default class PlayerRatings extends React.Component {
@@ -126,6 +127,13 @@ export default class PlayerRatings extends React.Component {
           gp={this.props.player.gamesPlayed}
         />
       );
+    } else if (this.state.statCat === "Hustle") {
+      return (
+        <PlayerPolColHustle
+          player={this.props.hustle}
+          min={this.props.player.mpg}
+        />
+      );
     }
   }
 
@@ -211,6 +219,7 @@ export default class PlayerRatings extends React.Component {
                   <MenuItem eventKey="9">Speed/Distance</MenuItem>
                   <MenuItem divider />
                   <MenuItem eventKey="7">Defense</MenuItem>
+                  <MenuItem eventKey="13">Hustle</MenuItem>
                   <MenuItem divider />
                   <MenuItem eventKey="8">Overall</MenuItem>
                 </DropdownButton>

@@ -64,6 +64,7 @@ export default class PlayerTabs extends React.Component {
           prHandler={this.props.prHandler}
           prRollMan={this.props.prRollMan}
           iso={this.props.iso}
+          hustle={this.props.hustle}
         />
       );
     if (this.state.key === 7)
