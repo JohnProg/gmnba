@@ -33,6 +33,7 @@ import PlayerPolColSD from "./PlayerPolColSD";
 import PlayerPolColPRBH from "./PlayerPolColPRBH";
 import PlayerPolColPRRM from "./PlayerPolColPRRM";
 import PlayerPolColIso from "./PlayerPolColIso";
+import PlayerPolColTransition from "./PlayerPolColTransition";
 import PlayerPolColHustle from "./PlayerPolColHustle";
 import axios from "axios";
 
@@ -127,6 +128,13 @@ export default class PlayerRatings extends React.Component {
           gp={this.props.player.gamesPlayed}
         />
       );
+    } else if (this.state.statCat === "Transition") {
+      return (
+        <PlayerPolColTransition
+          player={this.props.transition}
+          min={this.props.player.mpg}
+        />
+      );
     } else if (this.state.statCat === "Hustle") {
       return (
         <PlayerPolColHustle
@@ -211,6 +219,7 @@ export default class PlayerRatings extends React.Component {
                   <MenuItem eventKey="10">P+R Ball Handler</MenuItem>
                   <MenuItem eventKey="11">P+R Roll Man</MenuItem>
                   <MenuItem eventKey="12">Isolation</MenuItem>
+                  <MenuItem eventKey="14">Transition</MenuItem>
                   <MenuItem divider />
                   <MenuItem header>Player Tracking</MenuItem>
                   <MenuItem eventKey="4">Shooting Efficiency</MenuItem>
