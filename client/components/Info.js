@@ -69,13 +69,12 @@ class Info extends React.Component {
                 <Col lg={9} xs={12} md={9} sm={12}>
                   <Row>
                     <Col lg={5} smOffset={1} mdOffset={0} sm={4} xs={12} md={6}>
-                      <div id="name-text">
+                      <div>
                         <div id="team-name">{this.state.team.Name}</div>
                         <div id="info-text">
                           <div>
                             Record: {this.state.team.W}-{this.state.team.L}
                           </div>
-                          <br />
                           <div>
                             Expected Record <sub>(PW-PL)</sub>:{" "}
                             {this.state.team.PW}-{this.state.team.PL}
@@ -84,7 +83,10 @@ class Info extends React.Component {
                           <div>Margin of Victory: {this.state.team.MOV} </div>
                         </div>
                       </div>
-                      <hr id="info-text-break" />
+                      <hr
+                        id="info-text-break"
+                        style={{ marginTop: "10px", marginBottom: "10px" }}
+                      />
                     </Col>
 
                     <Col lg={3} xs={12} md={4} sm={6}>
@@ -105,7 +107,7 @@ class Info extends React.Component {
                     </Col>
                   </Row>
                   <Row
-                    style={{ paddingBottom: "20px" }}
+                    style={{ paddingBottom: "15px" }}
                     className="player-stat-row"
                   >
                     <Col
