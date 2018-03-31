@@ -1,3 +1,5 @@
+@import "node_modules/react-image-gallery/styles/css/image-gallery.css";
+
 body,
 h1,
 h2,
@@ -29,6 +31,15 @@ img {
 }
 .w3-bar .w3-button {
   padding: 16px;
+}
+
+.w3-bar {
+  background-color: #202020 !important;
+  color: white !important;
+}
+
+.w3-bar-item {
+  color: white !important;
 }
 
 .full-height-row {
@@ -149,6 +160,11 @@ li.lakers > a {
 .nav-class {
   position: fixed;
   z-index: 1000000;
+  background-color: black !important;
+}
+
+.w3-top {
+  background-color: black !important;
 }
 
 .chart-row {
@@ -166,7 +182,7 @@ li.lakers > a {
 }
 
 div.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 .playerScatter {
@@ -426,4 +442,10 @@ div.card {
     float: right;
     margin-right: 0px;
   }
+}
+
+.murdered-out {
+  background-color: black;
+  background: -webkit-linear-gradient(360deg, #030303 10%, #1f1f1f 360%);
+  background: linear-gradient(360deg, #030303 10%, #1f1f1f 360%);
 }

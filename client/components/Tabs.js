@@ -10,7 +10,7 @@ export default class Tabs extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: 4
+      key: 3
     };
     this.handleSelect = this.handleSelect.bind(this);
   }

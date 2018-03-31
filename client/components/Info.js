@@ -52,7 +52,10 @@ class Info extends React.Component {
   }
 
   checkLoad() {
-    if (JSON.stringify(this.state.team) != "{}") {
+    if (
+      JSON.stringify(this.state.team) != "{}" &&
+      this.props.players.length > 0
+    ) {
       return (
         <div id="info-container-max">
           <Grid id="info-container">
