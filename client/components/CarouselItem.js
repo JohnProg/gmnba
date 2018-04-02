@@ -10,7 +10,13 @@ import {
   MenuItem
 } from "react-bootstrap";
 import PlayerPolarColumn from "./PlayerPolarColumn";
-import PlPolTest from "./PlPolTest";
+import PlPolTest from "./CarouselCharts/PlPolTest";
+import CarPolAdvOff from "./CarouselCharts/CarPolAdvOff";
+import CarPolOff from "./CarouselCharts/CarPolOff";
+import CarPolPRHandler from "./CarouselCharts/CarPolPRHandler";
+import CarPolPRRollMan from "./CarouselCharts/CarPolPRRollMan";
+import CarPolDef from "./CarouselCharts/CarPolDef";
+import CarPolOvr from "./CarouselCharts/CarPolOvr";
 
 export default class CarouselItem extends React.Component {
   constructor(props) {
@@ -20,15 +26,60 @@ export default class CarouselItem extends React.Component {
       statCat: "Basic"
     };
     this.checkLoad = this.checkLoad.bind(this);
+    this.selectStatCat = this.selectStatCat.bind(this);
   }
 
   checkLoad() {
     if (this.props.player) {
-      return (
-        <div>
-          <PlPolTest player={this.props.player} name={this.props.name} />
-        </div>
-      );
+      if (this.state.statCat === "Basic") {
+        return (
+          <div>
+            <PlPolTest player={this.props.player} name={this.props.name} />
+          </div>
+        );
+      } else if (this.state.statCat === "Advanced Off") {
+        return (
+          <div>
+            <CarPolAdvOff player={this.props.player} name={this.props.name} />
+          </div>
+        );
+      } else if (this.state.statCat === "Offense") {
+        return (
+          <div>
+            <CarPolOff player={this.props.player} name={this.props.name} />
+          </div>
+        );
+      } else if (this.state.statCat === "P+R Ball Hand.") {
+        return (
+          <div>
+            <CarPolPRHandler
+              player={this.props.player}
+              name={this.props.name}
+            />
+          </div>
+        );
+      } else if (this.state.statCat === "P+R Roll Man") {
+        return (
+          <div>
+            <CarPolPRRollMan
+              player={this.props.player}
+              name={this.props.name}
+            />
+          </div>
+        );
+      } else if (this.state.statCat === "Defense") {
+        return (
+          <div>
+            <CarPolDef player={this.props.player} name={this.props.name} />
+          </div>
+        );
+      } else if (this.state.statCat === "Overall") {
+        return (
+          <div>
+            <CarPolOvr player={this.props.player} name={this.props.name} />
+          </div>
+        );
+      }
     } else {
       return (
         <div style={{ paddingTop: "15%", paddingLeft: "30%" }}>
@@ -42,6 +93,10 @@ export default class CarouselItem extends React.Component {
         </div>
       );
     }
+  }
+
+  selectStatCat(evt, eventKey) {
+    this.setState({ statCat: eventKey.target.innerHTML });
   }
 
   render() {
@@ -103,7 +158,7 @@ export default class CarouselItem extends React.Component {
                 <DropdownButton
                   title={this.state.statCat}
                   pullRight
-                  className="card"
+                  className="card carButton"
                   style={{
                     border: "none",
                     fontSize: "16px",
@@ -111,27 +166,45 @@ export default class CarouselItem extends React.Component {
                     marginTop: "30px",
                     color: this.props.team.Color_Sec
                   }}
-                  //onSelect={this.selectStatCat}
+                  onSelect={this.selectStatCat}
                 >
                   <MenuItem eventKey="1">Basic</MenuItem>
                   <MenuItem divider />
                   <MenuItem eventKey="2">Offense</MenuItem>
-                  <MenuItem eventKey="3">Advanced Offense</MenuItem>
+                  <MenuItem eventKey="3">Advanced Off</MenuItem>
                   <MenuItem divider />
                   <MenuItem header>Play Type</MenuItem>
-                  <MenuItem eventKey="10">P+R Ball Handler</MenuItem>
-                  <MenuItem eventKey="11">P+R Roll Man</MenuItem>
-                  <MenuItem eventKey="12">Isolation</MenuItem>
-                  <MenuItem eventKey="14">Transition</MenuItem>
+                  <MenuItem eventKey="10" disabled>
+                    P+R Ball Hand.
+                  </MenuItem>
+                  <MenuItem eventKey="11" disabled>
+                    P+R Roll Man
+                  </MenuItem>
+                  <MenuItem eventKey="12" disabled>
+                    Isolation
+                  </MenuItem>
+                  <MenuItem eventKey="14" disabled>
+                    Transition
+                  </MenuItem>
                   <MenuItem divider />
                   <MenuItem header>Player Tracking</MenuItem>
-                  <MenuItem eventKey="4">Shooting Efficiency</MenuItem>
-                  <MenuItem eventKey="5">Catch/Shoot</MenuItem>
-                  <MenuItem eventKey="6">Post Ups</MenuItem>
-                  <MenuItem eventKey="9">Speed/Distance</MenuItem>
+                  <MenuItem eventKey="4" disabled>
+                    Shooting Eff
+                  </MenuItem>
+                  <MenuItem eventKey="5" disabled>
+                    Catch/Shoot
+                  </MenuItem>
+                  <MenuItem eventKey="6" disabled>
+                    Post Ups
+                  </MenuItem>
+                  <MenuItem eventKey="9" disabled>
+                    Speed/Distance
+                  </MenuItem>
                   <MenuItem divider />
                   <MenuItem eventKey="7">Defense</MenuItem>
-                  <MenuItem eventKey="13">Hustle</MenuItem>
+                  <MenuItem eventKey="13" disabled>
+                    Hustle
+                  </MenuItem>
                   <MenuItem divider />
                   <MenuItem eventKey="8">Overall</MenuItem>
                 </DropdownButton>
