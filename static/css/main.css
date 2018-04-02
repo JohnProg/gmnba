@@ -449,3 +449,8 @@ div.card {
   background: -webkit-linear-gradient(360deg, #030303 10%, #1f1f1f 360%);
   background: linear-gradient(360deg, #030303 10%, #1f1f1f 360%);
 }
+
+.dropdown-menu {
+  max-height: 250px;
+  overflow-y: auto;
+}

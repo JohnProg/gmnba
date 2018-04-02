@@ -43,6 +43,9 @@ export default class PlayerCarousel extends React.Component {
     const settings = {
       lazyLoad: true
     };
+    var playersArr = this.props.players.sort(function(a, b) {
+      return parseFloat(a.mpg) - parseFloat(b.mpg);
+    });
     return (
       <div>
         <div className="card">
@@ -51,7 +54,7 @@ export default class PlayerCarousel extends React.Component {
             asNavFor={this.state.nav2}
             ref={slider => (this.slider1 = slider)}
           >
-            {this.props.players.map(player => (
+            {playersArr.map(player => (
               <div>
                 <CarouselItem
                   player={player}
@@ -71,7 +74,7 @@ export default class PlayerCarousel extends React.Component {
             focusOnSelect={true}
             lazyLoad={true}
           >
-            {this.props.players.map(player => (
+            {playersArr.map(player => (
               <div>
                 <CarouselNavItem player={player} />
               </div>
