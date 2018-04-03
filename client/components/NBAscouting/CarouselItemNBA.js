@@ -35,12 +35,28 @@ export default class CarouselItemNBA extends React.Component {
 
   componentDidMount() {
     this.getTeamColors(this.props.player.team);
-    this.setState({ statCat: this.props.stat });
+    if (
+      this.props.stat === "Overall" ||
+      this.props.stat === "Offense" ||
+      this.props.stat === "Defense"
+    ) {
+      this.setState({ statCat: this.props.stat });
+    } else {
+      this.setState({ statCat: "Basic" });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     this.getTeamColors(nextProps.player.team);
-    this.setState({ statCat: nextProps.stat });
+    if (
+      nextProps.stat === "Overall" ||
+      nextProps.stat === "Offense" ||
+      nextProps.stat === "Defense"
+    ) {
+      this.setState({ statCat: nextProps.stat });
+    } else {
+      this.setState({ statCat: "Basic" });
+    }
   }
 
   getTeamColors(team) {
@@ -102,6 +118,12 @@ export default class CarouselItemNBA extends React.Component {
         return (
           <div>
             <CarPolOvr player={this.props.player} name={this.props.name} />
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <PlPolTest player={this.props.player} name={this.props.name} />
           </div>
         );
       }

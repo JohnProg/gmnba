@@ -6,6 +6,16 @@ export default class CarouselNavItemNBA extends React.Component {
   }
 
   render() {
+    var stat = this.props.stat;
+    if (this.props.stat === "Overall") {
+      stat = "ovr";
+    }
+    if (this.props.stat === "Offense") {
+      stat = "off";
+    }
+    if (this.props.stat === "Defense") {
+      stat = "def";
+    }
     var picture =
       "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443";
     if (this.props.player.picture) {
@@ -28,6 +38,27 @@ export default class CarouselNavItemNBA extends React.Component {
           }}
         >
           {this.props.rank + 1}. {this.props.player.name}
+        </div>
+        <div
+          style={{
+            color: "grey",
+            textAlign: "center",
+            textDecoration: "underline",
+            backgroundColor: "rgba(105,105,105,0.1)",
+            fontSize: "10px"
+          }}
+        >
+          {stat.toUpperCase()}
+        </div>
+        <div
+          style={{
+            color: "grey",
+            textAlign: "center",
+            backgroundColor: "rgba(105,105,105,0.1)",
+            paddingBottom: "5px"
+          }}
+        >
+          {this.props.player[stat].toFixed(1)}
         </div>
       </div>
     );

@@ -453,16 +453,15 @@ export default class UpcomingFAs extends React.Component {
               Upcoming FAs
             </div>
           </Col>
-        </Row>
-        <Row style={{ paddingLeft: "20px", paddingTop: "30px" }}>
-          <Col lg={10} lgOffset={1}>
+          <Col lg={1} lgOffset={6}>
             <div
               onClick={this.toggleFilter}
               style={{
                 color: "#d00000",
                 textDecoration: "underline",
                 fontSize: "16px",
-                cursor: "pointer"
+                cursor: "pointer",
+                paddingTop: "20px"
               }}
             >
               Filter

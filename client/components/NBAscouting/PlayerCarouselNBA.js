@@ -15,7 +15,9 @@ export default class PlayerCarouselNBA extends React.Component {
     this.renderPlayers = this.renderPlayers.bind(this);
     this.getOverall = this.getOverall.bind(this);
     this.getOffense = this.getOffense.bind(this);
+    this.getDefense = this.getDefense.bind(this);
     this.scaleStat = this.scaleStat.bind(this);
+    this.rankStat = this.rankStat.bind(this);
   }
 
   componentDidMount() {
@@ -27,9 +29,12 @@ export default class PlayerCarouselNBA extends React.Component {
       if (this.props.stat === "Overall") {
         this.getOverall(this.props.players);
         //console.log(this.props.players);
-      }
-      if (this.props.stat === "Offense") {
+      } else if (this.props.stat === "Offense") {
         this.getOffense(this.props.players);
+      } else if (this.props.stat === "Defense") {
+        this.getDefense(this.props.players);
+      } else {
+        this.rankStat(this.props.players, this.props.stat);
       }
     }
   }
@@ -37,6 +42,13 @@ export default class PlayerCarouselNBA extends React.Component {
   scaleStat(high, stat, low) {
     var scaled = 100 / (high - low) * (stat - low);
     return scaled;
+  }
+
+  rankStat(players, stat) {
+    console.log("Ranking players by ", stat);
+    players.sort(function(a, b) {
+      return parseFloat(b[stat]) - parseFloat(a[stat]);
+    });
   }
 
   getOverall(players) {
@@ -84,6 +96,22 @@ export default class PlayerCarouselNBA extends React.Component {
     //console.log(players);
   }
 
+  getDefense(players) {
+    for (var i = 0; i < players.length; i++) {
+      let player = players[i];
+      var scaledDbpm = this.scaleStat(5.8, parseFloat(player.dbpm), -4.0) * 0.5;
+      var scaledDws = this.scaleStat(4.1, parseFloat(player.dws), 0) * 0.5;
+      // var dbpm = parseFloat(player.dbpm);
+      // var dws = parseFloat(player.dws);
+      var defRating = scaledDbpm + scaledDws;
+      player["def"] = defRating;
+    }
+    players.sort(function(a, b) {
+      return parseFloat(b.def) - parseFloat(a.def);
+    });
+    //console.log(players);
+  }
+
   renderNav() {
     // if (this.props.players) {
     //   return this.props.players.map((player, i) => {
@@ -108,6 +136,7 @@ export default class PlayerCarouselNBA extends React.Component {
     this.renderPlayers();
     const settings = {
       lazyLoad: true
+      //adaptiveHeight: true
     };
     return (
       <div>
@@ -136,10 +165,15 @@ export default class PlayerCarouselNBA extends React.Component {
             swipeToSlide={true}
             focusOnSelect={true}
             lazyLoad={true}
+            adaptiveHeight={true}
           >
             {this.props.players.map((player, i) => (
               <div>
-                <CarouselNavItemNBA player={player} rank={i} />
+                <CarouselNavItemNBA
+                  player={player}
+                  stat={this.props.stat}
+                  rank={i}
+                />
               </div>
             ))}
           </Slider>
