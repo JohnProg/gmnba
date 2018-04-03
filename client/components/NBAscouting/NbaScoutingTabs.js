@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
-import LeagueLeaders from "./LeagueLeaders";
+import LeagueLeaders2 from "./LeagueLeaders2";
 import PlayerComparison from "./PlayerComparison";
 import TeamComparison from "./TeamComparison";
 import PlayerFinder from "./PlayerFinder";
@@ -24,7 +24,7 @@ export default class NbaScoutingTabs extends React.Component {
   render() {
     let component;
     if (this.state.key === 1)
-      component = <LeagueLeaders players={this.props.players} />;
+      component = <LeagueLeaders2 players={this.props.players} />;
     if (this.state.key === 2)
       component = <PlayerComparison players={this.props.players} />;
     if (this.state.key === 3)

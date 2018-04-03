@@ -17,16 +17,34 @@ import CarPolPRHandler from "./CarouselCharts/CarPolPRHandler";
 import CarPolPRRollMan from "./CarouselCharts/CarPolPRRollMan";
 import CarPolDef from "./CarouselCharts/CarPolDef";
 import CarPolOvr from "./CarouselCharts/CarPolOvr";
+import axios from "axios";
 
 export default class CarouselItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loaded: false,
-      statCat: "Basic"
+      statCat: "Basic",
+      team: {}
     };
     this.checkLoad = this.checkLoad.bind(this);
     this.selectStatCat = this.selectStatCat.bind(this);
+    this.getTeamColors = this.getTeamColors.bind(this);
+  }
+
+  componentDidMount() {
+    this.getTeamColors(this.props.player.team);
+  }
+
+  getTeamColors(team) {
+    axios
+      .get(`api/teams/getTeamColors/${team}`)
+      .then(data => {
+        this.setState({ team: data.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   checkLoad() {
@@ -164,7 +182,7 @@ export default class CarouselItem extends React.Component {
                     fontSize: "16px",
                     backgroundColor: "rgba(105,105,105,0.1)",
                     marginTop: "30px",
-                    color: this.props.team.Color_Sec
+                    color: this.state.team.Color_Sec
                   }}
                   onSelect={this.selectStatCat}
                 >
@@ -210,7 +228,7 @@ export default class CarouselItem extends React.Component {
                 </DropdownButton>
               </div>
               <div style={{ height: "80px", marginTop: "110%" }}>
-                <img src={this.props.team.Logo} />
+                <img src={this.state.team.Logo} />
               </div>
             </Col>
           </Row>
