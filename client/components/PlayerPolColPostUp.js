@@ -47,8 +47,16 @@ export default class PlayerPolColPostUp extends React.Component {
     var ft = this.getGrade(highFt, this.state.player.ftPct, 0.5);
     var pass = this.getGrade(highPass, this.state.player.passPct, 0.1);
     var pf = this.getGrade(highPf, this.state.player.pfPct, 0);
-    var postUps = this.getGrade(highPostUps, this.state.player.postUps, 0);
-    var pts = this.getGrade(highPts, this.state.player.pts, 0);
+    var postUps = this.getGrade(
+      highPostUps,
+      this.state.player.postUps / this.props.min * 36,
+      0
+    );
+    var pts = this.getGrade(
+      highPts,
+      this.state.player.pts / this.props.min * 36,
+      0
+    );
     var ptsPct = this.getGrade(highPtsPct, this.state.player.ptsPct, 0);
     var tovPct = this.getGrade(highTov, this.state.player.tovPct * -1, -0.11);
     this.setState(
@@ -158,7 +166,7 @@ export default class PlayerPolColPostUp extends React.Component {
 
       tooltip: {
         headerFormat: "<b>{point.key}</b><br/>",
-        pointFormat: `<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>`
+        pointFormat: `<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span><br/><span>Per36: {point.per36}</span>`
       },
 
       yAxis: {
@@ -237,7 +245,10 @@ export default class PlayerPolColPostUp extends React.Component {
               y: this.state.postUps.Grade,
               color: this.state.postUps.Color,
               name: "Post Ups",
-              stat: this.state.player.postUps
+              stat: this.state.player.postUps,
+              per36: (this.state.player.postUps / this.props.min * 36).toFixed(
+                1
+              )
             },
             {
               y: this.state.ptsPct.Grade,
@@ -249,7 +260,8 @@ export default class PlayerPolColPostUp extends React.Component {
               y: this.state.pts.Grade,
               color: this.state.pts.Color,
               name: "Pts",
-              stat: this.state.player.pts
+              stat: this.state.player.pts,
+              per36: (this.state.player.pts / this.props.min * 36).toFixed(1)
             },
             {
               y: this.state.tovPct.Grade,

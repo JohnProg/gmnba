@@ -73,6 +73,7 @@ export default class PlayerCarousel extends React.Component {
             swipeToSlide={true}
             focusOnSelect={true}
             lazyLoad={true}
+            adaptiveHeight={true}
           >
             {playersArr.map(player => (
               <div>

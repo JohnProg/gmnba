@@ -149,7 +149,11 @@ export default class CarouselItem extends React.Component {
                 </div>
                 <div style={{ paddingLeft: "5px" }}>
                   <div style={{ fontSize: "19px" }}>
-                    {this.props.player.name}
+                    <a href={`/player/${this.props.player.id}`}>
+                      <span style={{ color: "grey" }}>
+                        {this.props.player.name}
+                      </span>
+                    </a>
                     <span style={{ paddingLeft: "3px", fontSize: "11px" }}>
                       {" "}
                       {this.props.player.position}

@@ -148,7 +148,11 @@ export default class CarouselItemNBA extends React.Component {
 
   renderLogo() {
     if (JSON.stringify(this.state.team) != "{}") {
-      return <img src={this.state.team.Logo} />;
+      return (
+        <a href={`/team/${this.state.team.id}`}>
+          <img src={this.state.team.Logo} />
+        </a>
+      );
     } else {
       return null;
     }
@@ -186,7 +190,11 @@ export default class CarouselItemNBA extends React.Component {
                 </div>
                 <div style={{ paddingLeft: "5px" }}>
                   <div style={{ fontSize: "19px" }}>
-                    {this.props.player.name}
+                    <a href={`/player/${this.props.player.id}`}>
+                      <span style={{ color: "grey" }}>
+                        {this.props.player.name}
+                      </span>
+                    </a>
                     <span style={{ paddingLeft: "3px", fontSize: "11px" }}>
                       {" "}
                       {this.props.player.position}

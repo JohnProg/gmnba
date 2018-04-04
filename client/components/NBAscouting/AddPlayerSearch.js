@@ -1,5 +1,6 @@
 import React from "react";
 import Autosuggest from "react-autosuggest";
+import axios from "axios";
 var parse = require("autosuggest-highlight/parse");
 var match = require("autosuggest-highlight/match");
 import {
@@ -28,6 +29,7 @@ export default class AddPlayerSearch extends React.Component {
       suggestions: [],
       players: [],
       player: {},
+      team: {},
       renderPlayer: false,
       renderAdvanced: false,
       advancedCat: "Advanced Offense"
@@ -50,6 +52,8 @@ export default class AddPlayerSearch extends React.Component {
     this.renderAdvanced = this.renderAdvanced.bind(this);
     this.selectAdvancedCat = this.selectAdvancedCat.bind(this);
     this.renderBarRatings = this.renderBarRatings.bind(this);
+    this.getLogo = this.getLogo.bind(this);
+    this.renderLogo = this.renderLogo.bind(this);
   }
 
   componentDidMount() {}
@@ -153,33 +157,74 @@ export default class AddPlayerSearch extends React.Component {
       }
     }
     this.setState({ player: player }, () => {
+      this.getLogo();
       console.log(this.state.player);
       this.setState({ renderPlayer: true });
     });
   }
 
+  getLogo() {
+    if (JSON.stringify(this.state.player) != "{}") {
+      axios
+        .get(`api/teams/getTeamColors/${this.state.player.team}`)
+        .then(data => {
+          this.setState({ team: data.data });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
+
+  renderLogo() {
+    if (JSON.stringify(this.state.team) != "{}") {
+      return (
+        <div style={{ height: "100px" }}>
+          <img src={this.state.team.Logo} />
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   renderPlayer() {
+    var picture =
+      "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443";
+    if (this.state.player.picture) {
+      picture = this.state.player.picture;
+    }
     if (this.state.renderPlayer) {
       console.log("Render!!");
       return (
         <div
           className="card"
           style={{
-            backgroundColor: "white",
+            backgroundColor: "black",
             height: "620px",
             overflow: "scroll"
           }}
         >
-          <Col lg={6} style={{ paddingTop: "20px" }}>
-            <Thumbnail
-              style={{ border: "none" }}
-              src="https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443"
-            />
+          <Col
+            lg={12}
+            style={{
+              paddingTop: "20px",
+              backgroundColor: "rgba(105,105,105,0.1)"
+            }}
+          >
+            <img style={{ border: "none" }} src={picture} />
           </Col>
-          <Col lg={6} style={{ paddingTop: "30px" }}>
+          <Col
+            lg={12}
+            style={{
+              paddingTop: "30px",
+              backgroundColor: "rgba(105,105,105,0.1)",
+              color: "grey"
+            }}
+          >
             <div>
               <a href={`/player/${this.state.player.id}`}>
-                <span style={{ fontSize: "22px" }}>
+                <span style={{ fontSize: "22px", color: "grey" }}>
                   {this.state.player.name}
                 </span>
               </a>
@@ -188,14 +233,25 @@ export default class AddPlayerSearch extends React.Component {
                 {this.state.player.position}
               </span>
             </div>
+            <hr style={{ marginTop: "0px" }} />
+          </Col>
+          <Col
+            lg={8}
+            style={{
+              backgroundColor: "rgba(105,105,105,0.1)",
+              color: "grey"
+            }}
+          >
             <div style={{ fontSize: "16px" }}>
-              <hr style={{ marginTop: "0px" }} />
               <div>Height: {this.state.player.height}</div>
               <div>Weight: {this.state.player.weight}</div>
               <div>Age: {this.state.player.age}</div>
               <div>Experience: {this.state.player.experience}</div>
               <div>Team: {this.state.player.team}</div>
             </div>
+          </Col>
+          <Col lg={4} style={{ backgroundColor: "rgba(105,105,105,0.1)" }}>
+            {this.renderLogo()}
           </Col>
           <Col lg={12}>
             <hr style={{ marginTop: "0px" }} />
@@ -256,7 +312,12 @@ export default class AddPlayerSearch extends React.Component {
               <DropdownButton
                 title={this.state.advancedCat}
                 className="card"
-                style={{ border: "none", fontSize: "16px" }}
+                style={{
+                  border: "none",
+                  fontSize: "16px",
+                  backgroundColor: "rgba(105,105,105,0.1)",
+                  color: "white"
+                }}
                 onSelect={this.selectAdvancedCat}
               >
                 <MenuItem eventKey="1">Advanced Offense</MenuItem>
@@ -272,6 +333,7 @@ export default class AddPlayerSearch extends React.Component {
   }
 
   render() {
+    //this.getLogo();
     const { value, suggestions } = this.state;
     const inputProps = {
       placeholder: "Search for Player...",

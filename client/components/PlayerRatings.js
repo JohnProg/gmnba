@@ -96,15 +96,30 @@ export default class PlayerRatings extends React.Component {
     } else if (this.state.statCat === "Advanced Offense") {
       return <PlayerPolColAdvOff player={this.props.player} />;
     } else if (this.state.statCat === "Post Ups") {
-      return <PlayerPolColPostUp player={this.props.postStats} />;
+      return (
+        <PlayerPolColPostUp
+          player={this.props.postStats}
+          min={this.props.player.mpg}
+        />
+      );
     } else if (this.state.statCat === "Defense") {
       return <PlayerPolColDef player={this.props.player} />;
     } else if (this.state.statCat === "Overall") {
       return <PlayerPolColOvr player={this.props.player} />;
     } else if (this.state.statCat === "Catch/Shoot") {
-      return <PlayerPolColCatchShoot player={this.props.catchShootStats} />;
+      return (
+        <PlayerPolColCatchShoot
+          player={this.props.catchShootStats}
+          min={this.props.player.mpg}
+        />
+      );
     } else if (this.state.statCat === "Shooting Efficiency") {
-      return <PlayerPolColShooting player={this.props.shootingStats} />;
+      return (
+        <PlayerPolColShooting
+          player={this.props.shootingStats}
+          min={this.props.player.mpg}
+        />
+      );
     } else if (this.state.statCat === "Speed/Distance") {
       return <PlayerPolColSD player={this.props.speedDistanceStats} />;
     } else if (this.state.statCat === "P+R Ball Handler") {
@@ -112,6 +127,7 @@ export default class PlayerRatings extends React.Component {
         <PlayerPolColPRBH
           player={this.props.prHandler}
           gp={this.props.player.gamesPlayed}
+          min={this.props.player.mpg}
         />
       );
     } else if (this.state.statCat === "P+R Roll Man") {
@@ -119,6 +135,7 @@ export default class PlayerRatings extends React.Component {
         <PlayerPolColPRRM
           player={this.props.prRollMan}
           gp={this.props.player.gamesPlayed}
+          min={this.props.player.mpg}
         />
       );
     } else if (this.state.statCat === "Isolation") {
@@ -126,6 +143,7 @@ export default class PlayerRatings extends React.Component {
         <PlayerPolColIso
           player={this.props.iso}
           gp={this.props.player.gamesPlayed}
+          min={this.props.player.mpg}
         />
       );
     } else if (this.state.statCat === "Transition") {

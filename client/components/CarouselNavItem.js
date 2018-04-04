@@ -20,6 +20,9 @@ export default class CarouselNavItem extends React.Component {
         }}
       >
         <img style={{ height: "100px" }} src={picture} />
+        <div style={{ textAlign: "center", color: "grey" }}>
+          {this.props.player.name}
+        </div>
       </div>
     );
   }

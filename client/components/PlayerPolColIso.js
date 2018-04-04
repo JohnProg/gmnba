@@ -45,7 +45,7 @@ export default class PlayerPolColIso extends React.Component {
     var ppp = this.getGrade(highPPP, this.state.player.ppp, 0.3);
     var pts = this.getGrade(
       highPts,
-      this.state.player.pts / this.props.gp,
+      this.state.player.pts / this.props.gp / this.props.min * 36,
       0.3
     );
     var efg = this.getGrade(highEfg, this.state.player.efg, 24.0);
@@ -60,7 +60,11 @@ export default class PlayerPolColIso extends React.Component {
       -36.0
     );
     var ftFreq = this.getGrade(highFtFreq, this.state.player.ftFreq, 0);
-    var fga = this.getGrade(highFga, this.state.player.fga, 0.3);
+    var fga = this.getGrade(
+      highFga,
+      this.state.player.fga / this.props.min * 36,
+      0.3
+    );
     this.setState(
       {
         freq: freq,
@@ -167,7 +171,7 @@ export default class PlayerPolColIso extends React.Component {
 
       tooltip: {
         headerFormat: "<b>{point.key}</b><br/>",
-        pointFormat: `<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span>`
+        pointFormat: `<span>Rating: {point.y}</span><br/><span>Stat: {point.stat}</span><br/><span>Per36: {point.per36}</span>`
       },
 
       yAxis: {
@@ -228,7 +232,12 @@ export default class PlayerPolColIso extends React.Component {
               y: this.state.pts.Grade,
               color: this.state.pts.Color,
               name: "PTS",
-              stat: (this.state.player.pts / this.props.gp).toFixed(1)
+              stat: (this.state.player.pts / this.props.gp).toFixed(1),
+              per36: (this.state.player.pts /
+                this.props.gp /
+                this.props.min *
+                36
+              ).toFixed(1)
             },
             {
               y: this.state.efg.Grade,
@@ -258,7 +267,8 @@ export default class PlayerPolColIso extends React.Component {
               y: this.state.fga.Grade,
               color: this.state.fga.Color,
               name: "FGA",
-              stat: this.state.player.fga
+              stat: this.state.player.fga,
+              per36: (this.state.player.fga / this.props.min * 36).toFixed(1)
             }
           ],
           pointPlacement: "on"
