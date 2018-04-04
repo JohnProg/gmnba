@@ -157,11 +157,16 @@ export default class PlayerPolColHustle extends React.Component {
     var chart = Highcharts.chart("container-hustle", {
       chart: {
         polar: true,
-        type: "column"
+        type: "column",
+        backgroundColor: null
       },
 
       title: {
         text: null
+      },
+
+      exporting: {
+        enabled: false
       },
 
       pane: {
@@ -175,7 +180,8 @@ export default class PlayerPolColHustle extends React.Component {
         tickInterval: 51.4,
         labels: {
           enabled: false
-        }
+        },
+        gridLineColor: "grey"
       },
 
       tooltip: {
@@ -188,7 +194,8 @@ export default class PlayerPolColHustle extends React.Component {
         max: 60,
         labels: {
           enabled: false
-        }
+        },
+        gridLineColor: "grey"
       },
 
       plotOptions: {
@@ -303,13 +310,14 @@ export default class PlayerPolColHustle extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
-      <div className="card">
-        <div
-          id="container-hustle"
-          style={{ height: "400px", margin: "0 auto" }}
-        />
+      <div className="card" style={{ backgroundColor: "black" }}>
+        <div style={{ backgroundColor: "rgba(105,105,105,0.1)" }}>
+          <div
+            id="container-hustle"
+            style={{ height: "400px", margin: "0 auto" }}
+          />
+        </div>
       </div>
     );
   }
