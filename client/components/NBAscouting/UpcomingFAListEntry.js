@@ -6,7 +6,8 @@ export default class UpcomingFAListEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      player: {}
+      player: {},
+      team: {}
     };
     this.getPlayer = this.getPlayer.bind(this);
     this.renderPlayer = this.renderPlayer.bind(this);
@@ -15,6 +16,8 @@ export default class UpcomingFAListEntry extends React.Component {
     this.getDefenseRating = this.getDefenseRating.bind(this);
     this.calculateStars = this.calculateStars.bind(this);
     this.convertDollars = this.convertDollars.bind(this);
+    this.getLogo = this.getLogo.bind(this);
+    this.renderLogo = this.renderLogo.bind(this);
   }
 
   componentDidMount() {
@@ -453,71 +456,90 @@ export default class UpcomingFAListEntry extends React.Component {
           <div
             className="card"
             style={{
-              backgroundColor: "white",
+              backgroundColor: "black",
               height: "140px",
+              overflowY: "auto",
               paddingBottom: "5px"
             }}
           >
-            <Row>
-              <Col lg={3} md={3}>
-                <div>
-                  <img
-                    src={picture}
-                    style={{
-                      maxHeight: "135px",
-                      padding: "10px 0px 10px 10px"
-                    }}
-                  />
-                </div>
-              </Col>
-              <Col lg={4} md={4}>
-                <div style={{ paddingTop: "15px" }}>
-                  <a href={`/player/${this.state.player.id}`}>
-                    <div style={{ fontSize: "20px" }}>
-                      {this.state.player.name}
-                      <span style={{ paddingLeft: "3px", fontSize: "12px" }}>
+            <div
+              style={{
+                backgroundColor: "rgba(105,105,105,0.1)",
+                color: "grey"
+              }}
+            >
+              <Row>
+                <Col lg={3} md={3}>
+                  <div>
+                    <img
+                      src={picture}
+                      style={{
+                        maxHeight: "135px",
+                        padding: "10px 0px 10px 10px"
+                      }}
+                    />
+                  </div>
+                </Col>
+                <Col lg={3} md={4}>
+                  <div style={{ paddingTop: "15px" }}>
+                    <a href={`/player/${this.state.player.id}`}>
+                      <div style={{ fontSize: "16px" }}>
+                        <span style={{ color: "grey" }}>
+                          {this.state.player.name}
+                        </span>
+                        <span
+                          style={{
+                            paddingLeft: "3px",
+                            fontSize: "10px",
+                            color: "grey"
+                          }}
+                        >
+                          {" "}
+                          {this.state.player.position}
+                        </span>
+                      </div>
+                    </a>
+                    <div style={{ fontWeight: "bold", fontSize: "14px" }}>
+                      {this.props.player.type}
+                    </div>
+                    <div>
+                      <span>Height: {this.state.player.height}</span>
+                      <span style={{ paddingLeft: "3px" }}>
                         {" "}
-                        {this.state.player.position}
+                        Weight: {this.state.player.weight}
                       </span>
                     </div>
-                  </a>
-                  <div style={{ fontWeight: "bold", fontSize: "14px" }}>
-                    {this.props.player.type}
+                    <div>
+                      <span>Age: {this.state.player.age}</span>
+                      <span style={{ paddingLeft: "3px" }}>
+                        {" "}
+                        Experience: {this.state.player.experience}
+                      </span>
+                    </div>
+                    <div>
+                      Current Salary:{" "}
+                      {this.convertDollars(this.props.player.current)}
+                    </div>
                   </div>
-                  <div>
-                    <span>Height: {this.state.player.height}</span>
-                    <span style={{ paddingLeft: "3px" }}>
-                      {" "}
-                      Weight: {this.state.player.weight}
-                    </span>
+                </Col>
+                <Col lg={3} md={3}>
+                  <div style={{ paddingTop: "25px", fontSize: "15.5px" }}>
+                    <div style={{ textAlign: "right" }}>
+                      Overall: {this.getOverallRating()}
+                    </div>
+                    <div style={{ textAlign: "right" }}>
+                      Offense: {this.getOffenseRating()}
+                    </div>
+                    <div style={{ textAlign: "right" }}>
+                      Defense: {this.getDefenseRating()}
+                    </div>
                   </div>
-                  <div>
-                    <span>Age: {this.state.player.age}</span>
-                    <span style={{ paddingLeft: "3px" }}>
-                      {" "}
-                      Experience: {this.state.player.experience}
-                    </span>
-                  </div>
-                  <div>
-                    Current Salary:{" "}
-                    {this.convertDollars(this.props.player.current)}
-                  </div>
-                </div>
-              </Col>
-              <Col lg={3} md={3}>
-                <div style={{ paddingTop: "25px", fontSize: "15.5px" }}>
-                  <div style={{ textAlign: "right" }}>
-                    Overall: {this.getOverallRating()}
-                  </div>
-                  <div style={{ textAlign: "right" }}>
-                    Offense: {this.getOffenseRating()}
-                  </div>
-                  <div style={{ textAlign: "right" }}>
-                    Defense: {this.getDefenseRating()}
-                  </div>
-                </div>
-              </Col>
-            </Row>
+                </Col>
+                <Col lg={2} md={2}>
+                  {this.renderLogo()}
+                </Col>
+              </Row>
+            </div>
           </div>
         );
       }
@@ -531,12 +553,49 @@ export default class UpcomingFAListEntry extends React.Component {
       .get(`/api/teams/getPlayer/${this.props.player.name}`)
       .then(data => {
         this.setState({ player: data.data }, () => {
+          this.getLogo(this.state.player.team);
           //console.log(this.state.positionStats);
         });
       })
       .catch(err => {
         console.log(err);
       });
+  }
+
+  getLogo(team) {
+    if (team != undefined) {
+      axios
+        .get(`api/teams/getTeamColors/${team}`)
+        .then(data => {
+          this.setState({ team: data.data });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
+
+  renderLogo() {
+    if (JSON.stringify(this.state.team) != "{}") {
+      return (
+        <div
+          style={{ paddingTop: "25px", paddingLeft: "40px", height: "110px" }}
+        >
+          <a href={`/team/${this.state.team.id}`}>
+            <img src={this.state.team.Logo} />
+          </a>
+        </div>
+      );
+    } else {
+      return (
+        <div style={{ paddingTop: "25px", paddingLeft: "45px" }}>
+          <img
+            style={{ height: "60px" }}
+            src="https://thumbs.gfycat.com/AggressiveGrouchyHammerkop-max-1mb.gif"
+          />
+        </div>
+      );
+    }
   }
 
   render() {
