@@ -214,7 +214,7 @@ export default class PlayerPolarColumn extends React.Component {
               return false;
             }
           },
-          borderWidth: 3
+          borderWidth: 2
         }
       },
 
