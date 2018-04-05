@@ -201,8 +201,8 @@ export default class AddPlayerSearch2 extends React.Component {
           className="card"
           style={{
             backgroundColor: "black",
-            height: "620px",
-            overflow: "scroll"
+            minHeight: "620px",
+            overflowY: "auto"
           }}
         >
           <Col
@@ -212,7 +212,7 @@ export default class AddPlayerSearch2 extends React.Component {
               backgroundColor: "rgba(105,105,105,0.1)"
             }}
           >
-            <img style={{ border: "none" }} src={picture} />
+            <img style={{ border: "none", height: "200px" }} src={picture} />
           </Col>
           <Col
             lg={12}
