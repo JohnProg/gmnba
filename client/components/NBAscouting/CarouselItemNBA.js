@@ -17,6 +17,13 @@ import CarPolPRHandler from "../CarouselCharts/CarPolPRHandler";
 import CarPolPRRollMan from "../CarouselCharts/CarPolPRRollMan";
 import CarPolDef from "../CarouselCharts/CarPolDef";
 import CarPolOvr from "../CarouselCharts/CarPolOvr";
+import CarPolTransition from "../CarouselCharts/CarPolTransition";
+import CarPolIso from "../CarouselCharts/CarPolIso";
+import CarPolShooting from "../CarouselCharts/CarPolShooting";
+import CarPolCatchShoot from "../CarouselCharts/CarPolCatchShoot";
+import CarPolPostUp from "../CarouselCharts/CarPolPostUp";
+import CarPolSD from "../CarouselCharts/CarPolSD";
+import CarPolHustle from "../CarouselCharts/CarPolHustle";
 import axios from "axios";
 
 export default class CarouselItemNBA extends React.Component {
@@ -25,12 +32,30 @@ export default class CarouselItemNBA extends React.Component {
     this.state = {
       loaded: false,
       statCat: "Basic",
-      team: {}
+      team: {},
+      prHandler: {},
+      prRollMan: {},
+      iso: {},
+      transition: {},
+      hustle: {},
+      postStats: {},
+      catchShootStats: {},
+      speedDistanceStats: {},
+      shootingStats: {}
     };
     this.checkLoad = this.checkLoad.bind(this);
     this.selectStatCat = this.selectStatCat.bind(this);
     this.getTeamColors = this.getTeamColors.bind(this);
     this.renderLogo = this.renderLogo.bind(this);
+    this.getPRHandler = this.getPRHandler.bind(this);
+    this.getPRRollMan = this.getPRRollMan.bind(this);
+    this.getIso = this.getIso.bind(this);
+    this.getTransition = this.getTransition.bind(this);
+    this.getHustleStats = this.getHustleStats.bind(this);
+    this.getPostStats = this.getPostStats.bind(this);
+    this.getCatchShootStats = this.getCatchShootStats.bind(this);
+    this.getSpeedDistanceStats = this.getSpeedDistanceStats.bind(this);
+    this.getShootingStats = this.getShootingStats.bind(this);
   }
 
   componentDidMount() {
@@ -44,6 +69,15 @@ export default class CarouselItemNBA extends React.Component {
     } else {
       this.setState({ statCat: "Basic" });
     }
+    this.getPRHandler(this.props.player.name);
+    this.getPRRollMan(this.props.player.name);
+    this.getIso(this.props.player.name);
+    this.getTransition(this.props.player.name);
+    this.getHustleStats(this.props.player.name);
+    this.getPostStats(this.props.player.name);
+    this.getCatchShootStats(this.props.player.name);
+    this.getSpeedDistanceStats(this.props.player.name);
+    this.getShootingStats(this.props.player.name);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -70,6 +104,60 @@ export default class CarouselItemNBA extends React.Component {
       });
   }
 
+  getPRHandler(name) {
+    axios.get(`/api/teams/getPRHandler/${name}`).then(data => {
+      this.setState({ prHandler: data.data });
+    });
+  }
+
+  getPRRollMan(name) {
+    axios.get(`/api/teams/getPRRollMan/${name}`).then(data => {
+      this.setState({ prRollMan: data.data });
+    });
+  }
+
+  getIso(name) {
+    axios.get(`/api/teams/getIso/${name}`).then(data => {
+      this.setState({ iso: data.data });
+    });
+  }
+
+  getTransition(name) {
+    axios.get(`/api/teams/getTransition/${name}`).then(data => {
+      this.setState({ transition: data.data });
+    });
+  }
+
+  getPostStats(name) {
+    axios.get(`/api/teams/getPostStats/${name}`).then(data => {
+      this.setState({ postStats: data.data });
+    });
+  }
+
+  getHustleStats(name) {
+    axios.get(`/api/teams/getHustleStats/${name}`).then(data => {
+      this.setState({ hustle: data.data });
+    });
+  }
+
+  getCatchShootStats(name) {
+    axios.get(`/api/teams/getCatchShootStats/${name}`).then(data => {
+      this.setState({ catchShootStats: data.data });
+    });
+  }
+
+  getSpeedDistanceStats(name) {
+    axios.get(`/api/teams/getSpeedDistanceStats/${name}`).then(data => {
+      this.setState({ speedDistanceStats: data.data });
+    });
+  }
+
+  getShootingStats(name) {
+    axios.get(`/api/teams/getShootingStats/${name}`).then(data => {
+      this.setState({ shootingStats: data.data });
+    });
+  }
+
   checkLoad() {
     if (this.props.player) {
       if (this.state.statCat === "Basic") {
@@ -94,8 +182,10 @@ export default class CarouselItemNBA extends React.Component {
         return (
           <div>
             <CarPolPRHandler
-              player={this.props.player}
+              player={this.state.prHandler}
               name={this.props.name}
+              gp={this.props.player.gamesPlayed}
+              min={this.props.player.mpg}
             />
           </div>
         );
@@ -103,8 +193,81 @@ export default class CarouselItemNBA extends React.Component {
         return (
           <div>
             <CarPolPRRollMan
-              player={this.props.player}
+              player={this.state.prRollMan}
               name={this.props.name}
+              gp={this.props.player.gamesPlayed}
+              min={this.props.player.mpg}
+            />
+          </div>
+        );
+      } else if (this.state.statCat === "Isolation") {
+        return (
+          <div>
+            <CarPolIso
+              player={this.state.iso}
+              name={this.props.name}
+              gp={this.props.player.gamesPlayed}
+              min={this.props.player.mpg}
+            />
+          </div>
+        );
+      } else if (this.state.statCat === "Transition") {
+        return (
+          <div>
+            <CarPolTransition
+              player={this.state.transition}
+              name={this.props.name}
+              gp={this.props.player.gamesPlayed}
+              min={this.props.player.mpg}
+            />
+          </div>
+        );
+      } else if (this.state.statCat === "Shooting Eff") {
+        return (
+          <div>
+            <CarPolShooting
+              player={this.state.shootingStats}
+              name={this.props.name}
+              min={this.props.player.mpg}
+            />
+          </div>
+        );
+      } else if (this.state.statCat === "Catch/Shoot") {
+        return (
+          <div>
+            <CarPolCatchShoot
+              player={this.state.catchShootStats}
+              name={this.props.name}
+              min={this.props.player.mpg}
+            />
+          </div>
+        );
+      } else if (this.state.statCat === "Post Ups") {
+        return (
+          <div>
+            <CarPolPostUp
+              player={this.state.postStats}
+              name={this.props.name}
+              min={this.props.player.mpg}
+            />
+          </div>
+        );
+      } else if (this.state.statCat === "Speed/Distance") {
+        return (
+          <div>
+            <CarPolSD
+              player={this.state.speedDistanceStats}
+              name={this.props.name}
+            />
+          </div>
+        );
+      } else if (this.state.statCat === "Hustle") {
+        return (
+          <div>
+            <CarPolHustle
+              player={this.state.hustle}
+              name={this.props.name}
+              min={this.props.player.mpg}
             />
           </div>
         );
@@ -118,12 +281,6 @@ export default class CarouselItemNBA extends React.Component {
         return (
           <div>
             <CarPolOvr player={this.props.player} name={this.props.name} />
-          </div>
-        );
-      } else {
-        return (
-          <div>
-            <PlPolTest player={this.props.player} name={this.props.name} />
           </div>
         );
       }
@@ -159,7 +316,6 @@ export default class CarouselItemNBA extends React.Component {
   }
 
   render() {
-    console.log(this.props.stat);
     var picture =
       "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443";
     if (this.props.player.picture) {
@@ -227,6 +383,7 @@ export default class CarouselItemNBA extends React.Component {
                     fontSize: "16px",
                     backgroundColor: "rgba(105,105,105,0.1)",
                     marginTop: "30px",
+                    marginRight: "40px",
                     color: this.state.team.Color_Sec
                   }}
                   onSelect={this.selectStatCat}
@@ -237,37 +394,19 @@ export default class CarouselItemNBA extends React.Component {
                   <MenuItem eventKey="3">Advanced Off</MenuItem>
                   <MenuItem divider />
                   <MenuItem header>Play Type</MenuItem>
-                  <MenuItem eventKey="10" disabled>
-                    P+R Ball Hand.
-                  </MenuItem>
-                  <MenuItem eventKey="11" disabled>
-                    P+R Roll Man
-                  </MenuItem>
-                  <MenuItem eventKey="12" disabled>
-                    Isolation
-                  </MenuItem>
-                  <MenuItem eventKey="14" disabled>
-                    Transition
-                  </MenuItem>
+                  <MenuItem eventKey="10">P+R Ball Hand.</MenuItem>
+                  <MenuItem eventKey="11">P+R Roll Man</MenuItem>
+                  <MenuItem eventKey="12">Isolation</MenuItem>
+                  <MenuItem eventKey="14">Transition</MenuItem>
                   <MenuItem divider />
                   <MenuItem header>Player Tracking</MenuItem>
-                  <MenuItem eventKey="4" disabled>
-                    Shooting Eff
-                  </MenuItem>
-                  <MenuItem eventKey="5" disabled>
-                    Catch/Shoot
-                  </MenuItem>
-                  <MenuItem eventKey="6" disabled>
-                    Post Ups
-                  </MenuItem>
-                  <MenuItem eventKey="9" disabled>
-                    Speed/Distance
-                  </MenuItem>
+                  <MenuItem eventKey="4">Shooting Eff</MenuItem>
+                  <MenuItem eventKey="5">Catch/Shoot</MenuItem>
+                  <MenuItem eventKey="6">Post Ups</MenuItem>
+                  <MenuItem eventKey="9">Speed/Distance</MenuItem>
                   <MenuItem divider />
                   <MenuItem eventKey="7">Defense</MenuItem>
-                  <MenuItem eventKey="13" disabled>
-                    Hustle
-                  </MenuItem>
+                  <MenuItem eventKey="13">Hustle</MenuItem>
                   <MenuItem divider />
                   <MenuItem eventKey="8">Overall</MenuItem>
                 </DropdownButton>
