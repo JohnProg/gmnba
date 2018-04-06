@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
-import CollegeLeaders from "./CollegeLeaders";
+import CollegeLeaders2 from "./CollegeLeaders2";
 import CPlayerComparison from "./CPlayerComparison";
 import CTeamComparison from "./CTeamComparison";
 import PlayerFinder from "../NBAscouting/PlayerFinder";
@@ -23,7 +23,7 @@ export default class CollegeScoutingTabs extends React.Component {
     console.log(this.props.teams);
     let component;
     if (this.state.key === 1)
-      component = <CollegeLeaders players={this.props.players} />;
+      component = <CollegeLeaders2 players={this.props.players} />;
     if (this.state.key === 2)
       component = <CPlayerComparison players={this.props.players} />;
     if (this.state.key === 3)

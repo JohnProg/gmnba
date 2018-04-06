@@ -64,9 +64,6 @@ export default class LeagueLeaders2 extends React.Component {
       table8stat: "trb",
       table9stat: "ast"
     };
-    this.rankOverall = this.rankOverall.bind(this);
-    this.rankOffense = this.rankOffense.bind(this);
-    this.rankDefense = this.rankDefense.bind(this);
     this.rankPoints = this.rankPoints.bind(this);
     this.rankRebounds = this.rankRebounds.bind(this);
     this.rankAssists = this.rankAssists.bind(this);
@@ -126,31 +123,24 @@ export default class LeagueLeaders2 extends React.Component {
     );
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.players) {
-  //     this.setState(
-  //       {
-  //         players: nextProps.players
-  //       },
-  //       () => {
-  //         this.rankOverall();
-  //         this.rankOffense();
-  //         this.rankDefense();
-  //         this.rankPoints();
-  //         this.rankRebounds();
-  //         this.rankAssists();
-  //       }
-  //     );
-  //   }
-  // }
-
-  rankOverall() {
-    let players = this.state.players;
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.players) {
+      this.setState(
+        {
+          players: nextProps.players
+        },
+        () => {
+          this.rankOverall();
+          this.rankOffense();
+          this.rankDefense();
+          this.rankPoints();
+          this.rankRebounds();
+          this.rankAssists();
+          this.filterPlayers();
+        }
+      );
+    }
   }
-
-  rankOffense() {}
-
-  rankDefense() {}
 
   rankPoints() {
     let players = this.state.players;
