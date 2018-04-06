@@ -383,7 +383,6 @@ export default class CarouselItemNBA extends React.Component {
                     fontSize: "16px",
                     backgroundColor: "rgba(105,105,105,0.1)",
                     marginTop: "30px",
-                    marginRight: "40px",
                     color: this.state.team.Color_Sec
                   }}
                   onSelect={this.selectStatCat}
