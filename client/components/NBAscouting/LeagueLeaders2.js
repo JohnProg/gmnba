@@ -64,9 +64,6 @@ export default class LeagueLeaders2 extends React.Component {
       table8stat: "trb",
       table9stat: "ast"
     };
-    this.rankPoints = this.rankPoints.bind(this);
-    this.rankRebounds = this.rankRebounds.bind(this);
-    this.rankAssists = this.rankAssists.bind(this);
     this.toggleFilter = this.toggleFilter.bind(this);
     this.renderFilter = this.renderFilter.bind(this);
     this.handlePG = this.handlePG.bind(this);
@@ -112,12 +109,6 @@ export default class LeagueLeaders2 extends React.Component {
         players: this.props.players
       },
       () => {
-        this.rankOverall();
-        this.rankOffense();
-        this.rankDefense();
-        this.rankPoints();
-        this.rankRebounds();
-        this.rankAssists();
         this.filterPlayers();
       }
     );
@@ -130,33 +121,11 @@ export default class LeagueLeaders2 extends React.Component {
           players: nextProps.players
         },
         () => {
-          this.rankOverall();
-          this.rankOffense();
-          this.rankDefense();
-          this.rankPoints();
-          this.rankRebounds();
-          this.rankAssists();
           this.filterPlayers();
         }
       );
     }
   }
-
-  rankPoints() {
-    let players = this.state.players;
-    players.sort(
-      function(a, b) {
-        return parseFloat(b.pts) - parseFloat(a.pts);
-      },
-      () => {
-        this.setState({ table4: players });
-      }
-    );
-  }
-
-  rankRebounds() {}
-
-  rankAssists() {}
 
   toggleFilter() {
     this.setState({ showFilter: !this.state.showFilter });
