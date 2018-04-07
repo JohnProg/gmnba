@@ -132,7 +132,9 @@ class CollegeTeamInfo extends React.Component {
       );
     } else {
       return (
-        <div style={{ textAlign: "center", marginTop: "250px" }}>
+        <div
+          style={{ textAlign: "center", marginTop: "250px", color: "white" }}
+        >
           <img
             style={{ height: "150px" }}
             src="https://thumbs.gfycat.com/AggressiveGrouchyHammerkop-max-1mb.gif"
