@@ -73,8 +73,10 @@ class Info extends React.Component {
                   <Row>
                     <Col lg={5} smOffset={1} mdOffset={0} sm={4} xs={12} md={6}>
                       <div>
-                        <div id="team-name">{this.state.team.Name}</div>
-                        <div id="info-text">
+                        <div id="team-name" style={{ color: "white" }}>
+                          {this.state.team.Name}
+                        </div>
+                        <div id="info-text" style={{ color: "white" }}>
                           <div>
                             Record: {this.state.team.W}-{this.state.team.L}
                           </div>
@@ -93,7 +95,7 @@ class Info extends React.Component {
                     </Col>
 
                     <Col lg={3} xs={12} md={4} sm={6}>
-                      <div className="team-overall">
+                      <div className="team-overall" style={{ color: "white" }}>
                         <div style={{ textAlign: "right" }}>
                           Overall: {this.getOverallRating()}
                         </div>
@@ -122,40 +124,40 @@ class Info extends React.Component {
                       smOffset={1}
                     >
                       <div>
-                        <span style={{ color: "#404040" }}>PPG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>
+                        <span style={{ color: "#f8f8f8" }}>PPG</span>{" "}
+                        <span style={{ fontSize: "18px", color: "white" }}>
                           {this.state.team.PTS}
                         </span>
                       </div>
                     </Col>
                     <Col lg={2} xs={2}>
                       <div>
-                        <span style={{ color: "#404040" }}>RPG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>
+                        <span style={{ color: "#f8f8f8" }}>RPG</span>{" "}
+                        <span style={{ fontSize: "18px", color: "white" }}>
                           {this.state.team.TRB}
                         </span>
                       </div>
                     </Col>
                     <Col lg={2} xs={2}>
                       <div>
-                        <span style={{ color: "#404040" }}>APG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>
+                        <span style={{ color: "#f8f8f8" }}>APG</span>{" "}
+                        <span style={{ fontSize: "18px", color: "white" }}>
                           {this.state.team.AST}
                         </span>
                       </div>
                     </Col>
                     <Col lg={2} xs={2}>
                       <div>
-                        <span style={{ color: "#404040" }}>ORTG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>
+                        <span style={{ color: "#f8f8f8" }}>ORTG</span>{" "}
+                        <span style={{ fontSize: "18px", color: "white" }}>
                           {this.state.team.ORtg}
                         </span>
                       </div>
                     </Col>
                     <Col lg={2} xs={2}>
                       <div>
-                        <span style={{ color: "#404040" }}>DRTG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>
+                        <span style={{ color: "#f8f8f8" }}>DRTG</span>{" "}
+                        <span style={{ fontSize: "18px", color: "white" }}>
                           {this.state.team.DRtg}
                         </span>
                       </div>

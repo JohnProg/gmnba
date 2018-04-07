@@ -10,7 +10,7 @@ export default class LandingPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ background: "none" }}>
         <NavBar />
         <Info props={this.props} />
       </div>

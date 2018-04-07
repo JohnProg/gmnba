@@ -13,7 +13,7 @@ body,
 html {
   height: 100%;
   line-height: 1.8;
-  background-color: #eeeeee !important;
+  background-color: none !important;
   background-image: url("https://i2.wp.com/www.nustm.org/wp-content/uploads/2017/06/background-image-html.jpg?fit=1920%2C1200&ssl=1");
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -74,6 +74,7 @@ img {
 
 #name-text {
   height: 170px;
+  color: "white";
 }
 
 #team-name {
@@ -97,7 +98,7 @@ li > a {
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:focus,
 .nav-pills > li.active > a:hover {
-  background-color: #eee !important;
+  background-color: #202020 !important;
   color: black !important;
 }
 
@@ -123,11 +124,12 @@ li.lakers > a {
 }
 
 #info-container-max {
-  background-color: white !important;
+  background-color: none !important;
 }
 
 #info-text {
   font-size: 16px;
+  color: "white";
 }
 
 #cinfo-text-break {
@@ -147,7 +149,7 @@ li.lakers > a {
 }
 
 #tabs-container {
-  background-color: #eeeeee !important;
+  background: none !important;
   margin-top: 0px;
 }
 

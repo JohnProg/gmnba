@@ -85,7 +85,7 @@ class PlayerInfo extends React.Component {
                   <Row>
                     <Col lg={5} xs={12} md={5}>
                       <div id="name-text">
-                        <div id="team-name">
+                        <div id="team-name" style={{ color: "white" }}>
                           {this.state.player.name}
                           <span
                             style={{ paddingLeft: "3px", fontSize: "14px" }}
@@ -94,7 +94,7 @@ class PlayerInfo extends React.Component {
                             {this.state.player.position}
                           </span>
                         </div>
-                        <div id="info-text">
+                        <div id="info-text" style={{ color: "white" }}>
                           <div>
                             <span>Height: {this.state.player.height}</span>
                             <span style={{ paddingLeft: "3px" }}>
@@ -112,7 +112,13 @@ class PlayerInfo extends React.Component {
                       <hr id="cinfo-text-break" />
                     </Col>
                     <Col lg={3} xs={7} md={4}>
-                      <div style={{ marginTop: "70px", fontSize: "15.5px" }}>
+                      <div
+                        style={{
+                          marginTop: "70px",
+                          fontSize: "15.5px",
+                          color: "white"
+                        }}
+                      >
                         <div style={{ textAlign: "right" }}>
                           Overall: {this.getOverallRating()}
                         </div>
@@ -132,7 +138,7 @@ class PlayerInfo extends React.Component {
                             src={this.state.colors.Logo}
                             style={{ maxHeight: "100px" }}
                           />
-                          <div id="teamLogoHeader">
+                          <div id="teamLogoHeader" style={{ color: "white" }}>
                             {this.state.player.team}
                           </div>
                         </div>
@@ -151,40 +157,40 @@ class PlayerInfo extends React.Component {
                       smOffset={0}
                       xsOffset={1}
                     >
-                      <div>
-                        <span style={{ color: "#404040" }}>PPG</span>{" "}
+                      <div style={{ color: "white" }}>
+                        <span>PPG</span>{" "}
                         <span style={{ fontSize: "18px" }}>
                           {this.state.player.pts}
                         </span>
                       </div>
                     </Col>
                     <Col lg={2} xs={2}>
-                      <div>
-                        <span style={{ color: "#404040" }}>RPG</span>{" "}
+                      <div style={{ color: "white" }}>
+                        <span>RPG</span>{" "}
                         <span style={{ fontSize: "18px" }}>
                           {this.state.player.trb}
                         </span>
                       </div>
                     </Col>
                     <Col lg={2} xs={2}>
-                      <div>
-                        <span style={{ color: "#404040" }}>APG</span>{" "}
+                      <div style={{ color: "white" }}>
+                        <span>APG</span>{" "}
                         <span style={{ fontSize: "18px" }}>
                           {this.state.player.ast}
                         </span>
                       </div>
                     </Col>
                     <Col lg={2} xs={2}>
-                      <div>
-                        <span style={{ color: "#404040" }}>GP</span>{" "}
+                      <div style={{ color: "white" }}>
+                        <span>GP</span>{" "}
                         <span style={{ fontSize: "18px" }}>
                           {this.state.player.gamesPlayed || 0}
                         </span>
                       </div>
                     </Col>
                     <Col lg={2} xs={2}>
-                      <div>
-                        <span style={{ color: "#404040" }}>MPG</span>{" "}
+                      <div style={{ color: "white" }}>
+                        <span>MPG</span>{" "}
                         <span style={{ fontSize: "18px" }}>
                           {this.state.player.mpg}
                         </span>

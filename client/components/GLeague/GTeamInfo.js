@@ -60,7 +60,7 @@ class GTeamInfo extends React.Component {
                   </div>
                 </Col>
                 <Col lg={9} xs={12} md={9} sm={9}>
-                  <div id="name-text">
+                  <div id="name-text" style={{ color: "white" }}>
                     <div id="team-name">{this.state.team.Name}</div>
                     <div id="info-text">
                       <div>
@@ -78,40 +78,40 @@ class GTeamInfo extends React.Component {
                       mdOffset={0}
                       smOffset={0}
                     >
-                      <div>
-                        <span style={{ color: "#404040" }}>PPG</span>{" "}
+                      <div style={{ color: "white" }}>
+                        <span>PPG</span>{" "}
                         <span style={{ fontSize: "18px" }}>
                           {this.state.team.PTS}
                         </span>
                       </div>
                     </Col>
                     <Col lg={2} xs={2}>
-                      <div>
-                        <span style={{ color: "#404040" }}>RPG</span>{" "}
+                      <div style={{ color: "white" }}>
+                        <span>RPG</span>{" "}
                         <span style={{ fontSize: "18px" }}>
                           {this.state.team.TRB}
                         </span>
                       </div>
                     </Col>
                     <Col lg={2} xs={2}>
-                      <div>
-                        <span style={{ color: "#404040" }}>APG</span>{" "}
+                      <div style={{ color: "white" }}>
+                        <span>APG</span>{" "}
                         <span style={{ fontSize: "18px" }}>
                           {this.state.team.AST}
                         </span>
                       </div>
                     </Col>
                     <Col lg={2} xs={2}>
-                      <div>
-                        <span style={{ color: "#404040" }}>STL</span>{" "}
+                      <div style={{ color: "white" }}>
+                        <span>STL</span>{" "}
                         <span style={{ fontSize: "18px" }}>
                           {this.state.team.STL}
                         </span>
                       </div>
                     </Col>
                     <Col lg={2} xs={2}>
-                      <div>
-                        <span style={{ color: "#404040" }}>BLK</span>{" "}
+                      <div style={{ color: "white" }}>
+                        <span>BLK</span>{" "}
                         <span style={{ fontSize: "18px" }}>
                           {this.state.team.BLK}
                         </span>
