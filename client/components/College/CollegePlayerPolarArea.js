@@ -11,14 +11,20 @@ export default class CollegePlayerPolarArea extends React.Component {
   componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.player.name) {
-      this.setState(
-        { player: nextProps.player, colors: nextProps.colors },
-        () => {
-          this.calculateGrades();
-          //this.createChart();
-        }
-      );
+    if (nextProps.player.name && nextProps.colors) {
+      var areaColor = "eee";
+      if (
+        nextProps.colors.Color_Main === "#000" ||
+        nextProps.colors.Color_Main === "#000000"
+      ) {
+        areaColor = nextProps.colors.Color_Sec;
+      } else {
+        areaColor = nextProps.colors.Color_Sec;
+      }
+      this.setState({ player: nextProps.player, colors: areaColor }, () => {
+        this.calculateGrades();
+        //this.createChart();
+      });
     }
   }
 
@@ -132,12 +138,17 @@ export default class CollegePlayerPolarArea extends React.Component {
     var chart = Highcharts.chart("container-polar2", {
       chart: {
         polar: true,
-        type: "area"
+        type: "area",
+        backgroundColor: "rgba(105,105,105,0.1)"
       },
 
       title: {
         text: null,
         x: 0
+      },
+
+      exporting: {
+        enabled: false
       },
 
       pane: {
@@ -154,7 +165,8 @@ export default class CollegePlayerPolarArea extends React.Component {
           "Steals"
         ],
         tickmarkPlacement: "on",
-        lineWidth: 0
+        lineWidth: 0,
+        gridLineColor: "grey"
       },
 
       yAxis: {
@@ -166,13 +178,14 @@ export default class CollegePlayerPolarArea extends React.Component {
         tickInterval: 10,
         labels: {
           enabled: false
-        }
+        },
+        gridLineColor: "grey"
       },
 
       tooltip: {
         shared: false,
         pointFormat:
-          '<span style="color:{series.color}">{series.name}: <b>${point.y:,.0f}</b><br/>'
+          '<span style="color:"black">{series.name}: <b>${point.y:,.0f}</b><br/>'
       },
 
       legend: {
@@ -195,7 +208,7 @@ export default class CollegePlayerPolarArea extends React.Component {
             this.state.stl.Grade
           ],
           pointPlacement: "on",
-          color: `${this.state.colors.Color_Main}`
+          color: `${this.state.colors}`
         }
       ]
     });
@@ -203,7 +216,7 @@ export default class CollegePlayerPolarArea extends React.Component {
 
   render() {
     return (
-      <div className="card">
+      <div className="card" style={{ backgroundColor: "black" }}>
         <div
           id="container-polar2"
           style={{ height: "400px", margin: "0 auto" }}

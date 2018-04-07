@@ -151,11 +151,16 @@ export default class CollegePlayerPolarColumn extends React.Component {
     var chart = Highcharts.chart("container-column", {
       chart: {
         polar: true,
-        type: "column"
+        type: "column",
+        backgroundColor: null
       },
 
       title: {
         text: null
+      },
+
+      exporting: {
+        enabled: false
       },
 
       pane: {
@@ -169,7 +174,8 @@ export default class CollegePlayerPolarColumn extends React.Component {
         tickInterval: 45,
         labels: {
           enabled: false
-        }
+        },
+        gridLineColor: "grey"
       },
 
       tooltip: {
@@ -182,7 +188,8 @@ export default class CollegePlayerPolarColumn extends React.Component {
         max: 60,
         labels: {
           enabled: false
-        }
+        },
+        gridLineColor: "grey"
       },
 
       plotOptions: {
@@ -308,11 +315,13 @@ export default class CollegePlayerPolarColumn extends React.Component {
 
   render() {
     return (
-      <div className="card">
-        <div
-          id="container-column"
-          style={{ height: "400px", margin: "0 auto" }}
-        />
+      <div className="card" style={{ backgroundColor: "black" }}>
+        <div style={{ backgroundColor: "rgba(105,105,105,0.1)" }}>
+          <div
+            id="container-column"
+            style={{ height: "400px", margin: "0 auto" }}
+          />
+        </div>
       </div>
     );
   }
