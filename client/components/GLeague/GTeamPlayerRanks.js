@@ -25,7 +25,12 @@ export default class GTeamPlayerRanks extends React.Component {
       <div>
         <Table striped hover>
           <thead>
-            <tr>
+            <tr
+              style={{
+                backgroundColor: "rgba(0,0,0,0.5)",
+                color: "white"
+              }}
+            >
               <th>Pos</th>
               <th>Name</th>
               <th>{this.props.stat}</th>

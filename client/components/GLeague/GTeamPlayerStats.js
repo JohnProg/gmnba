@@ -86,9 +86,7 @@ export default class GTeamPlayerStats extends React.Component {
     var statArr2 = [];
     event.preventDefault();
     for (let i = 0; i < this.state.teamPlayers.length; i++) {
-      console.log(i + ": " + this.state.teamPlayers[i]);
       let player = this.state.teamPlayers[i];
-      console.log("PLAYER ID: ", player.id);
       statArr2.push({
         data: [
           [
@@ -128,7 +126,6 @@ export default class GTeamPlayerStats extends React.Component {
       for (var i = 0; i < this.state.teamPlayers.length; i++) {
         total += parseFloat(this.state.teamPlayers[i][stat]);
       }
-      console.log(total);
       for (var j = 0; j < this.state.teamPlayers.length; j++) {
         //var player = [];
         var pct = this.state.teamPlayers[j][stat] / total * 100;
@@ -202,11 +199,13 @@ export default class GTeamPlayerStats extends React.Component {
     var chart = Highcharts.chart("container", {
       chart: {
         type: "scatter",
-        zoomType: "xy"
+        zoomType: "xy",
+        backgroundColor: "rgba(0,0,0,0.5)"
       },
       title: {
         text: `Player Stats ${this.props.team.Name}`
       },
+      exporting: { enabled: false },
       subtitle: {
         text: "Players Averaging Over 5 MPG"
       },
@@ -291,11 +290,13 @@ export default class GTeamPlayerStats extends React.Component {
           enabled: true,
           alpha: 45,
           beta: 0
-        }
+        },
+        backgroundColor: "rgba(0,0,0,0.5)"
       },
       title: {
         text: "Team Stats Pct by Player"
       },
+      exporting: { enabled: false },
       tooltip: {
         pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
       },
@@ -328,11 +329,13 @@ export default class GTeamPlayerStats extends React.Component {
           beta: 10,
           depth: 37,
           viewDistance: 25
-        }
+        },
+        backgroundColor: "rgba(0,0,0,0.5)"
       },
       title: {
         text: `${this.props.team.Name} Stat Averages`
       },
+      exporting: { enabled: false },
       subtitle: {
         text: ""
       },
@@ -400,7 +403,7 @@ export default class GTeamPlayerStats extends React.Component {
                   <form>
                     <Col lg={4} lgOffset={1} sm={5} md={5} xs={5}>
                       <div>
-                        <label htmlFor="sel1">
+                        <label htmlFor="sel1" style={{ color: "white" }}>
                           Select Stat <sub>(y)</sub> :
                         </label>
                         <select
@@ -458,7 +461,11 @@ export default class GTeamPlayerStats extends React.Component {
                     </Col>
                     <Col lg={4} sm={5} md={5} xs={5}>
                       <div>
-                        <label htmlFor="sel2" className="select-stat-label">
+                        <label
+                          htmlFor="sel2"
+                          className="select-stat-label"
+                          style={{ color: "white" }}
+                        >
                           Select Stat <sub>(x)</sub> :
                         </label>
                         <select
@@ -682,7 +689,7 @@ export default class GTeamPlayerStats extends React.Component {
             <Col lg={5} md={6}>
               <div className="card">
                 <div
-                  style={{ height: "400px", backgroundColor: "#ffffff" }}
+                  style={{ height: "400px", backgroundColor: "none" }}
                   id="team-player-ranks-container"
                 >
                   <GTeamPlayerRanks
@@ -770,7 +777,8 @@ export default class GTeamPlayerStats extends React.Component {
                 style={{
                   height: "500px",
                   width: "800",
-                  margin: "0 auto"
+                  margin: "0 auto",
+                  paddingBottom: "20px"
                 }}
               />
             </Col>
