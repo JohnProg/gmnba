@@ -57,19 +57,19 @@ export default class PlayerContract extends React.Component {
 
   renderSeasons() {
     var yrTwoHeader = {
-      color: "black"
+      color: "white"
     };
     var yrThreeHeader = {
-      color: "black"
+      color: "white"
     };
     var yrFourHeader = {
-      color: "black"
+      color: "white"
     };
     var yrFiveHeader = {
-      color: "black"
+      color: "white"
     };
     var yrSixHeader = {
-      color: "black"
+      color: "white"
     };
     if (this.state.yrTwoOption === "Player") {
       yrTwoHeader = { color: "red" };
@@ -122,37 +122,37 @@ export default class PlayerContract extends React.Component {
     }
     return (
       <tbody>
-        <tr>
+        <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
           <td>2017-2018</td>
           <td>{this.convertDollars(this.props.contract.yearOne)}</td>
           <td>{this.props.contract.signedUsing}</td>
           <td>{this.convertDollars(this.props.contract.guaranteed)}</td>
         </tr>
-        <tr>
+        <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
           <td>2018-2019</td>
           <td style={yrTwoHeader}>
             {this.convertDollars(this.props.contract.yearTwo)}
           </td>
         </tr>
-        <tr>
+        <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
           <td>2019-2020</td>
           <td style={yrThreeHeader}>
             {this.convertDollars(this.props.contract.yearThird)}
           </td>
         </tr>
-        <tr>
+        <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
           <td>2020-2021</td>
           <td style={yrFourHeader}>
             {this.convertDollars(this.props.contract.yearFour)}
           </td>
         </tr>
-        <tr>
+        <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
           <td>2021-2022</td>
           <td style={yrFiveHeader}>
             {this.convertDollars(this.props.contract.yearFive)}
           </td>
         </tr>
-        <tr>
+        <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
           <td>2022-2023</td>
           <td style={yrSixHeader}>
             {this.convertDollars(this.props.contract.yearSix)}
@@ -197,7 +197,10 @@ export default class PlayerContract extends React.Component {
           </Row>
           <Row style={{ marginBottom: "20px", paddingTop: "15px" }}>
             <Col lg={8} lgOffset={1} md={8} sm={8}>
-              <div className="card" style={{ backgroundColor: "white" }}>
+              <div
+                className="card"
+                style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}
+              >
                 <Table striped hover responsive>
                   <thead>
                     <tr>
