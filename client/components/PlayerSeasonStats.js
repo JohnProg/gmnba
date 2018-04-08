@@ -162,7 +162,7 @@ export default class PlayerSeasonStats extends React.Component {
       return (
         <Table striped hover responsive>
           <thead>
-            <tr>
+            <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
               <th>GP</th>
               <th>FG</th>
               <th>FGA</th>
@@ -188,7 +188,7 @@ export default class PlayerSeasonStats extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
               <th>{stat["gamesPlayed"]}</th>
               <th>{stat["fgm"]}</th>
               <th>{stat["fga"]}</th>
@@ -220,7 +220,7 @@ export default class PlayerSeasonStats extends React.Component {
       return (
         <Table striped hover responsive>
           <thead>
-            <tr>
+            <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
               <th>FG</th>
               <th>3P</th>
               <th>2P</th>
@@ -236,7 +236,7 @@ export default class PlayerSeasonStats extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
               <th
                 style={{
                   color: this.state.fg.Color,
@@ -396,7 +396,12 @@ export default class PlayerSeasonStats extends React.Component {
                 </div>
                 <Table striped hover responsive>
                   <thead>
-                    <tr>
+                    <tr
+                      style={{
+                        backgroundColor: "rgba(0,0,0,0.6)",
+                        color: "white"
+                      }}
+                    >
                       <th>AST%</th>
                       <th>BLK%</th>
                       <th>STL%</th>
@@ -421,7 +426,12 @@ export default class PlayerSeasonStats extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr
+                      style={{
+                        backgroundColor: "rgba(0,0,0,0.6)",
+                        color: "white"
+                      }}
+                    >
                       <th>{stat["astPct"]}</th>
                       <th>{stat["blkPct"]}</th>
                       <th>{stat["stlPct"]}</th>
