@@ -171,7 +171,7 @@ export default class AddPlayerSearch2 extends React.Component {
           className="card"
           style={{
             backgroundColor: "rgba(0,0,0,0.6)",
-            minheight: "600px",
+            minheight: "620px",
             overflowY: "auto"
           }}
         >

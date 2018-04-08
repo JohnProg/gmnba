@@ -32,7 +32,10 @@ export default class CollegeTeamLeagueRanks extends React.Component {
             <Col lg={10} lgOffset={1}>
               <div
                 className="card"
-                style={{ paddingBottom: "20px", backgroundColor: "white" }}
+                style={{
+                  paddingBottom: "20px",
+                  backgroundColor: "rgba(0,0,0,0.6)"
+                }}
               >
                 <CollegeTeamRankGauges
                   team={this.props.team}

@@ -7,11 +7,16 @@ export default class CollegeTeamPlayerEntry extends React.Component {
 
   render() {
     return (
-      <tr>
+      <tr
+        style={{
+          backgroundColor: "rgba(0,0,0,0.5)",
+          color: "white"
+        }}
+      >
         <td>{this.props.player.position}</td>
         <td>
           <a href={`/college-player/${this.props.player.id}`}>
-            {this.props.player.name}
+            <span style={{ color: "white" }}>{this.props.player.name}</span>
           </a>
         </td>
         <td>{this.props.player[this.props.stat]}</td>

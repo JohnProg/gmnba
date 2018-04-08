@@ -35,7 +35,12 @@ export default class CollegePlayersList extends React.Component {
                 </div>
                 <Table striped hover responsive>
                   <thead>
-                    <tr>
+                    <tr
+                      style={{
+                        backgroundColor: "rgba(0,0,0,0.5)",
+                        color: "white"
+                      }}
+                    >
                       <th>Name</th>
                       <th>Position</th>
                       <th>Overall</th>
