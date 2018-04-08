@@ -51,7 +51,9 @@ img {
 
 /* Info Section */
 #info {
-  margin-top: 60px;
+  margin-top: 50px;
+  height: 250px;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 #info-pic {

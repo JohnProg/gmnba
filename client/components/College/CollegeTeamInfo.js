@@ -55,7 +55,7 @@ class CollegeTeamInfo extends React.Component {
                   <div id="info-pic">
                     <img
                       src={this.state.team.Logo}
-                      style={{ maxHeight: "170px" }}
+                      style={{ maxHeight: "150px" }}
                     />
                   </div>
                 </Col>
@@ -69,7 +69,7 @@ class CollegeTeamInfo extends React.Component {
                     </div>
                   </div>
                   <hr id="info-text-break" />
-                  <Row style={{ paddingBottom: "20px" }}>
+                  <Row style={{ paddingBottom: "10px" }}>
                     <Col
                       lg={2}
                       xs={2}
