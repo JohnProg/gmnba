@@ -87,7 +87,8 @@ export default class CTeamScatter extends React.Component {
     var chart = Highcharts.chart("containerScatter2", {
       chart: {
         type: "scatter",
-        zoomType: "xy"
+        zoomType: "xy",
+        backgroundColor: null
       },
       title: {
         text: "Team Stats College"
@@ -95,6 +96,7 @@ export default class CTeamScatter extends React.Component {
       subtitle: {
         text: ""
       },
+      exporting: { enabled: false },
       xAxis: {
         title: {
           enabled: true,
@@ -213,7 +215,8 @@ export default class CTeamScatter extends React.Component {
           className="card playerScatter"
           id="containerScatter2"
           style={{
-            height: "500px"
+            height: "500px",
+            backgroundColor: "rgba(0,0,0,0.5)"
           }}
         />
         <Row style={{ paddingTop: "40px" }}>

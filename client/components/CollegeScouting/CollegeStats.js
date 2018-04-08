@@ -174,7 +174,6 @@ export default class CollegeStats extends React.Component {
         var temp = this.calculateGrades(players[i]);
         players[i]["Grades"] = temp;
       }
-      console.log(players);
       sorted = players.sort(function(a, b) {
         return parseFloat(b.pts) - parseFloat(a.pts);
       });
@@ -254,7 +253,12 @@ export default class CollegeStats extends React.Component {
   renderTableHeaders() {
     if (this.state.renderStats) {
       return (
-        <tr>
+        <tr
+          style={{
+            backgroundColor: "rgba(0,0,0,0.5)",
+            color: "white"
+          }}
+        >
           <th>Name</th>
           <th>Position</th>
           <th onClick={this.sortGP} style={{ cursor: "pointer" }}>
@@ -327,7 +331,12 @@ export default class CollegeStats extends React.Component {
       );
     } else {
       return (
-        <tr>
+        <tr
+          style={{
+            backgroundColor: "rgba(0,0,0,0.5)",
+            color: "white"
+          }}
+        >
           <th>Name</th>
           <th>Position</th>
           <th>GP</th>

@@ -625,7 +625,7 @@ export default class AddCTeamSearch extends React.Component {
               style={{
                 width: "100%",
                 height: "40px",
-                backgroundColor: "#0055bf",
+                backgroundColor: "#192e4f",
                 color: "white"
               }}
             >

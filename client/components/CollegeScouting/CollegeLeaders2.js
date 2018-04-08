@@ -359,7 +359,7 @@ export default class CollegeLeaders2 extends React.Component {
       return (
         <div style={{ height: "100px", color: "white" }}>
           <Col lg={2} lgOffset={1} md={2} mdOffset={1}>
-            <div style={{ color: "#192e4f", textDecoration: "underline" }}>
+            <div style={{ color: "white", textDecoration: "underline" }}>
               Position
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
@@ -376,7 +376,7 @@ export default class CollegeLeaders2 extends React.Component {
           </Col>
           <Col lg={2} md={2}>
             <div style={{ paddingLeft: "30px" }}>
-              <div style={{ color: "#192e4f", textDecoration: "underline" }}>
+              <div style={{ color: "white", textDecoration: "underline" }}>
                 MPG
               </div>
               <FormGroup style={{ paddingLeft: "10px" }}>
@@ -399,7 +399,7 @@ export default class CollegeLeaders2 extends React.Component {
             </div>
           </Col>
           <Col lg={2} md={2}>
-            <div style={{ color: "#192e4f", textDecoration: "underline" }}>
+            <div style={{ color: "white", textDecoration: "underline" }}>
               Experience
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
@@ -434,7 +434,7 @@ export default class CollegeLeaders2 extends React.Component {
             </FormGroup>
           </Col>
           <Col lg={2} md={2}>
-            <div style={{ color: "#192e4f", textDecoration: "underline" }}>
+            <div style={{ color: "white", textDecoration: "underline" }}>
               Age
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
@@ -707,7 +707,7 @@ export default class CollegeLeaders2 extends React.Component {
             <div
               onClick={this.toggleFilter}
               style={{
-                color: "#192e4f",
+                color: "white",
                 textDecoration: "underline",
                 fontSize: "16px",
                 cursor: "pointer",
