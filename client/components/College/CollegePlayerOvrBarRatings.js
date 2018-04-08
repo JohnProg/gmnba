@@ -121,7 +121,8 @@ export default class CollegePlayerOvrBarRatings extends React.Component {
   createChart() {
     var chart = Highcharts.chart("container-rating-ovr", {
       chart: {
-        type: "bar"
+        type: "bar",
+        backgroundColor: null
       },
       title: {
         text: null
@@ -129,6 +130,7 @@ export default class CollegePlayerOvrBarRatings extends React.Component {
       subtitle: {
         text: null
       },
+      exporting: { enabled: false },
       xAxis: {
         categories: ["PER", "WS", "WS/40", "BPM"],
         title: {
@@ -175,10 +177,10 @@ export default class CollegePlayerOvrBarRatings extends React.Component {
           name: "Possible",
           dataLabels: false,
           data: [
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" }
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" }
           ]
         },
         {
@@ -222,7 +224,8 @@ export default class CollegePlayerOvrBarRatings extends React.Component {
           id="container-rating-ovr"
           style={{
             height: "230px",
-            margin: "0 auto"
+            margin: "0 auto",
+            backgroundColor: "rgba(0,0,0,0.6)"
           }}
         />
       </div>

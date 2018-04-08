@@ -94,7 +94,7 @@ export default class CollegePlayerTabs extends React.Component {
               <span style={tabColor}>RATINGS</span>
             </NavItem>
             <NavItem eventKey={5} href="/">
-              <span style={tabColor}>COMPARISON</span>
+              <span style={tabColor}>COMPARE</span>
             </NavItem>
             <NavItem eventKey={7} href="/" disabled>
               <span style={tabColor}>COMBINE</span>

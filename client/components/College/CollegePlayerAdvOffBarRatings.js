@@ -127,7 +127,8 @@ export default class CollegePlayerAdvOffBarRatings extends React.Component {
   createChart() {
     var chart = Highcharts.chart("container-rating-advoff", {
       chart: {
-        type: "bar"
+        type: "bar",
+        backgroundColor: null
       },
       title: {
         text: null
@@ -135,6 +136,7 @@ export default class CollegePlayerAdvOffBarRatings extends React.Component {
       subtitle: {
         text: null
       },
+      exporting: { enabled: false },
       xAxis: {
         categories: ["AST%", "ORB%", "eFG%", "TOV%", "USG%", "OBPM", "OWS"],
         title: {
@@ -181,13 +183,13 @@ export default class CollegePlayerAdvOffBarRatings extends React.Component {
           name: "Possible",
           dataLabels: false,
           data: [
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" }
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" }
           ]
         },
         {
@@ -249,7 +251,8 @@ export default class CollegePlayerAdvOffBarRatings extends React.Component {
           id="container-rating-advoff"
           style={{
             height: "300px",
-            margin: "0 auto"
+            margin: "0 auto",
+            backgroundColor: "rgba(0,0,0,0.6)"
           }}
         />
       </div>

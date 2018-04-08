@@ -136,7 +136,8 @@ export default class CollegePlayerOffBarRatings extends React.Component {
   createChart() {
     var chart = Highcharts.chart("container-rating-off", {
       chart: {
-        type: "bar"
+        type: "bar",
+        backgroundColor: null
       },
       title: {
         text: null
@@ -144,6 +145,7 @@ export default class CollegePlayerOffBarRatings extends React.Component {
       subtitle: {
         text: null
       },
+      exporting: { enabled: false },
       xAxis: {
         categories: ["PTS", "ORB", "AST", "3P%", "2P%", "FT%"],
         title: {
@@ -190,12 +192,12 @@ export default class CollegePlayerOffBarRatings extends React.Component {
           name: "Possible",
           dataLabels: false,
           data: [
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" }
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" }
           ]
         },
         {
@@ -257,7 +259,8 @@ export default class CollegePlayerOffBarRatings extends React.Component {
           id="container-rating-off"
           style={{
             height: "275px",
-            margin: "0 auto"
+            margin: "0 auto",
+            backgroundColor: "rgba(0,0,0,0.6)"
           }}
         />
       </div>

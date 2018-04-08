@@ -151,12 +151,15 @@ export default class PlayerPolarColumn2 extends React.Component {
     var chart = Highcharts.chart("container-column", {
       chart: {
         polar: true,
-        type: "column"
+        type: "column",
+        backgroundColor: null
       },
 
       title: {
         text: null
       },
+
+      exporting: { enabled: false },
 
       pane: {
         startAngle: 0,
@@ -169,7 +172,8 @@ export default class PlayerPolarColumn2 extends React.Component {
         tickInterval: 45,
         labels: {
           enabled: false
-        }
+        },
+        gridlineColor: "grey"
       },
 
       tooltip: {
@@ -182,7 +186,8 @@ export default class PlayerPolarColumn2 extends React.Component {
         max: 60,
         labels: {
           enabled: false
-        }
+        },
+        gridlineColor: "grey"
       },
 
       plotOptions: {

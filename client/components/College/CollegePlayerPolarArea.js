@@ -139,7 +139,7 @@ export default class CollegePlayerPolarArea extends React.Component {
       chart: {
         polar: true,
         type: "area",
-        backgroundColor: "rgba(105,105,105,0.1)"
+        backgroundColor: null
       },
 
       title: {
@@ -216,7 +216,7 @@ export default class CollegePlayerPolarArea extends React.Component {
 
   render() {
     return (
-      <div className="card" style={{ backgroundColor: "black" }}>
+      <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
         <div
           id="container-polar2"
           style={{ height: "400px", margin: "0 auto" }}

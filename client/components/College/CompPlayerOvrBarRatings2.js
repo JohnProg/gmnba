@@ -117,7 +117,8 @@ export default class CompPlayerOvrBarRatings2 extends React.Component {
   createChart() {
     var chart = Highcharts.chart("container-rating-ovr2", {
       chart: {
-        type: "bar"
+        type: "bar",
+        backgroundColor: null
       },
       title: {
         text: null
@@ -125,6 +126,7 @@ export default class CompPlayerOvrBarRatings2 extends React.Component {
       subtitle: {
         text: null
       },
+      exporting: { enabled: false },
       xAxis: {
         categories: ["PER", "BPM", "WS", "WS/48"],
         title: {
@@ -171,10 +173,10 @@ export default class CompPlayerOvrBarRatings2 extends React.Component {
           name: "Possible",
           dataLabels: false,
           data: [
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" }
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" }
           ]
         },
         {

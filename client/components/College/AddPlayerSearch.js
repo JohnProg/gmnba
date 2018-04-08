@@ -233,7 +233,12 @@ export default class AddPlayerSearch extends React.Component {
               <DropdownButton
                 title={this.state.advancedCat}
                 className="card"
-                style={{ border: "none", fontSize: "16px" }}
+                style={{
+                  border: "none",
+                  fontSize: "16px",
+                  backgroundColor: "rgba(0,0,0,0.5)",
+                  color: "white"
+                }}
                 onSelect={this.selectAdvancedCat}
               >
                 <MenuItem eventKey="1">Advanced Offense</MenuItem>
@@ -366,18 +371,18 @@ export default class AddPlayerSearch extends React.Component {
           <div
             className="card"
             style={{
-              backgroundColor: "white",
-              height: "620px",
-              overflow: "scroll"
+              backgroundColor: "rgba(0,0,0,0.6)",
+              minHeight: "620px",
+              overflowY: "auto"
             }}
           >
             <Col lg={6} style={{ paddingTop: "20px" }}>
-              <Thumbnail style={{ border: "none" }} src={picture} />
+              <img style={{ border: "none", height: "180px" }} src={picture} />
             </Col>
             <Col lg={6} style={{ paddingTop: "30px" }}>
-              <div>
+              <div style={{ color: "white" }}>
                 <a href={`/player/${this.props.list.id}`}>
-                  <span style={{ fontSize: "22px" }}>
+                  <span style={{ fontSize: "22px", color: "white" }}>
                     {this.props.list.name}
                   </span>
                 </a>
@@ -387,7 +392,7 @@ export default class AddPlayerSearch extends React.Component {
                 </span>
               </div>
               <hr style={{ marginTop: "0px" }} />
-              <div style={{ fontSize: "16px" }}>
+              <div style={{ fontSize: "16px", color: "white" }}>
                 <div>Height: {this.props.list.height}</div>
                 <div>Weight: {this.props.list.weight}</div>
                 <div>Age: {this.props.list.age}</div>
