@@ -287,13 +287,11 @@ export default class PlayerPolColPRBH extends React.Component {
   render() {
     console.log(this.props);
     return (
-      <div className="card" style={{ backgroundColor: "black" }}>
-        <div style={{ backgroundColor: "rgba(105,105,105,0.1)" }}>
-          <div
-            id="container-column-prbh"
-            style={{ height: "400px", margin: "0 auto" }}
-          />
-        </div>
+      <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
+        <div
+          id="container-column-prbh"
+          style={{ height: "400px", margin: "0 auto" }}
+        />
       </div>
     );
   }
