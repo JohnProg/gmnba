@@ -134,10 +134,14 @@ export default class PlayerPostUpBarRatings extends React.Component {
   createChart() {
     var chart = Highcharts.chart("container-rating-post", {
       chart: {
-        type: "bar"
+        type: "bar",
+        backgroundColor: null
       },
       title: {
         text: null
+      },
+      exporting: {
+        enabled: false
       },
       subtitle: {
         text: null
@@ -188,13 +192,13 @@ export default class PlayerPostUpBarRatings extends React.Component {
           name: "Possible",
           dataLabels: false,
           data: [
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" }
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" }
           ]
         },
         {
@@ -256,7 +260,8 @@ export default class PlayerPostUpBarRatings extends React.Component {
           id="container-rating-post"
           style={{
             height: "300px",
-            margin: "0 auto"
+            margin: "0 auto",
+            backgroundColor: "rgba(0,0,0,0.6)"
           }}
         />
       </div>

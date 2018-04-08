@@ -280,7 +280,10 @@ export default class PlayerRatings extends React.Component {
             <Col lg={10} lgOffset={1} xs={12}>
               <div
                 className="card"
-                style={{ backgroundColor: "white", paddingBottom: "20px" }}
+                style={{
+                  backgroundColor: "rgba(0,0,0,0.6)",
+                  paddingBottom: "20px"
+                }}
               >
                 {this.renderRankGauges()}
               </div>
@@ -294,7 +297,7 @@ export default class PlayerRatings extends React.Component {
               </div>
             </Col>
           </Row>
-          <Row className="chart-row">
+          <Row className="chart-row" style={{ paddingBottom: "20px" }}>
             <Col lg={10} lgOffset={1}>
               <PlayerPositionAverages
                 player={this.props.player}
