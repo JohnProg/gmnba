@@ -151,12 +151,15 @@ export default class GPlayerPolarColumn extends React.Component {
     var chart = Highcharts.chart("container-column", {
       chart: {
         polar: true,
-        type: "column"
+        type: "column",
+        backgroundColor: null
       },
 
       title: {
         text: null
       },
+
+      exporting: { enabled: false },
 
       pane: {
         startAngle: 0,
@@ -169,7 +172,8 @@ export default class GPlayerPolarColumn extends React.Component {
         tickInterval: 45,
         labels: {
           enabled: false
-        }
+        },
+        gridLineColor: "grey"
       },
 
       tooltip: {
@@ -182,7 +186,8 @@ export default class GPlayerPolarColumn extends React.Component {
         max: 60,
         labels: {
           enabled: false
-        }
+        },
+        gridLineColor: "grey"
       },
 
       plotOptions: {
@@ -308,7 +313,7 @@ export default class GPlayerPolarColumn extends React.Component {
 
   render() {
     return (
-      <div className="card">
+      <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
         <div
           id="container-column"
           style={{ height: "400px", margin: "0 auto" }}

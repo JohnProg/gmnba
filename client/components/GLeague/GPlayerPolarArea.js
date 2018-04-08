@@ -11,14 +11,20 @@ export default class GPlayerPolarArea extends React.Component {
   componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.player.name) {
-      this.setState(
-        { player: nextProps.player, colors: nextProps.colors },
-        () => {
-          this.calculateGrades();
-          //this.createChart();
-        }
-      );
+    if (nextProps.player.name && nextProps.colors) {
+      var areaColor = "eee";
+      if (
+        nextProps.colors.Color_Main === "#000" ||
+        nextProps.colors.Color_Main === "#000000"
+      ) {
+        areaColor = nextProps.colors.Color_Sec;
+      } else {
+        areaColor = nextProps.colors.Color_Sec;
+      }
+      this.setState({ player: nextProps.player, colors: areaColor }, () => {
+        this.calculateGrades();
+        //this.createChart();
+      });
     }
   }
 
@@ -132,7 +138,8 @@ export default class GPlayerPolarArea extends React.Component {
     var chart = Highcharts.chart("container-polar2", {
       chart: {
         polar: true,
-        type: "area"
+        type: "area",
+        backgroundColor: null
       },
 
       title: {
@@ -142,6 +149,10 @@ export default class GPlayerPolarArea extends React.Component {
 
       pane: {
         size: "80%"
+      },
+
+      exporting: {
+        enabled: false
       },
 
       xAxis: {
@@ -154,7 +165,8 @@ export default class GPlayerPolarArea extends React.Component {
           "Steals"
         ],
         tickmarkPlacement: "on",
-        lineWidth: 0
+        lineWidth: 0,
+        gridLineColor: "grey"
       },
 
       yAxis: {
@@ -166,7 +178,8 @@ export default class GPlayerPolarArea extends React.Component {
         tickInterval: 10,
         labels: {
           enabled: false
-        }
+        },
+        gridLineColor: "grey"
       },
 
       tooltip: {
@@ -195,7 +208,7 @@ export default class GPlayerPolarArea extends React.Component {
             this.state.stl.Grade
           ],
           pointPlacement: "on",
-          color: `${this.state.colors.Color_Main}`
+          color: `${this.state.colors}`
         }
       ]
     });
@@ -203,7 +216,7 @@ export default class GPlayerPolarArea extends React.Component {
 
   render() {
     return (
-      <div className="card">
+      <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
         <div
           id="container-polar2"
           style={{ height: "400px", margin: "0 auto" }}

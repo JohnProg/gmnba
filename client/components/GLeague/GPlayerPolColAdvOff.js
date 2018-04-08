@@ -145,12 +145,15 @@ export default class GPlayerPolColAdvOff extends React.Component {
     var chart = Highcharts.chart("container-column-adv-off", {
       chart: {
         polar: true,
-        type: "column"
+        type: "column",
+        backgroundColor: null
       },
 
       title: {
         text: null
       },
+
+      exporting: { enabled: false },
 
       pane: {
         startAngle: 0,
@@ -163,7 +166,8 @@ export default class GPlayerPolColAdvOff extends React.Component {
         tickInterval: 45,
         labels: {
           enabled: false
-        }
+        },
+        gridLineColor: "grey"
       },
 
       tooltip: {
@@ -176,7 +180,8 @@ export default class GPlayerPolColAdvOff extends React.Component {
         max: 60,
         labels: {
           enabled: false
-        }
+        },
+        gridLineColor: "grey"
       },
 
       plotOptions: {
@@ -281,9 +286,8 @@ export default class GPlayerPolColAdvOff extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
-      <div className="card">
+      <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
         <div
           id="container-column-adv-off"
           style={{ height: "400px", margin: "0 auto" }}
