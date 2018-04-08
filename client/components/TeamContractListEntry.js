@@ -59,7 +59,9 @@ export default class TeamContractListEntry extends React.Component {
     if (this.state.id) {
       return (
         <td>
-          <a href={`/player/${this.state.id}`}>{this.props.player.name}</a>
+          <a href={`/player/${this.state.id}`}>
+            <span style={{ color: "white" }}>{this.props.player.name}</span>
+          </a>
         </td>
       );
     } else {
@@ -69,19 +71,19 @@ export default class TeamContractListEntry extends React.Component {
 
   render() {
     var yrTwoHeader = {
-      color: "black"
+      color: "white"
     };
     var yrThreeHeader = {
-      color: "black"
+      color: "white"
     };
     var yrFourHeader = {
-      color: "black"
+      color: "white"
     };
     var yrFiveHeader = {
-      color: "black"
+      color: "white"
     };
     var yrSixHeader = {
-      color: "black"
+      color: "white"
     };
     if (this.state.yrTwoOption === "Player") {
       yrTwoHeader = { color: "red" };
@@ -134,7 +136,7 @@ export default class TeamContractListEntry extends React.Component {
     }
     //console.log(this.props.player);
     return (
-      <tr>
+      <tr style={{ backgroundColor: "rgba(0,0,0,0.5)", color: "white" }}>
         {this.addLink()}
         <td>{this.props.player.age}</td>
         <td>{this.createDollar(this.props.player.yearOne)}</td>

@@ -149,7 +149,12 @@ export default class TeamStats extends React.Component {
       return (
         <Table striped hover responsive>
           <thead>
-            <tr>
+            <tr
+              style={{
+                backgroundColor: "rgba(0,0,0,0.5)",
+                color: "white"
+              }}
+            >
               <th>GP</th>
               <th>FG</th>
               <th>FGA</th>
@@ -175,7 +180,12 @@ export default class TeamStats extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr
+              style={{
+                backgroundColor: "rgba(0,0,0,0.5)",
+                color: "white"
+              }}
+            >
               <th>{parseInt(stat["W"]) + parseInt(stat["L"])}</th>
               <th>{stat["FG"]}</th>
               <th>{stat["FGA"]}</th>
@@ -207,7 +217,12 @@ export default class TeamStats extends React.Component {
       return (
         <Table striped hover responsive>
           <thead>
-            <tr>
+            <tr
+              style={{
+                backgroundColor: "rgba(0,0,0,0.5)",
+                color: "white"
+              }}
+            >
               <th>FG</th>
               <th>3P</th>
               <th>2P</th>
@@ -224,7 +239,12 @@ export default class TeamStats extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr
+              style={{
+                backgroundColor: "rgba(0,0,0,0.5)",
+                color: "white"
+              }}
+            >
               <th
                 style={{
                   color: this.state.fg.Color,
@@ -286,7 +306,6 @@ export default class TeamStats extends React.Component {
   }
 
   render() {
-    console.log(this.props.team);
     var headerStyle = {
       lineHeight: "50px",
       backgroundColor: this.props.team.Color_Main,
@@ -373,7 +392,12 @@ export default class TeamStats extends React.Component {
                 </div>
                 <Table striped hover responsive>
                   <thead>
-                    <tr>
+                    <tr
+                      style={{
+                        backgroundColor: "rgba(0,0,0,0.5)",
+                        color: "white"
+                      }}
+                    >
                       <th>W</th>
                       <th>L</th>
                       <th>MOV</th>
@@ -395,7 +419,12 @@ export default class TeamStats extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr
+                      style={{
+                        backgroundColor: "rgba(0,0,0,0.5)",
+                        color: "white"
+                      }}
+                    >
                       <th>{stat["W"]}</th>
                       <th>{stat["L"]}</th>
                       <th>{stat["MOV"]}</th>

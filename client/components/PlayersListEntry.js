@@ -401,12 +401,11 @@ export default class PlayersListEntry extends React.Component {
   }
 
   render() {
-    console.log(this.props.player);
     return (
-      <tr>
+      <tr style={{ backgroundColor: "rgba(0,0,0,0.5)", color: "white" }}>
         <td>
           <a href={`/player/${this.props.player.id}`}>
-            {this.props.player.name}
+            <span style={{ color: "white" }}>{this.props.player.name}</span>
           </a>
         </td>
         <td>{this.props.player.position}</td>

@@ -83,11 +83,13 @@ export default class TeamAverageComparison extends React.Component {
   createChart() {
     var chart = Highcharts.chart("container-average", {
       chart: {
-        type: "column"
+        type: "column",
+        backgroundColor: null
       },
       title: {
         text: `${this.state.team.Name} Vs League Averages`
       },
+      exporting: { enabled: false },
       xAxis: {
         categories: ["Pts", "Reb", "Ast", "Stl", "Blk", "Shot %"]
       },
@@ -163,7 +165,8 @@ export default class TeamAverageComparison extends React.Component {
           style={{
             height: "500px",
             width: "800",
-            margin: "0 auto"
+            margin: "0 auto",
+            backgroundColor: "rgba(0,0,0,0.6)"
           }}
         />
       </div>

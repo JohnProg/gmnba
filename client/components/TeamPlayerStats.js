@@ -68,7 +68,7 @@ export default class TeamPlayerStats extends React.Component {
               ]
             ],
             name: playerData[j].name,
-            color: this.props.team.Color_Main,
+            color: this.props.team.Color_Sec,
             _symbolIndex: 0,
             id: playerData[j].id
           });
@@ -99,7 +99,7 @@ export default class TeamPlayerStats extends React.Component {
           ]
         ],
         name: player.name,
-        color: this.props.team.Color_Main,
+        color: this.props.team.Color_Sec,
         _symbolIndex: 0,
         id: player.id
       });
@@ -332,7 +332,8 @@ export default class TeamPlayerStats extends React.Component {
     var chart = Highcharts.chart("container", {
       chart: {
         type: "scatter",
-        zoomType: "xy"
+        zoomType: "xy",
+        backgroundColor: "rgba(0,0,0,0.5)"
       },
       title: {
         text: `Player Stats ${this.props.team.Name}`
@@ -340,6 +341,7 @@ export default class TeamPlayerStats extends React.Component {
       subtitle: {
         text: "Players Averaging Over 5 MPG"
       },
+      exporting: { enabled: false },
       xAxis: {
         title: {
           enabled: true,
@@ -421,7 +423,8 @@ export default class TeamPlayerStats extends React.Component {
           enabled: true,
           alpha: 45,
           beta: 0
-        }
+        },
+        backgroundColor: "rgba(0,0,0,0.5)"
       },
       title: {
         text: "Team Stats Pct by Player"
@@ -429,6 +432,7 @@ export default class TeamPlayerStats extends React.Component {
       tooltip: {
         pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
       },
+      exporting: { enabled: false },
       plotOptions: {
         pie: {
           allowPointSelect: true,
@@ -458,7 +462,8 @@ export default class TeamPlayerStats extends React.Component {
           beta: 10,
           depth: 37,
           viewDistance: 25
-        }
+        },
+        backgroundColor: "rgba(0,0,0,0.5)"
       },
       title: {
         text: `${this.props.team.Name} Stat Averages`
@@ -474,7 +479,7 @@ export default class TeamPlayerStats extends React.Component {
       series: [
         {
           name: `${this.state.averageStat}`,
-          color: `${this.props.team.Color_Main}`,
+          color: `${this.props.team.Color_Sec}`,
           data: this.state.columnData
         }
       ]
@@ -520,7 +525,7 @@ export default class TeamPlayerStats extends React.Component {
               </div>
             </Col>
           </Row>
-          <Row className="chart-row">
+          <Row className="chart-row" style={{ paddingTop: "20px" }}>
             <Col lg={10} lgOffset={1}>
               <div
                 className="card"
@@ -528,7 +533,8 @@ export default class TeamPlayerStats extends React.Component {
                 style={{
                   height: "500px",
                   width: "800",
-                  margin: "0 auto"
+                  margin: "0 auto",
+                  paddingTop: "20px"
                 }}
               />
             </Col>
@@ -833,7 +839,7 @@ export default class TeamPlayerStats extends React.Component {
             <Col lg={5} md={6}>
               <div className="card">
                 <div
-                  style={{ height: "400px", backgroundColor: "#ffffff" }}
+                  style={{ height: "400px", backgroundColor: "none" }}
                   id="team-player-ranks-container"
                 >
                   <TeamPlayerRanks
@@ -922,7 +928,8 @@ export default class TeamPlayerStats extends React.Component {
                 style={{
                   height: "500px",
                   width: "800",
-                  margin: "0 auto"
+                  margin: "0 auto",
+                  paddingBottom: "20px"
                 }}
               />
             </Col>

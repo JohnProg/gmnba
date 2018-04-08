@@ -167,7 +167,8 @@ export default class TeamRankGuages extends React.Component {
   createChart() {
     var gaugeOptions = {
       chart: {
-        type: "solidgauge"
+        type: "solidgauge",
+        backgroundColor: null
       },
 
       title: null,
@@ -246,7 +247,7 @@ export default class TeamRankGuages extends React.Component {
               format:
                 '<div style="text-align:center"><span style="font-size:26px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
-                  "black") +
+                  "white") +
                 `">${this.state.gauge1Rank.rank}${this.state.gauge1Rank
                   .suffix}</span><br/>` +
                 "</div>"
@@ -282,7 +283,7 @@ export default class TeamRankGuages extends React.Component {
               format:
                 '<div style="text-align:center"><span style="font-size:26px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
-                  "black") +
+                  "white") +
                 `">${this.state.gauge2Rank.rank}${this.state.gauge2Rank
                   .suffix}</span><br/>` +
                 "</div>"
@@ -318,7 +319,7 @@ export default class TeamRankGuages extends React.Component {
               format:
                 '<div style="text-align:center"><span style="font-size:26px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
-                  "black") +
+                  "white") +
                 `">${this.state.gauge3Rank.rank}${this.state.gauge3Rank
                   .suffix}</span><br/>` +
                 "</div>"

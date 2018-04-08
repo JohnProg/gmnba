@@ -122,7 +122,8 @@ export default class TeamRatings extends React.Component {
   createChart() {
     var chart = Highcharts.chart("container-rating", {
       chart: {
-        type: "bar"
+        type: "bar",
+        backgroundColor: null
       },
       title: {
         text: null
@@ -130,6 +131,7 @@ export default class TeamRatings extends React.Component {
       subtitle: {
         text: null
       },
+      exporting: { enabled: false },
       xAxis: {
         categories: ["PTS", "REB", "AST", "STL", "BLK"],
         title: {
@@ -176,11 +178,11 @@ export default class TeamRatings extends React.Component {
           name: "Possible",
           dataLabels: false,
           data: [
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" }
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" }
           ]
         },
         {
@@ -225,7 +227,8 @@ export default class TeamRatings extends React.Component {
           id="container-rating"
           style={{
             height: "225px",
-            margin: "0 auto"
+            margin: "0 auto",
+            backgroundColor: "rgba(0,0,0,0.6)"
           }}
         />
       </div>

@@ -188,7 +188,12 @@ export default class TeamContracts extends React.Component {
             <Col lg={12}>
               <Table striped hover responsive>
                 <thead>
-                  <tr>
+                  <tr
+                    style={{
+                      backgroundColor: "rgba(0,0,0,0.5)",
+                      color: "white"
+                    }}
+                  >
                     <th>Name</th>
                     <th>Age</th>
                     <th>2017-2018</th>
@@ -203,7 +208,12 @@ export default class TeamContracts extends React.Component {
                 </thead>
                 <tbody>
                   {this.renderPlayers()}
-                  <tr>
+                  <tr
+                    style={{
+                      backgroundColor: "rgba(0,0,0,0.5)",
+                      color: "white"
+                    }}
+                  >
                     <td style={{ fontWeight: "bold" }}>Totals</td>
                     <td style={{ fontWeight: "bold" }}>{this.state.avgAge}</td>
                     <td style={{ fontWeight: "bold" }}>

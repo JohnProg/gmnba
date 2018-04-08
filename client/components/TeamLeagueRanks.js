@@ -46,7 +46,10 @@ export default class TeamLeagueRanks extends React.Component {
             <Col lg={10} lgOffset={1}>
               <div
                 className="card"
-                style={{ paddingBottom: "20px", backgroundColor: "white" }}
+                style={{
+                  paddingBottom: "20px",
+                  backgroundColor: "rgba(0,0,0,0.6)"
+                }}
               >
                 {this.renderTeamGauges()}
               </div>
@@ -71,7 +74,7 @@ export default class TeamLeagueRanks extends React.Component {
               </div>
             </Col>
           </Row>
-          <Row className="chart-row">
+          <Row className="chart-row" style={{ paddingBottom: "20px" }}>
             <Col lg={10} lgOffset={1}>
               <TeamAverageComparison
                 team={this.props.team}
