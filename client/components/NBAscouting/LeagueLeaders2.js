@@ -400,7 +400,7 @@ export default class LeagueLeaders2 extends React.Component {
   renderFilter() {
     if (this.state.showFilter) {
       return (
-        <div style={{ height: "100px" }}>
+        <div style={{ height: "100px", color: "white" }}>
           <Col lg={2} lgOffset={1} md={3} mdOffset={0}>
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               Position
