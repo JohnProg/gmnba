@@ -433,7 +433,7 @@ export default class CollegePlayerScatter extends React.Component {
   renderFilter() {
     if (this.state.showFilter === true) {
       return (
-        <div style={{ height: "100px" }}>
+        <div style={{ height: "100px", color: "white" }}>
           <Col lg={1} lgOffset={2} md={1} mdOffset={2}>
             <div style={{ color: "#192e4f", textDecoration: "underline" }}>
               Position
@@ -528,7 +528,7 @@ export default class CollegePlayerScatter extends React.Component {
                 <form>
                   <Col lg={4} lgOffset={1} sm={5} mdOffset={1} md={4}>
                     <div>
-                      <label htmlFor="sel1">
+                      <label htmlFor="sel1" style={{ color: "white" }}>
                         Select Stat <sub>(y)</sub> :
                       </label>
                       <select
@@ -588,7 +588,11 @@ export default class CollegePlayerScatter extends React.Component {
                   </Col>
                   <Col lg={4} sm={5} md={4}>
                     <div>
-                      <label htmlFor="sel2" className="select-stat-label">
+                      <label
+                        htmlFor="sel2"
+                        className="select-stat-label"
+                        style={{ color: "white" }}
+                      >
                         Select Stat <sub>(x)</sub> :
                       </label>
                       <select

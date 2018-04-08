@@ -411,7 +411,7 @@ export default class GLeagueLeaders extends React.Component {
   renderFilter() {
     if (this.state.showFilter) {
       return (
-        <div style={{ height: "100px" }}>
+        <div style={{ height: "100px", color: "white" }}>
           <Col lg={2} lgOffset={1} md={3} mdOffset={0}>
             <div style={{ color: "#303030", textDecoration: "underline" }}>
               Position
@@ -562,7 +562,7 @@ export default class GLeagueLeaders extends React.Component {
             <div
               onClick={this.toggleFilter}
               style={{
-                color: "#303030",
+                color: "white",
                 textDecoration: "underline",
                 fontSize: "16px",
                 cursor: "pointer"

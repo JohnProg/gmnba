@@ -40,24 +40,39 @@ export default class CollegeScoutingTabs extends React.Component {
             activeKey={this.state.key}
             onSelect={this.handleSelect}
             justified
+            style={{
+              backgroundColor: "rgba(0,0,0,0.5)"
+            }}
           >
             <NavItem eventKey={1} href="/">
-              <span className="tab-text">College Leaders</span>
+              <span className="tab-text" style={{ color: "white" }}>
+                College Leaders
+              </span>
             </NavItem>
             <NavItem eventKey={2} href="/">
-              <span className="tab-text">Player Comparison</span>
+              <span className="tab-text" style={{ color: "white" }}>
+                Player Comparison
+              </span>
             </NavItem>
             <NavItem eventKey={3} href="/">
-              <span className="tab-text">Team Comparison</span>
+              <span className="tab-text" style={{ color: "white" }}>
+                Team Comparison
+              </span>
             </NavItem>
             <NavItem eventKey={4} href="/" disabled>
-              <span className="tab-text">Player Finder</span>
+              <span className="tab-text" style={{ color: "white" }}>
+                Player Finder
+              </span>
             </NavItem>
             <NavItem eventKey={5} title="Item">
-              <span className="tab-text">Stats</span>
+              <span className="tab-text" style={{ color: "white" }}>
+                Stats
+              </span>
             </NavItem>
             <NavItem eventKey={6} title="Item" disabled>
-              <span className="tab-text">Rankings</span>
+              <span className="tab-text" style={{ color: "white" }}>
+                Rankings
+              </span>
             </NavItem>
           </Nav>
         </div>

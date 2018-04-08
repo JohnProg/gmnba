@@ -357,7 +357,7 @@ export default class CollegeLeaders2 extends React.Component {
   renderFilter() {
     if (this.state.showFilter) {
       return (
-        <div style={{ height: "100px" }}>
+        <div style={{ height: "100px", color: "white" }}>
           <Col lg={2} lgOffset={1} md={2} mdOffset={1}>
             <div style={{ color: "#192e4f", textDecoration: "underline" }}>
               Position
