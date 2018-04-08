@@ -153,7 +153,6 @@ export default class AddPlayerSearch2 extends React.Component {
       }
     }
     this.setState({ player: player }, () => {
-      console.log(this.state.player);
       this.setState({ renderPlayer: true });
     });
   }
@@ -167,32 +166,31 @@ export default class AddPlayerSearch2 extends React.Component {
         "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443";
     }
     if (this.state.renderPlayer) {
-      console.log("Render!!");
       return (
         <div
           className="card"
           style={{
-            backgroundColor: "white",
-            height: "620px",
-            overflow: "scroll"
+            backgroundColor: "rgba(0,0,0,0.6)",
+            minheight: "600px",
+            overflowY: "auto"
           }}
         >
           <Col lg={6} style={{ paddingTop: "20px" }}>
-            <Thumbnail style={{ border: "none" }} src={picture} />
+            <img style={{ border: "none", height: "180px" }} src={picture} />
           </Col>
           <Col lg={6} style={{ paddingTop: "30px" }}>
             <div>
               <a href={`/player/${this.state.player.id}`}>
-                <span style={{ fontSize: "22px" }}>
+                <span style={{ fontSize: "22px", color: "white" }}>
                   {this.state.player.name}
                 </span>
               </a>
-              <span style={{ paddingLeft: "3px" }}>
+              <span style={{ paddingLeft: "3px", color: "white" }}>
                 {" "}
                 {this.state.player.position}
               </span>
             </div>
-            <div style={{ fontSize: "16px" }}>
+            <div style={{ fontSize: "16px", color: "white" }}>
               <hr style={{ marginTop: "0px" }} />
               <div>Height: {this.state.player.height}</div>
               <div>Weight: {this.state.player.weight}</div>
@@ -260,7 +258,12 @@ export default class AddPlayerSearch2 extends React.Component {
               <DropdownButton
                 title={this.state.advancedCat}
                 className="card"
-                style={{ border: "none", fontSize: "16px" }}
+                style={{
+                  border: "none",
+                  fontSize: "16px",
+                  backgroundColor: "rgba(0,0,0,0.5)",
+                  color: "white"
+                }}
                 onSelect={this.selectAdvancedCat}
               >
                 <MenuItem eventKey="1">Advanced Offense</MenuItem>

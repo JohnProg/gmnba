@@ -119,7 +119,8 @@ export default class CompPlayerDefBarRatings2 extends React.Component {
   createChart() {
     var chart = Highcharts.chart("container-rating-def2", {
       chart: {
-        type: "bar"
+        type: "bar",
+        backgroundColor: null
       },
       title: {
         text: null
@@ -127,6 +128,7 @@ export default class CompPlayerDefBarRatings2 extends React.Component {
       subtitle: {
         text: null
       },
+      exporting: { enabled: false },
       xAxis: {
         categories: ["BLK%", "STL%", "DRB%", "TRB%", "DBPM", "DWS"],
         title: {
@@ -173,12 +175,12 @@ export default class CompPlayerDefBarRatings2 extends React.Component {
           name: "Possible",
           dataLabels: false,
           data: [
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" },
-            { y: 80, color: "#d8d8d8" }
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" },
+            { y: 80, color: "grey" }
           ]
         },
         {
