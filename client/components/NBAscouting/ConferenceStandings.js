@@ -64,13 +64,17 @@ export default class ConferenceStandings extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <Col lg={6} md={6}>
           <Table striped hover>
             <thead>
-              <tr>
+              <tr
+                style={{
+                  backgroundColor: "rgba(0,0,0,0.5)",
+                  color: "white"
+                }}
+              >
                 <th />
                 <th />
                 <th>W</th>
@@ -84,7 +88,12 @@ export default class ConferenceStandings extends React.Component {
         <Col lg={6} md={6}>
           <Table striped hover>
             <thead>
-              <tr>
+              <tr
+                style={{
+                  backgroundColor: "rgba(0,0,0,0.5)",
+                  color: "white"
+                }}
+              >
                 <th />
                 <th />
                 <th>W</th>

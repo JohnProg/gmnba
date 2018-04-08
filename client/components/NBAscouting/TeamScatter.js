@@ -87,7 +87,8 @@ export default class TeamScatter extends React.Component {
     var chart = Highcharts.chart("containerScatter2", {
       chart: {
         type: "scatter",
-        zoomType: "xy"
+        zoomType: "xy",
+        backgroundColor: null
       },
       title: {
         text: "Team Stats NBA"
@@ -95,6 +96,7 @@ export default class TeamScatter extends React.Component {
       subtitle: {
         text: ""
       },
+      exporting: { enabled: false },
       xAxis: {
         title: {
           enabled: true,
@@ -206,14 +208,14 @@ export default class TeamScatter extends React.Component {
   renderFilter() {}
 
   render() {
-    console.log(this.props.teams);
     return (
       <div>
         <div
           className="card playerScatter"
           id="containerScatter2"
           style={{
-            height: "500px"
+            height: "500px",
+            backgroundColor: "rgba(0,0,0,0.5)"
           }}
         />
         <Row style={{ paddingTop: "40px" }}>
@@ -223,7 +225,7 @@ export default class TeamScatter extends React.Component {
                 <form>
                   <Col lg={4} lgOffset={1} sm={5} md={4} mdOffset={1}>
                     <div>
-                      <label htmlFor="sel1">
+                      <label htmlFor="sel1" style={{ color: "white" }}>
                         Select Stat <sub>(y)</sub> :
                       </label>
                       <select
@@ -298,7 +300,11 @@ export default class TeamScatter extends React.Component {
                   </Col>
                   <Col lg={4} sm={5} md={4}>
                     <div>
-                      <label htmlFor="sel2" className="select-stat-label">
+                      <label
+                        htmlFor="sel2"
+                        className="select-stat-label"
+                        style={{ color: "white" }}
+                      >
                         Select Stat <sub>(x)</sub> :
                       </label>
                       <select

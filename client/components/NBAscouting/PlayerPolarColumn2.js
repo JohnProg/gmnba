@@ -152,7 +152,7 @@ export default class PlayerPolarColumn2 extends React.Component {
       chart: {
         polar: true,
         type: "column",
-        backgroundColor: "rgba(105,105,105,0.1)"
+        backgroundColor: null
       },
 
       title: {

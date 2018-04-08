@@ -15,10 +15,17 @@ export default class StandingsTeamEntry extends React.Component {
       color: this.props.team.Color_Sec
     };
     return (
-      <tr>
+      <tr
+        style={{
+          backgroundColor: "rgba(0,0,0,0.5)",
+          color: "white"
+        }}
+      >
         <td>{this.props.rank}</td>
         <td>
-          <a href={`/team/${this.props.team.id}`}>{this.props.team.Name}</a>
+          <a href={`/team/${this.props.team.id}`}>
+            <span style={{ color: "white" }}>{this.props.team.Name}</span>
+          </a>
         </td>
         <td>{this.props.team.W}</td>
         <td>{this.props.team.L}</td>

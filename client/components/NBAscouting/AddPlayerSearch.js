@@ -195,12 +195,11 @@ export default class AddPlayerSearch extends React.Component {
       picture = this.state.player.picture;
     }
     if (this.state.renderPlayer) {
-      console.log("Render!!");
       return (
         <div
           className="card"
           style={{
-            backgroundColor: "black",
+            backgroundColor: "rgba(0,0,0,0.5)",
             minHeight: "620px",
             overflowY: "auto"
           }}
@@ -209,7 +208,7 @@ export default class AddPlayerSearch extends React.Component {
             lg={12}
             style={{
               paddingTop: "20px",
-              backgroundColor: "rgba(105,105,105,0.1)"
+              backgroundColor: null
             }}
           >
             <img style={{ border: "none", height: "200px" }} src={picture} />
@@ -218,7 +217,7 @@ export default class AddPlayerSearch extends React.Component {
             lg={12}
             style={{
               paddingTop: "30px",
-              backgroundColor: "rgba(105,105,105,0.1)",
+              backgroundColor: null,
               color: "grey"
             }}
           >
@@ -238,7 +237,7 @@ export default class AddPlayerSearch extends React.Component {
           <Col
             lg={8}
             style={{
-              backgroundColor: "rgba(105,105,105,0.1)",
+              backgroundColor: null,
               color: "grey"
             }}
           >
@@ -250,7 +249,7 @@ export default class AddPlayerSearch extends React.Component {
               <div>Team: {this.state.player.team}</div>
             </div>
           </Col>
-          <Col lg={4} style={{ backgroundColor: "rgba(105,105,105,0.1)" }}>
+          <Col lg={4} style={{ backgroundColor: null }}>
             {this.renderLogo()}
           </Col>
           <Col lg={12}>

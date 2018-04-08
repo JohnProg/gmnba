@@ -254,7 +254,12 @@ export default class Stats extends React.Component {
   renderTableHeaders() {
     if (this.state.renderStats) {
       return (
-        <tr>
+        <tr
+          style={{
+            backgroundColor: "rgba(0,0,0,0.5)",
+            color: "white"
+          }}
+        >
           <th>Name</th>
           <th>Position</th>
           <th onClick={this.sortGP} style={{ cursor: "pointer" }}>
@@ -327,7 +332,12 @@ export default class Stats extends React.Component {
       );
     } else {
       return (
-        <tr>
+        <tr
+          style={{
+            backgroundColor: "rgba(0,0,0,0.5)",
+            color: "white"
+          }}
+        >
           <th>Name</th>
           <th>Position</th>
           <th>GP</th>

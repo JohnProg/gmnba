@@ -65,7 +65,10 @@ export default class NbaScouting extends React.Component {
           <Row style={{ paddingBottom: "40px" }}>
             <Col lg={12}>
               <div
-                style={{ marginTop: "53px", backgroundColor: "none" }}
+                style={{
+                  marginTop: "53px",
+                  backgroundColor: "rgba(0,0,0,0.3)"
+                }}
                 className="card"
               >
                 <Row>

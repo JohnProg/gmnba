@@ -25,7 +25,6 @@ export default class LeagueStandings extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.teams);
     if (this.props.teams) {
       this.setState({ teams: this.props.teams }, () => {
         this.rankTeams(this.state.teams);
@@ -55,13 +54,17 @@ export default class LeagueStandings extends React.Component {
   }
 
   render() {
-    console.log("state: ", this.state);
     return (
       <div>
         <Col lg={8}>
           <Table striped hover>
             <thead>
-              <tr>
+              <tr
+                style={{
+                  backgroundColor: "rgba(0,0,0,0.5)",
+                  color: "white"
+                }}
+              >
                 <th />
                 <th />
                 <th>W</th>

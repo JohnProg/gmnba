@@ -149,11 +149,13 @@ export default class PlayerScatter extends React.Component {
     var chart = Highcharts.chart("containerScatterP", {
       chart: {
         type: "scatter",
-        zoomType: "xy"
+        zoomType: "xy",
+        backgroundColor: null
       },
       title: {
         text: "Player Stats NBA"
       },
+      exporting: { enabled: false },
       subtitle: {
         text: "Players Averaging Over 5 MPG"
       },
@@ -562,7 +564,7 @@ export default class PlayerScatter extends React.Component {
   renderFilter() {
     if (this.state.showFilter === true) {
       return (
-        <div>
+        <div style={{ color: "white" }}>
           <Col lg={1} lgOffset={1} sm={2}>
             <div style={{ color: "#d00000", textDecoration: "underline" }}>
               Position
@@ -697,7 +699,8 @@ export default class PlayerScatter extends React.Component {
           className="card playerScatter"
           id="containerScatterP"
           style={{
-            height: "500px"
+            height: "500px",
+            backgroundColor: "rgba(0,0,0,0.5)"
           }}
         />
         <Row style={{ paddingTop: "40px" }}>
