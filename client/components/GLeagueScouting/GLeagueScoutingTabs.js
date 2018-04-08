@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Button, Well, Row, Grid, Nav, NavItem } from "react-bootstrap";
-import GLeagueLeaders from "./GLeagueLeaders";
+import GLeagueLeaders2 from "./GLeagueLeaders2";
 import GPlayerComparison from "./GPlayerComparison";
 import GTeamComparison from "./GTeamComparison";
 // import PlayerFinder from "../NBAscouting/PlayerFinder";
@@ -23,7 +23,7 @@ export default class GLeagueScoutingTabs extends React.Component {
     //console.log(this.props.teams);
     let component;
     if (this.state.key === 1)
-      component = <GLeagueLeaders players={this.props.players} />;
+      component = <GLeagueLeaders2 players={this.props.players} />;
     if (this.state.key === 2)
       component = <GPlayerComparison players={this.props.players} />;
     if (this.state.key === 3)

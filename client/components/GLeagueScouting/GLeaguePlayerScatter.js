@@ -124,7 +124,8 @@ export default class GLeaguePlayerScatter extends React.Component {
     var chart = Highcharts.chart("containerScatterCP", {
       chart: {
         type: "scatter",
-        zoomType: "xy"
+        zoomType: "xy",
+        backgroundColor: null
       },
       title: {
         text: "Player Stats G-League"
@@ -132,6 +133,7 @@ export default class GLeaguePlayerScatter extends React.Component {
       subtitle: {
         text: "Players Averaging Over 5 MPG"
       },
+      exporting: { enabled: false },
       xAxis: {
         title: {
           enabled: true,
@@ -435,7 +437,7 @@ export default class GLeaguePlayerScatter extends React.Component {
       return (
         <div style={{ height: "100px", color: "white" }}>
           <Col lg={1} lgOffset={2} md={1} mdOffset={2}>
-            <div style={{ color: "#3f336d", textDecoration: "underline" }}>
+            <div style={{ color: "white", textDecoration: "underline" }}>
               Position
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
@@ -452,7 +454,7 @@ export default class GLeaguePlayerScatter extends React.Component {
           </Col>
           <Col lg={2} md={2}>
             <div style={{ paddingLeft: "30px" }}>
-              <div style={{ color: "#3f336d", textDecoration: "underline" }}>
+              <div style={{ color: "white", textDecoration: "underline" }}>
                 MPG
               </div>
               <FormGroup style={{ paddingLeft: "10px" }}>
@@ -475,7 +477,7 @@ export default class GLeaguePlayerScatter extends React.Component {
             </div>
           </Col>
           <Col lg={2} md={2}>
-            <div style={{ color: "#3f336d", textDecoration: "underline" }}>
+            <div style={{ color: "white", textDecoration: "underline" }}>
               Age
             </div>
             <FormGroup style={{ paddingLeft: "10px" }}>
@@ -507,7 +509,8 @@ export default class GLeaguePlayerScatter extends React.Component {
           className="card playerScatter"
           id="containerScatterCP"
           style={{
-            height: "500px"
+            height: "500px",
+            backgroundColor: "rgba(0,0,0,0.5)"
           }}
         />
         <Row style={{ paddingTop: "40px" }}>
@@ -653,7 +656,7 @@ export default class GLeaguePlayerScatter extends React.Component {
                   <Col lg={1} md={1}>
                     <div
                       style={{
-                        color: "#3f336d",
+                        color: "white",
                         textDecoration: "underline",
                         paddingTop: "2px",
                         cursor: "pointer"
