@@ -28,13 +28,28 @@ export default class PlPolTest extends React.Component {
 
   calculateGrades() {
     var highPoints = 27;
-    var highAst = 9.5;
+    var highAst = 8.0;
     var highReb = 14;
     var highStl = 2.4;
     var highBlk = 2.4;
     var highFT = 0.94;
     var highThree = 0.46;
     var highTwo = 0.65;
+
+    if (
+      this.state.player.position === "PG" ||
+      this.state.player.position === "SG"
+    ) {
+      highBlk = 1.2;
+      highTwo = 0.58;
+      highReb = 10;
+      highAst = 9.5;
+    }
+    if (this.state.player.position === "SF") {
+      highBlk = 1.5;
+      highTwo = 0.58;
+      highReb = 10;
+    }
 
     var scoring = this.getGrade(
       highPoints,
@@ -68,6 +83,14 @@ export default class PlPolTest extends React.Component {
       0.2
     );
     var twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.25);
+
+    if (
+      this.state.player.position === "PG" ||
+      this.state.player.position === "SG" ||
+      this.state.player.position === "SF"
+    ) {
+      twoPoint = this.getGrade(highTwo, this.state.player.twoPtPct, 0.37);
+    }
     this.setState(
       {
         scoring: scoring,
