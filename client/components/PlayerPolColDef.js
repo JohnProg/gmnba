@@ -37,6 +37,16 @@ export default class PlayerPolColDef extends React.Component {
     var highBlk = 2.4;
     var highPf = 0;
 
+    if (
+      this.state.player.position === "PG" ||
+      this.state.player.position === "SG"
+    ) {
+      highBlk = 1.2;
+    }
+    if (this.state.player.position === "SF") {
+      highBlk = 1.5;
+    }
+
     var blkPct = this.getGrade(highBlkPct, this.state.player.blkPct, 0);
     var stlPct = this.getGrade(highStlPct, this.state.player.stlPct, 0);
     var drbPct = this.getGrade(highDrbPct, this.state.player.drbPct, 5);
