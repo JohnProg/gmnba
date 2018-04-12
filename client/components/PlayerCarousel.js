@@ -10,32 +10,10 @@ export default class PlayerCarousel extends React.Component {
       nav1: null,
       nav2: null
     };
-    this.renderNav = this.renderNav.bind(this);
-    this.renderCar = this.renderCar.bind(this);
   }
 
   componentDidMount() {
     this.setState({ nav1: this.slider1, nav2: this.slider2 });
-  }
-
-  renderNav() {
-    if (this.props.players) {
-      return this.props.players.map((player, i) => {
-        <div>
-          <CarouselItem player={player} />
-        </div>;
-      });
-    }
-  }
-
-  renderCar() {
-    // if (this.props.players) {
-    //   return this.props.players.map(player => {
-    //     <div>
-    //       <div>Hello</div>
-    //     </div>;
-    //   });
-    // }
   }
 
   render() {
@@ -80,24 +58,6 @@ export default class PlayerCarousel extends React.Component {
                 <CarouselNavItem player={player} />
               </div>
             ))}
-            {/*<div>
-            <h3>1</h3>
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>*/}
           </Slider>
         </div>
       </div>

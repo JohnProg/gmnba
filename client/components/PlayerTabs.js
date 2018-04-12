@@ -8,6 +8,7 @@ import PlayerSeasonStats from "./PlayerSeasonStats";
 import PlayerComparison from "./PlayerComparison";
 import PlayerContract from "./PlayerContract";
 import PlayerShotChart from "./PlayerShotChart";
+import PlayerCareer from "./PlayerCareer";
 import axios from "axios";
 
 export default class PlayerTabs extends React.Component {
@@ -41,7 +42,6 @@ export default class PlayerTabs extends React.Component {
   }
 
   render() {
-    console.log(this.props.positionStats);
     let component;
     if (this.state.key === 2)
       component = (
@@ -50,7 +50,10 @@ export default class PlayerTabs extends React.Component {
           colors={this.props.colors}
         />
       );
-    if (this.state.key === 3) component = <TeamPlayerStats />;
+    if (this.state.key === 3)
+      component = (
+        <PlayerCareer player={this.props.player} colors={this.props.colors} />
+      );
     if (this.state.key === 4)
       component = (
         <PlayerRatings
@@ -112,7 +115,7 @@ export default class PlayerTabs extends React.Component {
             <NavItem eventKey={2} href="/">
               <span style={tabColor}>SEASON</span>
             </NavItem>
-            <NavItem eventKey={3} href="/" disabled>
+            <NavItem eventKey={3} href="/">
               <span style={tabColor}>CAREER</span>
             </NavItem>
             <NavItem eventKey={4} href="/">
@@ -123,6 +126,9 @@ export default class PlayerTabs extends React.Component {
             </NavItem>
             <NavItem eventKey={5} href="/">
               <span style={tabColor}>COMPARISON</span>
+            </NavItem>
+            <NavItem eventKey={8} href="/" disabled>
+              <span style={tabColor}>PROJECTION</span>
             </NavItem>
             <NavItem eventKey={6} href="/">
               <span style={tabColor}>CONTRACT</span>

@@ -3,13 +3,14 @@ import React from "react";
 export default class PlPolTest extends React.Component {
   constructor() {
     super();
+    this.state = { player: {} };
     this.createChart = this.createChart.bind(this);
     this.calculateGrades = this.calculateGrades.bind(this);
     this.getGrade = this.getGrade.bind(this);
   }
 
   componentDidMount() {
-    if (this.props.player.name) {
+    if (this.props.player.name && this.props.name) {
       this.setState({ player: this.props.player }, () => {
         this.calculateGrades();
         //this.createChart();
@@ -18,11 +19,13 @@ export default class PlPolTest extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.player.name) {
-      this.setState({ player: nextProps.player }, () => {
-        this.calculateGrades();
-        //this.createChart();
-      });
+    if (nextProps.player.name && nextProps.name) {
+      if (nextProps.player != this.state.player) {
+        this.setState({ player: nextProps.player }, () => {
+          this.calculateGrades();
+          //this.createChart();
+        });
+      }
     }
   }
 
@@ -337,6 +340,7 @@ export default class PlPolTest extends React.Component {
   }
 
   render() {
+    //console.log("Chart Props ID: ", this.props.name);
     var chartName = this.props.name;
     return (
       <div>

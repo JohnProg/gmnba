@@ -306,7 +306,6 @@ export default class PlayerPolColOff extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
         <div

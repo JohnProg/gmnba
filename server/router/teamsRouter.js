@@ -36,6 +36,7 @@ router.get("/getPlayerProfile/:id", controller.getPlayerProfile);
 router.get("/getPlayer/:name", controller.getPlayer);
 router.get("/getPostStats/:name", controller.getPostStats);
 router.get("/getHustleStats/:name", controller.getHustleStats);
+router.get("/getCareerStats/:name", controller.getCareerStats);
 router.get("/getPlayerContract/:name", controller.getPlayerContract);
 router.get("/getPRHandler/:name", controller.getPRHandler);
 router.get("/getPRRollMan/:name", controller.getPRRollMan);

@@ -10,9 +10,9 @@ module.exports = {
     console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
     //console.log("Players Array: \n", playersArr);
-    for (var i = 250; i < playersArr.length; i++) {
+    for (var i = 0; i < playersArr.length; i++) {
       var player = playersArr[i];
-      db.Players
+      db.PlayersHistory
         .findOrCreate({
           where: {
             college: player["College"],
@@ -21,7 +21,8 @@ module.exports = {
             height: player["Height"],
             weight: player["Weight"],
             position: player["Position"],
-            team: player["team"]
+            team: player["team"],
+            year: 2012
           }
         })
         .then(data => {
@@ -503,7 +504,7 @@ module.exports = {
     var players = req.body.data;
     for (var i = 0; i < players.length; i++) {
       var player = players[i];
-      db.Players
+      db.PlayersHistory
         .update(
           {
             mpg: player["MPG"] || "0.0",
@@ -533,7 +534,7 @@ module.exports = {
             efgPct: player["eFG"] || "0.0"
           },
           {
-            where: { name: player["Name"] },
+            where: { name: player["Name"], year: 2012 },
             returning: true
           }
         )
@@ -1254,6 +1255,18 @@ module.exports = {
   getHustleStats: (req, res) => {
     db.Hustle
       .findOne({
+        where: { name: req.params.name }
+      })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getCareerStats: (req, res) => {
+    db.PlayersHistory
+      .findAll({
         where: { name: req.params.name }
       })
       .then(data => {
