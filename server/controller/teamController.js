@@ -22,7 +22,7 @@ module.exports = {
             weight: player["Weight"],
             position: player["Position"],
             team: player["team"],
-            year: 2012
+            year: 2006
           }
         })
         .then(data => {

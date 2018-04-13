@@ -102,7 +102,13 @@ class PlayerInfo extends React.Component {
                               Weight: {this.state.player.weight}
                             </span>
                           </div>
-                          <div>Age: {this.state.player.age}</div>
+                          <div>
+                            <span>Age: {this.state.player.age}</span>
+                            <span style={{ paddingLeft: "4px" }}>
+                              {" "}
+                              Experience: {this.state.player.experience}
+                            </span>
+                          </div>
                           <div>Team: {this.state.player.team}</div>
                           <div>
                             College: {this.state.player.college || "None"}

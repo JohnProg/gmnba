@@ -11,6 +11,8 @@ export default class CareerProgression extends React.Component {
     this.getStat = this.getStat.bind(this);
     this.scaleStat = this.scaleStat.bind(this);
     this.getOverall = this.getOverall.bind(this);
+    this.getOffense = this.getOffense.bind(this);
+    this.getDefense = this.getDefense.bind(this);
   }
 
   componentDidMount() {
@@ -33,7 +35,30 @@ export default class CareerProgression extends React.Component {
         var ovr = this.getOverall(seasons[i]);
         stats.push(parseFloat(ovr.toFixed(1)));
       }
-      console.log("ovr stats: ", stats);
+    } else if (stat === "Offense") {
+      var seasons = this.props.seasons.sort(function(a, b) {
+        return parseInt(a.year) - parseInt(b.year);
+      });
+      for (var i = 0; i < seasons.length; i++) {
+        var off = this.getOffense(seasons[i]);
+        stats.push(parseFloat(off.toFixed(1)));
+      }
+    } else if (stat === "Defense") {
+      var seasons = this.props.seasons.sort(function(a, b) {
+        return parseInt(a.year) - parseInt(b.year);
+      });
+      for (var i = 0; i < seasons.length; i++) {
+        var def = this.getDefense(seasons[i]);
+        stats.push(parseFloat(def.toFixed(1)));
+      }
+    } else {
+      var seasons = this.props.seasons.sort(function(a, b) {
+        return parseInt(a.year) - parseInt(b.year);
+      });
+      for (var i = 0; i < seasons.length; i++) {
+        var point = parseFloat(seasons[i][stat]);
+        stats.push(parseFloat(point.toFixed(2)));
+      }
     }
     this.setState({ data: stats }, () => {
       this.createChart();
@@ -58,7 +83,40 @@ export default class CareerProgression extends React.Component {
     return weightedOvr;
   }
 
+  getOffense(player) {
+    var scaledObpm = this.scaleStat(10.2, parseFloat(player.obpm), -6.0) * 0.5;
+    var scaledOws = this.scaleStat(8.7, parseFloat(player.ows), -2.0) * 0.5;
+    var offRating = scaledObpm + scaledOws;
+    return offRating;
+  }
+
+  getDefense(player) {
+    var scaledDbpm = this.scaleStat(5.8, parseFloat(player.dbpm), -4.0) * 0.5;
+    var scaledDws = this.scaleStat(4.1, parseFloat(player.dws), 0) * 0.5;
+    var defRating = scaledDbpm + scaledDws;
+    return defRating;
+  }
+
   createChart() {
+    var axisStyle = {
+      title: {
+        text: `${this.props.statCat}`
+      }
+    };
+    if (
+      this.props.statCat === "Overall" ||
+      this.props.statCat === "Offense" ||
+      this.props.statCat === "Defense"
+    ) {
+      axisStyle = {
+        title: {
+          text: `${this.props.statCat}`
+        },
+        min: 0,
+        max: 115,
+        tickInterval: 10
+      };
+    }
     var chart = Highcharts.chart("containerProg", {
       chart: {
         backgroundColor: null
@@ -67,14 +125,7 @@ export default class CareerProgression extends React.Component {
         text: "Player Career Progression"
       },
 
-      yAxis: {
-        title: {
-          text: `${this.state.statOne}`
-        },
-        min: 0,
-        max: 115,
-        tickInterval: 10
-      },
+      yAxis: axisStyle,
       xAxis: {
         title: {
           text: "Experience"

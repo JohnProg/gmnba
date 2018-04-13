@@ -23,7 +23,7 @@ export default class PlayerTimeline extends React.Component {
     });
 
     const settings = {
-      lazyLoad: false,
+      lazyLoad: true,
       slidesToShow: 3,
       swipeToSlide: true,
       focusOnSelect: true,
@@ -37,7 +37,7 @@ export default class PlayerTimeline extends React.Component {
             ref={slider => (this.slider2 = slider)}
             slidesToShow={3}
             swipeToSlide={true}
-            lazyLoad={false}
+            lazyLoad={true}
             adaptiveHeight={true}
             focusOnSelect={true}
             infinite={true}
