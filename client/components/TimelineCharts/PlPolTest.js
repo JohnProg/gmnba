@@ -18,16 +18,16 @@ export default class PlPolTest extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.player.name && nextProps.name) {
-      if (nextProps.player != this.state.player) {
-        this.setState({ player: nextProps.player }, () => {
-          this.calculateGrades();
-          //this.createChart();
-        });
-      }
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.player.name && nextProps.name) {
+  //     if (nextProps.player != this.state.player) {
+  //       this.setState({ player: nextProps.player }, () => {
+  //         this.calculateGrades();
+  //         //this.createChart();
+  //       });
+  //     }
+  //   }
+  // }
 
   calculateGrades() {
     var highPoints = 27;
@@ -45,7 +45,7 @@ export default class PlPolTest extends React.Component {
     ) {
       highBlk = 1.2;
       highTwo = 0.58;
-      highReb = 10;
+      highReb = 8.5;
       highAst = 9.5;
     }
     if (this.state.player.position === "SF") {

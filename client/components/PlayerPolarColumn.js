@@ -42,7 +42,7 @@ export default class PlayerPolarColumn extends React.Component {
     ) {
       highBlk = 1.2;
       highTwo = 0.58;
-      highReb = 10;
+      highReb = 8.5;
       highAst = 9.5;
     }
     if (this.state.player.position === "SF") {

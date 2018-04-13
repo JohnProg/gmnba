@@ -11,6 +11,7 @@ export default class PlayerCareer extends React.Component {
       stats: []
     };
     this.getCareerStats = this.getCareerStats.bind(this);
+    this.renderProgression = this.renderProgression.bind(this);
   }
 
   componentDidMount() {
@@ -23,6 +24,24 @@ export default class PlayerCareer extends React.Component {
     axios.get(`/api/teams/getCareerStats/${name}`).then(data => {
       this.setState({ stats: [...this.state.stats, ...data.data] });
     });
+  }
+
+  renderProgression() {
+    if (this.state.stats.length > 1) {
+      return (
+        <Row className="chart-row" style={{ paddingBottom: "40px" }}>
+          <Col lg={12}>
+            <div>
+              <CareerProgression
+                seasons={this.state.stats}
+                statCat="Overall"
+                colors={this.props.colors}
+              />
+            </div>
+          </Col>
+        </Row>
+      );
+    }
   }
 
   render() {
@@ -59,13 +78,7 @@ export default class PlayerCareer extends React.Component {
               </div>
             </Col>
           </Row>
-          <Row className="chart-row" style={{ paddingBottom: "40px" }}>
-            <Col lg={12}>
-              <div>
-                <CareerProgression stats={this.state.stats} />
-              </div>
-            </Col>
-          </Row>
+          {this.renderProgression()}
         </Grid>
       </div>
     );

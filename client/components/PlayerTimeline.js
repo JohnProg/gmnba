@@ -37,9 +37,10 @@ export default class PlayerTimeline extends React.Component {
             ref={slider => (this.slider2 = slider)}
             slidesToShow={3}
             swipeToSlide={true}
-            lazyLoad={true}
+            lazyLoad={false}
             adaptiveHeight={true}
             focusOnSelect={true}
+            infinite={true}
           >
             {playersArr.map((player, i) => (
               <div>
