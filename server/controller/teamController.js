@@ -534,7 +534,7 @@ module.exports = {
             efgPct: player["eFG"] || "0.0"
           },
           {
-            where: { name: player["Name"], year: 2012 },
+            where: { name: player["Name"], year: 2006 },
             returning: true
           }
         )

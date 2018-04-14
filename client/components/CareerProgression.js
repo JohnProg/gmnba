@@ -5,7 +5,11 @@ export default class CareerProgression extends React.Component {
     super(props);
     this.state = {
       statOne: "ovr",
-      data: []
+      statTwo: "off",
+      statThree: "def",
+      statOneData: [],
+      statTwoData: [],
+      statThreeData: []
     };
     this.createChart = this.createChart.bind(this);
     this.getStat = this.getStat.bind(this);
@@ -26,14 +30,29 @@ export default class CareerProgression extends React.Component {
   }
 
   getStat(stat) {
-    var stats = [];
+    var statsOne = [];
+    var statsTwo = [];
+    var statsThree = [];
+    if (stat === "Ovr/Off/Def") {
+      var seasons = this.props.seasons.sort(function(a, b) {
+        return parseInt(a.year) - parseInt(b.year);
+      });
+      for (var i = 0; i < seasons.length; i++) {
+        var ovr = this.getOverall(seasons[i]);
+        statsOne.push(parseFloat(ovr.toFixed(1)));
+        var off = this.getOffense(seasons[i]);
+        statsTwo.push(parseFloat(off.toFixed(1)));
+        var def = this.getDefense(seasons[i]);
+        statsThree.push(parseFloat(def.toFixed(1)));
+      }
+    }
     if (stat === "Overall") {
       var seasons = this.props.seasons.sort(function(a, b) {
         return parseInt(a.year) - parseInt(b.year);
       });
       for (var i = 0; i < seasons.length; i++) {
         var ovr = this.getOverall(seasons[i]);
-        stats.push(parseFloat(ovr.toFixed(1)));
+        statsOne.push(parseFloat(ovr.toFixed(1)));
       }
     } else if (stat === "Offense") {
       var seasons = this.props.seasons.sort(function(a, b) {
@@ -41,7 +60,7 @@ export default class CareerProgression extends React.Component {
       });
       for (var i = 0; i < seasons.length; i++) {
         var off = this.getOffense(seasons[i]);
-        stats.push(parseFloat(off.toFixed(1)));
+        statsOne.push(parseFloat(off.toFixed(1)));
       }
     } else if (stat === "Defense") {
       var seasons = this.props.seasons.sort(function(a, b) {
@@ -49,7 +68,7 @@ export default class CareerProgression extends React.Component {
       });
       for (var i = 0; i < seasons.length; i++) {
         var def = this.getDefense(seasons[i]);
-        stats.push(parseFloat(def.toFixed(1)));
+        statsOne.push(parseFloat(def.toFixed(1)));
       }
     } else {
       var seasons = this.props.seasons.sort(function(a, b) {
@@ -57,12 +76,19 @@ export default class CareerProgression extends React.Component {
       });
       for (var i = 0; i < seasons.length; i++) {
         var point = parseFloat(seasons[i][stat]);
-        stats.push(parseFloat(point.toFixed(2)));
+        statsOne.push(parseFloat(point.toFixed(2)));
       }
     }
-    this.setState({ data: stats }, () => {
-      this.createChart();
-    });
+    this.setState(
+      {
+        statOneData: statsOne,
+        statTwoData: statsTwo,
+        statThreeData: statsThree
+      },
+      () => {
+        this.createChart();
+      }
+    );
   }
 
   scaleStat(high, stat, low) {
@@ -98,6 +124,7 @@ export default class CareerProgression extends React.Component {
   }
 
   createChart() {
+    var xMax = this.props.seasons.length;
     var axisStyle = {
       title: {
         text: `${this.props.statCat}`
@@ -106,7 +133,8 @@ export default class CareerProgression extends React.Component {
     if (
       this.props.statCat === "Overall" ||
       this.props.statCat === "Offense" ||
-      this.props.statCat === "Defense"
+      this.props.statCat === "Defense" ||
+      this.props.statCat === "Ovr/Off/Def"
     ) {
       axisStyle = {
         title: {
@@ -116,6 +144,10 @@ export default class CareerProgression extends React.Component {
         max: 115,
         tickInterval: 10
       };
+    }
+    var colorThree = "white";
+    if (this.props.colors.Color_Third) {
+      colorThree = this.props.colors.Color_Third;
     }
     var chart = Highcharts.chart("containerProg", {
       chart: {
@@ -130,7 +162,8 @@ export default class CareerProgression extends React.Component {
         title: {
           text: "Experience"
         },
-        tickInterval: 1
+        tickInterval: 1,
+        max: xMax
       },
       legend: {
         layout: "vertical",
@@ -143,7 +176,7 @@ export default class CareerProgression extends React.Component {
 
       plotOptions: {
         series: {
-          lineWidth: 4,
+          lineWidth: 5,
           label: {
             connectorAllowed: false
           },
@@ -154,8 +187,18 @@ export default class CareerProgression extends React.Component {
       series: [
         {
           name: `${this.props.statCat}`,
-          data: this.state.data,
+          data: this.state.statOneData,
           color: `${this.props.colors.Color_Sec}`
+        },
+        {
+          name: "Offense",
+          data: this.state.statTwoData,
+          color: `${this.props.colors.Color_Main}`
+        },
+        {
+          name: "Defense",
+          data: this.state.statThreeData,
+          color: colorThree
         }
       ],
 
@@ -187,7 +230,7 @@ export default class CareerProgression extends React.Component {
           id="containerProg"
           style={{
             height: "500px",
-            backgroundColor: "rgba(0,0,0,0.5)"
+            backgroundColor: "rgba(0,0,0,0.6)"
           }}
         />
       </div>

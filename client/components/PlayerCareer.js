@@ -19,7 +19,7 @@ export default class PlayerCareer extends React.Component {
     super(props);
     this.state = {
       stats: [],
-      progStat: "Overall"
+      progStat: "Ovr/Off/Def"
     };
     this.getCareerStats = this.getCareerStats.bind(this);
     this.renderProgression = this.renderProgression.bind(this);
@@ -153,6 +153,7 @@ export default class PlayerCareer extends React.Component {
                   <MenuItem divider />
                   <MenuItem header>Misc.</MenuItem>
                   <MenuItem eventKey="4">mpg</MenuItem>
+                  <MenuItem eventKey="84">gamesPlayed</MenuItem>
                   <MenuItem eventKey="23">pf</MenuItem>
                   <MenuItem eventKey="35">per</MenuItem>
                   <MenuItem eventKey="36">ows</MenuItem>
