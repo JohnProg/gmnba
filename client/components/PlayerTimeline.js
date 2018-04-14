@@ -38,7 +38,7 @@ export default class PlayerTimeline extends React.Component {
             slidesToShow={3}
             swipeToSlide={true}
             lazyLoad={true}
-            adaptiveHeight={true}
+            adaptiveHeight={false}
             focusOnSelect={true}
             infinite={true}
           >
@@ -47,6 +47,9 @@ export default class PlayerTimeline extends React.Component {
                 <PlayerTimelineNav player={player} />
               </div>
             ))}
+            <div>.</div>
+            <div>.</div>
+            <div>.</div>
           </Slider>
         </div>
         <div>
@@ -64,6 +67,9 @@ export default class PlayerTimeline extends React.Component {
                 />
               </div>
             ))}
+            <div>.</div>
+            <div>.</div>
+            <div>.</div>
           </Slider>
         </div>
       </div>
