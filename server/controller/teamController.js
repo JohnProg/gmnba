@@ -551,7 +551,7 @@ module.exports = {
     var players = req.body.data;
     for (var i = 0; i < players.length; i++) {
       var player = players[i];
-      db.PlayersHistory
+      db.Players
         .update(
           {
             per: player["PER"],
@@ -576,7 +576,7 @@ module.exports = {
             vorp: player["VORP"]
           },
           {
-            where: { name: player["Name"], year: 2012 },
+            where: { name: player["Name"] },
             returning: true
           }
         )

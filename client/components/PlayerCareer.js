@@ -107,6 +107,9 @@ export default class PlayerCareer extends React.Component {
                   }}
                   onSelect={this.selectStatCat}
                 >
+                  <MenuItem header>Presets</MenuItem>
+                  <MenuItem eventKey="82">Ovr/Off/Def</MenuItem>
+                  <MenuItem divider />
                   <MenuItem eventKey="1">Overall</MenuItem>
                   <MenuItem eventKey="2">Offense</MenuItem>
                   <MenuItem eventKey="3">Defense</MenuItem>

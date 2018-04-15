@@ -38,12 +38,30 @@ export default class CareerProgression extends React.Component {
         return parseInt(a.year) - parseInt(b.year);
       });
       for (var i = 0; i < seasons.length; i++) {
+        var player1 = {};
+        var player2 = {};
+        var player3 = {};
         var ovr = this.getOverall(seasons[i]);
-        statsOne.push(parseFloat(ovr.toFixed(1)));
+        player1.y = parseFloat(ovr.toFixed(1));
+        player1.gp = seasons[i].gamesPlayed;
+        player1.mpg = seasons[i].mpg;
+        player1.team = seasons[i].team;
+        player1.year = seasons[i].year;
+        statsOne.push(player1);
         var off = this.getOffense(seasons[i]);
-        statsTwo.push(parseFloat(off.toFixed(1)));
+        player2.y = parseFloat(off.toFixed(1));
+        player2.gp = seasons[i].gamesPlayed;
+        player2.mpg = seasons[i].mpg;
+        player2.team = seasons[i].team;
+        player2.year = seasons[i].year;
+        statsTwo.push(player2);
         var def = this.getDefense(seasons[i]);
-        statsThree.push(parseFloat(def.toFixed(1)));
+        player3.y = parseFloat(def.toFixed(1));
+        player3.gp = seasons[i].gamesPlayed;
+        player3.mpg = seasons[i].mpg;
+        player3.team = seasons[i].team;
+        player3.year = seasons[i].year;
+        statsThree.push(player3);
       }
     }
     if (stat === "Overall") {
@@ -51,32 +69,56 @@ export default class CareerProgression extends React.Component {
         return parseInt(a.year) - parseInt(b.year);
       });
       for (var i = 0; i < seasons.length; i++) {
+        var player = {};
         var ovr = this.getOverall(seasons[i]);
-        statsOne.push(parseFloat(ovr.toFixed(1)));
+        player.y = parseFloat(ovr.toFixed(1));
+        player.gp = seasons[i].gamesPlayed;
+        player.mpg = seasons[i].mpg;
+        player.team = seasons[i].team;
+        player.year = seasons[i].year;
+        statsOne.push(player);
       }
     } else if (stat === "Offense") {
       var seasons = this.props.seasons.sort(function(a, b) {
         return parseInt(a.year) - parseInt(b.year);
       });
       for (var i = 0; i < seasons.length; i++) {
+        var player = {};
         var off = this.getOffense(seasons[i]);
-        statsOne.push(parseFloat(off.toFixed(1)));
+        player.y = parseFloat(off.toFixed(1));
+        player.gp = seasons[i].gamesPlayed;
+        player.mpg = seasons[i].mpg;
+        player.team = seasons[i].team;
+        player.year = seasons[i].year;
+        statsOne.push(player);
       }
     } else if (stat === "Defense") {
       var seasons = this.props.seasons.sort(function(a, b) {
         return parseInt(a.year) - parseInt(b.year);
       });
       for (var i = 0; i < seasons.length; i++) {
+        var player = {};
         var def = this.getDefense(seasons[i]);
-        statsOne.push(parseFloat(def.toFixed(1)));
+        player.y = parseFloat(def.toFixed(1));
+        player.gp = seasons[i].gamesPlayed;
+        player.mpg = seasons[i].mpg;
+        player.team = seasons[i].team;
+        player.year = seasons[i].year;
+        statsOne.push(player);
       }
     } else {
       var seasons = this.props.seasons.sort(function(a, b) {
         return parseInt(a.year) - parseInt(b.year);
       });
       for (var i = 0; i < seasons.length; i++) {
+        var player = {};
         var point = parseFloat(seasons[i][stat]);
-        statsOne.push(parseFloat(point.toFixed(2)));
+        player.y = parseFloat(point.toFixed(2));
+        player.gp = seasons[i].gamesPlayed;
+        player.mpg = seasons[i].mpg;
+        player.team = seasons[i].team;
+        player.year = seasons[i].year;
+        statsOne.push(player);
       }
     }
     this.setState(
@@ -166,10 +208,33 @@ export default class CareerProgression extends React.Component {
         max: xMax
       },
       legend: {
-        layout: "vertical",
-        align: "right",
-        verticalAlign: "middle",
-        enabled: false
+        layout: "horizontal",
+        align: "middle",
+        verticalAlign: "top",
+        enabled: true
+      },
+
+      tooltip: {
+        formatter: function() {
+          return (
+            "<b>" +
+            this.point.year +
+            " " +
+            this.point.team +
+            "</b><br/>" +
+            "<b>" +
+            this.series.name +
+            "</b>" +
+            ": " +
+            this.point.y +
+            "<br/>" +
+            "<b>GP: </b>" +
+            this.point.gp +
+            "    " +
+            "<b>MPG: </b>" +
+            this.point.mpg
+          );
+        }
       },
 
       exporting: { enabled: false },
@@ -184,10 +249,27 @@ export default class CareerProgression extends React.Component {
         }
       },
 
+      // series: [
+      //   {
+      //     name: `${this.props.statCat}`,
+      //     data: this.state.statOneData,
+      //     color: `${this.props.colors.Color_Sec}`
+      //   },
+      //   {
+      //     name: "Offense",
+      //     data: this.state.statTwoData,
+      //     color: `${this.props.colors.Color_Main}`
+      //   },
+      //   {
+      //     name: "Defense",
+      //     data: this.state.statThreeData,
+      //     color: colorThree
+      //   }
+      // ],
       series: [
         {
-          name: `${this.props.statCat}`,
           data: this.state.statOneData,
+          name: `${this.props.statCat}`,
           color: `${this.props.colors.Color_Sec}`
         },
         {
