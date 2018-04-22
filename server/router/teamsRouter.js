@@ -89,4 +89,6 @@ router.get("/nbaTeamsList", controller.nbaTeamsList);
 router.get("/collegeTeamsList", controller.collegeTeamsList);
 router.get("/gTeamsList", controller.gTeamsList);
 
+router.get("/getHistoryPlayers", controller.getHistoryPlayers);
+
 module.exports = router;

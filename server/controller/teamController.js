@@ -1786,5 +1786,15 @@ module.exports = {
       .catch(err => {
         console.log(err);
       });
+  },
+  getHistoryPlayers: (req, res) => {
+    db.PlayersHistory
+      .findAll({})
+      .then(data => {
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
