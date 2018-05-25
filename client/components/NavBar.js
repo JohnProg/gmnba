@@ -235,7 +235,7 @@ export default class NavBar extends React.Component {
               >
                 SCOUTING &#9660;
               </a>
-              <a href="/team/3" className="w3-bar-item w3-button">
+              <a href="/team/26" className="w3-bar-item w3-button">
                 <i className="fa fa-user" /> TEAM
               </a>
               <a href="/scouting" className="w3-bar-item w3-button">

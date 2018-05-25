@@ -25,7 +25,7 @@ const Main = () => (
       <Route path="/gleague-team/:id" component={GTeamPage} />
       <Route path="/gleague-player/:id" component={GPlayerPage} />
       <Route path="/int-team/:id" component={IntTeamPage} />
-      <Redirect from="/" to="/team/24" />
+      <Redirect from="/" to="/team/26" />
     </Switch>
   </BrowserRouter>
 );
