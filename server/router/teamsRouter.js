@@ -51,6 +51,7 @@ router.get("/getTeamColors/:team", controller.getTeamColors);
 router.get("/getPositionStats", controller.getPositionStats);
 router.get("/getCollegePlayerProfile/:id", controller.getCollegePlayerProfile);
 router.get("/getgPlayerProfile/:id", controller.getgPlayerProfile);
+router.get("/getAgeStats/:age", controller.getAgeStats);
 router.post("/createCollegeTeams", controller.createCollegeTeams);
 router.post("/creategLeagueTeams", controller.creategLeagueTeams);
 router.post("/createInternationalTeams", controller.createInternationalTeams);
@@ -90,5 +91,6 @@ router.get("/collegeTeamsList", controller.collegeTeamsList);
 router.get("/gTeamsList", controller.gTeamsList);
 
 router.get("/getHistoryPlayers", controller.getHistoryPlayers);
+router.get("/getFutureStats", controller.getFutureStats);
 
 module.exports = router;

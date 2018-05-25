@@ -33,9 +33,14 @@ export default class PlayerCareer extends React.Component {
   }
 
   getCareerStats(name) {
-    axios.get(`/api/teams/getCareerStats/${name}`).then(data => {
-      this.setState({ stats: [...this.state.stats, ...data.data] });
-    });
+    axios
+      .get(`/api/teams/getCareerStats/${name}`)
+      .then(data => {
+        this.setState({ stats: [...this.state.stats, ...data.data] });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   selectStatCat(evt, eventKey) {
@@ -43,24 +48,6 @@ export default class PlayerCareer extends React.Component {
   }
 
   renderProgression() {
-    if (this.state.stats.length > 1) {
-      return (
-        <Row className="chart-row" style={{ paddingBottom: "40px" }}>
-          <Col lg={12}>
-            <div>
-              <CareerProgression
-                seasons={this.state.stats}
-                statCat={this.state.progStat}
-                colors={this.props.colors}
-              />
-            </div>
-          </Col>
-        </Row>
-      );
-    }
-  }
-
-  render() {
     var headerStyle = {
       backgroundColor: this.props.colors.Color_Main,
       height: "50px",
@@ -69,24 +56,10 @@ export default class PlayerCareer extends React.Component {
       paddingLeft: "25px",
       color: this.props.colors.Color_Sec
     };
-    return (
-      <div>
-        <Grid>
-          <Row style={{ paddingTop: "40px" }}>
-            <Col lg={3} md={4}>
-              <div className="card" style={headerStyle}>
-                CAREER RATINGS
-              </div>
-            </Col>
-          </Row>
-          <Row className="chart-row">
-            <Col lg={12}>
-              <div>
-                <PlayerTimeline stats={this.state.stats} />
-              </div>
-            </Col>
-          </Row>
-          <Row style={{ paddingTop: "40px" }}>
+    if (this.state.stats.length > 1) {
+      return (
+        <div>
+          <Row>
             <Col lg={3} md={4}>
               <div className="card" style={headerStyle}>
                 PROGRESSION
@@ -168,6 +141,48 @@ export default class PlayerCareer extends React.Component {
                   <MenuItem eventKey="42">wsFourtyEight</MenuItem>
                   <MenuItem eventKey="43">vorp</MenuItem>
                 </DropdownButton>
+              </div>
+            </Col>
+          </Row>
+          <Row className="chart-row" style={{ paddingBottom: "40px" }}>
+            <Col lg={12}>
+              <div>
+                <CareerProgression
+                  seasons={this.state.stats}
+                  statCat={this.state.progStat}
+                  colors={this.props.colors}
+                />
+              </div>
+            </Col>
+          </Row>
+        </div>
+      );
+    }
+  }
+
+  render() {
+    var headerStyle = {
+      backgroundColor: this.props.colors.Color_Main,
+      height: "50px",
+      lineHeight: "50px",
+      fontSize: "20px",
+      paddingLeft: "25px",
+      color: this.props.colors.Color_Sec
+    };
+    return (
+      <div>
+        <Grid>
+          <Row style={{ paddingTop: "40px" }}>
+            <Col lg={3} md={4}>
+              <div className="card" style={headerStyle}>
+                CAREER RATINGS
+              </div>
+            </Col>
+          </Row>
+          <Row className="chart-row" style={{ paddingBottom: "40px" }}>
+            <Col lg={12}>
+              <div>
+                <PlayerTimeline stats={this.state.stats} />
               </div>
             </Col>
           </Row>

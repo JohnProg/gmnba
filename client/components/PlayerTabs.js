@@ -9,6 +9,7 @@ import PlayerComparison from "./PlayerComparison";
 import PlayerContract from "./PlayerContract";
 import PlayerShotChart from "./PlayerShotChart";
 import PlayerCareer from "./PlayerCareer";
+import PlayerProjection from "./PlayerProjection";
 import axios from "axios";
 
 export default class PlayerTabs extends React.Component {
@@ -93,6 +94,13 @@ export default class PlayerTabs extends React.Component {
           colors={this.props.colors}
           players={this.state.playerStats}
           contract={this.props.contract}
+        />
+      );
+    if (this.state.key === 8)
+      component = (
+        <PlayerProjection
+          player={this.props.player}
+          colors={this.props.colors}
         />
       );
     var headerStyle = {

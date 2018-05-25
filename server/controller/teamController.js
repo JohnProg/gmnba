@@ -1,6 +1,8 @@
 const axios = require("axios");
 const db = require("../db");
 const circularJSON = require("circular-json");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 module.exports = {
   getAllTeams: (req, res) => {
@@ -672,6 +674,29 @@ module.exports = {
     db.Players
       .findAll({
         where: { team: req.query.team }
+      })
+      .then(data => {
+        console.log("Successfully retrieved player data!!");
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getFutureStats: (req, res) => {
+    console.log(req.query.name);
+    console.log(req.query.age);
+    var age1 = parseInt(req.query.age) - 1;
+    var age2 = parseInt(req.query.age);
+    var age3 = parseInt(req.query.age) + 1;
+    db.PlayersHistory
+      .findAll({
+        where: {
+          name: req.query.name,
+          age: {
+            [Op.or]: [age1.toString(), age2.toString(), age3.toString()]
+          }
+        }
       })
       .then(data => {
         console.log("Successfully retrieved player data!!");
@@ -1469,6 +1494,26 @@ module.exports = {
       .findOne({
         where: { Name: req.params.team },
         attributes: ["Color_Main", "Color_Sec", "Color_Third", "Logo", "id"]
+      })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getAgeStats: (req, res) => {
+    var age1 = parseInt(req.params.age) - 1;
+    var age2 = parseInt(req.params.age);
+    var age3 = parseInt(req.params.age) + 1;
+    db.PlayersHistory
+      .findAll({
+        where: {
+          age: {
+            [Op.or]: [age1.toString(), age2.toString(), age3.toString()]
+          },
+          gamesPlayed: { gt: 10 }
+        }
       })
       .then(data => {
         res.send(data);
