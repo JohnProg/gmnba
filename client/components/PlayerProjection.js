@@ -67,7 +67,7 @@ const weights = {
 const statCats = [
   //"draft",
   //"height",
-  "weight",
+  //"weight",
   "gamesPlayed",
   "mpg",
   //"ovr",
@@ -82,7 +82,7 @@ const statCats = [
   "twoPtAtt",
   "twoPtPct",
   "tov",
-  "pf",
+  //"pf",
   "blkPct",
   "stlPct",
   "efgPct",
@@ -91,7 +91,7 @@ const statCats = [
   "ast",
   "trb",
   "per",
-  "vorp",
+  //"vorp",
   "ws",
   "ows",
   "dws",
@@ -102,9 +102,9 @@ const statCats = [
   "drb",
   "threePtPct",
   "threePtAtt",
-  "threePAr",
-  "ftr",
-  "freeThrowPct",
+  //"threePAr",
+  //"ftr",
+  //"freeThrowPct",
   "fta",
   "astPct",
   "drbPct",
@@ -166,16 +166,17 @@ export default class PlayerProjection extends React.Component {
         players[i].Zscores
       );
       players[i].simScore = simScore;
-      if (simScore >= 30) {
+      if (simScore >= 20) {
         positive.push(players[i]);
       }
     }
     var sorted = positive.sort(function(a, b) {
       return b.simScore - a.simScore;
     });
+    console.log("sorted: ", sorted);
     var topTen = [];
     var j = 0;
-    while (topTen.length < 10 && j < 20) {
+    while (topTen.length < 10 && j < sorted.length) {
       if (sorted[j].name !== this.props.player.name) {
         var exist = false;
         for (var i = 0; i < topTen.length; i++) {
@@ -189,7 +190,7 @@ export default class PlayerProjection extends React.Component {
             .get(`/api/teams/getFutureStats`, {
               params: {
                 name: sorted[j].name,
-                age: sorted[j].age
+                year: sorted[j].year
               }
             })
             .then(data => {
@@ -203,6 +204,7 @@ export default class PlayerProjection extends React.Component {
       }
       j++;
     }
+
     this.setState({ sorted: true, topTen: topTen });
     //console.log(topTen);
   }
@@ -305,8 +307,7 @@ export default class PlayerProjection extends React.Component {
             style={{ marginTop: "60px", height: "150px" }}
             src="https://thumbs.gfycat.com/AggressiveGrouchyHammerkop-max-1mb.gif"
           />
-          <div>Analyzing 6,000+ Players</div>
-          <div>This May Take A Minute...</div>
+          <div>Analyzing Players</div>
         </div>
       );
     }

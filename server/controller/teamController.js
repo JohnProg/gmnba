@@ -685,16 +685,16 @@ module.exports = {
   },
   getFutureStats: (req, res) => {
     console.log(req.query.name);
-    console.log(req.query.age);
-    var age1 = parseInt(req.query.age) - 1;
-    var age2 = parseInt(req.query.age);
-    var age3 = parseInt(req.query.age) + 1;
+    console.log(req.query.year);
+    var year1 = parseInt(req.query.year) + 1;
+    var year2 = parseInt(req.query.year) + 2;
+    var year3 = parseInt(req.query.year) + 3;
     db.PlayersHistory
       .findAll({
         where: {
           name: req.query.name,
-          age: {
-            [Op.or]: [age1.toString(), age2.toString(), age3.toString()]
+          year: {
+            [Op.or]: [year1, year2, year3]
           }
         }
       })
@@ -1503,16 +1503,17 @@ module.exports = {
       });
   },
   getAgeStats: (req, res) => {
-    var age1 = parseInt(req.params.age) - 1;
+    //var age1 = parseInt(req.params.age) - 1;
     var age2 = parseInt(req.params.age);
-    var age3 = parseInt(req.params.age) + 1;
+    //var age3 = parseInt(req.params.age) + 1;
     db.PlayersHistory
       .findAll({
         where: {
           age: {
-            [Op.or]: [age1.toString(), age2.toString(), age3.toString()]
+            [Op.or]: [age2.toString()]
           },
-          gamesPlayed: { gt: 10 }
+          gamesPlayed: { gt: 10 },
+          year: { lt: 2016 }
         }
       })
       .then(data => {
