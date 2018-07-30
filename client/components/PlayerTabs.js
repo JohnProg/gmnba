@@ -135,7 +135,7 @@ export default class PlayerTabs extends React.Component {
             <NavItem eventKey={5} href="/">
               <span style={tabColor}>COMPARISON</span>
             </NavItem>
-            <NavItem eventKey={8} href="/" disabled>
+            <NavItem eventKey={8} href="/">
               <span style={tabColor}>PROJECTION</span>
             </NavItem>
             <NavItem eventKey={6} href="/">

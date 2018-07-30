@@ -1513,7 +1513,7 @@ module.exports = {
             [Op.or]: [age2.toString()]
           },
           gamesPlayed: { gt: 10 },
-          year: { lt: 2016 }
+          year: { lt: 2015 }
         }
       })
       .then(data => {

@@ -173,34 +173,33 @@ export default class PlayerProjection extends React.Component {
     var sorted = positive.sort(function(a, b) {
       return b.simScore - a.simScore;
     });
-    console.log("sorted: ", sorted);
     var topTen = [];
     var j = 0;
     while (topTen.length < 10 && j < sorted.length) {
       if (sorted[j].name !== this.props.player.name) {
-        var exist = false;
-        for (var i = 0; i < topTen.length; i++) {
-          if (topTen[i].name === sorted[j].name) {
-            exist = true;
-          }
-        }
-        if (exist === false) {
-          var playerFuture = {};
-          axios
-            .get(`/api/teams/getFutureStats`, {
-              params: {
-                name: sorted[j].name,
-                year: sorted[j].year
-              }
-            })
-            .then(data => {
-              console.log(data.data);
-            })
-            .catch(err => {
-              console.log(err);
-            });
-          topTen.push(sorted[j]);
-        }
+        //var exist = false;
+        // for (var i = 0; i < topTen.length; i++) {
+        //   if (topTen[i].name === sorted[j].name) {
+        //     exist = true;
+        //   }
+        // }
+        //if (exist === false) {
+        var playerFuture = {};
+        axios
+          .get(`/api/teams/getFutureStats`, {
+            params: {
+              name: sorted[j].name,
+              year: sorted[j].year
+            }
+          })
+          .then(data => {
+            console.log(data.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        topTen.push(sorted[j]);
+        //}
       }
       j++;
     }
@@ -317,7 +316,7 @@ export default class PlayerProjection extends React.Component {
     return (
       <div>
         <Grid>
-          <Row>
+          <Row style={{ marginBottom: "40px" }}>
             <Col lg={12}>{this.renderComps()}</Col>
           </Row>
         </Grid>
