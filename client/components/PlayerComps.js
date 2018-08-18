@@ -10,7 +10,6 @@ export default class PlayerComps extends React.Component {
   componentDidMount() {}
 
   render() {
-    console.log(this.props.comps);
     const settings = {
       dots: false,
       infinite: true,

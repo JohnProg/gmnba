@@ -66,7 +66,7 @@ export default class CompCarouselItem extends React.Component {
                 <img
                   style={{
                     border: "none",
-                    height: "200px",
+                    height: "180px",
                     display: "block",
                     margin: "auto"
                   }}

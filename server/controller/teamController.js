@@ -667,10 +667,6 @@ module.exports = {
     }
   },
   getPlayerStats: (req, res) => {
-    console.log(req.query.team);
-    console.log(req.query.statOne);
-    console.log(req.query.statTwo);
-    console.log(req.query.position);
     db.Players
       .findAll({
         where: { team: req.query.team }

@@ -38,7 +38,7 @@ const weights = {
   stlPct: 0.018,
   efgPct: 0.018,
   tsPct: 0.018,
-  pts: 0.0166,
+  pts: 0.03,
   ast: 0.013,
   trb: 0.013,
   per: 0.04,
@@ -120,13 +120,16 @@ export default class PlayerProjection extends React.Component {
       playerStats: [],
       sorted: false,
       stats: [],
-      topTen: []
+      topTen: [],
+      statCat: "pts",
+      future: []
     };
     this.calculateSimularity = this.calculateSimularity.bind(this);
     this.getZscore = this.getZscore.bind(this);
     this.getStdDev = this.getStdDev.bind(this);
     this.getPlayerSimScore = this.getPlayerSimScore.bind(this);
     this.renderComps = this.renderComps.bind(this);
+    this.getFutureStats = this.getFutureStats.bind(this);
   }
 
   componentDidMount() {
@@ -177,35 +180,80 @@ export default class PlayerProjection extends React.Component {
     var j = 0;
     while (topTen.length < 10 && j < sorted.length) {
       if (sorted[j].name !== this.props.player.name) {
-        //var exist = false;
-        // for (var i = 0; i < topTen.length; i++) {
-        //   if (topTen[i].name === sorted[j].name) {
-        //     exist = true;
-        //   }
-        // }
-        //if (exist === false) {
-        var playerFuture = {};
-        axios
-          .get(`/api/teams/getFutureStats`, {
-            params: {
-              name: sorted[j].name,
-              year: sorted[j].year
-            }
-          })
-          .then(data => {
-            console.log(data.data);
-          })
-          .catch(err => {
-            console.log(err);
-          });
         topTen.push(sorted[j]);
-        //}
       }
       j++;
     }
-
+    this.getFutureStats(topTen, this.state.statCat);
     this.setState({ sorted: true, topTen: topTen });
     //console.log(topTen);
+  }
+
+  getFutureStats(players, stat) {
+    var promises = [];
+    var simScores = {};
+    var totalWeights = 0;
+    for (var i = 0; i < players.length; i++) {
+      simScores[players[i].name] = players[i].simScore;
+      totalWeights += players[i].simScore;
+      promises.push(
+        axios.get(`/api/teams/getFutureStats`, {
+          params: {
+            name: players[i].name,
+            year: players[i].year
+          }
+        })
+      );
+    }
+
+    var playersArr = [];
+    var futureStats = [];
+
+    axios.all(promises).then(function(results) {
+      var yearOne = 0;
+      var yearTwo = 0;
+      var yearThree = 0;
+      for (var j = 0; j < results.length; j++) {
+        var stats = results[j].data;
+        var sorted = stats.sort(function(a, b) {
+          return parseInt(a.year) - parseInt(b.year);
+        });
+        var myArr = sorted.filter((obj, pos, arr) => {
+          return arr.map(mapObj => mapObj["year"]).indexOf(obj["year"]) === pos;
+        });
+        var name = results[j].data[0].name;
+        // Multiply stat by players similarity score and adding to year totals
+        yearOne += myArr[0][stat] * simScores[name];
+        yearTwo += myArr[1][stat] * simScores[name];
+        yearThree += myArr[2][stat] * simScores[name];
+        //playersArr.push(myArr);
+      }
+      // Getting weighted average for future projections
+      futureStats[0] = {
+        y: parseFloat((yearOne / totalWeights).toFixed(1)),
+        year: 2019,
+        team: "test",
+        gp: 10,
+        mpg: 10
+      };
+      futureStats[1] = {
+        y: parseFloat((yearTwo / totalWeights).toFixed(1)),
+        year: 2020,
+        team: "test",
+        gp: 10,
+        mpg: 10
+      };
+      futureStats[2] = {
+        y: parseFloat((yearThree / totalWeights).toFixed(1)),
+        year: 2021,
+        team: "test",
+        gp: 10,
+        mpg: 10
+      };
+    });
+    this.setState({ future: futureStats }, () => {
+      console.log(this.state.future);
+    });
   }
 
   getZscore(player) {
@@ -282,6 +330,8 @@ export default class PlayerProjection extends React.Component {
                 past={this.state.stats}
                 colors={this.props.colors}
                 statCat="pts"
+                comps={this.state.topTen}
+                future={this.state.future}
               />
             </Col>
           </Row>

@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 export default class PlayerProjectionChart extends React.Component {
   constructor(props) {
@@ -6,17 +7,27 @@ export default class PlayerProjectionChart extends React.Component {
     this.state = {
       pastStats: [],
       projectedStats: [],
-      statData: []
+      statData: [],
+      futureStats: [],
+      future: []
     };
     this.createChart = this.createChart.bind(this);
+    this.getStats = this.getStats.bind(this);
   }
 
   componentDidMount() {
+    this.getStats();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.getStats();
+  }
+
+  getStats() {
     var statData = [];
     var pastStats = this.props.past.sort(function(a, b) {
       return parseInt(a.year) - parseInt(b.year);
     });
-    //console.log(pastStats);
     pastStats.push(this.props.current);
     this.setState({ pastStats: pastStats }, () => {
       //console.log(this.state.pastStats);
@@ -30,13 +41,19 @@ export default class PlayerProjectionChart extends React.Component {
         player.year = pastStats[i].year;
         statData.push(player);
       }
-      this.setState({ statData: statData }, () => {
+      console.log(this.props.future.length);
+      this.setState({ statData: statData, future: this.props.future }, () => {
+        console.log(this.state.future);
         this.createChart();
       });
     });
   }
 
   createChart() {
+    var color = this.props.colors.Color_Main;
+    if (this.props.colors.Color_Main === "#000") {
+      color = "#fff";
+    }
     var xMax = this.state.pastStats.length + 3;
     var axisStyle = {
       title: {
@@ -120,13 +137,14 @@ export default class PlayerProjectionChart extends React.Component {
         {
           data: this.state.statData,
           name: `${this.props.statCat}`,
-          color: `${this.props.colors.Color_Main}`
+          color: color
+        },
+        {
+          data: this.state.future,
+          name: "Future Projection",
+          color: "gold",
+          dashStyle: "dot"
         }
-        // {
-        //   name: "Offense",
-        //   data: this.state.projectedStats,
-        //   color: `${this.props.colors.Color_Main}`
-        // }
       ],
 
       responsive: {
@@ -149,7 +167,7 @@ export default class PlayerProjectionChart extends React.Component {
   }
 
   render() {
-    //console.log(this.props);
+    console.log("Future props: ", this.props.future);
     return (
       <div>
         <div
