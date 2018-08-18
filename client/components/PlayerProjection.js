@@ -133,18 +133,20 @@ export default class PlayerProjection extends React.Component {
   }
 
   componentDidMount() {
+    // Get stats of players near the same age
     var age = this.props.player.age;
     axios
       .get(`/api/teams/getAgeStats/${age}`)
       .then(data => {
         this.setState({ playerStats: data.data }, () => {
           //console.log(this.state.playerStats);
-          this.calculateSimularity();
+          this.calculateSimularity(this.getFutureStats);
         });
       })
       .catch(err => {
         console.log(err);
       });
+    // Get player's career stats
     axios
       .get(`/api/teams/getCareerStats/${this.props.player.name}`)
       .then(data => {
@@ -157,7 +159,9 @@ export default class PlayerProjection extends React.Component {
       });
   }
 
-  calculateSimularity() {
+  async calculateSimularity() {
+    var stats = this.state.stats;
+    console.log(stats.length);
     var players = this.state.playerStats;
     var currentPlayer = this.props.player;
     currentPlayer.Zscores = this.getZscore(currentPlayer);
@@ -184,12 +188,14 @@ export default class PlayerProjection extends React.Component {
       }
       j++;
     }
-    this.getFutureStats(topTen, this.state.statCat);
-    this.setState({ sorted: true, topTen: topTen });
-    //console.log(topTen);
+    console.log(topTen.length);
+    this.setState({ topTen: topTen });
+    var future = await this.getFutureStats(topTen);
+    console.log("future length", future.length);
   }
 
-  getFutureStats(players, stat) {
+  async getFutureStats(players) {
+    var stat = this.state.statCat;
     var promises = [];
     var simScores = {};
     var totalWeights = 0;
@@ -209,7 +215,7 @@ export default class PlayerProjection extends React.Component {
     var playersArr = [];
     var futureStats = [];
 
-    axios.all(promises).then(function(results) {
+    await axios.all(promises).then(function(results) {
       var yearOne = 0;
       var yearTwo = 0;
       var yearThree = 0;
@@ -251,9 +257,9 @@ export default class PlayerProjection extends React.Component {
         mpg: 10
       };
     });
-    this.setState({ future: futureStats }, () => {
-      console.log(this.state.future);
-    });
+    this.setState({ sorted: true, future: futureStats });
+    var futureStats2 = [3, 5, 4, 3, 2, 4];
+    return futureStats;
   }
 
   getZscore(player) {

@@ -30,7 +30,6 @@ export default class PlayerProjectionChart extends React.Component {
     });
     pastStats.push(this.props.current);
     this.setState({ pastStats: pastStats }, () => {
-      //console.log(this.state.pastStats);
       for (var i = 0; i < pastStats.length; i++) {
         var player = {};
         var point = parseFloat(pastStats[i].pts);
@@ -41,9 +40,11 @@ export default class PlayerProjectionChart extends React.Component {
         player.year = pastStats[i].year;
         statData.push(player);
       }
-      console.log(this.props.future.length);
+      for (var j = 0; j < this.props.future.length; j++) {
+        statData.push(this.props.future[j]);
+      }
       this.setState({ statData: statData, future: this.props.future }, () => {
-        console.log(this.state.future);
+        console.log(this.state.statData);
         this.createChart();
       });
     });
@@ -137,13 +138,17 @@ export default class PlayerProjectionChart extends React.Component {
         {
           data: this.state.statData,
           name: `${this.props.statCat}`,
-          color: color
-        },
-        {
-          data: this.state.future,
-          name: "Future Projection",
-          color: "gold",
-          dashStyle: "dot"
+          color: color,
+          zoneAxis: "x",
+          zones: [
+            {
+              value: this.state.statData.length - 3
+            },
+            {
+              dashStyle: "dot",
+              color: "gold"
+            }
+          ]
         }
       ],
 
