@@ -122,37 +122,37 @@ export default class PlayerContract extends React.Component {
     }
     return (
       <tbody>
-        <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
+        <tr style={{ color: "white" }}>
           <td>2017-2018</td>
           <td>{this.convertDollars(this.props.contract.yearOne)}</td>
           <td>{this.props.contract.signedUsing}</td>
           <td>{this.convertDollars(this.props.contract.guaranteed)}</td>
         </tr>
-        <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
+        <tr style={{ color: "white" }}>
           <td>2018-2019</td>
           <td style={yrTwoHeader}>
             {this.convertDollars(this.props.contract.yearTwo)}
           </td>
         </tr>
-        <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
+        <tr style={{ color: "white" }}>
           <td>2019-2020</td>
           <td style={yrThreeHeader}>
             {this.convertDollars(this.props.contract.yearThird)}
           </td>
         </tr>
-        <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
+        <tr style={{ color: "white" }}>
           <td>2020-2021</td>
           <td style={yrFourHeader}>
             {this.convertDollars(this.props.contract.yearFour)}
           </td>
         </tr>
-        <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
+        <tr style={{ color: "white" }}>
           <td>2021-2022</td>
           <td style={yrFiveHeader}>
             {this.convertDollars(this.props.contract.yearFive)}
           </td>
         </tr>
-        <tr style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}>
+        <tr style={{ color: "white" }}>
           <td>2022-2023</td>
           <td style={yrSixHeader}>
             {this.convertDollars(this.props.contract.yearSix)}
@@ -163,28 +163,18 @@ export default class PlayerContract extends React.Component {
   }
 
   render() {
-    console.log(this.props.contract);
-    var headerStyle = {
-      backgroundColor: this.props.colors.Color_Main || "#eee",
-      height: "45px",
-      lineHeight: "45px",
-      fontSize: "20px",
-      paddingLeft: "20px",
-      color: this.props.colors.Color_Sec || "#000"
-    };
     return (
       <div>
         <Grid>
-          <Row className="chart-row">
-            <Col lg={3} lgOffset={1} md={3} sm={4}>
-              <div className="card header" style={headerStyle}>
-                Projected Salary
-              </div>
-            </Col>
-          </Row>
-          <Row style={{ paddingTop: "20px" }}>
-            <Col lg={8} lgOffset={1} md={8} sm={8}>
-              <div style={{ float: "right" }}>
+          <Row style={{ paddingTop: "30px" }}>
+            <Col lg={8} lgOffset={1} md={9} sm={8}>
+              <div
+                style={{
+                  float: "right",
+                  fontSize: "15px",
+                  textShadow: "-4px 4px 4px #000000"
+                }}
+              >
                 <span style={{ color: "green" }}>Team Option</span>
                 <span style={{ color: "red", paddingLeft: "20px" }}>
                   Player Option
@@ -196,12 +186,15 @@ export default class PlayerContract extends React.Component {
             </Col>
           </Row>
           <Row style={{ marginBottom: "20px", paddingTop: "15px" }}>
-            <Col lg={8} lgOffset={1} md={8} sm={8}>
+            <Col lg={8} lgOffset={1} md={9} sm={8}>
               <div
-                className="card"
-                style={{ backgroundColor: "rgba(0,0,0,0.6)", color: "white" }}
+                style={{
+                  color: "white",
+                  fontSize: "18px",
+                  textShadow: "-4px 4px 4px #000000"
+                }}
               >
-                <Table striped hover responsive>
+                <Table responsive>
                   <thead>
                     <tr>
                       <th>Season</th>

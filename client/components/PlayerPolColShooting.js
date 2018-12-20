@@ -44,13 +44,13 @@ export default class PlayerPolColShooting extends React.Component {
 
     var drPts = this.getGrade(
       highDrPts,
-      this.state.player.drPts / this.props.min * 36,
+      (this.state.player.drPts / this.props.min) * 36,
       0
     );
     var drPct = this.getGrade(highDrPct, this.state.player.drPct, 0.33);
     var catchPts = this.getGrade(
       highCatchPts,
-      this.state.player.catchPts / this.props.min * 36,
+      (this.state.player.catchPts / this.props.min) * 36,
       0
     );
     var catchPct = this.getGrade(
@@ -60,7 +60,7 @@ export default class PlayerPolColShooting extends React.Component {
     );
     var pullPts = this.getGrade(
       highPullPts,
-      this.state.player.pullPts / this.props.min * 36,
+      (this.state.player.pullPts / this.props.min) * 36,
       0
     );
     var pullPct = this.getGrade(highPullPct, this.state.player.pullPct, 0.22);
@@ -235,7 +235,9 @@ export default class PlayerPolColShooting extends React.Component {
               color: this.state.drPts.Color,
               name: "Drive Pts",
               stat: this.state.player.drPts,
-              per36: (this.state.player.drPts / this.props.min * 36).toFixed(1)
+              per36: ((this.state.player.drPts / this.props.min) * 36).toFixed(
+                1
+              )
             },
             {
               y: this.state.drPct.Grade,
@@ -248,9 +250,10 @@ export default class PlayerPolColShooting extends React.Component {
               color: this.state.catchPts.Color,
               name: "Catch/Shoot Pts",
               stat: this.state.player.catchPts,
-              per36: (this.state.player.catchPts / this.props.min * 36).toFixed(
-                1
-              )
+              per36: (
+                (this.state.player.catchPts / this.props.min) *
+                36
+              ).toFixed(1)
             },
             {
               y: this.state.catchPct.Grade,
@@ -263,9 +266,10 @@ export default class PlayerPolColShooting extends React.Component {
               color: this.state.pullPts.Color,
               name: "Pull Up Pts",
               stat: this.state.player.pullPts,
-              per36: (this.state.player.pullPts / this.props.min * 36).toFixed(
-                1
-              )
+              per36: (
+                (this.state.player.pullPts / this.props.min) *
+                36
+              ).toFixed(1)
             },
             {
               y: this.state.pullPct.Grade,
@@ -299,12 +303,11 @@ export default class PlayerPolColShooting extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
-      <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
+      <div style={{ paddingTop: "20px" }}>
         <div
           id="container-column-shooting"
-          style={{ height: "400px", margin: "0 auto" }}
+          style={{ height: "320px", margin: "0 auto" }}
         />
       </div>
     );

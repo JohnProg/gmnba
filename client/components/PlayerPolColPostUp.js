@@ -49,12 +49,12 @@ export default class PlayerPolColPostUp extends React.Component {
     var pf = this.getGrade(highPf, this.state.player.pfPct, 0);
     var postUps = this.getGrade(
       highPostUps,
-      this.state.player.postUps / this.props.min * 36,
+      (this.state.player.postUps / this.props.min) * 36,
       0
     );
     var pts = this.getGrade(
       highPts,
-      this.state.player.pts / this.props.min * 36,
+      (this.state.player.pts / this.props.min) * 36,
       0
     );
     var ptsPct = this.getGrade(highPtsPct, this.state.player.ptsPct, 0);
@@ -253,9 +253,10 @@ export default class PlayerPolColPostUp extends React.Component {
               color: this.state.postUps.Color,
               name: "Post Ups",
               stat: this.state.player.postUps,
-              per36: (this.state.player.postUps / this.props.min * 36).toFixed(
-                1
-              )
+              per36: (
+                (this.state.player.postUps / this.props.min) *
+                36
+              ).toFixed(1)
             },
             {
               y: this.state.ptsPct.Grade,
@@ -268,7 +269,7 @@ export default class PlayerPolColPostUp extends React.Component {
               color: this.state.pts.Color,
               name: "Pts",
               stat: this.state.player.pts,
-              per36: (this.state.player.pts / this.props.min * 36).toFixed(1)
+              per36: ((this.state.player.pts / this.props.min) * 36).toFixed(1)
             },
             {
               y: this.state.tovPct.Grade,
@@ -284,12 +285,11 @@ export default class PlayerPolColPostUp extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
-      <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
+      <div style={{ paddingTop: "20px" }}>
         <div
           id="container-column-post"
-          style={{ height: "400px", margin: "0 auto" }}
+          style={{ height: "320px", margin: "0 auto" }}
         />
       </div>
     );

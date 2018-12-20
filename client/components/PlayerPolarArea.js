@@ -40,27 +40,27 @@ export default class PlayerPolarArea extends React.Component {
 
     var scoring = this.getGrade(
       highPoints,
-      this.state.player.pts / this.state.player.mpg * 36,
+      (this.state.player.pts / this.state.player.mpg) * 36,
       7
     );
     var ast = this.getGrade(
       highAst,
-      this.state.player.ast / this.state.player.mpg * 36,
+      (this.state.player.ast / this.state.player.mpg) * 36,
       1
     );
     var reb = this.getGrade(
       highReb,
-      this.state.player.trb / this.state.player.mpg * 36,
+      (this.state.player.trb / this.state.player.mpg) * 36,
       1
     );
     var stl = this.getGrade(
       highStl,
-      this.state.player.stl / this.state.player.mpg * 36,
+      (this.state.player.stl / this.state.player.mpg) * 36,
       0.3
     );
     var blk = this.getGrade(
       highBlk,
-      this.state.player.blk / this.state.player.mpg * 36,
+      (this.state.player.blk / this.state.player.mpg) * 36,
       0
     );
     var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.42);
@@ -216,10 +216,11 @@ export default class PlayerPolarArea extends React.Component {
 
   render() {
     return (
-      <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
+      <div>
         <div
+          className="css-box-shadow"
           id="container-polar2"
-          style={{ height: "400px", margin: "0 auto" }}
+          style={{ height: "340px", margin: "0 auto" }}
         />
       </div>
     );

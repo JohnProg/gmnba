@@ -45,7 +45,7 @@ export default class PlayerPolColPRBH extends React.Component {
     var ppp = this.getGrade(highPPP, this.state.player.ppp, 0);
     var pts = this.getGrade(
       highPts,
-      this.state.player.pts / this.props.gp / this.props.min * 36,
+      (this.state.player.pts / this.props.gp / this.props.min) * 36,
       0.5
     );
     var efg = this.getGrade(highEfg, this.state.player.efg, 20.0);
@@ -62,7 +62,7 @@ export default class PlayerPolColPRBH extends React.Component {
     var ftFreq = this.getGrade(highFtFreq, this.state.player.ftFreq, 0);
     var fga = this.getGrade(
       highFga,
-      this.state.player.fga / this.props.min * 36,
+      (this.state.player.fga / this.props.min) * 36,
       0
     );
     this.setState(
@@ -240,9 +240,8 @@ export default class PlayerPolColPRBH extends React.Component {
               color: this.state.pts.Color,
               name: "PTS",
               stat: (this.state.player.pts / this.props.gp).toFixed(1),
-              per36: (this.state.player.pts /
-                this.props.gp /
-                this.props.min *
+              per36: (
+                (this.state.player.pts / this.props.gp / this.props.min) *
                 36
               ).toFixed(1)
             },
@@ -275,7 +274,7 @@ export default class PlayerPolColPRBH extends React.Component {
               color: this.state.fga.Color,
               name: "FGA",
               stat: this.state.player.fga,
-              per36: (this.state.player.fga / this.props.min * 36).toFixed(1)
+              per36: ((this.state.player.fga / this.props.min) * 36).toFixed(1)
             }
           ],
           pointPlacement: "on"
@@ -285,12 +284,11 @@ export default class PlayerPolColPRBH extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
-      <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
+      <div style={{ paddingTop: "20px" }}>
         <div
           id="container-column-prbh"
-          style={{ height: "400px", margin: "0 auto" }}
+          style={{ height: "320px", margin: "0 auto" }}
         />
       </div>
     );

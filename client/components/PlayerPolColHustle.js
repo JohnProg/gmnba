@@ -42,37 +42,37 @@ export default class PlayerPolColHustle extends React.Component {
 
     var screenAst = this.getGrade(
       highScreenAst,
-      this.state.player.screenAst / this.props.min * 36,
+      (this.state.player.screenAst / this.props.min) * 36,
       0.1
     );
     var chargesDrawn = this.getGrade(
       highCharges,
-      this.state.player.chargesDrawn / this.props.min * 36,
+      (this.state.player.chargesDrawn / this.props.min) * 36,
       0
     );
     var looseBallRec = this.getGrade(
       highLooseRec,
-      this.state.player.looseBallRec / this.props.min * 36,
+      (this.state.player.looseBallRec / this.props.min) * 36,
       0.5
     );
     var deflections = this.getGrade(
       highDeflections,
-      this.state.player.deflections / this.props.min * 36,
+      (this.state.player.deflections / this.props.min) * 36,
       0.5
     );
     var contestedTwo = this.getGrade(
       highContestTwo,
-      this.state.player.contestedTwo / this.props.min * 36,
+      (this.state.player.contestedTwo / this.props.min) * 36,
       1.0
     );
     var contestedThree = this.getGrade(
       highContestThree,
-      this.state.player.contestedThree / this.props.min * 36,
+      (this.state.player.contestedThree / this.props.min) * 36,
       1.5
     );
     var contestedShots = this.getGrade(
       highContestShot,
-      this.state.player.contestedShots / this.props.min * 36,
+      (this.state.player.contestedShots / this.props.min) * 36,
       3.5
     );
     this.setState(
@@ -237,8 +237,8 @@ export default class PlayerPolColHustle extends React.Component {
               color: this.state.screenAst.Color,
               name: "Screen Ast",
               stat: this.state.player.screenAst,
-              per36: (this.state.player.screenAst /
-                this.props.min *
+              per36: (
+                (this.state.player.screenAst / this.props.min) *
                 36
               ).toFixed(1)
             },
@@ -247,8 +247,8 @@ export default class PlayerPolColHustle extends React.Component {
               color: this.state.chargesDrawn.Color,
               name: "Charges Drawn",
               stat: this.state.player.chargesDrawn,
-              per36: (this.state.player.chargesDrawn /
-                this.props.min *
+              per36: (
+                (this.state.player.chargesDrawn / this.props.min) *
                 36
               ).toFixed(1)
             },
@@ -257,8 +257,8 @@ export default class PlayerPolColHustle extends React.Component {
               color: this.state.looseBallRec.Color,
               name: "Loose Ball",
               stat: this.state.player.looseBallRec,
-              per36: (this.state.player.looseBallRec /
-                this.props.min *
+              per36: (
+                (this.state.player.looseBallRec / this.props.min) *
                 36
               ).toFixed(1)
             },
@@ -267,8 +267,8 @@ export default class PlayerPolColHustle extends React.Component {
               color: this.state.deflections.Color,
               name: "Deflections",
               stat: this.state.player.deflections,
-              per36: (this.state.player.deflections /
-                this.props.min *
+              per36: (
+                (this.state.player.deflections / this.props.min) *
                 36
               ).toFixed(1)
             },
@@ -277,8 +277,8 @@ export default class PlayerPolColHustle extends React.Component {
               color: this.state.contestedTwo.Color,
               name: "Cont. 2P",
               stat: this.state.player.contestedTwo,
-              per36: (this.state.player.contestedTwo /
-                this.props.min *
+              per36: (
+                (this.state.player.contestedTwo / this.props.min) *
                 36
               ).toFixed(1)
             },
@@ -287,8 +287,8 @@ export default class PlayerPolColHustle extends React.Component {
               color: this.state.contestedThree.Color,
               name: "Cont. 3P",
               stat: this.state.player.contestedThree,
-              per36: (this.state.player.contestedThree /
-                this.props.min *
+              per36: (
+                (this.state.player.contestedThree / this.props.min) *
                 36
               ).toFixed(1)
             },
@@ -297,8 +297,8 @@ export default class PlayerPolColHustle extends React.Component {
               color: this.state.contestedShots.Color,
               name: "Cont. Shot",
               stat: this.state.player.contestedShots,
-              per36: (this.state.player.contestedShots /
-                this.props.min *
+              per36: (
+                (this.state.player.contestedShots / this.props.min) *
                 36
               ).toFixed(1)
             }
@@ -311,10 +311,10 @@ export default class PlayerPolColHustle extends React.Component {
 
   render() {
     return (
-      <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
+      <div style={{ paddingTop: "20px" }}>
         <div
           id="container-hustle"
-          style={{ height: "400px", margin: "0 auto" }}
+          style={{ height: "320px", margin: "0 auto" }}
         />
       </div>
     );

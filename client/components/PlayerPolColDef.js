@@ -53,23 +53,23 @@ export default class PlayerPolColDef extends React.Component {
     var dws = this.getGrade(highDws, this.state.player.dws, 0);
     var drb = this.getGrade(
       highDrb,
-      this.state.player.drb / this.state.player.mpg * 36,
+      (this.state.player.drb / this.state.player.mpg) * 36,
       1
     );
     var stl = this.getGrade(
       highStl,
-      this.state.player.stl / this.state.player.mpg * 36,
+      (this.state.player.stl / this.state.player.mpg) * 36,
       0
     );
     var blk = this.getGrade(
       highBlk,
-      this.state.player.blk / this.state.player.mpg * 36,
+      (this.state.player.blk / this.state.player.mpg) * 36,
       0
     );
     var dbpm = this.getGrade(highDbpm, this.state.player.dbpm, -4);
     var pf = this.getGrade(
       highPf,
-      this.state.player.pf / this.state.player.mpg * 36 * -1,
+      (this.state.player.pf / this.state.player.mpg) * 36 * -1,
       -6.0
     );
     this.setState(
@@ -254,8 +254,8 @@ export default class PlayerPolColDef extends React.Component {
               color: this.state.drb.Color,
               name: "Drb",
               stat: this.state.player.drb,
-              per36: (this.state.player.drb /
-                this.state.player.mpg *
+              per36: (
+                (this.state.player.drb / this.state.player.mpg) *
                 36
               ).toFixed(1)
             },
@@ -264,8 +264,8 @@ export default class PlayerPolColDef extends React.Component {
               color: this.state.stl.Color,
               name: "Stl",
               stat: this.state.player.stl,
-              per36: (this.state.player.stl /
-                this.state.player.mpg *
+              per36: (
+                (this.state.player.stl / this.state.player.mpg) *
                 36
               ).toFixed(1)
             },
@@ -274,8 +274,8 @@ export default class PlayerPolColDef extends React.Component {
               color: this.state.blk.Color,
               name: "Blk",
               stat: this.state.player.blk,
-              per36: (this.state.player.blk /
-                this.state.player.mpg *
+              per36: (
+                (this.state.player.blk / this.state.player.mpg) *
                 36
               ).toFixed(1)
             },
@@ -284,8 +284,8 @@ export default class PlayerPolColDef extends React.Component {
               color: this.state.pf.Color,
               name: "Pf",
               stat: this.state.player.pf,
-              per36: (this.state.player.pf /
-                this.state.player.mpg *
+              per36: (
+                (this.state.player.pf / this.state.player.mpg) *
                 36
               ).toFixed(1)
             },
@@ -310,10 +310,10 @@ export default class PlayerPolColDef extends React.Component {
 
   render() {
     return (
-      <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
+      <div style={{ paddingTop: "20px" }}>
         <div
           id="container-column-def"
-          style={{ height: "400px", margin: "0 auto" }}
+          style={{ height: "320px", margin: "0 auto" }}
         />
       </div>
     );

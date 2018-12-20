@@ -224,7 +224,15 @@ export default class NavBar extends React.Component {
     return (
       <div className="nav-class">
         <div className="w3-top">
-          <div className="w3-bar w3-white w3-card" id="myNavbar">
+          <div
+            className="w3-bar w3-white"
+            id="myNavbar"
+            style={{
+              fontSize: "15px",
+              paddingTop: "5px",
+              textShadow: "-4px 4px 4px #000000"
+            }}
+          >
             <a href="#home" className="w3-bar-item w3-button w3-wide">
               BB SCOUT
             </a>

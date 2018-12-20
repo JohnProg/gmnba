@@ -37,7 +37,7 @@ img {
 }
 
 .w3-bar {
-  background-color: #202020 !important;
+  background-color: transparent !important;
   color: white !important;
 }
 
@@ -45,13 +45,21 @@ img {
   color: white !important;
 }
 
+.css-box-shadow {
+  /*start ------------*/
+  filter: drop-shadow(-15px 15px 10px black);
+}
+
+text.highcharts-credits {
+  font-size: 0px;
+}
+
 .full-height-row {
   height: 180px;
 }
 
 /* Info Section */
-#info {
-  margin-top: 50px;
+.info {
   height: 250px;
   background-color: rgba(0, 0, 0, 0.4);
 }
@@ -80,7 +88,7 @@ img {
 }
 
 #team-name {
-  font-size: 28px;
+  font-size: 34px;
   padding-top: 25px;
 }
 
@@ -130,7 +138,7 @@ li.lakers > a {
 }
 
 #info-text {
-  font-size: 16px;
+  font-size: 18px;
   color: "white";
 }
 
@@ -161,17 +169,19 @@ li.lakers > a {
 }
 
 .stat-selector {
-  float: right;
+  position: absolute;
+  bottom: -23px;
+  text-align: center;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 150px;
 }
 
 .nav-class {
   position: fixed;
   z-index: 1000000;
-  background-color: black !important;
-}
-
-.w3-top {
-  background-color: black !important;
 }
 
 .chart-row {
@@ -194,6 +204,17 @@ div.card {
 
 .playerScatter {
   margin-top: 0px;
+}
+
+.player-menu a {
+  background: "red" !important;
+}
+
+.dropdown-menu[aria-labelledby="player-down"] {
+  background-color: black;
+  width: 60px;
+  border-radius: 0;
+  margin: 0;
 }
 
 #team-player-ranks-container {
@@ -280,7 +301,6 @@ div.card {
 }
 
 #teamLogoPic {
-  max-height: 125px;
   margin: 0 auto;
 }
 

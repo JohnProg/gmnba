@@ -53,27 +53,27 @@ export default class PlayerPolarColumn extends React.Component {
 
     var scoring = this.getGrade(
       highPoints,
-      this.state.player.pts / this.state.player.mpg * 36,
+      (this.state.player.pts / this.state.player.mpg) * 36,
       7
     );
     var ast = this.getGrade(
       highAst,
-      this.state.player.ast / this.state.player.mpg * 36,
+      (this.state.player.ast / this.state.player.mpg) * 36,
       1
     );
     var reb = this.getGrade(
       highReb,
-      this.state.player.trb / this.state.player.mpg * 36,
+      (this.state.player.trb / this.state.player.mpg) * 36,
       1
     );
     var stl = this.getGrade(
       highStl,
-      this.state.player.stl / this.state.player.mpg * 36,
+      (this.state.player.stl / this.state.player.mpg) * 36,
       0.3
     );
     var blk = this.getGrade(
       highBlk,
-      this.state.player.blk / this.state.player.mpg * 36,
+      (this.state.player.blk / this.state.player.mpg) * 36,
       0
     );
     var ft = this.getGrade(highFT, this.state.player.freeThrowPct, 0.42);
@@ -130,43 +130,43 @@ export default class PlayerPolarColumn extends React.Component {
 
     if (actual >= eighty) {
       playerGrade["Grade"] = 80;
-      playerGrade["Color"] = "#1abded";
+      playerGrade["Color"] = "rgba(26, 189, 237, 0.6)";
     } else if (actual >= sevenFive) {
       playerGrade["Grade"] = 75;
-      playerGrade["Color"] = "#00a3c4";
+      playerGrade["Color"] = "rgba(0, 163, 196, 0.6)";
     } else if (actual >= seventy) {
       playerGrade["Grade"] = 70;
-      playerGrade["Color"] = "#00c7a2";
+      playerGrade["Color"] = "rgba(0, 199, 162, 0.6)";
     } else if (actual >= sixFive) {
       playerGrade["Grade"] = 65;
-      playerGrade["Color"] = "#56ce00";
+      playerGrade["Color"] = "rgba(86, 206, 0, 0.6)";
     } else if (actual >= sixty) {
       playerGrade["Grade"] = 60;
-      playerGrade["Color"] = "#b4d800";
+      playerGrade["Color"] = "rgba(180, 216, 0, 0.6)";
     } else if (actual >= fiveFive) {
       playerGrade["Grade"] = 55;
-      playerGrade["Color"] = "#b3d800";
+      playerGrade["Color"] = "rgba(179, 216, 0, 0.6)";
     } else if (actual >= fifty) {
       playerGrade["Grade"] = 50;
-      playerGrade["Color"] = "#ffdc00";
+      playerGrade["Color"] = "rgba(255, 220, 0, 0.6)";
     } else if (actual >= fourFive) {
       playerGrade["Grade"] = 45;
-      playerGrade["Color"] = "#fac600";
+      playerGrade["Color"] = "rgba(250, 198, 0, 0.6)";
     } else if (actual >= fourty) {
       playerGrade["Grade"] = 40;
-      playerGrade["Color"] = "#f0780d";
+      playerGrade["Color"] = "rgba(240, 120, 13, 0.6)";
     } else if (actual >= threeFive) {
       playerGrade["Grade"] = 35;
-      playerGrade["Color"] = "#f53300";
+      playerGrade["Color"] = "rgba(245, 51, 0, 0.6)";
     } else if (actual >= thirty) {
       playerGrade["Grade"] = 30;
-      playerGrade["Color"] = "#da000b";
+      playerGrade["Color"] = "rgba(218, 0, 11, 0.6)";
     } else if (actual >= twoFive) {
       playerGrade["Grade"] = 25;
-      playerGrade["Color"] = "#da000c";
+      playerGrade["Color"] = "rgba(218, 0, 12, 0.6)";
     } else {
       playerGrade["Grade"] = 20;
-      playerGrade["Color"] = "#b8000b";
+      playerGrade["Color"] = "rgba(184, 0, 11, 0.6)";
     }
     return playerGrade;
   }
@@ -176,7 +176,8 @@ export default class PlayerPolarColumn extends React.Component {
       chart: {
         polar: true,
         type: "column",
-        backgroundColor: null
+        backgroundColor: null,
+        borderWidth: 0
       },
 
       title: {
@@ -199,7 +200,8 @@ export default class PlayerPolarColumn extends React.Component {
         labels: {
           enabled: false
         },
-        gridLineColor: "grey"
+        gridLineColor: "transparent",
+        minorGridLineWidth: 0
       },
 
       tooltip: {
@@ -213,7 +215,8 @@ export default class PlayerPolarColumn extends React.Component {
         labels: {
           enabled: false
         },
-        gridLineColor: "grey"
+        gridLineColor: "transparent",
+        minorGridLineWidth: 0
       },
 
       plotOptions: {
@@ -238,7 +241,7 @@ export default class PlayerPolarColumn extends React.Component {
               return false;
             }
           },
-          borderWidth: 2
+          borderWidth: 0.25
         }
       },
 
@@ -255,8 +258,8 @@ export default class PlayerPolarColumn extends React.Component {
               color: this.state.scoring.Color,
               name: "Scoring",
               stat: this.state.player.pts,
-              per36: (this.state.player.pts /
-                this.state.player.mpg *
+              per36: (
+                (this.state.player.pts / this.state.player.mpg) *
                 36
               ).toFixed(1)
             },
@@ -265,8 +268,8 @@ export default class PlayerPolarColumn extends React.Component {
               color: this.state.ast.Color,
               name: "Ast",
               stat: this.state.player.ast,
-              per36: (this.state.player.ast /
-                this.state.player.mpg *
+              per36: (
+                (this.state.player.ast / this.state.player.mpg) *
                 36
               ).toFixed(1)
             },
@@ -275,8 +278,8 @@ export default class PlayerPolarColumn extends React.Component {
               color: this.state.reb.Color,
               name: "Reb",
               stat: this.state.player.trb,
-              per36: (this.state.player.trb /
-                this.state.player.mpg *
+              per36: (
+                (this.state.player.trb / this.state.player.mpg) *
                 36
               ).toFixed(1)
             },
@@ -285,8 +288,8 @@ export default class PlayerPolarColumn extends React.Component {
               color: this.state.stl.Color,
               name: "Stl",
               stat: this.state.player.stl,
-              per36: (this.state.player.stl /
-                this.state.player.mpg *
+              per36: (
+                (this.state.player.stl / this.state.player.mpg) *
                 36
               ).toFixed(1)
             },
@@ -295,8 +298,8 @@ export default class PlayerPolarColumn extends React.Component {
               color: this.state.blk.Color,
               name: "Blk",
               stat: this.state.player.blk,
-              per36: (this.state.player.blk /
-                this.state.player.mpg *
+              per36: (
+                (this.state.player.blk / this.state.player.mpg) *
                 36
               ).toFixed(1)
             },
@@ -339,10 +342,11 @@ export default class PlayerPolarColumn extends React.Component {
 
   render() {
     return (
-      <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
+      <div style={{ paddingTop: "20px" }}>
         <div
+          className="css-box-shadow"
           id="container-column"
-          style={{ height: "400px", margin: "0 auto" }}
+          style={{ height: "320px", margin: "0 auto" }}
         />
       </div>
     );

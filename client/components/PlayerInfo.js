@@ -1,9 +1,16 @@
 import React from "react";
 import PlayerTabs from "./PlayerTabs";
-import { Col, Button, Well, Row, Grid, Glyphicon } from "react-bootstrap";
+import { Col, Row, Grid, MenuItem, DropdownButton } from "react-bootstrap";
 import { connect } from "react-redux";
 import axios from "axios";
 import PlayersList from "./PlayersList";
+import PlayerPolarArea from "./PlayerPolarArea";
+import PlayerPolarColumn from "./PlayerPolarColumn";
+import PlayerMenu from "./PlayerMenu";
+import PlayerRatings2 from "./PlayerRatings2";
+import PlayerContract from "./PlayerContract";
+import PlayerSeasonStats from "./PlayerSeasonStats";
+import PlayerRatingsSub from "./PlayerRatingsSub";
 
 const mapStateToProps = state => {
   return {
@@ -35,7 +42,10 @@ class PlayerInfo extends React.Component {
       prRollMan: {},
       iso: {},
       hustle: {},
-      transition: {}
+      transition: {},
+      selection: "Player Ratings",
+      showMenu: false,
+      statCat: "Basic"
     };
     this.getPlayer = this.getPlayer.bind(this);
     this.getTeamColors = this.getTeamColors.bind(this);
@@ -56,6 +66,11 @@ class PlayerInfo extends React.Component {
     this.getHustleStats = this.getHustleStats.bind(this);
     this.getTransition = this.getTransition.bind(this);
     this.checkLoad = this.checkLoad.bind(this);
+    this.selectMenu = this.selectMenu.bind(this);
+    this.renderMenu = this.renderMenu.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.selectStatCat = this.selectStatCat.bind(this);
+    this.renderSelection = this.renderSelection.bind(this);
   }
 
   componentDidMount() {
@@ -63,6 +78,22 @@ class PlayerInfo extends React.Component {
   }
 
   checkLoad() {
+    var headerStyle = {
+      backgroundColor: this.state.colors.Color_Main || "red",
+      height: "50px",
+      lineHeight: "50px",
+      fontSize: "20px",
+      paddingLeft: "15px",
+      color: this.state.colors.Color_Sec || "white"
+    };
+    var menuLabel = {
+      backgroundColor: this.state.colors.Color_Main || "red",
+      textAlign: "left",
+      color: this.state.colors.Color_Sec,
+      fontSize: "20px",
+      marginBottom: "3px",
+      border: "none"
+    };
     var picture;
     if (this.state.player.picture) {
       picture = this.state.player.picture;
@@ -74,140 +105,209 @@ class PlayerInfo extends React.Component {
       return (
         <div id="info-container-max">
           <Grid id="info-container">
-            <Row className="full-height-row">
-              <div id="info">
-                <Col lg={3} sm={6} md={3} xs={12} id="pic-col">
-                  <div id="info-pic-team">
-                    <img style={{ maxHeight: "200px" }} src={picture} />
+            <Row
+              style={{
+                paddingTop: "80px",
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                overflowY: "visible"
+              }}
+            >
+              <Col
+                lg={3}
+                lgOffset={9}
+                mdOffset={9}
+                md={3}
+                style={{ paddingRight: "0px" }}
+              >
+                <div
+                  className="css-box-shadow"
+                  style={headerStyle}
+                  onClick={this.selectMenu}
+                >
+                  <div>
+                    {this.state.selection}
+                    {"  "}
+                    <span style={{ fontSize: "14px" }}>&#9660;</span>
+                  </div>
+                </div>
+                <div style={{ height: "0px", overflowY: "visible" }}>
+                  {this.renderMenu()}
+                </div>
+              </Col>
+            </Row>
+            <Row
+              style={{
+                paddingTop: "15px",
+                paddingBottom: "30px",
+                backgroundColor: "rgba(0, 0, 0, 0.5)"
+              }}
+            >
+              <Col
+                lg={4}
+                sm={6}
+                md={4}
+                xs={12}
+                id="pic-col"
+                style={{ paddingTop: "100px" }}
+              >
+                <div id="info-pic-team">
+                  <img
+                    className="css-box-shadow"
+                    style={{ maxHeight: "400px" }}
+                    src={picture}
+                  />
+                </div>
+                <div id="name-text">
+                  <div
+                    id="team-name"
+                    style={{
+                      color: "white",
+                      textShadow: "-4px 4px 4px #000000"
+                    }}
+                  >
+                    {this.state.player.name}
+                    <span style={{ paddingLeft: "3px", fontSize: "18px" }}>
+                      {" "}
+                      {this.state.player.position}
+                    </span>
+                  </div>
+                  <div
+                    id="info-text"
+                    style={{
+                      color: "white",
+                      textShadow: "-4px 4px 4px #000000"
+                    }}
+                  >
+                    <div>
+                      <span>Height: {this.state.player.height}</span>
+                      <span style={{ paddingLeft: "3px" }}>
+                        {" "}
+                        Weight: {this.state.player.weight}
+                      </span>
+                    </div>
+                    <div>
+                      <span>Age: {this.state.player.age}</span>
+                      <span style={{ paddingLeft: "4px" }}>
+                        {" "}
+                        Experience: {this.state.player.experience}
+                      </span>
+                    </div>
+                    <div>Team: {this.state.player.team}</div>
+                    <div>College: {this.state.player.college || "None"}</div>
+                    <div>Draft: {this.state.player.draft || "Unavailable"}</div>
+                  </div>
+                </div>
+              </Col>
+              <Col lg={8} md={8} style={{ height: "340px" }}>
+                <Row>{this.renderSelection()}</Row>
+              </Col>
+              <Row>
+                <Col lg={2} md={2} style={{ marginLeft: "15px" }}>
+                  <div
+                    style={{
+                      marginTop: "90px",
+                      fontSize: "22px",
+                      color: "white",
+                      textShadow: "-4px 4px 4px #000000"
+                    }}
+                  >
+                    <div style={{ textAlign: "center" }}>
+                      OVR: {this.getOverallRating()}
+                    </div>
+                    <div style={{ textAlign: "center" }}>
+                      OFF: {this.getOffenseRating()}
+                    </div>
+                    <div style={{ textAlign: "center" }}>
+                      DEF: {this.getDefenseRating()}
+                    </div>
                   </div>
                 </Col>
-                <Col lg={9} xs={12} md={9}>
-                  <Row>
-                    <Col lg={5} xs={12} md={5}>
-                      <div id="name-text">
-                        <div id="team-name" style={{ color: "white" }}>
-                          {this.state.player.name}
+                <Col lg={3} md={3} style={{ marginLeft: "10px" }}>
+                  <Row
+                    style={{
+                      marginTop: "80px",
+                      textShadow: "-4px 4px 4px #000000"
+                    }}
+                  >
+                    <Col lg={6} md={6}>
+                      <div style={{ paddingLeft: "40px" }}>
+                        <div style={{ color: "white" }}>
+                          <span>PPG</span>{" "}
                           <span
-                            style={{ paddingLeft: "3px", fontSize: "14px" }}
+                            style={{ fontSize: "24px", paddingLeft: "3px" }}
                           >
-                            {" "}
-                            {this.state.player.position}
+                            {this.state.player.pts || 0}
                           </span>
                         </div>
-                        <div id="info-text" style={{ color: "white" }}>
-                          <div>
-                            <span>Height: {this.state.player.height}</span>
-                            <span style={{ paddingLeft: "3px" }}>
-                              {" "}
-                              Weight: {this.state.player.weight}
-                            </span>
-                          </div>
-                          <div>
-                            <span>Age: {this.state.player.age}</span>
-                            <span style={{ paddingLeft: "4px" }}>
-                              {" "}
-                              Experience: {this.state.player.experience}
-                            </span>
-                          </div>
-                          <div>Team: {this.state.player.team}</div>
-                          <div>
-                            College: {this.state.player.college || "None"}
-                          </div>
+                        <div style={{ color: "white" }}>
+                          <span>RPG</span>{" "}
+                          <span
+                            style={{ fontSize: "24px", paddingLeft: "2px" }}
+                          >
+                            {this.state.player.trb || 0}
+                          </span>
                         </div>
-                      </div>
-                      <hr id="cinfo-text-break" />
-                    </Col>
-                    <Col lg={3} xs={7} md={4}>
-                      <div
-                        style={{
-                          marginTop: "70px",
-                          fontSize: "15.5px",
-                          color: "white"
-                        }}
-                      >
-                        <div style={{ textAlign: "right" }}>
-                          Overall: {this.getOverallRating()}
-                        </div>
-                        <div style={{ textAlign: "right" }}>
-                          Offense: {this.getOffenseRating()}
-                        </div>
-                        <div style={{ textAlign: "right" }}>
-                          Defense: {this.getDefenseRating()}
+                        <div style={{ color: "white" }}>
+                          <span>APG</span>{" "}
+                          <span
+                            style={{ fontSize: "24px", paddingLeft: "3px" }}
+                          >
+                            {this.state.player.ast || 0}
+                          </span>
                         </div>
                       </div>
                     </Col>
-                    <Col lg={3} xs={5} md={2}>
-                      <a href={`/team/${this.state.colors.id}`}>
-                        <div id="logo-pic">
-                          <img
-                            id="teamLogoPic"
-                            src={this.state.colors.Logo}
-                            style={{ maxHeight: "100px" }}
-                          />
-                          <div id="teamLogoHeader" style={{ color: "white" }}>
-                            {this.state.player.team}
-                          </div>
-                        </div>
-                      </a>
-                    </Col>
-                  </Row>
-                  <Row
-                    style={{ paddingBottom: "20px" }}
-                    className="player-stat-row"
-                  >
-                    <Col
-                      lg={2}
-                      xs={2}
-                      lgOffset={0}
-                      mdOffset={0}
-                      smOffset={0}
-                      xsOffset={1}
-                    >
-                      <div style={{ color: "white" }}>
-                        <span>PPG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>
-                          {this.state.player.pts}
-                        </span>
-                      </div>
-                    </Col>
-                    <Col lg={2} xs={2}>
-                      <div style={{ color: "white" }}>
-                        <span>RPG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>
-                          {this.state.player.trb}
-                        </span>
-                      </div>
-                    </Col>
-                    <Col lg={2} xs={2}>
-                      <div style={{ color: "white" }}>
-                        <span>APG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>
-                          {this.state.player.ast}
-                        </span>
-                      </div>
-                    </Col>
-                    <Col lg={2} xs={2}>
+                    <Col lg={6} md={6}>
                       <div style={{ color: "white" }}>
                         <span>GP</span>{" "}
-                        <span style={{ fontSize: "18px" }}>
+                        <span style={{ fontSize: "24px", paddingLeft: "16px" }}>
                           {this.state.player.gamesPlayed || 0}
                         </span>
                       </div>
-                    </Col>
-                    <Col lg={2} xs={2}>
                       <div style={{ color: "white" }}>
                         <span>MPG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>
-                          {this.state.player.mpg}
+                        <span style={{ fontSize: "24px", paddingLeft: "4px" }}>
+                          {this.state.player.mpg || 0}
+                        </span>
+                      </div>
+                      <div style={{ color: "white" }}>
+                        <span>PER</span>{" "}
+                        <span style={{ fontSize: "24px", paddingLeft: "9px" }}>
+                          {this.state.player.per || 0}
                         </span>
                       </div>
                     </Col>
                   </Row>
                 </Col>
-              </div>
+                <Col lg={1} xs={5} md={1}>
+                  <a href={`/team/${this.state.colors.id}`}>
+                    <div
+                      style={{
+                        width: "140px",
+                        height: "auto",
+                        marginTop: "70px",
+                        paddingLeft: "5px"
+                      }}
+                    >
+                      <img
+                        className="css-box-shadow"
+                        src={this.state.colors.Logo}
+                        style={{ maxHeight: "400px" }}
+                      />
+                    </div>
+                  </a>
+                </Col>
+              </Row>
+            </Row>
+            <Row style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+              <Col lgOffset={1} lg={10} mdOffset={1} md={10}>
+                <hr />
+              </Col>
+            </Row>
+            <Row style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+              {this.renderPlayer()}
             </Row>
           </Grid>
-          {this.renderPlayer()}
         </div>
       );
     } else {
@@ -221,6 +321,119 @@ class PlayerInfo extends React.Component {
           />
           <div>Loading Player...</div>
         </div>
+      );
+    }
+  }
+
+  selectMenu() {
+    this.setState({ showMenu: !this.state.showMenu }, () => {
+      console.log(this.state.showMenu);
+    });
+  }
+
+  selectStatCat(evt, eventKey) {
+    this.setState({ statCat: eventKey.target.innerHTML });
+  }
+
+  renderMenu() {
+    if (this.state.showMenu) {
+      return (
+        <div
+          style={{
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            fontSize: "16px",
+            position: "relative",
+            zIndex: 100,
+            lineHeight: "50px",
+            color: this.state.colors.Color_Sec || "white"
+          }}
+        >
+          <div
+            onClick={this.handleClick}
+            style={{ height: "50px", paddingLeft: "15px" }}
+          >
+            Season Stats
+          </div>
+          <div
+            onClick={this.handleClick}
+            style={{ height: "50px", paddingLeft: "15px" }}
+          >
+            Career Stats
+          </div>
+          <div
+            onClick={this.handleClick}
+            style={{ height: "50px", paddingLeft: "15px" }}
+          >
+            Player Ratings
+          </div>
+          <div
+            onClick={this.handleClick}
+            style={{ height: "50px", paddingLeft: "15px" }}
+          >
+            Player Projection
+          </div>
+          <div
+            onClick={this.handleClick}
+            style={{ height: "50px", paddingLeft: "15px" }}
+          >
+            Player Comparison
+          </div>
+          <div
+            onClick={this.handleClick}
+            style={{ height: "50px", paddingLeft: "15px" }}
+          >
+            Shot Chart
+          </div>
+          <div
+            onClick={this.handleClick}
+            style={{ height: "50px", paddingLeft: "15px" }}
+          >
+            Contract
+          </div>
+        </div>
+      );
+    }
+  }
+
+  handleClick(event) {
+    //console.log(event.currentTarget.textContent);
+    this.setState({
+      selection: event.currentTarget.textContent,
+      showMenu: false
+    });
+  }
+
+  renderSelection() {
+    if (this.state.selection === "Player Ratings") {
+      return (
+        <PlayerRatings2
+          player={this.state.player}
+          colors={this.state.colors}
+          postStats={this.state.postStats}
+          catchShootStats={this.state.catchShootStats}
+          shootingStats={this.state.shootingStats}
+          speedDistanceStats={this.state.speedDistanceStats}
+          prHandler={this.state.prHandler}
+          prRollMan={this.state.prRollMan}
+          iso={this.state.iso}
+          transition={this.state.transition}
+          hustle={this.state.hustle}
+        />
+      );
+    } else if (this.state.selection === "Contract") {
+      return (
+        <PlayerContract
+          player={this.state.player}
+          contract={this.state.contract}
+          colors={this.state.colors}
+        />
+      );
+    } else if (this.state.selection === "Season Stats") {
+      return (
+        <PlayerSeasonStats
+          player={this.state.player}
+          colors={this.state.colors}
+        />
       );
     }
   }
@@ -727,175 +940,28 @@ class PlayerInfo extends React.Component {
   }
 
   renderPlayer() {
-    if (
-      this.state.player //&&
-      // this.state.postStats &&
-      // this.state.catchShootStats &&
-      // this.state.positionStats
-    ) {
-      return (
-        <PlayerTabs
-          players={this.props.players[0]}
-          teamStats={this.state.teamStats}
-          player={this.state.player}
-          colors={this.state.colors}
-          postStats={this.state.postStats}
-          catchShootStats={this.state.catchShootStats}
-          speedDistanceStats={this.state.speedDistanceStats}
-          shootingStats={this.state.shootingStats}
-          prHandler={this.state.prHandler}
-          prRollMan={this.state.prRollMan}
-          iso={this.state.iso}
-          hustle={this.state.hustle}
-          transition={this.state.transition}
-          positionStats={this.state.positionStats}
-          contract={this.state.contract}
-        />
-      );
+    if (this.state.player) {
+      if (this.state.selection === "Player Ratings") {
+        return (
+          <PlayerRatingsSub
+            player={this.state.player}
+            colors={this.state.colors}
+            positionStats={this.state.positionStats}
+            statCat={this.state.statCat}
+          />
+        );
+      }
     } else {
       return null;
     }
   }
 
   render() {
-    // var picture;
-    // if (this.state.player.picture) {
-    //   picture = this.state.player.picture;
-    // } else {
-    //   picture =
-    //     "https://vignette.wikia.nocookie.net/charmscrp/images/a/ac/Generic_Avatar.png/revision/latest?cb=20140819033443";
-    // }
-    return (
-      <div>
-        {this.checkLoad()}
-        {/*<div id="info-container-max">
-          <Grid id="info-container">
-            <Row className="full-height-row">
-              <div id="info">
-                <Col lg={3} sm={6} md={3} xs={12} id="pic-col">
-                  <div id="info-pic-team">
-                    <img style={{ maxHeight: "200px" }} src={picture} />
-                  </div>
-                </Col>
-                <Col lg={9} xs={12} md={9}>
-                  <Row>
-                    <Col lg={5} xs={12} md={5}>
-                      <div id="name-text">
-                        <div id="team-name">
-                          {this.state.player.name}
-                          <span
-                            style={{ paddingLeft: "3px", fontSize: "14px" }}
-                          >
-                            {" "}
-                            {this.state.player.position}
-                          </span>
-                        </div>
-                        <div id="info-text">
-                          <div>
-                            <span>Height: {this.state.player.height}</span>
-                            <span style={{ paddingLeft: "3px" }}>
-                              {" "}
-                              Weight: {this.state.player.weight}
-                            </span>
-                          </div>
-                          <div>Age: {this.state.player.age}</div>
-                          <div>Team: {this.state.player.team}</div>
-                          <div>
-                            College: {this.state.player.college || "None"}
-                          </div>
-                        </div>
-                      </div>
-                      <hr id="cinfo-text-break" />
-                    </Col>
-                    <Col lg={3} xs={7} md={4}>
-                      <div style={{ marginTop: "70px", fontSize: "15.5px" }}>
-                        <div style={{ textAlign: "right" }}>
-                          Overall: {this.getOverallRating()}
-                        </div>
-                        <div style={{ textAlign: "right" }}>
-                          Offense: {this.getOffenseRating()}
-                        </div>
-                        <div style={{ textAlign: "right" }}>
-                          Defense: {this.getDefenseRating()}
-                        </div>
-                      </div>
-                    </Col>
-                    <Col lg={3} xs={5} md={2}>
-                      <a href={`/team/${this.state.colors.id}`}>
-                        <div id="logo-pic">
-                          <img
-                            id="teamLogoPic"
-                            src={this.state.colors.Logo}
-                            style={{ maxHeight: "100px" }}
-                          />
-                          <div id="teamLogoHeader">
-                            {this.state.player.team}
-                          </div>
-                        </div>
-                      </a>
-                    </Col>
-                  </Row>
-                  <Row
-                    style={{ paddingBottom: "20px" }}
-                    className="player-stat-row"
-                  >
-                    <Col
-                      lg={2}
-                      xs={2}
-                      lgOffset={0}
-                      mdOffset={0}
-                      smOffset={0}
-                      xsOffset={1}
-                    >
-                      <div>
-                        <span style={{ color: "#404040" }}>PPG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>
-                          {this.state.player.pts}
-                        </span>
-                      </div>
-                    </Col>
-                    <Col lg={2} xs={2}>
-                      <div>
-                        <span style={{ color: "#404040" }}>RPG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>
-                          {this.state.player.trb}
-                        </span>
-                      </div>
-                    </Col>
-                    <Col lg={2} xs={2}>
-                      <div>
-                        <span style={{ color: "#404040" }}>APG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>
-                          {this.state.player.ast}
-                        </span>
-                      </div>
-                    </Col>
-                    <Col lg={2} xs={2}>
-                      <div>
-                        <span style={{ color: "#404040" }}>GP</span>{" "}
-                        <span style={{ fontSize: "18px" }}>
-                          {this.state.player.gamesPlayed || 0}
-                        </span>
-                      </div>
-                    </Col>
-                    <Col lg={2} xs={2}>
-                      <div>
-                        <span style={{ color: "#404040" }}>MPG</span>{" "}
-                        <span style={{ fontSize: "18px" }}>
-                          {this.state.player.mpg}
-                        </span>
-                      </div>
-                    </Col>
-                  </Row>
-                </Col>
-              </div>
-            </Row>
-          </Grid>
-          {this.renderPlayer()}
-    </div>*/}
-      </div>
-    );
+    return <div>{this.checkLoad()}</div>;
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerInfo);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PlayerInfo);

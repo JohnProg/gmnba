@@ -38,22 +38,22 @@ export default class PlayerPolColOff extends React.Component {
 
     var scoring = this.getGrade(
       highPoints,
-      this.state.player.pts / this.state.player.mpg * 36,
+      (this.state.player.pts / this.state.player.mpg) * 36,
       7
     );
     var ast = this.getGrade(
       highAst,
-      this.state.player.ast / this.state.player.mpg * 36,
+      (this.state.player.ast / this.state.player.mpg) * 36,
       1
     );
     var orb = this.getGrade(
       highReb,
-      this.state.player.orb / this.state.player.mpg * 36,
+      (this.state.player.orb / this.state.player.mpg) * 36,
       0
     );
     var tov = this.getGrade(
       highTov,
-      this.state.player.tov * -1 / this.state.player.mpg * 36,
+      ((this.state.player.tov * -1) / this.state.player.mpg) * 36,
       -5.0
     );
     var fg = this.getGrade(highFg, this.state.player.efgPct, 0.4);
@@ -227,8 +227,8 @@ export default class PlayerPolColOff extends React.Component {
               color: this.state.ast.Color,
               name: "Ast",
               stat: this.state.player.ast,
-              per36: (this.state.player.ast /
-                this.state.player.mpg *
+              per36: (
+                (this.state.player.ast / this.state.player.mpg) *
                 36
               ).toFixed(1)
             },
@@ -237,8 +237,8 @@ export default class PlayerPolColOff extends React.Component {
               color: this.state.tov.Color,
               name: "Tov",
               stat: this.state.player.tov,
-              per36: (this.state.player.tov /
-                this.state.player.mpg *
+              per36: (
+                (this.state.player.tov / this.state.player.mpg) *
                 36
               ).toFixed(1)
             },
@@ -247,8 +247,8 @@ export default class PlayerPolColOff extends React.Component {
               color: this.state.scoring.Color,
               name: "Scoring",
               stat: this.state.player.pts,
-              per36: (this.state.player.pts /
-                this.state.player.mpg *
+              per36: (
+                (this.state.player.pts / this.state.player.mpg) *
                 36
               ).toFixed(1)
             },
@@ -293,8 +293,8 @@ export default class PlayerPolColOff extends React.Component {
               color: this.state.orb.Color,
               name: "Orb",
               stat: this.state.player.orb,
-              per36: (this.state.player.orb /
-                this.state.player.mpg *
+              per36: (
+                (this.state.player.orb / this.state.player.mpg) *
                 36
               ).toFixed(1)
             }
@@ -307,10 +307,10 @@ export default class PlayerPolColOff extends React.Component {
 
   render() {
     return (
-      <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
+      <div style={{ paddingTop: "20px" }}>
         <div
           id="container-column-off"
-          style={{ height: "400px", margin: "0 auto" }}
+          style={{ height: "320px", margin: "0 auto" }}
         />
       </div>
     );

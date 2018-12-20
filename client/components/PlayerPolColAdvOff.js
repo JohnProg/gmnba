@@ -280,12 +280,11 @@ export default class PlayerPolColAdvOff extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
-      <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
+      <div style={{ paddingTop: "20px" }}>
         <div
           id="container-column-adv-off"
-          style={{ height: "400px", margin: "0 auto" }}
+          style={{ height: "320px", margin: "0 auto" }}
         />
       </div>
     );

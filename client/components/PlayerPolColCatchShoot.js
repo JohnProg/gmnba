@@ -42,17 +42,17 @@ export default class PlayerPolColCatchShoot extends React.Component {
     var fgPct = this.getGrade(highFgPct, this.state.player.fgPct, 0.2);
     var fga = this.getGrade(
       highFgAtt,
-      this.state.player.fga / this.props.min * 36,
+      (this.state.player.fga / this.props.min) * 36,
       0
     );
     var pts = this.getGrade(
       highPts,
-      this.state.player.pts / this.props.min * 36,
+      (this.state.player.pts / this.props.min) * 36,
       0
     );
     var threeAtt = this.getGrade(
       highThreeAtt,
-      this.state.player.threePtAtt / this.props.min * 36,
+      (this.state.player.threePtAtt / this.props.min) * 36,
       0
     );
     var threePct = this.getGrade(
@@ -228,14 +228,14 @@ export default class PlayerPolColCatchShoot extends React.Component {
               color: this.state.fga.Color,
               name: "FGA",
               stat: this.state.player.fga,
-              per36: (this.state.player.fga / this.props.min * 36).toFixed(1)
+              per36: ((this.state.player.fga / this.props.min) * 36).toFixed(1)
             },
             {
               y: this.state.pts.Grade,
               color: this.state.pts.Color,
               name: "PTS",
               stat: this.state.player.pts,
-              per36: (this.state.player.pts / this.props.min * 36).toFixed(1)
+              per36: ((this.state.player.pts / this.props.min) * 36).toFixed(1)
             },
             {
               y: this.state.threePct.Grade,
@@ -248,8 +248,8 @@ export default class PlayerPolColCatchShoot extends React.Component {
               color: this.state.threeAtt.Color,
               name: "3PA",
               stat: this.state.player.threePtAtt,
-              per36: (this.state.player.threePtAtt /
-                this.props.min *
+              per36: (
+                (this.state.player.threePtAtt / this.props.min) *
                 36
               ).toFixed(1)
             },
@@ -268,10 +268,10 @@ export default class PlayerPolColCatchShoot extends React.Component {
 
   render() {
     return (
-      <div className="card" style={{ backgroundColor: "rgba(0,0,0,0.6)" }}>
+      <div style={{ paddingTop: "20px" }}>
         <div
           id="container-column-catch"
-          style={{ height: "400px", margin: "0 auto" }}
+          style={{ height: "320px", margin: "0 auto" }}
         />
       </div>
     );

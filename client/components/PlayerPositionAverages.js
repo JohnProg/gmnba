@@ -100,8 +100,9 @@ export default class PlayerPositionAverages extends React.Component {
         backgroundColor: null
       },
       title: {
-        text: `${this.state.player.name} Vs ${this.state.player
-          .position} Averages`,
+        text: `${this.state.player.name} Vs ${
+          this.state.player.position
+        } Averages`,
         color: "white"
       },
       exporting: {
@@ -175,7 +176,6 @@ export default class PlayerPositionAverages extends React.Component {
     return (
       <div>
         <div
-          className="card"
           id="container-average-pl"
           style={{
             height: "500px",
